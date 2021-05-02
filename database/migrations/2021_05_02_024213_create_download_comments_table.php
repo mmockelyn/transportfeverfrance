@@ -18,6 +18,7 @@ class CreateDownloadCommentsTable extends Migration
             $table->timestamps();
             $table->text('content');
             $table->nestedSet();
+            $table->boolean('valid')->default(true);
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade')

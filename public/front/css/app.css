@@ -26,3 +26,21 @@
     padding: 16px;
 }
 
+/* Commentaire */
+
+.comment_area {
+    margin: 0;
+    padding-right: 0;
+}
+
+.comment_area_header {
+    margin-top: 0;
+    padding: 4px;
+}
+
+.comment_container {
+    margin-top: 19px;
+}
+
+
+

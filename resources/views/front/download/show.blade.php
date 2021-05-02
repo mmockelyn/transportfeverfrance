@@ -122,7 +122,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#comments">
-                                <span class="nav-text">Commentaires</span>
+                                <span class="nav-text">Commentaires ({{ count($download->comments) }})</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -247,6 +247,35 @@
                                             </div>
                                             <!--end::Body-->
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="comments" role="tabpanel">
+                        @if(auth()->guest())
+                            <div class="alert alert-custom alert-notice alert-light-warning fade show" role="alert">
+                                <div class="alert-icon"><i class="fas fa-info-circle"></i></div>
+                                <div class="alert-text">Oops! Vous devez être <a href="{{ route('login') }}">connecter</a> pour pouvoir poster un commentaire.</div>
+                                <div class="alert-close">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                        @else
+
+                        @endif
+                        <div class="comment_area">
+                            <div class="comment_area_header">
+                                <div class="header_count h3">
+                                    <i class="la la-comments-o icon-2x text-dark"></i> <span class="font-style-italic">{{ count($download->comments) }} Commentaires</span>
+                                </div>
+                            </div>
+                            <div class="comment_container">
+                                <div class="comments">
+                                    <div class="comment">
+
                                     </div>
                                 </div>
                             </div>
