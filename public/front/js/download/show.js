@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var bigimage = $("#big");
     var thumbs = $("#thumbs");
     //var totalslides = 10;
@@ -21,7 +21,7 @@ $(document).ready(function() {
         .on("changed.owl.carousel", syncPosition);
 
     thumbs
-        .on("initialized.owl.carousel", function() {
+        .on("initialized.owl.carousel", function () {
             thumbs
                 .find(".owl-item")
                 .eq(0)
@@ -87,12 +87,161 @@ $(document).ready(function() {
         }
     }
 
-    thumbs.on("click", ".owl-item", function(e) {
+    thumbs.on("click", ".owl-item", function (e) {
         e.preventDefault();
         var number = $(this).index();
         bigimage.data("owl.carousel").to(number, 300, true);
     });
     var sticky = new Sticky('.sticky');
 });
+
+$("#formPostComment").on('submit', (e) => {
+    e.preventDefault()
+    let form = $("#formPostComment")
+    let url = form.attr('action')
+    let btn = KTUtil.getById('btnForm')
+    let data = form.serializeArray()
+
+    KTUtil.btnWait(btn, 'spinner spinner-dark spinner-right pr-15', 'Chargement...')
+
+    $.ajax({
+        url: url,
+        method: "POST",
+        data: data,
+        success: (data) => {
+            KTUtil.btnRelease(btn)
+            window.location.reload();
+        },
+        error: (err) => {
+            KTUtil.btnRelease(btn)
+            toastr.error("Erreur Serveur", "Impossible de publier le commentaire.")
+        }
+    })
+})
+
+document.querySelectorAll('.reportcomment').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        Swal.fire({
+            title: "Êtes-vous sur ?",
+            text: "Vous allez reporter ce commentaire. Le reportage de commentaire est uniquement pris en compte si vous juger que les propos de ce commentaire sont inaproprier.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Oui, Reporter",
+            cancelButtonText: "Non, Annuler!",
+            reverseButtons: !0,
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: `/download/${btn.dataset.downloadSlug}/comment/${btn.dataset.commentId}/report`,
+                    method: 'GET',
+                    data: {},
+                    success: function (resp) {
+                        if (resp) return "ok",
+                            swal(
+                                'Rapport envoyer !',
+                                'Ce commentaire à bien été signaler !',
+                                'success'
+                            ).then(function () {
+                                swal(
+                                    'Erreur',
+                                    'Une erreur à eu lieu lors de l\'envoie du rapport',
+                                    'error'
+                                )
+                            });
+                    }
+                })
+            }
+        })
+    })
+})
+
+document.querySelectorAll('.replycomment').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        let form = document.querySelector('#formPostReply')
+        form.setAttribute('action', `/download/${btn.dataset.downloadSlug}/comment/reply`)
+        document.querySelector('#download_id').value = btn.dataset.downloadId
+        document.querySelector('#comment_id').value = btn.dataset.commentId
+        document.querySelector('#prevMessage').innerHTML = document.querySelector('#comment_text').innerHTML
+
+        $("#replyComment").modal('show')
+
+        let forma = $("#formPostReply")
+
+
+        forma.on('submit', (r) => {
+            r.preventDefault()
+
+            let formulaire = $("#formPostReply")
+            let btna = KTUtil.getById('btnFormReply')
+            let data = formulaire.serializeArray()
+            let url = formulaire.attr('action')
+
+            KTUtil.btnWait(btna, 'spinner spinner-dark spinner-right pr-15', 'Chargement...')
+
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: data,
+                success: (data) => {
+                    KTUtil.btnRelease(btna)
+                    window.location.reload();
+                },
+                error: (err) => {
+                    KTUtil.btnRelease(btna)
+                    toastr.error("Erreur Serveur", "Impossible de publier le commentaire.")
+                }
+            })
+        })
+    })
+})
+
+const headers = {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+}
+
+const deleteElement = async e => {
+    swal.fire({
+        title: e.dataset.name,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'Non',
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+            return fetch(e.getAttribute('href'), {
+                method: 'DELETE',
+                headers: headers
+            })
+                .then(response => {
+                    if (response.ok) {
+                        toastr.success("Commentaire Supprimer")
+                        e.parentNode.parentNode.parentNode.parentNode.remove();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur',
+                            text: 'Une erreur à eu lieu lors de la suppression du commentaire'
+                        });
+                    }
+                });
+        }
+    });
+}
+
+document.querySelectorAll('.deletecomment',).forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+        deleteElement(btn)
+    })
+})
+
+
 
 

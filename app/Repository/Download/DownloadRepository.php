@@ -5,9 +5,24 @@ namespace App\Repository\Download;
 
 use App\Models\Blog\Blog;
 use App\Models\Download\Download;
+use App\Models\Download\DownloadCommentReport;
 
 class DownloadRepository
 {
+    /**
+     * @var DownloadCommentReport
+     */
+    private $downloadCommentReport;
+
+    /**
+     * DownloadRepository constructor.
+     * @param DownloadCommentReport $downloadCommentReport
+     */
+    public function __construct(DownloadCommentReport $downloadCommentReport)
+    {
+        $this->downloadCommentReport = $downloadCommentReport;
+    }
+
     public function getActiveOrderBuDate($nbrPages = 3)
     {
         return $this->queryActiveOrderByDate()->paginate($nbrPages);
@@ -49,6 +64,14 @@ class DownloadRepository
                 })
                 ->get();
         }
+    }
+
+    public function reportComment($comment_id, $user_id)
+    {
+        return $this->downloadCommentReport->newQuery()->create([
+            'download_comment_id' => $comment_id,
+            'user_id' => $user_id
+        ]);
     }
 
 
