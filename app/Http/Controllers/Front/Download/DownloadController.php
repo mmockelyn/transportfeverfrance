@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front\Download;
 
+use App\Helpers\Format;
 use App\Http\Controllers\Controller;
 use App\Models\Download\DownloadSubCategory;
 use App\Repository\Download\DownloadRepository;
@@ -37,7 +38,7 @@ class DownloadController extends Controller
     {
         $download = $this->downloadRepository->getPostBySlug($slug);
 
-        //dd();
+        //dd(Format::IsModAuthor(1, 1));
 
         return view('front.download.show', compact('download'));
     }

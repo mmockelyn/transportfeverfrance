@@ -268,15 +268,64 @@
                         @endif
                         <div class="comment_area">
                             <div class="comment_area_header">
+                                <div class="header_actions" style="display: flex">
+                                    @if(auth()->check())
+                                     <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#postComment"><i class="la la-comment-medical icon-2x"></i> Poster un commentaire</button>
+                                    @endif
+                                </div>
                                 <div class="header_count h3">
                                     <i class="la la-comments-o icon-2x text-dark"></i> <span class="font-style-italic">{{ count($download->comments) }} Commentaires</span>
                                 </div>
                             </div>
                             <div class="comment_container">
                                 <div class="comments">
-                                    <div class="comment">
-                                        <div class="comment_user_avatar"></div>
-                                    </div>
+                                    @foreach($download->comments as $comment)
+                                        <div class="comment">
+                                            @if(\Illuminate\Support\Facades\Cache::has('user-is-online-'.$comment->user->id))
+                                                <div class="comment_user_avatar online">
+                                                    <a>
+                                                        @if($comment->user->avatar)
+                                                        <img src="{{ $comment->user->avatar }}" alt="">
+                                                        @else
+                                                        <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get($comment->user->email) }}" alt="">
+                                                        @endif
+                                                    </a>
+                                                </div>
+                                            @else
+                                                <div class="comment_user_avatar offline">
+                                                    <a>
+                                                        @if($comment->user->avatar)
+                                                            <img src="{{ $comment->user->avatar }}" alt="">
+                                                        @else
+                                                            <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get($comment->user->email) }}" alt="">
+                                                        @endif
+                                                    </a>
+                                                </div>
+                                            @endif
+                                            <div class="comment_content">
+                                                <div class="comment_author">
+                                                    <a href="#" class="comment_author_link" data-profile="{{ $comment->user->id }}">{{ $comment->user->name }}</a>
+                                                    @if(\App\Helpers\Format::IsModAuthor($comment->user->id, $download->id) == true)
+                                                        <span class="label label-inline label-pill label-danger">Créateur</span>
+                                                    @endif
+                                                    <span class="comment_timestamp">{{ $comment->updated_at->format('d/m/Y à H:i') }}</span>
+                                                    <div class="comment_actions">
+                                                        <button class="btn btn-xs btn-default btn-icon reportcomment mr-1" data-toggle="tooltip" data-theme="dark" title="Reporter ce commentaire"><i class="fas fa-flag"></i> </button>
+                                                        @if(\Illuminate\Support\Facades\Auth::check())
+                                                        <button class="btn btn-xs btn-primary btn-icon replycomment mr-1" data-toggle="tooltip" data-theme="dark" title="Repondre"><i class="fas fa-reply"></i> </button>
+                                                            @if(auth()->user()->name == $comment->user->name)
+                                                                <button class="btn btn-xs btn-danger btn-icon deletecomment mr-1" data-toggle="tooltip" data-theme="dark" title="Supprimer"><i class="fas fa-trash"></i> </button>
+                                                            @endif
+                                                        @endif
+
+                                                    </div>
+                                                </div>
+                                                <div class="comment_text">
+                                                    {{ $comment->content }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -285,6 +334,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section("scripts")
