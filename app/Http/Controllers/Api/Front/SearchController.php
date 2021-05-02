@@ -34,13 +34,15 @@ class SearchController extends Controller
     {
         $search = $request->search;
         $blogs = $this->blogRepository->searchBlog(6, $search);
+        $downloads = $this->downloadRepository->search(6, $search);
 
-        $c = count($blogs);
+        $cb = count($blogs);
+        $cd = count($downloads);
 
         ob_start();
         ?>
         <div class="quick-search-result">
-            <?php if($c == 0): ?>
+            <?php if($cb == 0 && $cd == 0): ?>
                 <div class="text-muted d-none">
                     Aucun résultat pour la recherche: <strong><?= $search; ?></strong>
                 </div>
@@ -60,6 +62,26 @@ class SearchController extends Controller
                                 </a>
                                 <span class="font-size-sm font-weight-bold text-muted">
                                     le <?= formatDateHour($blog->updated_at) ?>
+                                </span>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <div class="font-size-sm text-primary font-weight-bolder text-uppercase mb-2">
+                    Articles en téléchargement: <strong><?= $search; ?></strong>
+                </div>
+                <div class="mb-10">
+                    <?php foreach ($downloads as $download): ?>
+                        <div class="d-flex align-items-center flex-grow-1 mb-2">
+                            <div class="symbol symbol-30 bg-transparent flex-shrink-0">
+                                <img src="/storage/files/shares/download/<?= $download->image; ?>" alt="<?= $download->title; ?>"/>
+                            </div>
+                            <div class="d-flex flex-column ml-3 mt-2 mb-2">
+                                <a href="<?= route('front.download.show', $download->slug) ?>" class="font-weight-bold text-dark text-hover-primary">
+                                    <?= $download->title; ?>
+                                </a>
+                                <span class="font-size-sm font-weight-bold text-muted">
+                                    le <?= formatDateHour($download->updated_at) ?>
                                 </span>
                             </div>
                         </div>
