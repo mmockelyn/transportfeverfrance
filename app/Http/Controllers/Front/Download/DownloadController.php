@@ -59,9 +59,23 @@ class DownloadController extends Controller
         try {
             DownloadComment::create($data);
             return response()->json('ok');
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             return response()->json('invalid');
         }
+    }
+
+    public function replyComment(Request $request, $slug)
+    {
+        $download = $this->downloadRepository->getPostBySlug($slug);
+        $data = [
+            'content' => '<a href="'.url()->previous().'#comment-'.$request->comment_id.'"><p><i>'.$request->prevMessage.'</i></p></a><p>'.$request->message.'</p>',
+            'download_id' => $download->id,
+            'user_id' => $request->user_id
+        ];
+
+        DownloadComment::create($data);
+
+        return response()->json('ok');
     }
 
     public function reportComment($slug, $comment_id)
@@ -74,7 +88,7 @@ class DownloadController extends Controller
         try {
             $this->downloadRepository->reportComment($comment_id, auth()->user()->id);
             return true;
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             return $exception->getMessage();
         }
     }
@@ -84,7 +98,7 @@ class DownloadController extends Controller
         try {
             DownloadComment::findOrFail($comment_id)->delete();
             return response()->json();
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
         }
     }
