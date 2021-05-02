@@ -280,7 +280,7 @@
                             <div class="comment_container">
                                 <div class="comments">
                                     @foreach($download->comments as $comment)
-                                        <div class="comment">
+                                        <div class="comment" id="comment-{{ $comment->id }}">
                                             @if(\Illuminate\Support\Facades\Cache::has('user-is-online-'.$comment->user->id))
                                                 <div class="comment_user_avatar online">
                                                     <a>
@@ -321,7 +321,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="comment_text" id="comment_text">
-                                                    {{ $comment->content }}
+                                                    {!! $comment->content !!}
                                                 </div>
                                             </div>
                                         </div>
@@ -376,6 +376,7 @@
                         <div class="modal-body">
                             <strong>Commentaire précédent</strong>
                             <p class="font-style-italic" id="prevMessage"></p>
+                            <input type="hidden" name="prevMessage" id="inputPrevMessage">
                             <textarea class="form-control" name="message" rows="10" cols="10">{{ old('content') }}</textarea>
                         </div>
                         <div class="modal-footer">
