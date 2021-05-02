@@ -74,6 +74,17 @@ class DownloadRepository
         ]);
     }
 
+    public function search($int, $search)
+    {
+        return $this->queryActiveOrderByDate()
+            ->where(function ($q) use ($search) {
+                $q->where('short_content', 'like', "%$search%")
+                    ->orWhere('content', 'like', "%$search%")
+                    ->orWhere('title', 'like', "%$search%");
+            })
+            ->paginate($int);
+    }
+
 
     protected function queryActive()
     {
@@ -100,4 +111,6 @@ class DownloadRepository
             ->oldest('id')
             ->firstWhere('id', '>', $id);
     }
+
+
 }
