@@ -17,10 +17,18 @@
             <div class="symbol symbol-100 mr-5">
                 @if($user->avatar)
                     <img src="{{ $user->avatar }}" alt="{{ $user->name }}">
+                    @if(\Illuminate\Support\Facades\Cache::has('user-is-online-'.$user->id))
                     <i class="symbol-badge bg-success"></i>
+                    @else
+                    <i class="symbol-badge bg-danger"></i>
+                    @endif
                 @else
                     <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get($user->email) }}" alt="{{ $user->name }}">
-                    <i class="symbol-badge bg-success"></i>
+                    @if(\Illuminate\Support\Facades\Cache::has('user-is-online-'.$user->id))
+                        <i class="symbol-badge bg-success"></i>
+                    @else
+                        <i class="symbol-badge bg-danger"></i>
+                    @endif
                 @endif
             </div>
             <div class="d-flex flex-column">
