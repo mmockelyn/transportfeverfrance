@@ -275,7 +275,7 @@
                             <div class="comment_container">
                                 <div class="comments">
                                     <div class="comment">
-
+                                        <div class="comment_user_avatar"></div>
                                     </div>
                                 </div>
                             </div>
