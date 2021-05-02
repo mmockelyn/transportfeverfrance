@@ -4,6 +4,8 @@
 namespace App\Helpers;
 
 
+use Illuminate\Support\Facades\DB;
+
 class Format
 {
     public static function formatUserGroup($group)
@@ -36,23 +38,37 @@ class Format
     {
         switch ($provider) {
             case 'steam':
-                return '<div class="symbol symbol-'.$size.' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Steam">
+                return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Steam">
                             <img alt="Pic" src="storage/files/shares/core/icons/steam_icon.png"/>
-                        </div>'; break;
+                        </div>';
+                break;
             case 'tfnet':
-                return '<div class="symbol symbol-'.$size.' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Transport Fever net">
+                return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Transport Fever net">
                             <img alt="Pic" src="storage/files/shares/core/icons/tf_net_icon.png"/>
-                        </div>'; break;
+                        </div>';
+                break;
 
             case 'tf_france':
-                return '<div class="symbol symbol-'.$size.' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="TF France">
+                return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="TF France">
                             <img alt="Pic" src="storage/files/shares/core/icons/tf_france_icon.png"/>
-                        </div>'; break;
+                        </div>';
+                break;
 
             default:
-                return '<div class="symbol symbol-'.$size.' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Aucun">
+                return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Aucun">
                             <img alt="Pic" src="storage/files/shares/core/icons/null_icon.png"/>
-                        </div>'; break;
+                        </div>';
+                break;
+        }
+    }
+
+    public static function IsModAuthor($user, $download_id)
+    {
+        $value = DB::table('download_user')->where('download_id', $download_id)->where('user_id', $user)->first();
+        if ($value == null) {
+            return false;
+        } else {
+            return true;
         }
     }
 }
