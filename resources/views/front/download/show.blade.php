@@ -330,6 +330,41 @@
                             </div>
                         </div>
                     </div>
+                    <div class="tab-pane" id="changelogs" role="tabpanel">
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <div class="col-6">
+                                <div class="timeline timeline-3">
+                                    <div class="timeline-items">
+                                        @foreach($download->versions as $version)
+                                        <div class="timeline-item">
+                                            <div class="timeline-media">
+                                                <i class="flaticon2-notification fl text-primary"></i>
+                                            </div>
+                                            <div class="timeline-content">
+                                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                                    <div class="mr-2">
+                                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">Nouvelle version du Package: V.{{ $version->version }}</a>
+                                                        <span class="text-muted ml-2">
+                                                            @if($version->created_at->between(\Illuminate\Support\Carbon::now(), \Illuminate\Support\Carbon::now()->addDay()) == true)
+                                                                {{ $version->created_at->diffForHumans() }}
+                                                            @else
+
+                                                            @endif
+                                                        </span>
+                                                        {!! \App\Helpers\Format::labelDownloadVersionType($version->type) !!}
+                                                    </div>
+                                                </div>
+                                                <p class="p-0">{!! $version->content !!}</p>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
