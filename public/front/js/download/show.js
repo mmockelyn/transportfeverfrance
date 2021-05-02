@@ -166,6 +166,7 @@ document.querySelectorAll('.replycomment').forEach((btn) => {
         document.querySelector('#download_id').value = btn.dataset.downloadId
         document.querySelector('#comment_id').value = btn.dataset.commentId
         document.querySelector('#prevMessage').innerHTML = document.querySelector('#comment_text').innerHTML
+        document.querySelector('#inputPrevMessage').value = document.querySelector('#comment_text').innerHTML
 
         $("#replyComment").modal('show')
 

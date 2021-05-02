@@ -45,11 +45,11 @@
                 </ul>
             </div>
         </li>
-        <li class="menu-item" aria-haspopup="true">
+        <!--<li class="menu-item" aria-haspopup="true">
             <a href="#" class="menu-link">
                 <span class="menu-text">Documentation</span>
             </a>
-        </li>
+        </li>-->
         <li class="menu-item" aria-haspopup="true">
             <a href="{{ route('contacts.create') }}" class="menu-link">
                 <span class="menu-text">Nous contacter</span>
