@@ -38,8 +38,79 @@
     padding: 4px;
 }
 
+.header_actions {
+    float: right;
+}
+
 .comment_container {
     margin-top: 19px;
+}
+
+.comment {
+    position: relative;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    margin-bottom: 8px;
+    min-height: 80px;
+    padding-left: 58px;
+    overflow: hidden;
+}
+
+.comment_user_avatar {
+    position: absolute;
+    left: 5px;
+    top: 8px;
+}
+
+.offline {
+    background: linear-gradient( to bottom, rgb(97 0 0) 5%, rgb(76 0 0) 95%);
+    filter: none;
+}
+
+.offline img {
+    background: linear-gradient( to bottom, #4c0000 5%, #bd0909 95%);
+}
+
+.online {
+    background-color: #58de81;
+    background: linear-gradient( to bottom, rgb(83 196 92) 5%, rgb(69 151 79) 95%);
+    filter: none
+}
+
+.online img {
+    background: linear-gradient( to bottom, #468f41 5%, #447b3d 95%);
+}
+
+.comment_user_avatar img {
+    width: 65px;
+    height: 65px;
+    padding: 1px;
+    border-radius: 18px;
+    border: none;
+}
+
+.comment_content {
+    margin-left: 20px;
+}
+
+.comment_timestamp {
+    font-size: 11px;
+    color: #56707f;
+    margin-left: 4px;
+}
+
+.comment_actions {
+    float: right;
+    margin-right: 8px;
+}
+
+.comment_text {
+    font-size: 13px;
+    color: #acb2b8;
+    word-wrap: break-word;
+    overflow-y: auto;
+    max-height: 400px;
+    line-height: 18px;
 }
 
 
