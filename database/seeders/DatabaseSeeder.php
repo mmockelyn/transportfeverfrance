@@ -7,6 +7,7 @@ use App\Models\Blog\BlogComment;
 use App\Models\Contact;
 use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
+use App\Models\Download\DownloadComment;
 use App\Models\Download\DownloadSubCategory;
 use App\Models\Page;
 use App\Models\User;
@@ -226,5 +227,30 @@ class DatabaseSeeder extends Seeder
                 }
             }
         });
+
+        $downloads = Download::all();
+        $nbrDownload = count($downloads);
+
+        foreach (range(1, $nbrDownload - 1) as $i) {
+            DownloadComment::factory()->create([
+                "download_id" => $i,
+                "user_id" => rand(1, $nbUsers)
+            ]);
+        }
+
+        DownloadComment::create([
+            "download_id" => 2,
+            "user_id" => 2,
+            "content" => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
+            'children' => [
+                [
+                    'download_id' => 2,
+                    'user_id' => 1,
+                    'content' => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
+                ]
+            ]
+        ]);
+
+
     }
 }

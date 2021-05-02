@@ -26,4 +26,16 @@ class Download extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(DownloadComment::class);
+    }
+
+    public function validComments()
+    {
+        return $this->comments()->whereHas('user', function ($query) {
+            $query->whereValid(true);
+        });
+    }
 }

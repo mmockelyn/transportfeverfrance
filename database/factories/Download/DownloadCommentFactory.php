@@ -22,7 +22,7 @@ class DownloadCommentFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "content" => $this->faker->sentence($nbSentences = 4, $variableNbSentences = true)
         ];
     }
 }
