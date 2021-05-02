@@ -18,9 +18,12 @@ class CreateDownloadVersionsTable extends Migration
             $table->timestamps();
             $table->string('version');
             $table->string('link_packages');
-            $table->string('content');
+            $table->text('content');
             $table->enum('type', ['alpha', 'beta', 'release', 'hotfix'])->default('release');
             $table->integer('state')->default(0)->comment("0: Non Publier |1: En cours de publication |2: Publier");
+            $table->integer('_rgt')->nullable();
+            $table->integer('_lft')->nullable();
+            $table->integer('parent_id')->nullable();
             $table->foreignId('download_id')->constrained()
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

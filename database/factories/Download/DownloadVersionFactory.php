@@ -22,7 +22,11 @@ class DownloadVersionFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'version' => str_replace(',', '.', $this->faker->randomFloat(2,1,5)),
+            'link_packages' => $this->faker->url,
+            'content' => $this->faker->paragraph($nb = 8, $asText = true),
+            'type' => $this->faker->randomElement(['alpha', 'beta', 'release', 'hotfix']),
+            'state' => rand(0,2)
         ];
     }
 }
