@@ -71,4 +71,16 @@ class Format
             return true;
         }
     }
+
+    public static function labelDownloadVersionType($type)
+    {
+        switch ($type)
+        {
+            case 'alpha': return '<span class="label label-light-danger font-weight-bolder label-inline ml-2">Alpha</span>'; break;
+            case 'beta': return '<span class="label label-light-info font-weight-bolder label-inline ml-2">Beta</span>'; break;
+            case 'release': return '<span class="label label-light-success font-weight-bolder label-inline ml-2">Release</span>'; break;
+            case 'hotfix': return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">Hotfix</span>'; break;
+            default: return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">Hotfix</span>';
+        }
+    }
 }

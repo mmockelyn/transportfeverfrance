@@ -10,6 +10,7 @@ use App\Models\Download\DownloadCommentReport;
 use App\Models\Download\DownloadSubCategory;
 use App\Repository\Download\DownloadRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Syntax\SteamApi\Facades\SteamApi;
 
@@ -28,6 +29,7 @@ class DownloadController extends Controller
     public function __construct(DownloadRepository $downloadRepository)
     {
         $this->downloadRepository = $downloadRepository;
+        Carbon::setLocale('fr');
     }
 
     public function category($subCategory_id)
