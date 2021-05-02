@@ -158,4 +158,46 @@ document.querySelectorAll('.reportcomment').forEach((btn) => {
     })
 })
 
+document.querySelectorAll('.replycomment').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        let form = document.querySelector('#formPostReply')
+        form.setAttribute('action', `/download/${btn.dataset.downloadSlug}/comment/reply`)
+        document.querySelector('#download_id').value = btn.dataset.downloadId
+        document.querySelector('#comment_id').value = btn.dataset.commentId
+        document.querySelector('#prevMessage').innerHTML = document.querySelector('#comment_text').innerHTML
+
+        $("#replyComment").modal('show')
+
+        let forma = $("#formPostReply")
+
+
+        forma.on('submit', (r) => {
+            r.preventDefault()
+
+            let formulaire = $("#formPostReply")
+            let btna = KTUtil.getById('btnFormReply')
+            let data = formulaire.serializeArray()
+            let url = formulaire.attr('action')
+
+            KTUtil.btnWait(btna, 'spinner spinner-dark spinner-right pr-15', 'Chargement...')
+
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: data,
+                success: (data) => {
+                    KTUtil.btnRelease(btna)
+                    window.location.reload();
+                },
+                error: (err) => {
+                    KTUtil.btnRelease(btna)
+                    toastr.error("Erreur Serveur", "Impossible de publier le commentaire.")
+                }
+            })
+        })
+    })
+})
+
 
