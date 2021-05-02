@@ -78,4 +78,14 @@ class DownloadController extends Controller
             return $exception->getMessage();
         }
     }
+
+    public function deleteComment($slug, $comment_id)
+    {
+        try {
+            DownloadComment::findOrFail($comment_id)->delete();
+            return response()->json();
+        }catch (\Exception $exception) {
+            return response()->json($exception->getMessage(), 500);
+        }
+    }
 }

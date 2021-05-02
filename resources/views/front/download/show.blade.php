@@ -314,7 +314,7 @@
                                                         <button class="btn btn-xs btn-default btn-icon reportcomment mr-1" data-comment-id="{{ $comment->id }}" data-download-slug="{{ $download->slug }}" data-toggle="tooltip" data-theme="dark" title="Reporter ce commentaire"><i class="fas fa-flag"></i> </button>
                                                         <button class="btn btn-xs btn-primary btn-icon replycomment mr-1" data-comment-id="{{ $comment->id }}" data-download-slug="{{ $download->slug }}" data-download-id="{{ $download->id }}" data-toggle="tooltip" data-theme="dark" title="Repondre"><i class="fas fa-reply"></i> </button>
                                                             @if(auth()->user()->name == $comment->user->name)
-                                                                <button class="btn btn-xs btn-danger btn-icon deletecomment mr-1" data-toggle="tooltip" data-theme="dark" title="Supprimer"><i class="fas fa-trash"></i> </button>
+                                                                <a class="btn btn-xs btn-danger btn-icon deletecomment mr-1" href="{{ route('front.download.comment.delete', [$download->slug, $comment->id]) }}" data-toggle="tooltip" data-theme="dark" title="Supprimer" data-name="Suppression d'un commentaire"><i class="fas fa-trash"></i> </a>
                                                             @endif
                                                         @endif
 

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var bigimage = $("#big");
     var thumbs = $("#thumbs");
     //var totalslides = 10;
@@ -21,7 +21,7 @@ $(document).ready(function() {
         .on("changed.owl.carousel", syncPosition);
 
     thumbs
-        .on("initialized.owl.carousel", function() {
+        .on("initialized.owl.carousel", function () {
             thumbs
                 .find(".owl-item")
                 .eq(0)
@@ -87,7 +87,7 @@ $(document).ready(function() {
         }
     }
 
-    thumbs.on("click", ".owl-item", function(e) {
+    thumbs.on("click", ".owl-item", function (e) {
         e.preventDefault();
         var number = $(this).index();
         bigimage.data("owl.carousel").to(number, 300, true);
@@ -132,19 +132,18 @@ document.querySelectorAll('.reportcomment').forEach((btn) => {
             cancelButtonText: "Non, Annuler!",
             reverseButtons: !0,
             showLoaderOnConfirm: true,
-            preConfirm: ()=>{
+            preConfirm: () => {
                 $.ajax({
                     url: `/download/${btn.dataset.downloadSlug}/comment/${btn.dataset.commentId}/report`,
                     method: 'GET',
-                    data:{},
-                    success: function(resp)
-                    {
-                        if(resp) return "ok",
+                    data: {},
+                    success: function (resp) {
+                        if (resp) return "ok",
                             swal(
                                 'Rapport envoyer !',
                                 'Ce commentaire à bien été signaler !',
                                 'success'
-                            ).then(function() {
+                            ).then(function () {
                                 swal(
                                     'Erreur',
                                     'Une erreur à eu lieu lors de l\'envoie du rapport',
@@ -199,5 +198,50 @@ document.querySelectorAll('.replycomment').forEach((btn) => {
         })
     })
 })
+
+const headers = {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+}
+
+const deleteElement = async e => {
+    swal.fire({
+        title: e.dataset.name,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'Non',
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+            return fetch(e.getAttribute('href'), {
+                method: 'DELETE',
+                headers: headers
+            })
+                .then(response => {
+                    if (response.ok) {
+                        toastr.success("Commentaire Supprimer")
+                        e.parentNode.parentNode.parentNode.parentNode.remove();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur',
+                            text: 'Une erreur à eu lieu lors de la suppression du commentaire'
+                        });
+                    }
+                });
+        }
+    });
+}
+
+document.querySelectorAll('.deletecomment',).forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+        deleteElement(btn)
+    })
+})
+
+
 
 

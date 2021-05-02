@@ -12,4 +12,5 @@ Route::group(["prefix" => "download"], function () {
     Route::name('front.download.comment.store')->post('{slug}/comment', [DownloadController::class, 'storeComment']);
     Route::get('{slug}/comment/{comment_id}/report', [DownloadController::class, 'reportComment']);
     Route::post('{slug}/comment/reply', [DownloadController::class, 'replyComment']);
+    Route::name('front.download.comment.delete')->delete('{slug}/comment/{comment_id}/delete', [DownloadController::class, 'deleteComment']);
 });

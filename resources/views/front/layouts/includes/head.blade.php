@@ -9,6 +9,7 @@
     <meta name="author" content="{{ config('app.author') }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="canonical" href="{{ config('app.canonical') }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @if(isset($blog) && $blog->meta_keywords)
         <meta name="keywords" content="{{ $blog->meta_keywords }}">
     @endif
