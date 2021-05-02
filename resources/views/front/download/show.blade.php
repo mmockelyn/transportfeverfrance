@@ -310,8 +310,8 @@
                                                     @endif
                                                     <span class="comment_timestamp">{{ $comment->updated_at->format('d/m/Y à H:i') }}</span>
                                                     <div class="comment_actions">
-                                                        <button class="btn btn-xs btn-default btn-icon reportcomment mr-1" data-toggle="tooltip" data-theme="dark" title="Reporter ce commentaire"><i class="fas fa-flag"></i> </button>
                                                         @if(\Illuminate\Support\Facades\Auth::check())
+                                                        <button class="btn btn-xs btn-default btn-icon reportcomment mr-1" data-comment-id="{{ $comment->id }}" data-download-slug="{{ $download->slug }}" data-toggle="tooltip" data-theme="dark" title="Reporter ce commentaire"><i class="fas fa-flag"></i> </button>
                                                         <button class="btn btn-xs btn-primary btn-icon replycomment mr-1" data-toggle="tooltip" data-theme="dark" title="Repondre"><i class="fas fa-reply"></i> </button>
                                                             @if(auth()->user()->name == $comment->user->name)
                                                                 <button class="btn btn-xs btn-danger btn-icon deletecomment mr-1" data-toggle="tooltip" data-theme="dark" title="Supprimer"><i class="fas fa-trash"></i> </button>
@@ -334,6 +334,31 @@
             </div>
         </div>
     </div>
+    @auth()
+        <div class="modal fade" id="postComment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nouveau commentaire</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i aria-hidden="true" class="ki ki-close"></i>
+                        </button>
+                    </div>
+                    <form action="/download/{{ $download->slug }}/comment" id="formPostComment" method="POST">
+                        @csrf
+                        <input type="hidden" name="download_id" value="{{ $download->id }}">
+                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                        <div class="modal-body">
+                            <textarea class="form-control" name="message" rows="10" cols="10">{{ old('content') }}</textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="btnForm" class="btn btn-primary font-weight-bold">Soumettre</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
 
 @endsection
 

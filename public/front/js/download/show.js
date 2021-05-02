@@ -95,4 +95,67 @@ $(document).ready(function() {
     var sticky = new Sticky('.sticky');
 });
 
+$("#formPostComment").on('submit', (e) => {
+    e.preventDefault()
+    let form = $("#formPostComment")
+    let url = form.attr('action')
+    let btn = KTUtil.getById('btnForm')
+    let data = form.serializeArray()
+
+    KTUtil.btnWait(btn, 'spinner spinner-dark spinner-right pr-15', 'Chargement...')
+
+    $.ajax({
+        url: url,
+        method: "POST",
+        data: data,
+        success: (data) => {
+            KTUtil.btnRelease(btn)
+            window.location.reload();
+        },
+        error: (err) => {
+            KTUtil.btnRelease(btn)
+            toastr.error("Erreur Serveur", "Impossible de publier le commentaire.")
+        }
+    })
+})
+
+document.querySelectorAll('.reportcomment').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        Swal.fire({
+            title: "Êtes-vous sur ?",
+            text: "Vous allez reporter ce commentaire. Le reportage de commentaire est uniquement pris en compte si vous juger que les propos de ce commentaire sont inaproprier.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Oui, Reporter",
+            cancelButtonText: "Non, Annuler!",
+            reverseButtons: !0,
+            showLoaderOnConfirm: true,
+            preConfirm: ()=>{
+                $.ajax({
+                    url: `/download/${btn.dataset.downloadSlug}/comment/${btn.dataset.commentId}/report`,
+                    method: 'GET',
+                    data:{},
+                    success: function(resp)
+                    {
+                        if(resp) return "ok",
+                            swal(
+                                'Rapport envoyer !',
+                                'Ce commentaire à bien été signaler !',
+                                'success'
+                            ).then(function() {
+                                swal(
+                                    'Erreur',
+                                    'Une erreur à eu lieu lors de l\'envoie du rapport',
+                                    'error'
+                                )
+                            });
+                    }
+                })
+            }
+        })
+    })
+})
+
 
