@@ -58,6 +58,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           username: ${{ secrets.SSH_USERNAME }}
+          port: 4444
           script: |
             cd /var/www/html/
             git checkout -f
