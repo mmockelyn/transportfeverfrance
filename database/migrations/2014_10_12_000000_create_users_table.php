@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->integer('group')->default(0)->comment("0: Utilisateur |1: Administrateur");
             $table->boolean('valid')->default(false);
             $table->string('avatar')->nullable();
+            $table->timestamp('last_seen')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
