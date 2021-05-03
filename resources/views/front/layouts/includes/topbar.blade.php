@@ -69,6 +69,15 @@
                 </div>
                 <!--end::Dropdown-->
             </div>
+            <div class="topbar-item mr-2">
+                <label class="col-form-label text-white">Mode Dark &nbsp;</label>
+                <span class="switch switch-outline switch-sm switch-dark switch-icon">
+                    <label>
+                        <input type="checkbox" id="theme-toggle" @if(\Illuminate\Support\Facades\Cookie::get('theme') == 'dark') checked="checked" @endif name="select"/>
+                        <span></span>
+                    </label>
+                </span>
+            </div>
             <!--end::Search-->
             @auth()
                 <!--begin::Notifications-->

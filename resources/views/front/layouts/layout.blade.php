@@ -1,6 +1,6 @@
 @include("front.layouts.includes.head")
 <!--begin::Body-->
-<body id="kt_body" class="header-fixed header-mobile-fixed header-bottom-enabled subheader-enabled page-loading">
+<body id="kt_body" class="header-fixed header-mobile-fixed header-bottom-enabled subheader-enabled page-loading {{ $theme . '-theme' }}">
 <!--begin::Main-->
 <!--begin::Header Mobile-->
 <div id="kt_header_mobile" class="header-mobile bg-primary header-mobile-fixed">
