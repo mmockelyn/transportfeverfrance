@@ -44,7 +44,7 @@ class DownloadController extends Controller
     {
         $download = $this->downloadRepository->getPostBySlug($slug);
 
-        //dd(Format::IsModAuthor(1, 1));
+        //dd(auth()->user()->downloadsupports);
 
         return view('front.download.show', compact('download'));
     }

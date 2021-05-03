@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\ModelCreated;
 use App\Models\Blog\BlogComment;
+use App\Models\Download\DownloadSupport;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -50,6 +51,11 @@ class User extends Authenticatable
     public function blogcomments()
     {
         return $this->hasMany(BlogComment::class);
+    }
+
+    public function downloadsupports()
+    {
+        return $this->hasMany(DownloadSupport::class);
     }
 
     public function isAdmin()

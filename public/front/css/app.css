@@ -6,12 +6,28 @@
     font-weight: 500!important;
 }
 
+.bg-purple {
+    background-color: #8400ff;
+}
+
 .text-gray-400 {
     color: #b5b5c3!important;
 }
 
 .text-gray-600 {
     color: #777780 !important;
+}
+
+.bg-grey-100 {
+    background-color: #eeeeee;
+}
+
+.bg-grey-200 {
+    background-color: #d9d9d9;
+}
+
+.bg-grey-300 {
+    background-color: #c1c1c1;
 }
 
 .font-style-italic {
