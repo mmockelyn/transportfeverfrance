@@ -103,6 +103,8 @@
 <script src="{{ asset('/front/assets/plugins/global/plugins.bundle.js') }}"></script>
 <script src="{{ asset('/front/assets/plugins/custom/prismjs/prismjs.bundle.js') }}"></script>
 <script src="{{ asset('/front/assets/js/scripts.bundle.js') }}"></script>
+<script src="{{ asset('/front/assets/plugins/custom/moment/moment.js') }}"></script>
+<script src="{{ asset('/front/assets/plugins/custom/keypress/keypress.js') }}"></script>
 <script src="{{ asset('/front/js/app.js') }}"></script>
 <!--end::Global Theme Bundle-->
 <!--begin::Page Vendors(usedquick-search-wrapper by this page)-->
