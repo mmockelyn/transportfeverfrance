@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\Front\DownloadController;
+use App\Http\Controllers\Api\Front\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/search', [\App\Http\Controllers\Api\Front\SearchController::class, 'search']);
+Route::get('/search', [SearchController::class, 'search']);
 
-Route::post('/download/category/{subcategory_id}', [\App\Http\Controllers\Api\Front\SearchController::class, 'search_download']);
+Route::post('/download/category/{subcategory_id}', [SearchController::class, 'search_download']);
+
+Route::group(["prefix" => "download"], function () {
+    Route::get('{slug}/ticket/{ticket_id}', [DownloadController::class, 'getInfoTicket']);
+    Route::post('{slug}/ticket/{ticket_id}/composer', [DownloadController::class, 'composer']);
+    Route::get('{slug}/ticket/{ticket_id}/close', [DownloadController::class, 'close']);
+});
