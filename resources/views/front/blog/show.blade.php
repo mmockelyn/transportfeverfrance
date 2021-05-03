@@ -41,7 +41,7 @@
             <div class="col-9">
                 <div class="card card-custom">
                     <div class="card-body">
-                        <div class="d-flex flex-wrap mb-6">
+                        <div class="d-flex justify-content-between mb-6">
                             <div class="mr-9 my-1">
                                 <span class="svg-icon svg-icon-primary svg-icon-2 me-1" data-toogle="tooltip" data-theme="dark" title="Horodatage">
 									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -87,6 +87,11 @@
                                 @foreach($blog->tags as $tag)
                                     <span class="label label-primary label-inline font-weight-lighter mr-2">{{ $tag->tag }}</span>
                                 @endforeach
+                            </div>
+                            <div class="align-self-center justify-content-end">
+                                <a href="{{ \Jorenvh\Share\ShareFacade::page(route('front.blog.show', $blog->slug))->facebook()->getRawLinks() }}" class="btn btn-facebook btn-icon btn-xs" data-toggle="tooltip" data-theme="dark" title="Partager sur facebook"><i class="socicon-facebook"></i></a>
+                                <a href="{{ \Jorenvh\Share\ShareFacade::page(route('front.blog.show', $blog->slug))->twitter()->getRawLinks() }}" class="btn btn-twitter btn-icon btn-xs" data-toggle="tooltip" data-theme="dark" title="Partager sur twitter"><i class="socicon-twitter"></i></a>
+                                <a href="{{ route('front.blog.show', $blog->slug) }}#comments" class="btn btn-default btn-icon btn-xs" data-toggle="tooltip" data-theme="dark" title="{{ count($blog->validComments) }} {{ \Illuminate\Support\Str::plural('Commentaire', count($blog->validComments)) }}"><i class="flaticon-comment text-primary"></i></a>
                             </div>
                         </div>
                         <a href="#" class="text-dark text-hover-primary h3 fw-bolder">{{ $blog->title }}</a>

@@ -53,10 +53,9 @@
                                                 <span class="text-muted">Publier le {{ formatDateHour($blog->created_at) }}</span>
                                             </div>
                                             <div class="col-md-6 text-right text-muted">
-                                                <a href="#" class="btn btn-facebook btn-icon btn-xs" data-toggle="tooltip" data-theme="dark" title="Partager sur facebook"><i class="socicon-facebook"></i></a>
-                                                <a href="#" class="btn btn-twitter btn-icon btn-xs" data-toggle="tooltip" data-theme="dark" title="Partager sur twitter"><i class="socicon-twitter"></i></a>
-
-                                                <span class="label label-default label-pill label-inline">1 &nbsp;<i class="flaticon-comment text-primary"></i></span>
+                                                <a href="{{ \Jorenvh\Share\ShareFacade::page(route('front.blog.show', $blog->slug))->facebook()->getRawLinks() }}" class="btn btn-facebook btn-icon btn-xs" data-toggle="tooltip" data-theme="dark" title="Partager sur facebook"><i class="socicon-facebook"></i></a>
+                                                <a href="{{ \Jorenvh\Share\ShareFacade::page(route('front.blog.show', $blog->slug))->twitter()->getRawLinks() }}" class="btn btn-twitter btn-icon btn-xs" data-toggle="tooltip" data-theme="dark" title="Partager sur twitter"><i class="socicon-twitter"></i></a>
+                                                <a href="{{ route('front.blog.show', $blog->slug) }}#comments" class="btn btn-default btn-icon btn-xs" data-toggle="tooltip" data-theme="dark" title="{{ count($blog->validComments) }} {{ \Illuminate\Support\Str::plural('Commentaire', count($blog->validComments)) }}"><i class="flaticon-comment text-primary"></i></a>
                                             </div>
                                         </div>
                                     </div>

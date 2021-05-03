@@ -1,3 +1,8 @@
+.dark-theme *{
+    background: #3F4254 !important;
+    color: #f2f3f7 !important;
+}
+
 .fw-bolder {
     font-weight: 600!important;
 }
@@ -128,6 +133,5 @@
     max-height: 400px;
     line-height: 18px;
 }
-
 
 

@@ -6,6 +6,7 @@ namespace App\Http\ViewComposers;
 
 use App\Models\Blog\BlogCategory;
 use App\Models\Download\DownloadCategory;
+use App\Models\Follow;
 use App\Models\Page;
 use Illuminate\View\View;
 
@@ -20,6 +21,7 @@ class HomeComposer
             'categories' => BlogCategory::has('blogs')->get(),
             'pages' => Page::select('slug', 'title'),
             'download_categories' => DownloadCategory::all(),
+            'follows' => Follow::all()
         ]);
 
         if(!auth()->guest()) {

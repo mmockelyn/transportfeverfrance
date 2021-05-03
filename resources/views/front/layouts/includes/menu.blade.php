@@ -1,5 +1,5 @@
 <!--begin::Menu-->
-<div id="kt_header_menu" class="header-menu header-menu-mobile header-menu-layout-default">
+<div id="kt_header_menu" class="header-menu header-menu-mobile header-menu-layout-default d-flex justify-content-between">
     <!--begin::Nav-->
     <ul class="menu-nav">
         <li class="menu-item {{ currentRoute('home') }}" aria-haspopup="true">
@@ -56,6 +56,11 @@
             </a>
         </li>
     </ul>
+    <div class="align-self-center">
+        @foreach($follows as $follow)
+            <a href="{{ $follow->href }}" class="btn btn-default btn-icon"><i class="socicon-{{ $follow->icon }} icon-2x"></i> </a>
+        @endforeach
+    </div>
     <!--end::Nav-->
 </div>
 <!--end::Menu-->
