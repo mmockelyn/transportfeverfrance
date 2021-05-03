@@ -23,8 +23,8 @@
             </span>
         </button>
 
-        <a href="{{ route('auth.login.provider', 'discord') }}" class="btn btn-lg btn-block btn-discord fw-bolder me-3 my-2">
-            <img alt="Logo" src="storage/files/shares/core/icons/discord_icon.png" class="h-20px me-3">
+        <a href="{{ route('auth.login.provider', 'discord') }}" class="btn btn-lg btn-block btn-info text-white fw-bolder me-3 my-2">
+            <img alt="Logo" src="storage/files/shares/core/icons/discord_logo.png" class="h-20px me-3">
             Connexion avec Discord
         </a>
         <a href="{{ route('auth.login.provider', 'facebook') }}" class="btn btn-lg btn-block btn-facebook fw-bolder me-3 my-2">

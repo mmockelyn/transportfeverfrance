@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Front\Download;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Front\Download\Support\NewTicketOutUser;
 use App\Models\Download\DownloadSupport;
 use App\Repository\Download\DownloadRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class DownloadSupportController extends Controller
 {
@@ -55,11 +57,17 @@ class DownloadSupportController extends Controller
                 "download_id" => $download->id
             ];
             $ticket = $this->downloadSupport->newQuery()->create($data);
+            $tick = $this->downloadSupport->newQuery()->find($ticket->id);
+            Mail::to($request->email)->send(new NewTicketOutUser($tick));
             return response()->json([
                 "ticket_id" => $ticket->id,
                 "message" => "Votre demande à bien été soumise aux auteurs du mod. Par ailleurs, vous n'avez pas de compte, un Email vous à été envoyer afin de suivre l'avancer de votre requete."
             ]);
         }
+    }
 
+    public function show($slug, $room)
+    {
+        dd($room);
     }
 }

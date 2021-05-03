@@ -6,6 +6,10 @@
     font-weight: 500!important;
 }
 
+.bg-purple {
+    background-color: #8400ff;
+}
+
 .text-gray-400 {
     color: #b5b5c3!important;
 }

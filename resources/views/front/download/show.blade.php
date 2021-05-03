@@ -426,7 +426,7 @@
                                                                 @endif
                                                             </td>
                                                             <td>
-                                                                <a href="#" class="btn btn-sm btn-icon btn-default viewticket"><i class="fas fa-eye"></i> </a>
+                                                                <a href="{{ route('front.download.ticket.room', [$download->slug, $support->id]) }}" class="btn btn-sm btn-icon btn-default"><i class="fas fa-eye"></i> </a>
                                                                 @if($support->state == 2)
                                                                     <a href="#" class="btn btn-sm btn-icon btn-info replyticket"><i class="fas fa-reply"></i> </a>
                                                                 @endif
