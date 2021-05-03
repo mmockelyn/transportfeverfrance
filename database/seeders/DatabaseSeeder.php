@@ -244,6 +244,14 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        DB::table('follows')->insert([
+            ["title" => "Twitter", "href" => "#", "icon" => "twitter"],
+            ["title" => "Facebook", "href" => "#", "icon" => "facebook"],
+            ["title" => "Instagram", "href" => "#", "icon" => "instagram"],
+            ["title" => "Discord", "href" => "#", "icon" => "discord"],
+            ["title" => "Steam", "href" => "#", "icon" => "steam"],
+        ]);
+
 
     }
 }
