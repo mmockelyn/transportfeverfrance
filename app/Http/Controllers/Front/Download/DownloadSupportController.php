@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front\Download;
 use App\Http\Controllers\Controller;
 use App\Mail\Front\Download\Support\NewTicketOutUser;
 use App\Models\Download\DownloadSupport;
+use App\Notifications\Download\DownloadSupportForAuthorNotification;
 use App\Repository\Download\DownloadRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -43,6 +44,11 @@ class DownloadSupportController extends Controller
                 "download_id" => $download->id
             ];
             $ticket = $this->downloadSupport->newQuery()->create($data);
+            foreach ($download->users as $user) {
+                if($user->social !== null && $user->social->discord_user_id !== null) {
+                    $user->notify(new DownloadSupportForAuthorNotification($ticket));
+                }
+            }
 
             return response()->json([
                 "ticket_id" => $ticket->id,
@@ -58,6 +64,11 @@ class DownloadSupportController extends Controller
             ];
             $ticket = $this->downloadSupport->newQuery()->create($data);
             $tick = $this->downloadSupport->newQuery()->find($ticket->id);
+            foreach ($download->users as $user) {
+                if($user->social !== null && $user->social->discord_user_id !== null) {
+                    $user->notify(new DownloadSupportForAuthorNotification($ticket));
+                }
+            }
             Mail::to($request->email)->send(new NewTicketOutUser($tick));
             return response()->json([
                 "ticket_id" => $ticket->id,

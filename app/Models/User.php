@@ -48,6 +48,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function social()
+    {
+        return $this->hasOne(UserSocial::class);
+    }
+
     public function blogcomments()
     {
         return $this->hasMany(BlogComment::class);
@@ -61,5 +66,10 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->group === 1;
+    }
+
+    public function routeNotificationForDiscord()
+    {
+        return $this->discord_channel;
     }
 }
