@@ -91,6 +91,7 @@
                         </div>
                         <div class="text-right flex-grow-1">
                             <!--begin::Dropdown Menu-->
+                            <button class="btn btn-icon btn-sm btn-danger closeticket" data-toggle="tooltip" data-theme="dark" title="Fermer le ticket"><i class="fas fa-lock"></i> </button>
                             <!--end::Dropdown Menu-->
                         </div>
                     </div>
@@ -116,7 +117,7 @@
                             @else
                                 <input type="hidden" name="user_id" value="1">
                             @endif
-                            <textarea class="form-control border-0 p-0" name="message" rows="2" placeholder="Veuillez taper un message..."></textarea>
+                            <textarea class="form-control border-0 p-0" name="message" rows="2" placeholder="Veuillez taper un message..." @if($ticket->state == 3) readonly @endif></textarea>
                             <div class="d-flex align-items-center justify-content-between mt-5">
                                 <div>
                                     <button type="submit" id="formSubmit" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Envoyer</button>
