@@ -61,3 +61,9 @@ jobs:
             cd /www/wwwroot/transportfeverfrance.tk/
             git checkout -f
             git pull
+            composer install
+            php artisan migrate:fresh --seed
+            php artisan cache:clear
+            php artisan route:clear
+            php artisan config:clear
+            php artisan clear
