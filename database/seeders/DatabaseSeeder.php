@@ -9,6 +9,8 @@ use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
 use App\Models\Download\DownloadComment;
 use App\Models\Download\DownloadSubCategory;
+use App\Models\Download\DownloadSupport;
+use App\Models\Download\DownloadVersion;
 use App\Models\Page;
 use App\Models\User;
 use Faker\Factory;
@@ -26,16 +28,16 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         User::withoutEvents(function () {
-            User::factory()->create([
-                'group' => 1
-            ]);
-
-            User::factory()->create([
-                'group' => 0
+            User::create([
+                'name' => "Bot TF France",
+                'email' => "bot@transportfeverfrance.fr",
+                'password' => bcrypt('0000'),
+                'group' => 0,
+                'avatar' => null,
             ]);
         });
 
-        $nbUsers = 2;
+        $nbUsers = 1;
 
 
         DB::table('blog_categories')->insert([
@@ -116,27 +118,7 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        foreach (range(1, $nbBlogs - 1) as $i) {
-            BlogComment::factory()->create([
-                "blog_id" => $i,
-                "user_id" => rand(1, $nbUsers)
-            ]);
-        }
-
         $faker = Factory::create();
-
-        BlogComment::create([
-            "blog_id" => 2,
-            "user_id" => 2,
-            "content" => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
-            'children' => [
-                [
-                    'blog_id' => 2,
-                    'user_id' => 1,
-                    'content' => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
-                ]
-            ]
-        ]);
 
         Contact::withoutEvents(function () {
             Contact::factory()->count(5)->create();
@@ -218,12 +200,11 @@ class DatabaseSeeder extends Seeder
                         "download_category_id" => $down_sub_category->download_category_id,
                         "download_sub_category_id" => $down_sub_category->id,
                     ]);
-                    for($i=0; $i < rand(1,2); $i++) {
-                        DB::table('download_user')->insert([
-                            "download_id" => $download->id,
-                            "user_id" => rand(1,2)
-                        ]);
-                    }
+
+                    DB::table('download_user')->insert([
+                        "download_id" => $download->id,
+                        "user_id" => 1
+                    ]);
                 }
             }
         });
@@ -231,25 +212,29 @@ class DatabaseSeeder extends Seeder
         $downloads = Download::all();
         $nbrDownload = count($downloads);
 
-        foreach (range(1, $nbrDownload - 1) as $i) {
-            DownloadComment::factory()->create([
-                "download_id" => $i,
-                "user_id" => rand(1, $nbUsers)
+        foreach (range(1, $nbrDownload - 1) as $download) {
+            DownloadVersion::factory()->create([
+                'download_id' => $download,
+                'user_id' => 1
             ]);
         }
 
-        DownloadComment::create([
-            "download_id" => 2,
-            "user_id" => 2,
-            "content" => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
-            'children' => [
-                [
-                    'download_id' => 2,
-                    'user_id' => 1,
-                    'content' => $faker->paragraph($nbSentences = 4, $variableNbSentences = true),
-                ]
-            ]
-        ]);
+        foreach ($downloads as $download) {
+            for ($i=0; $i < rand(1,5); $i++) {
+                DownloadSupport::factory()->create([
+                    "download_id" => $download,
+                    "user_id" => 1
+                ]);
+            }
+
+            for ($i=0; $i < rand(1,5); $i++) {
+                DownloadSupport::factory()->create([
+                    "download_id" => $download,
+                    "email_user" => $faker->safeEmail,
+                    "name_user" => $faker->name
+                ]);
+            }
+        }
 
 
     }

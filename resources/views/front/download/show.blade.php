@@ -135,6 +135,11 @@
                                 <span class="nav-text">Support</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#doc">
+                                <span class="nav-text">Documentation</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -330,6 +335,112 @@
                             </div>
                         </div>
                     </div>
+                    <div class="tab-pane" id="changelogs" role="tabpanel">
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <div class="col-6">
+                                <div class="timeline timeline-3">
+                                    <div class="timeline-items">
+                                        @foreach($download->versions as $version)
+                                        <div class="timeline-item">
+                                            <div class="timeline-media">
+                                                <i class="flaticon2-notification fl text-primary"></i>
+                                            </div>
+                                            <div class="timeline-content">
+                                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                                    <div class="mr-2">
+                                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">Nouvelle version du Package: V.{{ $version->version }}</a>
+                                                        <span class="text-muted ml-2">
+                                                            @if($version->created_at->between(\Illuminate\Support\Carbon::now(), \Illuminate\Support\Carbon::now()->addDay()) == true)
+                                                                {{ $version->created_at->diffForHumans() }}
+                                                            @else
+                                                                {{ $version->created_at->format('d/m/Y à H:i') }}
+                                                            @endif
+                                                        </span>
+                                                        {!! \App\Helpers\Format::labelDownloadVersionType($version->type) !!}
+                                                    </div>
+                                                </div>
+                                                <p class="p-0">{!! $version->content !!}</p>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane bg-grey-100" id="support" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-custom mb-2 bg-diagonal bg-diagonal-light-success mb-10">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between p-4">
+                                            <!--begin::Content-->
+                                            <div class="d-flex flex-column mr-5">
+                                                <a href="#" class="h4 text-dark text-hover-primary mb-5">Un problème avec ce mod ?</a>
+                                                <p class="text-dark-50">Les auteurs du mod sont disponible pour répondre à toutes vos questions ?</p>
+                                            </div>
+                                            <!--end::Content-->
+                                            <!--begin::Button-->
+                                            <div class="ml-6 flex-shrink-0">
+                                                <a href="#" data-toggle="modal" data-target="#new_ticket" class="btn font-weight-bolder text-uppercase font-size-lg btn-success py-3 px-6">Ouvrir un requete</a>
+                                            </div>
+                                            <!--end::Button-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    @if(auth()->check())
+                                        <div class="card card-custom">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Liste de mes tickets</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                @if(array_key_exists(auth()->user()->email, \App\Models\User::all()->toArray()) == true)
+                                                    Auteurs
+                                                @else
+                                                    <table class="datatable datatable-bordered datatable-head-custom" id="table_user_ticket">
+                                                        <thead>
+                                                        <tr>
+                                                            <th title="Field #1">ID</th>
+                                                            <th>Etat</th>
+                                                            <th>Sujet</th>
+                                                            <th>Date de Mise à jour</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach(auth()->user()->downloadsupports as $support)
+                                                        <tr>
+                                                            <td>#TCK-MOD{{ $download->id }}-{{ $support->id }}</td>
+                                                            <td>
+                                                                {!! \App\Helpers\Format::labelDownloadSupportState($support->state) !!}
+                                                            </td>
+                                                            <td>{{ $support->subject }}</td>
+                                                            <td>
+                                                                @if($support->updated_at->between(\Illuminate\Support\Carbon::now(), \Illuminate\Support\Carbon::now()->addDay()) == true)
+                                                                    {{ $support->updated_at->diffForHumans() }}
+                                                                @else
+                                                                    {{ $support->updated_at->format('d/m/Y à H:i') }}
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <a href="{{ route('front.download.ticket.room', [$download->slug, $support->id]) }}" class="btn btn-sm btn-icon btn-default"><i class="fas fa-eye"></i> </a>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="doc" role="tabpanel"></div>
                 </div>
             </div>
         </div>
@@ -381,6 +492,95 @@
                         </div>
                         <div class="modal-footer">
                             <button type="submit" id="btnForm" class="btn btn-primary font-weight-bold">Soumettre</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if(auth()->check())
+        <div class="modal fade" id="new_ticket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nouvelle demande de support</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i aria-hidden="true" class="ki ki-close"></i>
+                        </button>
+                    </div>
+                    <form action="{{ route('front.download.ticket.new', $download->slug) }}" id="formCreateSupport" method="POST">
+                        @csrf
+                        <input type="hidden" id="download_id" name="download_id" value="{{ $download->id }}">
+                        <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
+                        <div class="modal-body">
+                            <div class="d-flex align-items-center mb-10">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40 symbol-light-white mr-5">
+                                    <div class="symbol-label">
+                                        @if(auth()->user()->avatar)
+                                        <img src="{{ auth()->user()->avatar }}" class="h-75 align-self-end" alt="">
+                                        @else
+                                            <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get(auth()->user()->email) }}" class="h-75 align-self-end" alt="">
+                                        @endif
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Text-->
+                                <div class="d-flex flex-column font-weight-bold">
+                                    <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{ auth()->user()->name }}</a>
+                                    <span class="text-muted">{{ auth()->user()->email }}</span>
+                                </div>
+                                <!--end::Text-->
+                            </div>
+                            <div class="form-group">
+                                <label>Sujet de votre demande <span class="text-danger">*</span> </label>
+                                <input type="text" class="form-control form-control-solid form-control-lg" name="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Description de votre problème <span class="text-danger">*</span> </label>
+                                <textarea name="message" class="summernote" required></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="btnFormCreateSupport" class="btn btn-primary font-weight-bold">Soumettre</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @else
+        <div class="modal fade" id="new_ticket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nouvelle demande de support</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i aria-hidden="true" class="ki ki-close"></i>
+                        </button>
+                    </div>
+                    <form action="{{ route('front.download.ticket.new', $download->slug) }}" id="formCreateSupport" method="POST">
+                        @csrf
+                        <input type="hidden" id="download_id" name="download_id" value="{{ $download->id }}">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Votre Nom <span class="text-danger">*</span> </label>
+                                <input type="text" class="form-control form-control-solid form-control-lg" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Votre Email <span class="text-danger">*</span> </label>
+                                <input type="email" class="form-control form-control-solid form-control-lg" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Sujet de votre demande <span class="text-danger">*</span> </label>
+                                <input type="text" class="form-control form-control-solid form-control-lg" name="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Description de votre problème <span class="text-danger">*</span> </label>
+                                <textarea name="message" class="summernote" required></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="btnFormCreateSupport" class="btn btn-primary font-weight-bold">Soumettre</button>
                         </div>
                     </form>
                 </div>

@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Paris',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'fr_FR',
 
     /*
     |--------------------------------------------------------------------------
@@ -148,7 +148,7 @@ return [
     | SEO
     |--------------------------------------------------------------------------
     */
-    'description' => 'The best blog in the world',
+    'description' => 'Communauté Francophone de Transport Fever',
     'author' => 'Trainznation Studio',
     'canonical' => env("APP_URL"),
 
@@ -200,6 +200,7 @@ return [
          * Package Service Providers...
          */
         \SocialiteProviders\Manager\ServiceProvider::class,
+        NotificationChannels\Discord\DiscordServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -32,6 +32,16 @@ class Download extends Model
         return $this->hasMany(DownloadComment::class);
     }
 
+    public function versions()
+    {
+        return $this->hasMany(DownloadVersion::class);
+    }
+
+    public function supports()
+    {
+        return $this->hasMany(DownloadSupport::class);
+    }
+
     public function validComments()
     {
         return $this->comments()->whereHas('user', function ($query) {

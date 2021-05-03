@@ -6,6 +6,7 @@ namespace App\Repository\Download;
 use App\Models\Blog\Blog;
 use App\Models\Download\Download;
 use App\Models\Download\DownloadCommentReport;
+use App\Models\Download\DownloadSupport;
 
 class DownloadRepository
 {
