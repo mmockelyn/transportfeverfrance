@@ -23,4 +23,5 @@ Route::post('/download/category/{subcategory_id}', [SearchController::class, 'se
 Route::group(["prefix" => "download"], function () {
     Route::get('{slug}/ticket/{ticket_id}', [DownloadController::class, 'getInfoTicket']);
     Route::post('{slug}/ticket/{ticket_id}/composer', [DownloadController::class, 'composer']);
+    Route::get('{slug}/ticket/{ticket_id}/close', [DownloadController::class, 'close']);
 });
