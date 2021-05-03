@@ -7,8 +7,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ deploy ]
-  pull_request:
-    branches: [ deploy ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -58,6 +56,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           username: ${{ secrets.SSH_USERNAME }}
+          port: 4444
           script: |
             cd /var/www/html/
             git checkout -f

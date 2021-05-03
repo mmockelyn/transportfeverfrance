@@ -7,20 +7,31 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laravel\Socialite\Facades\Socialite;
+use NotificationChannels\Discord\Discord;
 
 class LoginSocialController extends Controller
 {
     public function redirectToProvider($provider)
     {
-        return Socialite::driver($provider)->redirect();
+        if($provider === 'discord') {
+            return Socialite::driver($provider)->scopes(
+                [
+                    'identify',
+                    'email',
+                    'connections',
+                ]
+            )->redirect();
+        } else {
+            return Socialite::driver($provider)->redirect();
+        }
     }
 
     public function handleProviderCallback($provider)
     {
         try {
-            $user = Socialite::driver($provider)->user();
+            $user = Socialite::driver($provider)->stateless()->user();
         } catch (\Exception $exception) {
-            return redirect('/login');
+            return redirect('/login')->with('status', 'Erreur de connexion avec le provider !');
         }
 
         switch ($provider) {
@@ -38,6 +49,10 @@ class LoginSocialController extends Controller
                 break;
             case 'steam':
                 $this->registerSteam($user);
+                return redirect()->to('/');
+                break;
+            case 'discord':
+                $this->registerDiscord($user);
                 return redirect()->to('/');
                 break;
             default:
@@ -130,6 +145,7 @@ class LoginSocialController extends Controller
             $existing_user = User::where('email', $user->email)->first();
         }
 
+
         if ($existing_user) {
             auth()->login($existing_user, true);
         } else {
@@ -143,6 +159,39 @@ class LoginSocialController extends Controller
             DB::table('user_social')->insert([
                 "user_id" => $newUser->id,
                 "Steam_id" => $user->id
+            ]);
+
+            auth()->login($newUser, true);
+        }
+
+        return redirect()->to('/');
+    }
+
+    private function registerDiscord($user)
+    {
+        if(!$user->email){
+            $email = $user->nickname."@none.tf";
+            $existing_user = User::where('email', $email)->first();
+        } else {
+            $email = $user->email;
+            $existing_user = User::where('email', $user->email)->first();
+        }
+
+
+        if ($existing_user) {
+            auth()->login($existing_user, true);
+        } else {
+            $newUser = new User;
+
+            $newUser->name = $user->name;
+            $newUser->email = $email;
+            $newUser->avatar = $user->avatar;
+            $newUser->save();
+
+            DB::table('user_social')->insert([
+                "user_id" => $newUser->id,
+                "discord_user_id" => $user->id,
+                "discord_private_channel_id" => app(Discord::class)->getPrivateChannel($user->id)
             ]);
 
             auth()->login($newUser, true);

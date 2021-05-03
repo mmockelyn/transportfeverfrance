@@ -93,6 +93,12 @@ $(document).ready(function () {
         bigimage.data("owl.carousel").to(number, 300, true);
     });
     var sticky = new Sticky('.sticky');
+
+    KTDatatableHtmlTableDemo.init();
+
+    $('.summernote').summernote({
+        height: 150
+    });
 });
 
 $("#formPostComment").on('submit', (e) => {
@@ -115,6 +121,32 @@ $("#formPostComment").on('submit', (e) => {
         error: (err) => {
             KTUtil.btnRelease(btn)
             toastr.error("Erreur Serveur", "Impossible de publier le commentaire.")
+        }
+    })
+})
+
+$("#formCreateSupport").on('submit', (e) => {
+    e.preventDefault()
+    let form = $("#formCreateSupport")
+    let url = form.attr('action')
+    let btn = KTUtil.getById('btnFormCreateSupport')
+    let data = form.serializeArray()
+
+    KTUtil.btnWait(btn, 'spinner spinner-dark spinner-right pr-15', 'Chargement...')
+
+    $.ajax({
+        url: url,
+        method: "POST",
+        data: data,
+        success: (data) => {
+            KTUtil.btnRelease(btn)
+            toastr.success(data.message, `Ticket N°${data.ticket_id}`)
+            console.log(data)
+        },
+        error: (err) => {
+            KTUtil.btnRelease(btn)
+            toastr.error("Impossible de publier le commentaire.", "Erreur Serveur")
+            console.log(err)
         }
     })
 })
@@ -242,6 +274,33 @@ document.querySelectorAll('.deletecomment',).forEach((btn) => {
         deleteElement(btn)
     })
 })
+
+var KTDatatableHtmlTableDemo = function() {
+    // Private functions
+
+    // demo initializer
+    var demo = function() {
+
+        var datatable = $('#table_user_ticket').KTDatatable({
+            data: {
+                saveState: {cookie: false},
+            },
+            layout: {
+                class: 'datatable-bordered',
+            },
+            columns: [],
+        });
+    };
+
+    return {
+        // Public functions
+        init: function() {
+            // init dmeo
+            demo();
+        },
+    };
+}();
+
 
 
 

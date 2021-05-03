@@ -9,6 +9,8 @@ use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
 use App\Models\Download\DownloadComment;
 use App\Models\Download\DownloadSubCategory;
+use App\Models\Download\DownloadSupport;
+use App\Models\Download\DownloadVersion;
 use App\Models\Page;
 use App\Models\User;
 use Faker\Factory;
@@ -250,6 +252,30 @@ class DatabaseSeeder extends Seeder
                 ]
             ]
         ]);
+
+        foreach (range(1, $nbrDownload - 1) as $download) {
+            DownloadVersion::factory()->create([
+                'download_id' => $download,
+                'user_id' => rand(1, $nbUsers)
+            ]);
+        }
+
+        foreach ($downloads as $download) {
+            for ($i=0; $i < rand(1,5); $i++) {
+                DownloadSupport::factory()->create([
+                    "download_id" => $download,
+                    "user_id" => rand(1, $nbUsers)
+                ]);
+            }
+
+            for ($i=0; $i < rand(1,5); $i++) {
+                DownloadSupport::factory()->create([
+                    "download_id" => $download,
+                    "email_user" => $faker->safeEmail,
+                    "name_user" => $faker->name
+                ]);
+            }
+        }
 
 
     }
