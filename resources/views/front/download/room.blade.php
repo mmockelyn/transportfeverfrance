@@ -110,6 +110,12 @@
                     <div class="card-footer align-items-center">
                         <form action="/api/download/{{ $ticket->download->slug }}/ticket/{{ $ticket->id }}/composer" id="formConverse" method="post">
                             <!--begin::Compose-->
+                            @csrf
+                            @if(auth()->user()->id == $ticket->user_id)
+                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                            @else
+                                <input type="hidden" name="user_id" value="1">
+                            @endif
                             <textarea class="form-control border-0 p-0" name="message" rows="2" placeholder="Veuillez taper un message..."></textarea>
                             <div class="d-flex align-items-center justify-content-between mt-5">
                                 <div>

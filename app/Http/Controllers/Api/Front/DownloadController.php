@@ -48,4 +48,15 @@ class DownloadController extends Controller
             "rooms" => $rooms
         ]);
     }
+
+    public function composer(Request $request, $slug, $ticket_id)
+    {
+        $this->downloadSupportRoom->newQuery()->create([
+            "message" => $request->message,
+            "user_id" => $request->user_id,
+            "download_support_id" => $ticket_id
+        ]);
+
+        return response()->json();
+    }
 }
