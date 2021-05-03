@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2a1771ac934511aaea34a2e9fc0e9fa",
+    "content-hash": "57f9fdf76cf071f514b3bf8f77957972",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1981,6 +1981,68 @@
                 "source": "https://github.com/thephpleague/oauth1-client/tree/v1.9.0"
             },
             "time": "2021-01-20T01:40:53+00:00"
+        },
+        {
+            "name": "lukeraymonddowning/honey",
+            "version": "0.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lukeraymonddowning/honey.git",
+                "reference": "5e9465d4247c56d32d01c97a26ef18cbd24e3e23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lukeraymonddowning/honey/zipball/5e9465d4247c56d32d01c97a26ef18cbd24e3e23",
+                "reference": "5e9465d4247c56d32d01c97a26ef18cbd24e3e23",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3|^7.2",
+                "illuminate/support": "^7.0|^8.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "livewire/livewire": "^2.3",
+                "orchestra/testbench": "^6.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Lukeraymonddowning\\Honey\\Providers\\HoneyServiceProvider"
+                    ],
+                    "aliases": {
+                        "Honey": "Lukeraymonddowning\\Honey\\Facades\\Honey"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Lukeraymonddowning\\Honey\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "luke",
+                    "email": "lukeraymonddowning@gmail.com"
+                }
+            ],
+            "description": "Reduce spam on your Laravel site.",
+            "support": {
+                "issues": "https://github.com/lukeraymonddowning/honey/issues",
+                "source": "https://github.com/lukeraymonddowning/honey/tree/0.3.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/lukeraymonddowning",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-03-17T12:36:57+00:00"
         },
         {
             "name": "monolog/monolog",

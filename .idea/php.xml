@@ -131,6 +131,7 @@
       <path value="$PROJECT_DIR$/vendor/socialiteproviders/discord" />
       <path value="$PROJECT_DIR$/vendor/martinbean/socialite-discord-provider" />
       <path value="$PROJECT_DIR$/vendor/jorenvanhocht/laravel-share" />
+      <path value="$PROJECT_DIR$/vendor/lukeraymonddowning/honey" />
     </include_path>
   </component>
   <component name="PhpUnit">
