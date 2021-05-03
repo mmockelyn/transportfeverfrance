@@ -54,4 +54,10 @@ return [
         'redirect' => env('STEAM_REDIRECT_URI')
     ],
 
+    'discord' => [
+        'client_id' => '838586143141789726',
+        'client_secret' => 'rGTKykJzI2j9fHOcaB-fI-aEd3EHIakB',
+        'redirect' => env('DISCORD_REDIRECT_URI'),
+    ],
+
 ];
