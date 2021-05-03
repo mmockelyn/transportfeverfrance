@@ -17,6 +17,7 @@
         "laravel/framework": "^8.12",
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
+        "lukeraymonddowning/honey": "^0.3.2",
         "socialiteproviders/discord": "^4.1",
         "socialiteproviders/facebook": "^4.1",
         "socialiteproviders/google": "^4.1",

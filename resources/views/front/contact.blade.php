@@ -37,6 +37,7 @@
                                         <label for="message">Votre message <span class="text-danger">*</span></label>
                                         <textarea class="form-control" id="message" rows="3" name="message" required>{{ old('message') }}</textarea>
                                     </div>
+                                    <x-honey/>
                                     <button type="submit" class="btn btn-primary"> Envoyer</button>
                             </fieldset>
                         </form>
