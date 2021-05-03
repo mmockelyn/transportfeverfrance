@@ -16,6 +16,11 @@ class CreateDownloadWikisTable extends Migration
         Schema::create('download_wikis', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->longText('content');
+            $table->boolean('active')->default(false);
+            $table->foreignId('download_id')->constrained()
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

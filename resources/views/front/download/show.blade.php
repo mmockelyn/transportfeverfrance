@@ -440,7 +440,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="doc" role="tabpanel"></div>
+                    @if($download->wiki !== null && $download->wiki->active == 1)
+                    <div class="tab-pane" id="doc" role="tabpanel">
+                        <h2 class="fw-bolder mt-5">Documentation du mod: {{ $download->title }}</h2>
+                        <div class="separator separator-solid separator-border-3 m-5"></div>
+                        {!! $download->wiki->content !!}
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

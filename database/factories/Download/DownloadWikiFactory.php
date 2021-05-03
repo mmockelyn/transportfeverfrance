@@ -22,7 +22,7 @@ class DownloadWikiFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'content' => $this->faker->paragraph(10, true)
         ];
     }
 }
