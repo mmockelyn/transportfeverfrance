@@ -114,7 +114,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header card-header-tabs-line">
                 <div class="card-toolbar">
-                    <ul class="nav nav-tabs nav-tabs-line nav-bold nav-tabs-line-3x justify-content-center" role="tablist">
+                    <ul class="nav nav-tabs nav-tabs-line nav-bold nav-tabs-line-3x justify-content-between" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#description">
                                 <span class="nav-text">Description</span>
@@ -135,12 +135,21 @@
                                 <span class="nav-text">Support</span>
                             </a>
                         </li>
+                        @if($download->wiki !== null && $download->wiki->active == 1)
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#doc">
                                 <span class="nav-text">Documentation</span>
                             </a>
                         </li>
+                        @endif
                     </ul>
+                </div>
+                <div class="card-toolbar">
+                    <div class="align-self-center">
+                        <a href="{{ \Jorenvh\Share\ShareFacade::page(route('front.download.show', $download->slug))->facebook()->getRawLinks() }}" class="btn btn-facebook btn-icon" data-toggle="tooltip" data-theme="dark" title="Partager sur facebook"><i class="socicon-facebook"></i></a>
+                        <a href="{{ \Jorenvh\Share\ShareFacade::page(route('front.download.show', $download->slug))->twitter()->getRawLinks() }}" class="btn btn-twitter btn-icon" data-toggle="tooltip" data-theme="dark" title="Partager sur twitter"><i class="socicon-twitter"></i></a>
+                        <a href="{{ route('front.download.show', $download->slug) }}#comments" class="btn btn-default btn-icon" data-toggle="tooltip" data-theme="dark" title="{{ count($download->validComments) }} {{ \Illuminate\Support\Str::plural('Commentaire', count($download->validComments)) }}"><i class="flaticon-comment text-primary"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="card-body" data-sticky-container>
