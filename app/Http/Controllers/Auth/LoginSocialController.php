@@ -29,9 +29,8 @@ class LoginSocialController extends Controller
     public function handleProviderCallback($provider)
     {
         try {
-            $user = Socialite::driver($provider)->user();
+            $user = Socialite::driver($provider)->stateless()->user();
         } catch (\Exception $exception) {
-            dd($exception);
             return redirect('/login')->with('status', 'Erreur de connexion avec le provider !');
         }
 
@@ -54,10 +53,10 @@ class LoginSocialController extends Controller
                 break;
             case 'discord':
                 $this->registerDiscord($user);
-                //return redirect()->to('/');
+                return redirect()->to('/');
                 break;
             default:
-                //return redirect()->to('/');
+                return redirect()->to('/');
         }
     }
 
@@ -178,8 +177,6 @@ class LoginSocialController extends Controller
             $existing_user = User::where('email', $user->email)->first();
         }
 
-        dd($user, $existing_user);
-
 
         if ($existing_user) {
             auth()->login($existing_user, true);
@@ -200,6 +197,6 @@ class LoginSocialController extends Controller
             auth()->login($newUser, true);
         }
 
-        //return redirect()->to('/');
+        return redirect()->to('/');
     }
 }

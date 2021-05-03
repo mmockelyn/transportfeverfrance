@@ -30,6 +30,7 @@ class EventServiceProvider extends ServiceProvider
             'SocialiteProviders\\Google\\GoogleExtendSocialite@handle',
             'SocialiteProviders\\Twitter\\TwitterExtendSocialite@handle',
             'SocialiteProviders\\Steam\\SteamExtendSocialite@handle',
+            'SocialiteProviders\\Discord\\DiscordExtendSocialite@handle',
         ],
     ];
 
