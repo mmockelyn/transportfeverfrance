@@ -42,6 +42,11 @@ class Download extends Model
         return $this->hasMany(DownloadSupport::class);
     }
 
+    public function wiki()
+    {
+        return $this->hasOne(DownloadWiki::class);
+    }
+
     public function validComments()
     {
         return $this->comments()->whereHas('user', function ($query) {

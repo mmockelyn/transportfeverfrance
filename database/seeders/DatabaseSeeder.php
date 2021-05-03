@@ -11,6 +11,7 @@ use App\Models\Download\DownloadComment;
 use App\Models\Download\DownloadSubCategory;
 use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadVersion;
+use App\Models\Download\DownloadWiki;
 use App\Models\Page;
 use App\Models\User;
 use Faker\Factory;
@@ -108,7 +109,7 @@ class DatabaseSeeder extends Seeder
             } else {
                 $numbers = range(1, $nbBlogCategories);
                 shuffle($numbers);
-                $n = rand(1,2);
+                $n = rand(1, 2);
                 for ($i = 0; $i < $n; $i++) {
                     DB::table('blog_blog_category')->insert([
                         "blog_category_id" => $numbers[$i],
@@ -131,7 +132,7 @@ class DatabaseSeeder extends Seeder
             ['privacy-policy', 'Privacy Policy'],
         ];
 
-        foreach($items as $item) {
+        foreach ($items as $item) {
             Page::factory()->create([
                 'slug' => $item[0],
                 'title' => $item[1],
@@ -188,14 +189,14 @@ class DatabaseSeeder extends Seeder
         Download::withoutEvents(function () {
             $down_sub_categories = DownloadSubCategory::all();
             foreach ($down_sub_categories as $down_sub_category) {
-                foreach (range(1,10) as $i) {
+                foreach (range(1, 10) as $i) {
                     $providers = ['steam', 'tfnet', 'tf_france', 'null'];
                     shuffle($providers);
                     $download = Download::factory()->create([
-                        "title" => "Téléchargement ".$i,
-                        "slug" => "telechargement-".$down_sub_category->id."-".$i,
-                        "seo_title" => "Téléchargement ".$i,
-                        "image" => "img0".$i.".jpg",
+                        "title" => "Téléchargement " . $i,
+                        "slug" => "telechargement-" . $down_sub_category->id . "-" . $i,
+                        "seo_title" => "Téléchargement " . $i,
+                        "image" => "img0" . $i . ".jpg",
                         "provider" => $providers[0],
                         "download_category_id" => $down_sub_category->download_category_id,
                         "download_sub_category_id" => $down_sub_category->id,
@@ -220,20 +221,27 @@ class DatabaseSeeder extends Seeder
         }
 
         foreach ($downloads as $download) {
-            for ($i=0; $i < rand(1,5); $i++) {
+            for ($i = 0; $i < rand(1, 5); $i++) {
                 DownloadSupport::factory()->create([
                     "download_id" => $download,
                     "user_id" => 1
                 ]);
             }
 
-            for ($i=0; $i < rand(1,5); $i++) {
+            for ($i = 0; $i < rand(1, 5); $i++) {
                 DownloadSupport::factory()->create([
                     "download_id" => $download,
                     "email_user" => $faker->safeEmail,
                     "name_user" => $faker->name
                 ]);
             }
+        }
+
+        foreach ($downloads as $download) {
+            DownloadWiki::factory()->create([
+                "download_id" => $download->id,
+                "active" => true
+            ]);
         }
 
 
