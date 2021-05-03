@@ -55,6 +55,7 @@ return [
     ],
 
     'discord' => [
+        'token' => "ODM4NTg2MTQzMTQxNzg5NzI2.YI9QNA.Nw852FafbEFPaAVICuoPBMvpZPI",
         'client_id' => '838586143141789726',
         'client_secret' => 'rGTKykJzI2j9fHOcaB-fI-aEd3EHIakB',
         'redirect' => env('DISCORD_REDIRECT_URI'),
