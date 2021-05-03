@@ -44,7 +44,8 @@ class DownloadSupportController extends Controller
                 "user_id" => $request->user_id,
                 "subject" => $request->subject,
                 "message" => $request->message,
-                "download_id" => $download->id
+                "download_id" => $download->id,
+                'state'     => 1
             ];
             $ticket = $this->downloadSupport->newQuery()->create($data);
             DownloadSupportRoom::create([
@@ -68,7 +69,8 @@ class DownloadSupportController extends Controller
                 "email_user" => $request->email,
                 "subject" => $request->subject,
                 "message" => $request->message,
-                "download_id" => $download->id
+                "download_id" => $download->id,
+                'state'     => 1
             ];
             $ticket = $this->downloadSupport->newQuery()->create($data);
             DownloadSupportRoom::create([
@@ -96,4 +98,6 @@ class DownloadSupportController extends Controller
 
         return view('front.download.room', compact('ticket'));
     }
+
+
 }

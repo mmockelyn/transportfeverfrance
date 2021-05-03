@@ -59,4 +59,13 @@ class DownloadController extends Controller
 
         return response()->json();
     }
+
+    public function close($slug, $ticket_id)
+    {
+        $this->downloadSupport->newQuery()->find($ticket_id)->update([
+            "state" => 3
+        ]);
+
+        return response()->json();
+    }
 }
