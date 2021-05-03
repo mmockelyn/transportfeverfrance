@@ -55,9 +55,9 @@ return [
     ],
 
     'discord' => [
-        'token' => "ODM4NTg2MTQzMTQxNzg5NzI2.YI9QNA.Nw852FafbEFPaAVICuoPBMvpZPI",
-        'client_id' => '838586143141789726',
-        'client_secret' => 'rGTKykJzI2j9fHOcaB-fI-aEd3EHIakB',
+        'token' => env('DISCORD_TOKEN_BOT'),
+        'client_id' => env('DISCORD_CLIENT_ID'),
+        'client_secret' => env('DISCORD_CLIENT_SECRET'),
         'redirect' => env('DISCORD_REDIRECT_URI'),
     ],
 
