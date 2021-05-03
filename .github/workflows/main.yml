@@ -58,6 +58,12 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           port: 4444
           script: |
-            cd /var/www/html/
+            cd /www/wwwroot/transportfeverfrance.tk/
             git checkout -f
             git pull
+            composer install
+            php artisan migrate:fresh --seed
+            php artisan cache:clear
+            php artisan route:clear
+            php artisan config:clear
+            php artisan clear
