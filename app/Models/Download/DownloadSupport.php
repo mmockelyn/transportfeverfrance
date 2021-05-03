@@ -27,4 +27,9 @@ class DownloadSupport extends Model
     {
         return $this->belongsTo(Download::class);
     }
+
+    public function rooms()
+    {
+        return $this->hasMany(DownloadSupportRoom::class);
+    }
 }

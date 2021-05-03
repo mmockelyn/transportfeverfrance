@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Events\ModelCreated;
 use App\Models\Blog\BlogComment;
 use App\Models\Download\DownloadSupport;
+use App\Models\Download\DownloadSupportRoom;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,6 +40,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $dates = ["created_at", "updated_at", "last_seen"];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -66,6 +69,11 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->group === 1;
+    }
+
+    public function rooms()
+    {
+        return $this->hasMany(DownloadSupportRoom::class);
     }
 
     public function routeNotificationForDiscord()

@@ -8,6 +8,7 @@ use App\Models\Download\DownloadSupport;
 use App\Notifications\Download\DownloadSupportForAuthorNotification;
 use App\Repository\Download\DownloadRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 
 class DownloadSupportController extends Controller
@@ -30,6 +31,7 @@ class DownloadSupportController extends Controller
     {
         $this->downloadSupport = $downloadSupport;
         $this->downloadRepository = $downloadRepository;
+        Carbon::setLocale('fr');
     }
 
     public function newSupport(Request $request, $slug)
@@ -79,6 +81,8 @@ class DownloadSupportController extends Controller
 
     public function show($slug, $room)
     {
-        dd($room);
+        $ticket = $this->downloadSupport->newQuery()->find($room);
+
+        return view('front.download.room', compact('ticket'));
     }
 }
