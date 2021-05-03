@@ -3,6 +3,7 @@ let divAuthor = document.querySelector('#list_author')
 let divRoom = document.querySelector('#room')
 let slug = document.querySelector('.ticket').dataset.downloadSlug
 let ticket_id = document.querySelector('.ticket').dataset.ticketId
+let close_btn = document.querySelector('.closeticket')
 const infos = {};
 
 function getInfoTicket() {
@@ -29,7 +30,7 @@ function getInfoTicket() {
 function showListAuthor() {
     divAuthor.innerHTML = ``
     Array.from(infos.download.users).forEach((user) => {
-        let img = (user.avatar === null) ? '<img alt="Pic" src="'+user.avatar+'">' : '<img alt="Pic" src="'+user.avatar+'">'
+        let img = (user.avatar === null) ? '<img alt="Pic" src="' + user.avatar + '">' : '<img alt="Pic" src="' + user.avatar + '">'
         let last_seen = (user.last_seen === null) ? 'Jamais' : moment(user.last_seen).fromNow();
 
         divAuthor.innerHTML += `
@@ -54,7 +55,7 @@ function showListAuthor() {
 function showRoom() {
     divRoom.innerHTML = ``
     Array.from(infos.rooms).forEach((room) => {
-        let img = ((room.author_id !== null) ? (room.author.avatar === null) ? '<img alt="Pic" src="'+room.author.avatar+'">' : '<img alt="Pic" src="'+room.author.avatar+'">' : (room.user.avatar === null) ? '<img alt="Pic" src="'+room.user.avatar+'">' : '<img alt="Pic" src="'+room.user.avatar+'">')
+        let img = ((room.author_id !== null) ? (room.author.avatar === null) ? '<img alt="Pic" src="' + room.author.avatar + '">' : '<img alt="Pic" src="' + room.author.avatar + '">' : (room.user.avatar === null) ? '<img alt="Pic" src="' + room.user.avatar + '">' : '<img alt="Pic" src="' + room.user.avatar + '">')
 
         divRoom.innerHTML += `
            <div class="d-flex flex-column mb-5 ${(room.author_id !== null) ? 'align-items-start' : 'align-items-end'}">
@@ -97,12 +98,37 @@ function composer() {
     })
 }
 
+function close_ticket() {
+    let btn = KTUtil.getById('closeticket')
+
+    KTUtil.btnWait(btn, 'spinner spinner-dark spinner-right pr-15')
+
+    $.ajax({
+        url: `/api/download/${slug}/ticket/${ticket_id}/close`,
+        method: "GET",
+        success: (data) => {
+            KTUtil.btnRelease(btn)
+            window.location.href = '/download/'+slug
+        },
+        error: (err) => {
+            KTUtil.btnRelease(btn)
+            toastr.error("Erreur Système", "Erreur lors de la cloture du ticket")
+            console.error(err)
+        }
+    })
+}
+
 $("#formConverse").on('submit', (e) => {
     composer()
 })
 
 listener.simple_combo("ctrl enter", (e) => {
     composer()
+})
+
+close_btn.addEventListener('click', (e) => {
+    e.preventDefault()
+    close_ticket()
 })
 
 
