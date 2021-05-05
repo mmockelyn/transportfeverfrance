@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Repository\Account\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laravel\Socialite\Facades\Socialite;
@@ -11,6 +12,20 @@ use NotificationChannels\Discord\Discord;
 
 class LoginSocialController extends Controller
 {
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * LoginSocialController constructor.
+     * @param UserRepository $userRepository
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function redirectToProvider($provider)
     {
         if($provider === 'discord') {
@@ -78,6 +93,7 @@ class LoginSocialController extends Controller
                 "user_id" => $newUser->id,
                 "facebook_id" => $user->id
             ]);
+            $this->includeTutoProfil($newUser->id);
 
             auth()->login($newUser, true);
         }
@@ -103,6 +119,7 @@ class LoginSocialController extends Controller
                 "user_id" => $newUser->id,
                 "google_id" => $user->id
             ]);
+            $this->includeTutoProfil($newUser->id);
 
             auth()->login($newUser, true);
         }
@@ -128,6 +145,7 @@ class LoginSocialController extends Controller
                 "user_id" => $newUser->id,
                 "twitter_id" => $user->id
             ]);
+            $this->includeTutoProfil($newUser->id);
 
             auth()->login($newUser, true);
         }
@@ -160,6 +178,7 @@ class LoginSocialController extends Controller
                 "user_id" => $newUser->id,
                 "Steam_id" => $user->id
             ]);
+            $this->includeTutoProfil($newUser->id);
 
             auth()->login($newUser, true);
         }
@@ -193,10 +212,16 @@ class LoginSocialController extends Controller
                 "discord_user_id" => $user->id,
                 "discord_private_channel_id" => app(Discord::class)->getPrivateChannel($user->id)
             ]);
+            $this->includeTutoProfil($newUser->id);
 
             auth()->login($newUser, true);
         }
 
         return redirect()->to('/');
+    }
+
+    private function includeTutoProfil($user_id)
+    {
+        $this->userRepository->storeInvolveTutoWrapper($user_id);
     }
 }

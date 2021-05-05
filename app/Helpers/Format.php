@@ -102,4 +102,85 @@ class Format
             default: return null;
         }
     }
+
+    public static function percentProfilComplete($value){
+        if($value <= 33) {
+            return '
+                <div class="progress progress-xs mx-3 w-100">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: '.$value.'%;" aria-valuenow="'.$value.'" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="font-weight-bolder text-dark">'.round($value, 0).' % completer</span>';
+        } elseif($value > 34 && $value <= 66) {
+            return '
+                <div class="progress progress-xs mx-3 w-100">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: '.$value.'%;" aria-valuenow="'.$value.'" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="font-weight-bolder text-dark">'.round($value, 0).' % completer</span>';
+        } else {
+            return '
+                <div class="progress progress-xs mx-3 w-100">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: '.$value.'%;" aria-valuenow="'.$value.'" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="font-weight-bolder text-dark">'.round($value, 0).' % completer</span>';
+        }
+    }
+
+    public static function formatSocialProvider($provider, $user)
+    {
+        switch ($provider) {
+            case 'facebook':
+                if($user->social->facebook_id)
+                    return '<div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
+                                <i class="socicon-facebook text-default"></i>
+                            </div>';
+                else
+                    return '<div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
+                                <i class="socicon-facebook text-default"></i>
+                            </div>';
+                break;
+
+            case 'google':
+                if($user->social->google_id)
+                    return '<div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
+                                <i class="socicon-google text-default"></i>
+                            </div>';
+                else
+                    return '<div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
+                                <i class="socicon-google text-default"></i>
+                            </div>';
+                break;
+
+            case 'twitter':
+                if($user->social->twitter_id)
+                    return '<div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
+                                <i class="socicon-twitter text-default"></i>
+                            </div>';
+                else
+                    return '<div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
+                                <i class="socicon-twitter text-default"></i>
+                            </div>';
+                break;
+
+            case 'steam':
+                if($user->social->steam_id)
+                    return '<div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
+                                <i class="socicon-steam text-default"></i>
+                            </div>';
+                else
+                    return '<div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
+                                <i class="socicon-steam text-default"></i>
+                            </div>';
+                break;
+
+            case 'discord':
+                if($user->social->discord_user_id)
+                    return '<div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
+                                <i class="socicon-facebook text-default"></i>
+                            </div>';
+                else
+                    return '<div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
+                                <i class="socicon-facebook text-default"></i>
+                            </div>';
+        }
+    }
 }

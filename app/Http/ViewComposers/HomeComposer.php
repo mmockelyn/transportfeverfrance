@@ -21,7 +21,8 @@ class HomeComposer
             'categories' => BlogCategory::has('blogs')->get(),
             'pages' => Page::select('slug', 'title'),
             'download_categories' => DownloadCategory::all(),
-            'follows' => Follow::all()
+            'follows' => Follow::all(),
+            'providers' => config('app.social_provider_active')
         ]);
 
         if(!auth()->guest()) {

@@ -25,3 +25,7 @@ Route::group(["prefix" => "download"], function () {
     Route::post('{slug}/ticket/{ticket_id}/composer', [DownloadController::class, 'composer']);
     Route::get('{slug}/ticket/{ticket_id}/close', [DownloadController::class, 'close']);
 });
+
+Route::group(["prefix" => "user"], function () {
+    Route::get('{user_id}', [\App\Http\Controllers\Api\Front\UserController::class, 'get']);
+});

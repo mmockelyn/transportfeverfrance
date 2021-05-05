@@ -23,7 +23,6 @@
     <link href="{{ asset('/front/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('/front/assets/plugins/custom/prismjs/prismjs.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('/front/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="{{asset("vendor/cookie-consent/css/cookie-consent.css")}}">
     <link href="{{ asset('/front/css/app.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Theme Styles-->
     <!--begin::Layout Themes(used by all pages)-->

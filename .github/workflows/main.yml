@@ -75,7 +75,8 @@ jobs:
             cd /www/wwwroot/transportfeverfrance.tk/
             git checkout -f
             git pull
-            composer install
+            composer install --no-dev
+            php artisan key:generate
             php artisan system:clear
             supervisorctl update
             supervisorctl start horizon

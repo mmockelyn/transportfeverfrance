@@ -14,6 +14,8 @@ use App\Models\Download\DownloadVersion;
 use App\Models\Download\DownloadWiki;
 use App\Models\Page;
 use App\Models\User;
+use App\Models\UserSocial;
+use App\Models\UserTutorial;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -36,9 +38,21 @@ class DatabaseSeeder extends Seeder
                 'group' => 0,
                 'avatar' => null,
             ]);
+
+            User::factory()->count(3)->create([
+                'group' => 0,
+            ]);
         });
 
-        $nbUsers = 1;
+        $nbUsers = 4;
+        $users = User::all();
+
+        foreach ($users as $user) {
+            UserTutorial::factory()->count(10)->create([
+                'user_id' => $user->id
+            ]);
+            UserSocial::create(["user_id" => $user->id]);
+        }
 
 
         DB::table('blog_categories')->insert([

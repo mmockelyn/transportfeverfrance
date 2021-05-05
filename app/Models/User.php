@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\ModelCreated;
 use App\Models\Blog\BlogComment;
+use App\Models\Download\DownloadComment;
 use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadSupportRoom;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -61,6 +62,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(BlogComment::class);
     }
 
+    public function downloadcomments()
+    {
+        return $this->hasMany(DownloadComment::class);
+    }
+
     public function downloadsupports()
     {
         return $this->hasMany(DownloadSupport::class);
@@ -74,6 +80,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function rooms()
     {
         return $this->hasMany(DownloadSupportRoom::class);
+    }
+
+    public function tutorials()
+    {
+        return $this->hasMany(UserTutorial::class);
     }
 
     public function routeNotificationForDiscord()
