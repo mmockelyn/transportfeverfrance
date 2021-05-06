@@ -166,6 +166,13 @@ return [
      */
 
     'social_provider' => true,
+    'social_provider_active' => [
+        'facebook',
+        'twitter',
+        'google',
+        'steam',
+        'discord'
+    ],
 
 
     'providers' => [

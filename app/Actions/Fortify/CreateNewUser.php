@@ -2,7 +2,10 @@
 
 namespace App\Actions\Fortify;
 
+use App\Helpers\Format;
 use App\Models\User;
+use App\Models\UserSocial;
+use App\Repository\Account\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -11,6 +14,20 @@ use Laravel\Fortify\Contracts\CreatesNewUsers;
 class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * CreateNewUser constructor.
+     * @param UserRepository $userRepository
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
 
     /**
      * Validate and create a newly registered user.
@@ -32,10 +49,21 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
-        return User::create([
+        $complexity = Format::passwordComplexity($input['password']);
+
+        $user =  User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+            'password_complexity' => $complexity
         ]);
+
+        UserSocial::create([
+            "user_id" => $user->id
+        ]);
+
+        $this->userRepository->storeInvolveTutoWrapper($user->id);
+
+        return $user;
     }
 }

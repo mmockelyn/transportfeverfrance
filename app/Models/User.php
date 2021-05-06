@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Events\ModelCreated;
 use App\Models\Blog\BlogComment;
+use App\Models\Download\Download;
+use App\Models\Download\DownloadComment;
 use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadSupportRoom;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -24,11 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -40,7 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
-    protected $dates = ["created_at", "updated_at", "last_seen"];
+    protected $dates = ["created_at", "updated_at", "last_seen", "deleted_at"];
 
     /**
      * The attributes that should be cast to native types.
@@ -61,9 +59,19 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(BlogComment::class);
     }
 
+    public function downloadcomments()
+    {
+        return $this->hasMany(DownloadComment::class);
+    }
+
     public function downloadsupports()
     {
         return $this->hasMany(DownloadSupport::class);
+    }
+
+    public function downloads()
+    {
+        return $this->belongsToMany(Download::class);
     }
 
     public function isAdmin()
@@ -74,6 +82,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function rooms()
     {
         return $this->hasMany(DownloadSupportRoom::class);
+    }
+
+    public function tutorials()
+    {
+        return $this->hasMany(UserTutorial::class);
+    }
+
+    public function faileds()
+    {
+        return $this->hasMany(FailedLoginAttempt::class);
     }
 
     public function routeNotificationForDiscord()
