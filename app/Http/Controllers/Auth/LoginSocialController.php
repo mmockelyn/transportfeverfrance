@@ -120,6 +120,7 @@ class LoginSocialController extends Controller
                 "google_id" => $user->id
             ]);
             $this->includeTutoProfil($newUser->id);
+            $newUser->sendEmailVerificationNotification();
 
             auth()->login($newUser, true);
         }
@@ -146,6 +147,8 @@ class LoginSocialController extends Controller
                 "twitter_id" => $user->id
             ]);
             $this->includeTutoProfil($newUser->id);
+
+            $newUser->sendEmailVerificationNotification();
 
             auth()->login($newUser, true);
         }
@@ -180,6 +183,8 @@ class LoginSocialController extends Controller
             ]);
             $this->includeTutoProfil($newUser->id);
 
+            $newUser->sendEmailVerificationNotification();
+
             auth()->login($newUser, true);
         }
 
@@ -213,6 +218,8 @@ class LoginSocialController extends Controller
                 "discord_private_channel_id" => app(Discord::class)->getPrivateChannel($user->id)
             ]);
             $this->includeTutoProfil($newUser->id);
+
+            $newUser->sendEmailVerificationNotification();
 
             auth()->login($newUser, true);
         }

@@ -293,7 +293,11 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="config" role="tabpanel"></div>
+            <div class="tab-pane" id="config" role="tabpanel">
+                <form action="{{ route('account.profil.update') }}" method="POST" id="formUpdateUser">
+
+                </form>
+            </div>
             <div class="tab-pane" id="security" role="tabpanel"></div>
         </div>
     </div>

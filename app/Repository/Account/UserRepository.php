@@ -36,16 +36,20 @@ class UserRepository
         $this->tutorial = $tutorial;
     }
 
-    public function getInfoUser($user_id)
+    public function getInfoUser($user_id = null)
     {
-        return $this->user->newQuery()->findOrFail($user_id);
+        if($user_id == null) {
+            return $this->user->newQuery()->findOrFail(auth()->user()->id);
+        } else {
+            return $this->user->newQuery()->findOrFail($user_id);
+        }
     }
 
     public function storeInvolveTutoWrapper($user_id)
     {
         $user = $this->getInfoUser($user_id);
 
-        if ($user->description !== null)
+        if ($user->valid !== 0)
             $this->tutorial->newQuery()->create(['identifier' => "1", 'title' => "Validation de votre compte", 'user_id' => $user_id, 'checked' => true]);
         else
             $this->tutorial->newQuery()->create(['identifier' => "1", 'title' => "Validation de votre compte", 'user_id' => $user_id, 'checked' => false]);
@@ -79,6 +83,11 @@ class UserRepository
             $this->tutorial->newQuery()->create(['identifier' => "7", 'title' => "Connexion de votre compte discord", 'user_id' => $user_id, 'checked' => true]);
         else
             $this->tutorial->newQuery()->create(['identifier' => "7", 'title' => "Connexion de votre compte discord", 'user_id' => $user_id, 'checked' => false]);
+
+        if ($user->description !== 0)
+            $this->tutorial->newQuery()->create(['identifier' => "8", 'title' => "Ajout d'une description", 'user_id' => $user_id, 'checked' => true]);
+        else
+            $this->tutorial->newQuery()->create(['identifier' => "8", 'title' => "Ajout d'une description", 'user_id' => $user_id, 'checked' => false]);
     }
 
     public function checkedTutoriel($user_id, $identifier)

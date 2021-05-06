@@ -31,4 +31,18 @@ class ProfilController extends Controller
 
         return view('account.profil', compact('user', 'profilPercent'));
     }
+
+    public function updateUser(Request $request)
+    {
+        $user = $this->userRepository->getInfoUser()->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'description' => $request->description
+        ]);
+
+        if($user->description !== null)
+            $this->userRepository->checkedTutoriel($user->id, );
+
+
+    }
 }
