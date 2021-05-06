@@ -175,6 +175,124 @@
                 <!--begin::Items-->
             </div>
         </div>
+        <div class="tab-content pt-5">
+            <div class="tab-pane active" id="overview" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card card-custom card-stretch gutter-b">
+                            <!--begin::Header-->
+                            <div class="card-header border-0">
+                                <h3 class="card-title font-weight-bolder text-dark">Derniers Packages</h3>
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body pt-2">
+                                <!--begin::Item-->
+                                @if($user->downloads()->count() == 0)
+                                    <div class="alert alert-custom alert-outline-primary fade show mb-5" role="alert">
+                                        <div class="alert-icon">
+                                            <i class="flaticon-close"></i>
+                                        </div>
+                                        <div class="alert-text">Aucun package disponible</div>
+                                    </div>
+                                @else
+                                    @foreach($user->downloads()->orderBy('updated_at', 'desc')->limit(5)->get() as $download)
+                                        <div class="d-flex flex-wrap align-items-center mb-10">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                                                @if(\Illuminate\Support\Facades\Storage::exists('files/shares/download/'.$download->image) == true)
+                                                    <div class="symbol-label" style="background-image: url('/storage/files/shares/download/{{ $download->image }}')"></div>
+                                                @else
+                                                    <div class="symbol-label" style="background-image: url('https://via.placeholder.com/600x400')"></div>
+                                                @endif
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Title-->
+                                            <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
+                                                <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">{{ $download->title }}</a>
+                                                <span class="text-muted font-weight-bold font-size-sm my-1">{{ $download->category->title }} -> {{ $download->subcategory->title }}</span>
+                                                <span class="text-muted font-weight-bold font-size-sm">Mise à jour:
+																<span class="text-primary font-weight-bold">{{ $download->updated_at->format("d/m/Y à H:i") }}</span></span>
+                                            </div>
+                                            <!--end::Title-->
+                                            <!--begin::Info-->
+                                            <div class="d-flex align-items-center py-lg-0 py-2">
+                                                <div class="d-flex flex-column text-right mr-5">
+                                                    <span class="text-dark-75 font-weight-bolder font-size-h4">{{ $download->count_view }}</span>
+                                                    <span class="text-muted font-size-sm font-weight-bolder">Vues</span>
+                                                </div>
+                                                <div class="d-flex flex-column text-right">
+                                                    <button class="btn btn-icon btn-lg btn-default"><i class="fas fa-eye"></i> </button>
+                                                </div>
+                                            </div>
+                                            <!--end::Info-->
+                                        </div>
+                                @endforeach
+                                @endif
+                                <!--end::Item-->
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-custom card-stretch gutter-b">
+                            <!--begin::Header-->
+                            <div class="card-header border-0">
+                                <h3 class="card-title font-weight-bolder text-dark">Derniers Commentaire (Téléchargement)</h3>
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body pt-2">
+                                <!--begin::Item-->
+                                @if($user->downloadcomments()->count() == 0)
+                                    <div class="alert alert-custom alert-outline-primary fade show mb-5" role="alert">
+                                        <div class="alert-icon">
+                                            <i class="flaticon-close"></i>
+                                        </div>
+                                        <div class="alert-text">Aucun Commentaire publier</div>
+                                    </div>
+                                @else
+                                    @foreach($user->downloadcomments()->orderBy('updated_at', 'desc')->limit(5)->get() as $comment)
+
+                                    @endforeach
+                            @endif
+                            <!--end::Item-->
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-custom card-stretch gutter-b">
+                            <!--begin::Header-->
+                            <div class="card-header border-0">
+                                <h3 class="card-title font-weight-bolder text-dark">Derniers Commentaire (Blog)</h3>
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body pt-2">
+                                <!--begin::Item-->
+                                @if($user->blogcomments()->count() == 0)
+                                    <div class="alert alert-custom alert-outline-primary fade show mb-5" role="alert">
+                                        <div class="alert-icon">
+                                            <i class="flaticon-close"></i>
+                                        </div>
+                                        <div class="alert-text">Aucun Commentaire publier</div>
+                                    </div>
+                                @else
+                                    @foreach($user->blogcomments()->orderBy('updated_at', 'desc')->limit(5)->get() as $comment)
+
+                                    @endforeach
+                            @endif
+                            <!--end::Item-->
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="config" role="tabpanel"></div>
+            <div class="tab-pane" id="security" role="tabpanel"></div>
+        </div>
     </div>
 @endsection
 

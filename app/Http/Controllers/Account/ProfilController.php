@@ -27,6 +27,8 @@ class ProfilController extends Controller
         $user = $this->userRepository->getInfoUser(auth()->user()->id);
         $profilPercent = $this->userRepository->getValueCompleteTuto(auth()->user()->id);
 
+//        /dd($user->downloads()->orderBy('updated_at', 'desc')->limit(5)->get());
+
         return view('account.profil', compact('user', 'profilPercent'));
     }
 }

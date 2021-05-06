@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\ModelCreated;
 use App\Models\Blog\BlogComment;
+use App\Models\Download\Download;
 use App\Models\Download\DownloadComment;
 use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadSupportRoom;
@@ -70,6 +71,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function downloadsupports()
     {
         return $this->hasMany(DownloadSupport::class);
+    }
+
+    public function downloads()
+    {
+        return $this->belongsToMany(Download::class);
     }
 
     public function isAdmin()

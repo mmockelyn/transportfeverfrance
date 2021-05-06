@@ -218,7 +218,7 @@ class DatabaseSeeder extends Seeder
 
                     DB::table('download_user')->insert([
                         "download_id" => $download->id,
-                        "user_id" => 1
+                        "user_id" => rand(1, 4)
                     ]);
                 }
             }
@@ -230,7 +230,7 @@ class DatabaseSeeder extends Seeder
         foreach (range(1, $nbrDownload - 1) as $download) {
             DownloadVersion::factory()->create([
                 'download_id' => $download,
-                'user_id' => 1
+                'user_id' => rand(1, 4)
             ]);
         }
 
@@ -238,7 +238,7 @@ class DatabaseSeeder extends Seeder
             for ($i = 0; $i < rand(1, 5); $i++) {
                 DownloadSupport::factory()->create([
                     "download_id" => $download,
-                    "user_id" => 1
+                    "user_id" => rand(1, 4)
                 ]);
             }
 
