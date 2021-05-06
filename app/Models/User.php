@@ -38,7 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
-    protected $dates = ["created_at", "updated_at", "last_seen"];
+    protected $dates = ["created_at", "updated_at", "last_seen", "deleted_at"];
 
     /**
      * The attributes that should be cast to native types.
@@ -87,6 +87,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function tutorials()
     {
         return $this->hasMany(UserTutorial::class);
+    }
+
+    public function faileds()
+    {
+        return $this->hasMany(FailedLoginAttempt::class);
     }
 
     public function routeNotificationForDiscord()

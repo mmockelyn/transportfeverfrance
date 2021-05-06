@@ -1,6 +1,6 @@
 @extends("front.layouts.layout")
 @section("styles")
-
+    <link rel="stylesheet" href="{{ asset('front/assets/plugins/custom/password-requirement/css/jquery.passwordRequirements.css') }}">
 @endsection
 
 @section("bread")
@@ -34,6 +34,7 @@
 @section("content")
     <!-- Slider -->
     <div class="container-fluid" id="profile" data-id="{{ $user->id }}">
+        <x-account.deleted_account :user="$user"/>
         <div class="card card-custom gutter-b">
             <div class="card-body">
                 <!--begin::Details-->
@@ -377,42 +378,101 @@
             </div>
             <div class="tab-pane" id="security" role="tabpanel">
                 <div class="row">
-                    <div class="col-9"></div>
+                    <div class="col-9">
+                        <div class="accordion accordion-solid accordion-panel accordion-svg-toggle" id="accordionExample8">
+                            <div class="card">
+                                <div class="card-header" id="headingOne8">
+                                    <div class="card-title" data-toggle="collapse" data-target="#password">
+                                        <div class="card-label">Changement du mot de passe</div>
+                                        <span class="svg-icon">
+											<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Angle-double-right.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<polygon points="0 0 24 0 24 24 0 24"></polygon>
+													<path d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z" fill="#000000" fill-rule="nonzero"></path>
+													<path d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999)"></path>
+												</g>
+											</svg>
+                                        <!--end::Svg Icon-->
+										</span>
+                                    </div>
+                                </div>
+                                <div id="password" class="collapse show" data-parent="#accordionExample8">
+                                    <div class="card-body">
+                                        <form action="{{ route('account.profil.password') }}" method="POST" id="formPasswordUpdate">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="form-group">
+                                                <label>Ancien mot de passe <span class="text-danger">*</span></label>
+                                                <input type="password" class="form-control" name="old_password" @if($user->password == null) readonly disabled @else required @endif >
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Nouveau mot de passe <span class="text-danger">*</span></label>
+                                                <input type="password" class="form-control pr-password" name="password" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Confirmation du mot de passe <span class="text-danger">*</span></label>
+                                                <input type="password" class="form-control" name="password_confirmation" required>
+                                            </div>
+                                            <div class="text-right">
+                                                <button type="submit" class="btn btn-primary" id="btnFormPassUpdate"><i class="fas fa-check"></i> Mettre à jours</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingOne8">
+                                    <div class="card-title" data-toggle="collapse" data-target="#dangerZone">
+                                        <div class="card-label text-danger">Danger Zone</div>
+                                        <span class="svg-icon">
+											<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Angle-double-right.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<polygon points="0 0 24 0 24 24 0 24"></polygon>
+													<path d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z" fill="#000000" fill-rule="nonzero"></path>
+													<path d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999)"></path>
+												</g>
+											</svg>
+                                        <!--end::Svg Icon-->
+										</span>
+                                    </div>
+                                </div>
+                                <div id="dangerZone" class="collapse" data-parent="#accordionExample8">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <p class="h3 fw-bold">Vous n'êtes pas satisfait du contenu du site ?<br>
+                                                    Ou vous souhaitez supprimer toutes les informations associées à ce compte ?</p>
+                                            </div>
+                                            <div class="col-3">
+                                                <button class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#deleteAccount"><i class="fas fa-trash"></i> Supprimer mon compte</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-3">
                         <div class="card card-custom">
                             <div class="card-header">
                                 <h3 class="card-title">Etat de la sécurité de votre compte</h3>
                             </div>
                             <div class="card-body text-center">
-                                <div class="symbol symbol-150 symbol-circle mr-3 mb-7" style="border: solid 3px #ff7d20">
-                                    <span class="symbol-label">
-                                        <span class="svg-icon svg-icon-primary svg-icon-10x">
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <rect x="0" y="0" width="24" height="24"/>
-                                                    <path d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z" fill="#000000" opacity="0.3"/>
-                                                    <path d="M14.5,11 C15.0522847,11 15.5,11.4477153 15.5,12 L15.5,15 C15.5,15.5522847 15.0522847,16 14.5,16 L9.5,16 C8.94771525,16 8.5,15.5522847 8.5,15 L8.5,12 C8.5,11.4477153 8.94771525,11 9.5,11 L9.5,10.5 C9.5,9.11928813 10.6192881,8 12,8 C13.3807119,8 14.5,9.11928813 14.5,10.5 L14.5,11 Z M12,9 C11.1715729,9 10.5,9.67157288 10.5,10.5 L10.5,11 L13.5,11 L13.5,10.5 C13.5,9.67157288 12.8284271,9 12,9 Z" fill="#000000"/>
-                                                </g>
-                                            </svg>
-                                        </span>
-                                    </span>
-                                </div>
+                                <x-account.shield_security :user="$user"/>
                                 <table class="table">
                                     <tbody>
                                         <tr>
                                             <td class="text-left">Complexité du mot de passe</td>
                                             <td class="text-right">
-                                                @if($user->password_complexity !== null)
-                                                    @if($user->password_complexity <= 15)
-                                                        <span class="label label-pill label-inline label-danger" data-toggle="tooltip" data-theme="dark" title="Complexity: {{ $user->password_complexity }}">Bas</span>
-                                                    @elseif($user->password_complexity >= 16 && $user->password_complexity <= 49)
-                                                        <span class="label label-pill label-inline label-warning" data-toggle="tooltip" data-theme="dark" title="Complexity: {{ $user->password_complexity }}">Moyen</span>
-                                                    @else
-                                                        <span class="label label-pill label-inline label-success" data-toggle="tooltip" data-theme="dark" title="Complexity: {{ $user->password_complexity }}">Haut</span>
-                                                    @endif
-                                                @else
-                                                    <i class="fas fa-warning" data-toggle="tooltip" data-theme="dark" title="Connexion social, mot de passe non définie"></i>
-                                                @endif
+                                                <x-account.password_complexity :user="$user"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">Etat des entrées echouer</td>
+                                            <td class="text-right">
+                                                <x-account.state_entry_attempt :user="$user"/>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -424,8 +484,36 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmation de la suppression du compte</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h1 class="fw-bolder">Confirmer la suppression</h1>
+                    <p>
+                        Vous êtes sur le point de supprimer votre compte {{ env('APP_NAME') }}.<br>
+                        Pour confirmer cette demande merci de rentrer votre mot de passe. Le compte
+                        sera supprimer dans les 5 jours.
+                    </p>
+                    <form action="{{ route('account.profil.delete') }}" method="POST" id="formDeleteAccount">
+                        @csrf
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" placeholder="Entrez votre mot de passe pour confirmer" required>
+                        </div>
+                        <button class="btn btn-block btn-danger btn-lg" id="btnDeleteAccount"><i class="fas fa-trash"></i> Confirmer la suppression</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section("scripts")
+    <script src="{{ asset('front/assets/plugins/custom/password-requirement/js/jquery.passwordRequirements.js') }}"></script>
     <script src="{{ asset('/front/js/account/profil.js') }}"></script>
 @endsection

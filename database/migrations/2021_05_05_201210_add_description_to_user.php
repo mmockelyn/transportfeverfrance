@@ -16,6 +16,8 @@ class AddDescriptionToUser extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->text('description')->nullable();
             $table->integer('password_complexity')->default(0);
+            $table->timestamp('deleted_at')->nullable();
+            $table->string('deleted_job_id')->nullable();
         });
     }
 

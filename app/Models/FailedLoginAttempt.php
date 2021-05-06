@@ -9,6 +9,11 @@ class FailedLoginAttempt extends Model
 {
     protected $fillable = ['user_id', 'email_address', 'ip_address', 'created_at'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public static function record($email, $ip, $user = null)
     {
         return static::create([
