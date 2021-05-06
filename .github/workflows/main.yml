@@ -79,3 +79,4 @@ jobs:
             php artisan key:generate
             php artisan system:clear
             php artisan migrate:fresh --seed
+            php artisan horizon
