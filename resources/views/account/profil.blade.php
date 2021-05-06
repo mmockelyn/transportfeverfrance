@@ -340,7 +340,39 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-3"></div>
+                    <div class="col-3">
+                        <div class="card card-custom">
+                            <div class="card-header">
+                                <h3 class="card-title">Edition de l'avatar</h3>
+                            </div>
+                            <div class="card-body">
+                                <form action="{{ route('account.profil.avatar') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="image-input image-input-outline image-input-circle" id="kt_image_3">
+                                        @if($user->avatar)
+                                            <div class="image-input-wrapper" style="background-image: url({{ $user->avatar }})"></div>
+                                        @else
+                                            <div class="image-input-wrapper" style="background-image: url({{ \Creativeorange\Gravatar\Facades\Gravatar::get($user->email) }})"></div>
+                                        @endif
+
+                                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
+                                            <i class="fa fa-pen icon-sm text-muted"></i>
+                                            <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg"/>
+                                            <input type="hidden" name="profile_avatar_remove"/>
+                                        </label>
+
+                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
+                                          <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                         </span>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" id="btnFormUpdateUser" class="btn btn-block btn-primary"><i class="fas fa-check"></i> Mettre à jour</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="tab-pane" id="security" role="tabpanel"></div>

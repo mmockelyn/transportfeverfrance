@@ -7,6 +7,7 @@ use App\Notifications\Account\UpdateInfoProfil;
 use App\Repository\Account\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ProfilController extends Controller
 {
@@ -53,6 +54,29 @@ class ProfilController extends Controller
         }catch (\Exception $exception) {
             Log::error($exception->getMessage());
             return response()->json();
+        }
+    }
+
+    public function updateAvatar(Request $request)
+    {
+        try {
+            $uploadedFile = $request->file('profile_avatar');
+            $uploadedFile->storeAs('files/shares/avatar/', $uploadedFile->getClientOriginalName(), 'public');
+
+            $this->userRepository->getInfoUser()->update([
+                'avatar' => Storage::url('files/shares/avatar/'.$uploadedFile->getClientOriginalName())
+            ]);
+
+            $user = $this->userRepository->getInfoUser();
+
+            if($user->avatar !== null)
+                $this->userRepository->checkedTutoriel($user->id, 2);
+
+            $user->notify(new UpdateInfoProfil());
+            return redirect()->back();
+        }catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return redirect()->back();
         }
     }
 }
