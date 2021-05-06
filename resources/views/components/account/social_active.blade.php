@@ -1,6 +1,6 @@
 @props(['user'])
 
-@if($user->social->facebook_id)
+@if($user->social->facebook_id != null)
     <div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
         <i class="socicon-facebook text-primary"></i>
     </div>
@@ -10,7 +10,7 @@
     </div>
 @endif
 
-@if($user->social->google_id)
+@if($user->social->google_id != null)
     <div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
         <i class="socicon-google text-primary"></i>
     </div>
@@ -20,7 +20,7 @@
     </div>
 @endif
 
-@if($user->social->twitter_id)
+@if($user->social->twitter_id != null)
     <div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
         <i class="socicon-twitter text-primary"></i>
     </div>
@@ -30,7 +30,7 @@
     </div>
 @endif
 
-@if($user->social->steam_id)
+@if($user->social->steam_id != null)
     <div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
         <i class="socicon-steam text-primary"></i>
     </div>
@@ -40,7 +40,7 @@
     </div>
 @endif
 
-@if($user->social->discord_user_id)
+@if($user->social->discord_user_id != null)
     <div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
         <i class="socicon-discord text-primary"></i>
     </div>

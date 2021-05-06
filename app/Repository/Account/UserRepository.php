@@ -45,42 +45,47 @@ class UserRepository
     {
         $user = $this->getInfoUser($user_id);
 
-        if($user->description !== null)
-            $this->tutorial->newQuery()->create(['title' => "Validation de votre compte", 'user_id' => $user_id, 'checked' => true]);
+        if ($user->description !== null)
+            $this->tutorial->newQuery()->create(['identifier' => "1", 'title' => "Validation de votre compte", 'user_id' => $user_id, 'checked' => true]);
         else
-            $this->tutorial->newQuery()->create(['title' => "Validation de votre compte", 'user_id' => $user_id, 'checked' => false]);
+            $this->tutorial->newQuery()->create(['identifier' => "1", 'title' => "Validation de votre compte", 'user_id' => $user_id, 'checked' => false]);
 
-        if($user->avatar !== null)
-            $this->tutorial->newQuery()->create(['title' => "Définition de votre avatar", 'user_id' => $user_id, 'checked' => true]);
+        if ($user->avatar !== null)
+            $this->tutorial->newQuery()->create(['identifier' => "2", 'title' => "Définition de votre avatar", 'user_id' => $user_id, 'checked' => true]);
         else
-            $this->tutorial->newQuery()->create(['title' => "Définition de votre avatar", 'user_id' => $user_id, 'checked' => false]);
+            $this->tutorial->newQuery()->create(['identifier' => "2", 'title' => "Définition de votre avatar", 'user_id' => $user_id, 'checked' => false]);
 
-        if($user->social->facebook_id !== null)
-            $this->tutorial->newQuery()->create(['title' => "Connexion de votre compte facebook", 'user_id' => $user_id, 'checked' => true]);
+        if ($user->social->facebook_id !== null)
+            $this->tutorial->newQuery()->create(['identifier' => "3", 'title' => "Connexion de votre compte facebook", 'user_id' => $user_id, 'checked' => true]);
         else
-            $this->tutorial->newQuery()->create(['title' => "Connexion de votre compte facebook", 'user_id' => $user_id, 'checked' => false]);
+            $this->tutorial->newQuery()->create(['identifier' => "3", 'title' => "Connexion de votre compte facebook", 'user_id' => $user_id, 'checked' => false]);
 
-        if($user->social->google_id !== null)
-            $this->tutorial->newQuery()->create(['title' => "Connexion de votre compte google", 'user_id' => $user_id, 'checked' => true]);
+        if ($user->social->google_id !== null)
+            $this->tutorial->newQuery()->create(['identifier' => "4", 'title' => "Connexion de votre compte google", 'user_id' => $user_id, 'checked' => true]);
         else
-            $this->tutorial->newQuery()->create(['title' => "Connexion de votre compte google", 'user_id' => $user_id, 'checked' => false]);
+            $this->tutorial->newQuery()->create(['identifier' => "4", 'title' => "Connexion de votre compte google", 'user_id' => $user_id, 'checked' => false]);
 
-        if($user->social->twitter_id !== null)
-            $this->tutorial->newQuery()->create(['title' => "Connexion de votre compte twitter", 'user_id' => $user_id, 'checked' => true]);
+        if ($user->social->twitter_id !== null)
+            $this->tutorial->newQuery()->create(['identifier' => "5", 'title' => "Connexion de votre compte twitter", 'user_id' => $user_id, 'checked' => true]);
         else
-            $this->tutorial->newQuery()->create(['title' => "Connexion de votre compte twitter", 'user_id' => $user_id, 'checked' => false]);
+            $this->tutorial->newQuery()->create(['identifier' => "5", 'title' => "Connexion de votre compte twitter", 'user_id' => $user_id, 'checked' => false]);
 
-        if($user->social->steam_id !== null)
-            $this->tutorial->newQuery()->create(['title' => "Connexion de votre compte steam", 'user_id' => $user_id, 'checked' => true]);
+        if ($user->social->steam_id !== null)
+            $this->tutorial->newQuery()->create(['identifier' => "6", 'title' => "Connexion de votre compte steam", 'user_id' => $user_id, 'checked' => true]);
         else
-            $this->tutorial->newQuery()->create(['title' => "Connexion de votre compte steam", 'user_id' => $user_id, 'checked' => false]);
+            $this->tutorial->newQuery()->create(['identifier' => "6", 'title' => "Connexion de votre compte steam", 'user_id' => $user_id, 'checked' => false]);
 
-        if($user->social->discord_user_id !== null)
-            $this->tutorial->newQuery()->create(['title' => "Connexion de votre compte discord", 'user_id' => $user_id, 'checked' => true]);
+        if ($user->social->discord_user_id !== null)
+            $this->tutorial->newQuery()->create(['identifier' => "7", 'title' => "Connexion de votre compte discord", 'user_id' => $user_id, 'checked' => true]);
         else
-            $this->tutorial->newQuery()->create(['title' => "Connexion de votre compte discord", 'user_id' => $user_id, 'checked' => false]);
+            $this->tutorial->newQuery()->create(['identifier' => "7", 'title' => "Connexion de votre compte discord", 'user_id' => $user_id, 'checked' => false]);
+    }
 
-
+    public function checkedTutoriel($user_id, $identifier)
+    {
+        $tuto = $this->tutorial->newQuery()->where('identifier', $identifier)->first()->update([
+            'checked' => true
+        ]);
     }
 
     public function getValueCompleteTuto($user_id)
@@ -89,7 +94,11 @@ class UserRepository
         $total = $all->count();
         $complete = $all->where('checked', 1)->count();
 
-        return 100*$complete/$total;
+        if ($complete == 0) {
+            return 0;
+        } else {
+            return 100 * $complete / $total;
+        }
     }
 
 

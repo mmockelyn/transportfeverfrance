@@ -65,6 +65,9 @@
                             <div class="my-lg-0 my-3">
                                 <!--<a href="#" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">ask</a>
                                 <a href="#" class="btn btn-sm btn-info font-weight-bolder text-uppercase">hire</a>-->
+                                @if($user->valid == 0 && $user->email_verified_at == null)
+                                    <a href="/email/verify" class="btn btn-xs btn-danger" data-toggle="tooltip" data-theme="dark" title="Renvoyer le mail de vérification"><i class="fas fa-envelope"></i> Compte non valider</a>
+                                @endif
                                 <x-account.social_active :user="$user"/>
                             </div>
                         </div>

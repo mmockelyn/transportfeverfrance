@@ -48,9 +48,12 @@ class DatabaseSeeder extends Seeder
         $users = User::all();
 
         foreach ($users as $user) {
-            UserTutorial::factory()->count(10)->create([
-                'user_id' => $user->id
-            ]);
+            for($i=0; $i < 9; $i++) {
+                UserTutorial::factory()->create([
+                    'user_id' => $user->id,
+                    'identifier' => $i
+                ]);
+            }
             UserSocial::create(["user_id" => $user->id]);
         }
 
