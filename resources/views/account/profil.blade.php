@@ -157,6 +157,24 @@
                                     <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Sécurité</span>
                                 </a>
                             </li>
+                            <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
+                                <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="tab" href="#social">
+                                    <span class="nav-icon py-2 w-auto">
+										<span class="svg-icon svg-icon-3x">
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <polygon points="0 0 24 0 24 24 0 24"/>
+                                                    <rect fill="#000000" opacity="0.3" transform="translate(13.000000, 6.000000) rotate(-450.000000) translate(-13.000000, -6.000000) " x="12" y="8.8817842e-16" width="2" height="12" rx="1"/>
+                                                    <path d="M9.79289322,3.79289322 C10.1834175,3.40236893 10.8165825,3.40236893 11.2071068,3.79289322 C11.5976311,4.18341751 11.5976311,4.81658249 11.2071068,5.20710678 L8.20710678,8.20710678 C7.81658249,8.59763107 7.18341751,8.59763107 6.79289322,8.20710678 L3.79289322,5.20710678 C3.40236893,4.81658249 3.40236893,4.18341751 3.79289322,3.79289322 C4.18341751,3.40236893 4.81658249,3.40236893 5.20710678,3.79289322 L7.5,6.08578644 L9.79289322,3.79289322 Z" fill="#000000" fill-rule="nonzero" transform="translate(7.500000, 6.000000) rotate(-270.000000) translate(-7.500000, -6.000000) "/>
+                                                    <rect fill="#000000" opacity="0.3" transform="translate(11.000000, 18.000000) scale(1, -1) rotate(90.000000) translate(-11.000000, -18.000000) " x="10" y="12" width="2" height="12" rx="1"/>
+                                                    <path d="M18.7928932,15.7928932 C19.1834175,15.4023689 19.8165825,15.4023689 20.2071068,15.7928932 C20.5976311,16.1834175 20.5976311,16.8165825 20.2071068,17.2071068 L17.2071068,20.2071068 C16.8165825,20.5976311 16.1834175,20.5976311 15.7928932,20.2071068 L12.7928932,17.2071068 C12.4023689,16.8165825 12.4023689,16.1834175 12.7928932,15.7928932 C13.1834175,15.4023689 13.8165825,15.4023689 14.2071068,15.7928932 L16.5,18.0857864 L18.7928932,15.7928932 Z" fill="#000000" fill-rule="nonzero" transform="translate(16.500000, 18.000000) scale(1, -1) rotate(270.000000) translate(-16.500000, -18.000000) "/>
+                                                </g>
+                                            </svg>
+										</span>
+									</span>
+                                    <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Connexion Social</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-md-4">
@@ -294,9 +312,36 @@
                 </div>
             </div>
             <div class="tab-pane" id="config" role="tabpanel">
-                <form action="{{ route('account.profil.update') }}" method="POST" id="formUpdateUser">
-
-                </form>
+                <div class="row">
+                    <div class="col-9">
+                        <div class="card card-custom">
+                            <div class="card-header">
+                                <h3 class="card-title">Editer mes informations</h3>
+                            </div>
+                            <div class="card-body">
+                                <form action="{{ route('account.profil.update') }}" method="POST" id="formUpdateUser">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>Adresse Mail</label>
+                                        <input type="email" class="form-control" name="email" value="{{ $user->email }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nom d'utilisateur ou Pseudo</label>
+                                        <input type="text" class="form-control" name="name" value="{{ $user->name }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <textarea class="form-control summernote" name="description">{!! $user->description !!}</textarea>
+                                    </div>
+                                    <div class="text-right">
+                                        <button type="submit" id="btnFormUpdateUser" class="btn btn-primary"><i class="fas fa-check"></i> Mettre à jour</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
             </div>
             <div class="tab-pane" id="security" role="tabpanel"></div>
         </div>

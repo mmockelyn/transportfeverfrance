@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\Account\UpdateInfoProfil;
 use App\Repository\Account\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProfilController extends Controller
 {
@@ -34,15 +36,23 @@ class ProfilController extends Controller
 
     public function updateUser(Request $request)
     {
-        $user = $this->userRepository->getInfoUser()->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'description' => $request->description
-        ]);
+        try {
+            $user = $this->userRepository->getInfoUser()->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'description' => $request->description
+            ]);
 
-        if($user->description !== null)
-            $this->userRepository->checkedTutoriel($user->id, );
+            $user = $this->userRepository->getInfoUser();
 
+            if($user->description !== null)
+                $this->userRepository->checkedTutoriel($user->id, 8);
 
+            $user->notify(new UpdateInfoProfil());
+            return response()->json();
+        }catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return response()->json();
+        }
     }
 }
