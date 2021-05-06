@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Repository\Account\UserRepository;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -9,6 +10,20 @@ use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * UpdateUserProfileInformation constructor.
+     * @param UserRepository $userRepository
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Validate and update the given user's profile information.
      *
@@ -54,7 +69,10 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'name' => $input['name'],
             'email' => $input['email'],
             'email_verified_at' => null,
+            'valid' => 1
         ])->save();
+
+        $this->userRepository->checkedTutoriel($user->id, 1);
 
         $user->sendEmailVerificationNotification();
     }

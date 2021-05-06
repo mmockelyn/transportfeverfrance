@@ -14,6 +14,8 @@ use App\Models\Download\DownloadVersion;
 use App\Models\Download\DownloadWiki;
 use App\Models\Page;
 use App\Models\User;
+use App\Models\UserSocial;
+use App\Models\UserTutorial;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -36,9 +38,24 @@ class DatabaseSeeder extends Seeder
                 'group' => 0,
                 'avatar' => null,
             ]);
+
+            User::factory()->count(3)->create([
+                'group' => 0,
+            ]);
         });
 
-        $nbUsers = 1;
+        $nbUsers = 4;
+        $users = User::all();
+
+        foreach ($users as $user) {
+            for($i=0; $i < 9; $i++) {
+                UserTutorial::factory()->create([
+                    'user_id' => $user->id,
+                    'identifier' => $i
+                ]);
+            }
+            UserSocial::create(["user_id" => $user->id]);
+        }
 
 
         DB::table('blog_categories')->insert([
@@ -204,7 +221,7 @@ class DatabaseSeeder extends Seeder
 
                     DB::table('download_user')->insert([
                         "download_id" => $download->id,
-                        "user_id" => 1
+                        "user_id" => rand(1, 4)
                     ]);
                 }
             }
@@ -216,7 +233,7 @@ class DatabaseSeeder extends Seeder
         foreach (range(1, $nbrDownload - 1) as $download) {
             DownloadVersion::factory()->create([
                 'download_id' => $download,
-                'user_id' => 1
+                'user_id' => rand(1, 4)
             ]);
         }
 
@@ -224,7 +241,7 @@ class DatabaseSeeder extends Seeder
             for ($i = 0; $i < rand(1, 5); $i++) {
                 DownloadSupport::factory()->create([
                     "download_id" => $download,
-                    "user_id" => 1
+                    "user_id" => rand(1, 4)
                 ]);
             }
 
