@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Helpers\Format;
 use App\Models\User;
 use App\Models\UserSocial;
 use App\Repository\Account\UserRepository;
@@ -48,10 +49,13 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
+        $complexity = Format::passwordComplexity($input['password']);
+
         $user =  User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+            'password_complexity' => $complexity
         ]);
 
         UserSocial::create([

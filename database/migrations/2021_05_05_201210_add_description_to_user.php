@@ -15,6 +15,7 @@ class AddDescriptionToUser extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->text('description')->nullable();
+            $table->integer('password_complexity')->default(0);
         });
     }
 

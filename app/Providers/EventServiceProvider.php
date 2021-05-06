@@ -32,6 +32,10 @@ class EventServiceProvider extends ServiceProvider
             'SocialiteProviders\\Steam\\SteamExtendSocialite@handle',
             'SocialiteProviders\\Discord\\DiscordExtendSocialite@handle',
         ],
+
+        \Illuminate\Auth\Events\Failed::class => [
+            \App\Listeners\RecordFailedLoginAttempt::class,
+        ],
     ];
 
     /**

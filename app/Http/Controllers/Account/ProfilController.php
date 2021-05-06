@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Helpers\Format;
 use App\Http\Controllers\Controller;
 use App\Notifications\Account\UpdateInfoProfil;
 use App\Repository\Account\UserRepository;
@@ -30,7 +31,7 @@ class ProfilController extends Controller
         $user = $this->userRepository->getInfoUser(auth()->user()->id);
         $profilPercent = $this->userRepository->getValueCompleteTuto(auth()->user()->id);
 
-//        /dd($user->downloads()->orderBy('updated_at', 'desc')->limit(5)->get());
+        //dd(Format::passwordComplexity('rbU89a-4'));
 
         return view('account.profil', compact('user', 'profilPercent'));
     }
