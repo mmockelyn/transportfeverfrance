@@ -482,6 +482,207 @@
                     </div>
                 </div>
             </div>
+            <div class="tab-pane" id="social" role="tabpanel">
+                <div class="card card-custom">
+                    <div class="card-header">
+                        <h3 class="card-title">Liaison Social</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3">
+                                <!--begin::Card-->
+                                <div class="card card-custom gutter-b card-stretch">
+                                    <!--begin::Body-->
+                                    <div class="card-body text-center pt-4">
+                                        <!--begin::User-->
+                                        <div class="mt-7">
+                                            <div class="symbol symbol-circle symbol-lg-75">
+                                                <i class="socicon-facebook icon-6x"></i>
+                                            </div>
+                                        </div>
+                                        <!--end::User-->
+                                        <!--begin::Name-->
+                                        <div class="my-2">
+                                            <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">Facebook</a>
+                                        </div>
+                                        <!--end::Name-->
+                                        <!--begin::Label-->
+                                        @if($user->social->facebook_id != null)
+                                            <span class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
+                                        @else
+                                            <span class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
+                                        @endif
+                                        <!--end::Label-->
+                                        <!--begin::Buttons-->
+                                        <div class="mt-9 mb-6">
+                                            @if($user->social->facebook_id != null)
+                                                <button class="btn btn-danger">Désactivé</button>
+                                            @else
+                                                <button class="btn btn-success">Lié le compte</button>
+                                            @endif
+                                        </div>
+                                        <!--end::Buttons-->
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::Card-->
+                            </div>
+                            <div class="col-3">
+                                <!--begin::Card-->
+                                <div class="card card-custom gutter-b card-stretch">
+                                    <!--begin::Body-->
+                                    <div class="card-body text-center pt-4">
+                                        <!--begin::User-->
+                                        <div class="mt-7">
+                                            <div class="symbol symbol-circle symbol-lg-75">
+                                                <i class="socicon-google icon-6x"></i>
+                                            </div>
+                                        </div>
+                                        <!--end::User-->
+                                        <!--begin::Name-->
+                                        <div class="my-2">
+                                            <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">Google</a>
+                                        </div>
+                                        <!--end::Name-->
+                                        <!--begin::Label-->
+                                        @if($user->social->google_id != null)
+                                            <span class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
+                                        @else
+                                            <span class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
+                                        @endif
+                                        <!--end::Label-->
+                                        <!--begin::Buttons-->
+                                        <div class="mt-9 mb-6">
+                                            @if($user->social->google_id != null)
+                                                <button class="btn btn-danger">Désactivé</button>
+                                            @else
+                                                <button class="btn btn-success">Lié le compte</button>
+                                            @endif
+                                        </div>
+                                        <!--end::Buttons-->
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::Card-->
+                            </div>
+                            <div class="col-3">
+                                <!--begin::Card-->
+                                <div class="card card-custom gutter-b card-stretch">
+                                    <!--begin::Body-->
+                                    <div class="card-body text-center pt-4">
+                                        <!--begin::User-->
+                                        <div class="mt-7">
+                                            <div class="symbol symbol-circle symbol-lg-75">
+                                                <i class="socicon-twitter icon-6x"></i>
+                                            </div>
+                                        </div>
+                                        <!--end::User-->
+                                        <!--begin::Name-->
+                                        <div class="my-2">
+                                            <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">Twitter</a>
+                                        </div>
+                                        <!--end::Name-->
+                                        <!--begin::Label-->
+                                        @if($user->social->twitter_id != null)
+                                            <span class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
+                                        @else
+                                            <span class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
+                                        @endif
+                                        <!--end::Label-->
+                                        <!--begin::Buttons-->
+                                        <div class="mt-9 mb-6">
+                                            @if($user->social->twitter_id != null)
+                                                <button class="btn btn-danger">Désactivé</button>
+                                            @else
+                                                <button class="btn btn-success">Lié le compte</button>
+                                            @endif
+                                        </div>
+                                        <!--end::Buttons-->
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::Card-->
+                            </div>
+                            <div class="col-3">
+                                <!--begin::Card-->
+                                <div class="card card-custom gutter-b card-stretch">
+                                    <!--begin::Body-->
+                                    <div class="card-body text-center pt-4">
+                                        <!--begin::User-->
+                                        <div class="mt-7">
+                                            <div class="symbol symbol-circle symbol-lg-75">
+                                                <i class="socicon-steam icon-6x"></i>
+                                            </div>
+                                        </div>
+                                        <!--end::User-->
+                                        <!--begin::Name-->
+                                        <div class="my-2">
+                                            <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">Steam</a>
+                                        </div>
+                                        <!--end::Name-->
+                                        <!--begin::Label-->
+                                        @if($user->social->steam_id != null)
+                                            <span class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
+                                        @else
+                                            <span class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
+                                        @endif
+                                        <!--end::Label-->
+                                        <!--begin::Buttons-->
+                                        <div class="mt-9 mb-6">
+                                            @if($user->social->steam_id != null)
+                                                <button class="btn btn-danger">Désactivé</button>
+                                            @else
+                                                <button class="btn btn-success">Lié le compte</button>
+                                            @endif
+                                        </div>
+                                        <!--end::Buttons-->
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::Card-->
+                            </div>
+                            <div class="col-3">
+                                <!--begin::Card-->
+                                <div class="card card-custom gutter-b card-stretch">
+                                    <!--begin::Body-->
+                                    <div class="card-body text-center pt-4">
+                                        <!--begin::User-->
+                                        <div class="mt-7">
+                                            <div class="symbol symbol-circle symbol-lg-75">
+                                                <i class="socicon-discord icon-6x"></i>
+                                            </div>
+                                        </div>
+                                        <!--end::User-->
+                                        <!--begin::Name-->
+                                        <div class="my-2">
+                                            <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">Discord</a>
+                                        </div>
+                                        <!--end::Name-->
+                                        <!--begin::Label-->
+                                        @if($user->social->discord_user_id != null)
+                                            <span class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
+                                        @else
+                                            <span class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
+                                        @endif
+                                        <!--end::Label-->
+                                        <!--begin::Buttons-->
+                                        <div class="mt-9 mb-6">
+                                            @if($user->social->discord_user_id != null)
+                                                <button class="btn btn-danger">Désactivé</button>
+                                            @else
+                                                <button class="btn btn-success">Lié le compte</button>
+                                            @endif
+                                        </div>
+                                        <!--end::Buttons-->
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::Card-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
