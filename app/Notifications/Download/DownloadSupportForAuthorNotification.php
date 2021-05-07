@@ -68,7 +68,10 @@ class DownloadSupportForAuthorNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            "title" => "Nouvelle demande de support de mod",
+            "desc" => "Un nouveau ticket sur le mod *{$this->ticket->download->title}* à été ouvert sous le numéro *TCK-MOD{$this->ticket->download->id}-{$this->ticket->id}*",
+            "icon" => "bug",
+            "link" => route('front.download.ticket.room', [$this->ticket->download->slug, $this->ticket->id])
         ];
     }
 }
