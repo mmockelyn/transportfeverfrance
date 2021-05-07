@@ -95,6 +95,67 @@ function deleteAccount() {
     })
 }
 
+function startTotp() {
+    $("#btnStartTotp").on('click', (e) => {
+        let btn = KTUtil.getById('btnStartTotp')
+
+        KTUtil.btnWait(btn, 'spinner spinner-right spinner-white pr-15', 'Veuillez patientez...')
+
+        $.ajax({
+            url: '/user/two-factor-authentication',
+            method: "POST",
+            success: (data) => {
+                KTUtil.btnRelease(btn)
+                toastr.success(`L'authentification TOTP à été activé`)
+                $("#btnStartTotp").attr('id', 'btnEndTotp')
+                $("#btnStartTotp").removeClass('btn-success')
+                $("#btnStartTotp").addClass('btn-danger')
+                $("#btnStartTotp").html('<i class="fas fa-unlock"></i> Désactiver l\'authentification TOTP')
+                $.ajax({
+                    url: '/user/two-factor-qr-code',
+                    success: (data) => {
+                        $("#contentSvgQrCode").html('<p>Veuillez télécharger Google Authenticator ou un autre Programme TOTP et scanner le QR Code ci-dessous:</p>'+data.svg)
+                    },
+                    error: (err) => {
+                        console.error(err)
+                    }
+                })
+                stopTotp()
+            },
+            error: (err) => {
+                KTUtil.btnRelease(btn)
+                console.error(err)
+            }
+        })
+    })
+}
+
+function stopTotp() {
+    $("#btnEndTotp").on('click', (e) => {
+        let btn = KTUtil.getById('btnEndTotp')
+
+        KTUtil.btnWait(btn, 'spinner spinner-right spinner-white pr-15', 'Veuillez patientez...')
+
+        $.ajax({
+            url: '/user/two-factor-authentication',
+            method: "DELETE",
+            success: (data) => {
+                KTUtil.btnRelease(btn)
+                toastr.success(`L'authentification TOTP à été désactiver`)
+                btn.attr('id', 'btnStartTotp')
+                btn.removeClass('btn-danger')
+                btn.addClass('btn-success')
+                btn.html('<i class="fas fa-lock"></i> Activer l\'authentification TOTP')
+                startTotp()
+            },
+            error: (err) => {
+                KTUtil.btnRelease(btn)
+                console.error(err)
+            }
+        })
+    })
+}
+
 function getUser() {
     KTApp.block(app)
 
@@ -118,6 +179,8 @@ function init() {
     updateUser()
     updatePassword()
     deleteAccount()
+    startTotp()
+    stopTotp()
     $('.summernote').summernote({
         height: 150
     });

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->boolean('valid')->default(false);
             $table->string('avatar')->nullable();
             $table->timestamp('last_seen')->nullable();
+            $table->integer('type')->default(0)->comment("0: Interne |1: Social");
             $table->rememberToken();
             $table->timestamps();
         });
