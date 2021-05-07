@@ -7,6 +7,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\Discord\DiscordChannel;
+use NotificationChannels\Discord\DiscordMessage;
 
 class BadgeUnlocked extends Notification
 {
@@ -35,7 +37,7 @@ class BadgeUnlocked extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['mail', 'database', DiscordChannel::class];
     }
 
     /**
@@ -47,8 +49,18 @@ class BadgeUnlocked extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            ->subject("Nouveau Badge débloqué")
             ->line("Vous avez débloqué le badge " . $this->badge->name)
             ->line('Bravo !');
+    }
+
+    public function toDiscord($notifiable)
+    {
+        return DiscordMessage::create("Felicitation !!!, Vous avez débloquer le badge {$this->badge->name} sur le site de TPF France", [
+            "image" => [
+                "url" => env('APP_URL')."/storage/files/shares/badges/{$this->badge->action}".($this->badge->action_count != 0) ? "-".$this->badge->action_count : null.".png"
+            ]
+        ]);
     }
 
     /**

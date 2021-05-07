@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Events\newUser;
 use App\Helpers\Format;
 use App\Models\User;
 use App\Models\UserSocial;
@@ -61,6 +62,8 @@ class CreateNewUser implements CreatesNewUsers
         UserSocial::create([
             "user_id" => $user->id
         ]);
+
+        event(new newUser($user));
 
         $this->userRepository->storeInvolveTutoWrapper($user->id);
 

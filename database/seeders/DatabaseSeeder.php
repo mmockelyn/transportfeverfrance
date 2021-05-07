@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Blog\Blog;
 use App\Models\Blog\BlogComment;
 use App\Models\Contact;
+use App\Models\Core\Badge;
 use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
 use App\Models\Download\DownloadComment;
@@ -269,6 +270,13 @@ class DatabaseSeeder extends Seeder
             ["title" => "Steam", "href" => "#", "icon" => "steam"],
         ]);
 
-
+        Badge::create(["name" => "Nouveau", "action" => "newuser", "action_count" => 0, "description" => "Bienvenue sur TF France"]);
+        Badge::create(["name" => "Timide", "action" => "comments", "action_count" => 10, "description" => "Vous avez poster 10 commentaires"]);
+        Badge::create(["name" => "Bavard", "action" => "comments", "action_count" => 50, "description" => "Vous avez poster 50 commentaires"]);
+        Badge::create(["name" => "Pipelette", "action" => "comments", "action_count" => 100, "description" => "Vous avez poster 100 commentaires"]);
+        Badge::create(["name" => "Jeunot", "action" => "ages", "action_count" => 1, "description" => "Inscrit depuis 1 an"]);
+        Badge::create(["name" => "Habitué", "action" => "ages", "action_count" => 2, "description" => "Inscrit depuis 2 an"]);
+        Badge::create(["name" => "Ancien", "action" => "ages", "action_count" => 3, "description" => "Inscrit depuis 3 an"]);
+        Badge::create(["name" => "Curieux", "action" => "train", "action_count" => 0, "description" => "Vous avez trouver le train de Transport Fever France"]);
     }
 }

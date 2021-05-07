@@ -4,7 +4,7 @@
     <!--begin::Header-->
     <div class="offcanvas-header d-flex align-items-center justify-content-between pb-5">
         <h3 class="font-weight-bold m-0">Mon Profil
-            <small class="text-muted font-size-sm ml-2">5 Messages</small></h3>
+            <small class="text-muted font-size-sm ml-2">{{ $user->unreadNotifications()->count() }}</small></h3>
         <a href="#" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_user_close">
             <i class="ki ki-close icon-xs text-muted"></i>
         </a>
@@ -86,8 +86,33 @@
                     </div>
                     <div class="navi-text">
                         <div class="font-weight-bold">Mon profil</div>
-                        <div class="text-muted">Informations personnelles & Sécurité
-                            <span class="label label-light-danger label-inline font-weight-bold">Nouveau</span></div>
+                        <div class="text-muted">Informations personnelles & Sécurité</div>
+                    </div>
+                </div>
+            </a>
+            <a href="{{ route('account.badges') }}" class="navi-item">
+                <div class="navi-link">
+                    <div class="symbol symbol-40 bg-light mr-3">
+                        <div class="symbol-label">
+									<span class="svg-icon svg-icon-md svg-icon-primary">
+										<!--begin::Svg Icon | path:assets/media/svg/icons/General/Notification2.svg-->
+										<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"/>
+                                                <polygon fill="#000000" opacity="0.3" points="5 3 19 3 23 8 1 8"/>
+                                                <polygon fill="#000000" points="23 8 12 20 1 8"/>
+                                            </g>
+                                        </svg>
+                                        <!--end::Svg Icon-->
+									</span>
+                        </div>
+                    </div>
+                    <div class="navi-text">
+                        <div class="font-weight-bold">Mes Badges</div>
+                        <div class="text-muted">
+                            Succès TF France dévérouiller
+                            <span class="label label-light-danger label-inline font-weight-bold">Nouveau</span>
+                        </div>
                     </div>
                 </div>
             </a>
