@@ -43,7 +43,7 @@ class BlogController extends Controller
         $downloads = $this->downloadRepository->getActiveOrderBuDate();
         $heros = $this->blogRepository->getHeros();
 
-        //dd($downloads);
+        //dd(auth()->user()->unreadNotifications);
 
 
         return view('front.index', compact('blogs', 'heros', 'downloads'));

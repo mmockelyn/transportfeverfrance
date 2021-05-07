@@ -72,12 +72,10 @@ class BadgeUnlocked extends Notification
     public function toArray($notifiable)
     {
         return [
-            'name' => $this->badge->name
+            'title' => "Succès déverouiller",
+            'desc' => "Vous avez débloqué le badge " . $this->badge->name,
+            'icon' => 'certificate',
+            'link' => '/account/badge'
         ];
-    }
-
-    public static function toText($data)
-    {
-        return "Vous avez débloqué le badge " . $data['name'];
     }
 }

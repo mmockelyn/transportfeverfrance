@@ -41,10 +41,10 @@ class UpdateInfoProfil extends Notification
     public function toArray($notifiable)
     {
         return [
-            "sector" => "account-profil",
-            "title" => "Mise à jours de profil",
-            "description" => "Votre profil à été mise à jours",
-            "priority" => "mid"
+            "title" => "Mon Profil",
+            "desc" => "Votre profil à été mis à jour",
+            "icon" => "user",
+            "link" => ""
         ];
     }
 }
