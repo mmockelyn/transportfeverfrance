@@ -35,5 +35,17 @@
     <link rel="mask-icon" href="{{ asset('/safari-pinned-tab.svg') }}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+                appId: "dae0b47a-d204-4d86-bd15-546791203c73",
+                notifyButton: {
+                    enable: true,
+                },
+            });
+        });
+    </script>
 </head>
 <!--end::Head-->

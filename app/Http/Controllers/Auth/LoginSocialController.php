@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\newUser;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Repository\Account\UserRepository;
@@ -52,6 +53,7 @@ class LoginSocialController extends Controller
         switch ($provider) {
             case 'facebook':
                 $this->registerFacebook($user);
+                event(new newUser($user));
                 return redirect()->to('/');
                 break;
             case 'google':
@@ -87,6 +89,7 @@ class LoginSocialController extends Controller
             $newUser->name = $user->name;
             $newUser->email = $user->email;
             $newUser->avatar = $user->avatar;
+            $newUser->type = 1;
             $newUser->save();
 
             DB::table('user_social')->insert([
@@ -97,6 +100,8 @@ class LoginSocialController extends Controller
 
             auth()->login($newUser, true);
         }
+
+        event(new newUser($newUser));
 
         return redirect()->to('/');
     }
@@ -113,6 +118,7 @@ class LoginSocialController extends Controller
             $newUser->name = $user->name;
             $newUser->email = $user->email;
             $newUser->avatar = $user->avatar;
+            $newUser->type = 1;
             $newUser->save();
 
             DB::table('user_social')->insert([
@@ -124,6 +130,8 @@ class LoginSocialController extends Controller
 
             auth()->login($newUser, true);
         }
+
+        event(new newUser($newUser));
 
         return redirect()->to('/');
     }
@@ -140,6 +148,7 @@ class LoginSocialController extends Controller
             $newUser->name = $user->name;
             $newUser->email = $user->email;
             $newUser->avatar = $user->avatar;
+            $newUser->type = 1;
             $newUser->save();
 
             DB::table('user_social')->insert([
@@ -152,6 +161,8 @@ class LoginSocialController extends Controller
 
             auth()->login($newUser, true);
         }
+
+        event(new newUser($newUser));
 
         return redirect()->to('/');
     }
@@ -175,6 +186,9 @@ class LoginSocialController extends Controller
             $newUser->name = $user->name;
             $newUser->email = $email;
             $newUser->avatar = $user->avatar;
+            $newUser->type = 1;
+            (!$user->email) ? $newUser->email_verified_at = now() : null;
+            (!$user->email) ? $newUser->valid = 1 : null;
             $newUser->save();
 
             DB::table('user_social')->insert([
@@ -187,6 +201,8 @@ class LoginSocialController extends Controller
 
             auth()->login($newUser, true);
         }
+
+        event(new newUser($newUser));
 
         return redirect()->to('/');
     }
@@ -210,6 +226,9 @@ class LoginSocialController extends Controller
             $newUser->name = $user->name;
             $newUser->email = $email;
             $newUser->avatar = $user->avatar;
+            $newUser->type = 1;
+            (!$user->email) ? $newUser->email_verified_at = now() : null;
+            (!$user->email) ? $newUser->valid = 1 : null;
             $newUser->save();
 
             DB::table('user_social')->insert([
@@ -223,6 +242,8 @@ class LoginSocialController extends Controller
 
             auth()->login($newUser, true);
         }
+
+        event(new newUser($newUser));
 
         return redirect()->to('/');
     }
