@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Badgeable;
 use App\Events\ModelCreated;
 use App\Models\Blog\BlogComment;
+use App\Models\Core\Badge;
+use App\Models\Core\BadgeUnlock;
 use App\Models\Download\Download;
 use App\Models\Download\DownloadComment;
 use App\Models\Download\DownloadSupport;
@@ -15,7 +18,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, Badgeable;
 
     protected $dispatchesEvents = [
         'created' => ModelCreated::class,

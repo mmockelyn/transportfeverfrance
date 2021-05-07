@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\newUser;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Repository\Account\UserRepository;
@@ -52,6 +53,7 @@ class LoginSocialController extends Controller
         switch ($provider) {
             case 'facebook':
                 $this->registerFacebook($user);
+                event(new newUser($user));
                 return redirect()->to('/');
                 break;
             case 'google':
@@ -98,6 +100,8 @@ class LoginSocialController extends Controller
             auth()->login($newUser, true);
         }
 
+        event(new newUser($newUser));
+
         return redirect()->to('/');
     }
 
@@ -124,6 +128,8 @@ class LoginSocialController extends Controller
 
             auth()->login($newUser, true);
         }
+
+        event(new newUser($newUser));
 
         return redirect()->to('/');
     }
@@ -152,6 +158,8 @@ class LoginSocialController extends Controller
 
             auth()->login($newUser, true);
         }
+
+        event(new newUser($newUser));
 
         return redirect()->to('/');
     }
@@ -190,6 +198,8 @@ class LoginSocialController extends Controller
             auth()->login($newUser, true);
         }
 
+        event(new newUser($newUser));
+
         return redirect()->to('/');
     }
 
@@ -227,6 +237,8 @@ class LoginSocialController extends Controller
 
             auth()->login($newUser, true);
         }
+
+        event(new newUser($newUser));
 
         return redirect()->to('/');
     }

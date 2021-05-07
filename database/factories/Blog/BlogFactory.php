@@ -4,6 +4,7 @@ namespace Database\Factories\Blog;
 
 use App\Models\Blog\Blog;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class BlogFactory extends Factory
 {
@@ -26,7 +27,9 @@ class BlogFactory extends Factory
             'meta_keywords' => implode(',', $this->faker->words($nb = 3, $asText = false)),
             'short_content' => $this->faker->paragraph($nbSentences = 4, $variableNbSentences = true),
             'content' => $this->faker->paragraph($nb = 8, $asText = true),
-            'active' => true
+            'active' => true,
+            'title' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
+            'slug' => Str::slug($this->faker->sentence($nbWords = 6, $variableNbWords = true))
         ];
     }
 }
