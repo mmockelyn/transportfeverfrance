@@ -175,6 +175,8 @@ class LoginSocialController extends Controller
             $newUser->name = $user->name;
             $newUser->email = $email;
             $newUser->avatar = $user->avatar;
+            (!$user->email) ? $newUser->email_verified_at = now() : null;
+            (!$user->email) ? $newUser->valid = 1 : null;
             $newUser->save();
 
             DB::table('user_social')->insert([
@@ -210,6 +212,8 @@ class LoginSocialController extends Controller
             $newUser->name = $user->name;
             $newUser->email = $email;
             $newUser->avatar = $user->avatar;
+            (!$user->email) ? $newUser->email_verified_at = now() : null;
+            (!$user->email) ? $newUser->valid = 1 : null;
             $newUser->save();
 
             DB::table('user_social')->insert([
