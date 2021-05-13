@@ -34,14 +34,16 @@ class MessagerieController extends Controller
 
     public function index()
     {
+        $count = $this->inbox->newQuery()->where('from_id', auth()->user()->id)->where('read_at', null)->get()->count();
         $users = $this->userRepository->listingUsersOutActual();
         $inboxes = $this->userRepository->getInfoUser()->load('inboxes');
 
-        return view('account.messagerie', compact('inboxes', 'users'));
+        return view('account.messagerie', compact('inboxes', 'users', 'count'));
     }
 
     public function show($message_id)
     {
+        $count = $this->inbox->newQuery()->where('from_id', auth()->user()->id)->where('read_at', null)->get()->count();
         $users = $this->userRepository->listingUsersOutActual();
         $message = $this->inbox->newQuery()->find($message_id);
 
@@ -51,14 +53,7 @@ class MessagerieController extends Controller
             ]);
         }
 
-        return view('account.messagerieView', compact('message', 'users'));
-    }
-
-    public function compose()
-    {
-        $user = $this->userRepository->getInfoUser();
-
-        return view('account.messagerieCompose', compact('user'));
+        return view('account.messagerieView', compact('message', 'users', 'count'));
     }
 
     public function sending(Request $request)
@@ -75,13 +70,50 @@ class MessagerieController extends Controller
                 $message->to->notify(new NewMessageFrom($message));
             }catch (\Exception $exception) {
                 Log::error($exception->getMessage());
-                return response()->json(null, 500);
+                return response()->json(null);
             }
 
-            return response()->json(null, 200);
+            return response()->json(null);
         }catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return response()->json(null, 500);
+            return response()->json(null);
+        }
+    }
+
+    public function viewCompose(Request $request, $message_id)
+    {
+
+        try {
+            $message = $this->inbox->newQuery()->find($message_id);
+            ob_start();
+            ?>
+            <strong>Message Précédent:</strong><br>
+            <?= $message->message; ?>
+            <br><br>
+            <hr>
+            <?= $request->message; ?>
+            <?php
+            $html_message = ob_get_clean();
+            $newMessage = $this->inbox->newQuery()->create([
+                "subject" => "RE: ".$message->subject,
+                "message" => $html_message,
+                "from_id" => auth()->user()->id,
+                "to_id" => $message->from_id
+            ]);
+
+            try {
+                $newMessage->to->notify(new NewMessageFrom($newMessage));
+            }catch (\Exception $exception) {
+                Log::error($exception->getMessage());
+                return redirect()->back();
+            }
+
+            toastr()->success('La réponse du message à été envoyer');
+            return redirect()->back();
+        }catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            toastr()->error("Erreur lors de l'envoie de votre réponse !");
+            return redirect()->back();
         }
     }
 

@@ -65,9 +65,11 @@
 										</span>
 									</span>
                                     <span class="navi-text font-weight-bolder font-size-lg">Boite de Réception</span>
-                                    <span class="navi-label">
-										<span class="label label-rounded label-light-success font-weight-bolder">3</span>
+                                    @if($count != 0)
+                                        <span class="navi-label">
+										<span class="label label-rounded label-light-success font-weight-bolder">{{ $count }}</span>
 									</span>
+                                    @endif
                                 </a>
                             </div>
                             <!--end::Item-->
@@ -161,7 +163,6 @@
                                                     </table>
                                                 </div>
                                             </div>
-                                            <div class="text-muted font-weight-bold toggle-on-item" data-inbox="toggle">With resrpect, i must disagree with Mr.Zinsser. We all know the most part of important part....</div>
                                         </div>
                                     </div>
                                 </div>
@@ -175,19 +176,12 @@
                         </div>
                     </div>
                     <div class="card-footer align-items-center">
-                        <form action="{{ route('account.messagerie.view.compose', $message->id) }}" method="post" enctype="multipart/form-data">
-                            <textarea class="form-control border-0 p-0" rows="2" placeholder="Tapez votre message"></textarea>
+                        <form action="{{ route('account.messagerie.view.compose', $message->id) }}" method="post">
+                            @csrf
+                            <textarea class="form-control border-0 p-0" rows="2" placeholder="Tapez votre message" name="message"></textarea>
                             <div class="d-flex align-items-center justify-content-between mt-5">
-                                <div class="mr-3">
-                                    <a href="#" class="btn btn-clean btn-icon btn-md mr-1">
-                                        <i class="flaticon2-photograph icon-lg"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-clean btn-icon btn-md">
-                                        <i class="flaticon2-photo-camera icon-lg"></i>
-                                    </a>
-                                </div>
                                 <div>
-                                    <button type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Send</button>
+                                    <button type="submit" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Send</button>
                                 </div>
                             </div>
                         </form>

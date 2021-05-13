@@ -112,6 +112,7 @@
 <script type="text/javascript">window.$sleek=[];window.SLEEK_PRODUCT_ID=518287786;(function(){d=document;s=d.createElement("script");s.src="https://client.sleekplan.com/sdk/e.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 <!--end::Global Theme Bundle-->
 <!--begin::Page Vendors(usedquick-search-wrapper by this page)-->
+{!! toastr()->render() !!}
 @yield("scripts")
 
 </body>

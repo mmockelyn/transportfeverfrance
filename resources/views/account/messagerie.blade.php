@@ -65,9 +65,9 @@
 										</span>
 									</span>
                                     <span class="navi-text font-weight-bolder font-size-lg">Boite de Réception</span>
-                                    @if(count($inboxes->inboxes) != 0)
+                                    @if($count != 0)
                                     <span class="navi-label">
-										<span class="label label-rounded label-light-success font-weight-bolder">{{ count($inboxes->inboxes) }}</span>
+										<span class="label label-rounded label-light-success font-weight-bolder">{{ $count }}</span>
 									</span>
                                     @endif
 
@@ -146,7 +146,7 @@
                                             @else
                                                 <span class="font-size-lg mr-2">{{ $inbox->subject }}</span>
                                             @endif
-                                            <span class="text-muted">{{ \Illuminate\Support\Str::limit($inbox->message, 60) }}</span>
+                                            <span class="text-muted">{!! \Illuminate\Support\Str::limit($inbox->message, 60) !!}</span>
                                         </div>
                                     </div>
                                     <!--end::Info-->
