@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Account\Inbox;
 use App\Repository\Account\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Nahid\Talk\Facades\Talk;
 
 class MessagerieController extends Controller
@@ -32,24 +33,24 @@ class MessagerieController extends Controller
 
     public function index()
     {
+        $users = $this->userRepository->listingUsersOutActual();
         $inboxes = $this->userRepository->getInfoUser()->load('inboxes');
 
-        //dd($inboxes);
-
-        return view('account.messagerie', compact('inboxes'));
+        return view('account.messagerie', compact('inboxes', 'users'));
     }
 
     public function show($message_id)
     {
+        $users = $this->userRepository->listingUsersOutActual();
         $message = $this->inbox->newQuery()->find($message_id);
 
-        if($message->read_at == null) {
+        if ($message->read_at == null) {
             $message->update([
                 "read_at" => now()
             ]);
         }
 
-        return view('account.messagerieView', compact('message'));
+        return view('account.messagerieView', compact('message', 'users'));
     }
 
     public function compose()
@@ -57,6 +58,23 @@ class MessagerieController extends Controller
         $user = $this->userRepository->getInfoUser();
 
         return view('account.messagerieCompose', compact('user'));
+    }
+
+    public function sending(Request $request)
+    {
+        try {
+            $this->inbox->newQuery()->create([
+                "subject" => $request->subject,
+                "message" => $request->message,
+                "from_id" => auth()->user()->id,
+                "to_id" => $request->to_id
+            ]);
+
+            return response()->json(null, 200);
+        }catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return response()->json(null, 500);
+        }
     }
 
     public function delete($messagerie_id)

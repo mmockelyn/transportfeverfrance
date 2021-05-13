@@ -20,4 +20,9 @@ class Inbox extends Model
     {
         return $this->belongsTo(User::class, 'to_id', 'id');
     }
+
+    public function attachments()
+    {
+        return $this->hasMany(InboxAttachment::class);
+    }
 }

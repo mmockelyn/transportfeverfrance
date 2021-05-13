@@ -7,6 +7,7 @@ namespace App\Repository\Account;
 use App\Models\User;
 use App\Models\UserSocial;
 use App\Models\UserTutorial;
+use Illuminate\Support\Facades\Auth;
 
 class UserRepository
 {
@@ -112,7 +113,10 @@ class UserRepository
 
     public function listingUsersOutActual()
     {
-        return $this->user->newQuery()->where('id', '!=', auth()->user()->id)->where('id', '!=', 1)->get();
+        return $this->user->newQuery()
+            ->where('id', '!=', \auth()->user()->id)
+            ->where('id', '!=', 1)
+            ->get();
     }
 
 
