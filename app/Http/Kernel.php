@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\ActivityByUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Nahid\Talk\Middleware\TalkMiddleware;
 
 class Kernel extends HttpKernel
 {

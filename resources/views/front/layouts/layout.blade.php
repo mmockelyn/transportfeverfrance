@@ -106,6 +106,7 @@
 <script src="{{ asset('/front/assets/js/scripts.bundle.js') }}"></script>
 <script src="{{ asset('/front/assets/plugins/custom/moment/moment.js') }}"></script>
 <script src="{{ asset('/front/assets/plugins/custom/keypress/keypress.js') }}"></script>
+<script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
 <script src="{{ asset('/front/js/app.js') }}"></script>
 <script src="{{ asset('/js/share.js') }}"></script>
 <script type="text/javascript">window.$sleek=[];window.SLEEK_PRODUCT_ID=518287786;(function(){d=document;s=d.createElement("script");s.src="https://client.sleekplan.com/sdk/e.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>

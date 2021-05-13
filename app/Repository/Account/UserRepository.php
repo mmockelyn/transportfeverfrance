@@ -110,5 +110,10 @@ class UserRepository
         }
     }
 
+    public function listingUsersOutActual()
+    {
+        return $this->user->newQuery()->where('id', '!=', auth()->user()->id)->where('id', '!=', 1)->get();
+    }
+
 
 }

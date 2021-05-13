@@ -27,3 +27,12 @@ function setCookie(name, value) {
     let expires = "expires="+d.toUTCString()
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
+
+const beamsClient = new PusherPushNotifications.Client({
+    instanceId: '6a5bd395-ec21-4250-a885-aeca759a838e',
+});
+
+beamsClient.start()
+    .then(() => beamsClient.addDeviceInterest('hello'))
+    .then(() => console.log('Successfully registered and subscribed!'))
+    .catch(console.error);
