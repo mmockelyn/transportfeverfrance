@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Badgeable;
 use App\Events\ModelCreated;
+use App\Models\Account\Inbox;
 use App\Models\Blog\BlogComment;
 use App\Models\Core\Badge;
 use App\Models\Core\BadgeUnlock;
@@ -96,6 +97,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function faileds()
     {
         return $this->hasMany(FailedLoginAttempt::class);
+    }
+
+    public function inboxes()
+    {
+        return $this->hasMany(Inbox::class, 'to_id');
     }
 
     public function routeNotificationForDiscord()

@@ -20,3 +20,10 @@ if (!function_exists('formatDateHour')) {
         return ucfirst(utf8_encode ($date->formatLocalized('%d %B %Y | %H:%I')));
     }
 }
+
+if (!function_exists('currentRouteMailbox')) {
+    function currentRouteMailbox($route)
+    {
+        return Route::currentRouteNamed($route) ? 'active' : '';
+    }
+}
