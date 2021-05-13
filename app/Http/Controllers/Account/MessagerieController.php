@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account\Inbox;
+use App\Notifications\Account\NewMessageFrom;
 use App\Repository\Account\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -63,12 +64,19 @@ class MessagerieController extends Controller
     public function sending(Request $request)
     {
         try {
-            $this->inbox->newQuery()->create([
+            $message = $this->inbox->newQuery()->create([
                 "subject" => $request->subject,
                 "message" => $request->message,
                 "from_id" => auth()->user()->id,
                 "to_id" => $request->to_id
             ]);
+
+            try {
+                $message->to->notify(new NewMessageFrom($message));
+            }catch (\Exception $exception) {
+                Log::error($exception->getMessage());
+                return response()->json(null, 500);
+            }
 
             return response()->json(null, 200);
         }catch (\Exception $exception) {
