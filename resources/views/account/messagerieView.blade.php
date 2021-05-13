@@ -43,7 +43,7 @@
                     <div class="card-body px-5">
                         <!--begin::Compose-->
                         <div class="px-4 mt-4 mb-10">
-                            <a href="#" class="btn btn-block btn-primary font-weight-bold text-uppercase py-4 px-6 text-center" data-toggle="modal" data-target="#kt_inbox_compose">New Message</a>
+                            <a href="#" class="btn btn-block btn-primary font-weight-bold text-uppercase py-4 px-6 text-center" data-toggle="modal" data-target="#compose">Nouveau message</a>
                         </div>
                         <!--end::Compose-->
                         <!--begin::Navigations-->
@@ -181,7 +181,7 @@
                             <textarea class="form-control border-0 p-0" rows="2" placeholder="Tapez votre message" name="message"></textarea>
                             <div class="d-flex align-items-center justify-content-between mt-5">
                                 <div>
-                                    <button type="submit" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Send</button>
+                                    <button type="submit" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Répondre</button>
                                 </div>
                             </div>
                         </form>
@@ -191,6 +191,86 @@
                 <!--end::Card-->
             </div>
             <!--end::List-->
+        </div>
+    </div>
+    <div class="modal modal-sticky modal-sticky-lg modal-sticky-bottom-right" id="compose" role="dialog" data-backdrop="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!--begin::Form-->
+                <form id="kt_inbox_compose_form" action="{{ route('account.messagerie.sending') }}">
+                    <!--begin::Header-->
+                    <div class="d-flex align-items-center justify-content-between py-5 pl-8 pr-5 border-bottom">
+                        <h5 class="font-weight-bold m-0">Nouveau Message</h5>
+                        <div class="d-flex ml-2">
+							<span class="btn btn-clean btn-sm btn-icon mr-2">
+								<i class="flaticon2-arrow-1 icon-1x"></i>
+							</span>
+                            <span class="btn btn-clean btn-sm btn-icon" data-dismiss="modal">
+								<i class="ki ki-close icon-1x"></i>
+							</span>
+                        </div>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="d-block">
+                        <!--begin::To-->
+                        <div class="d-flex align-items-center border-bottom inbox-to px-8 min-h-45px">
+                            <div class="text-dark-50 w-75px">A:</div>
+                            <div class="d-flex align-items-center flex-grow-1">
+                                <select class="form-control selectpicker" name="to_id" data-live-search="true">
+                                    <option value=""></option>
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}" data-content="
+                                        <div class='row'>
+                                            <div class='col-1'>
+                                                @if($user->avatar == null)
+                                            <div class='symbol symbol-20 symbol-lg-30 symbol-circle mr-3'>
+                                                <img alt='Pic' src='{{ \Creativeorange\Gravatar\Facades\Gravatar::get($user->email) }}'/>
+                                                </div>
+                                                @else
+                                            <div class='symbol symbol-20 symbol-lg-30 symbol-circle mr-3'>
+                                                <img alt='Pic' src='{{ $user->avatar }}'/>
+                                                </div>
+                                                @endif
+                                            </div>
+                                            <div class='col-11'>
+                                                <strong>{{ $user->name }}</strong><br>
+                                                {{ \App\Helpers\Format::formatUserGroup($user->group) }}
+                                            </div>
+                                        </div>
+                                        ">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <!--end::To-->
+                        <!--begin::Subject-->
+                        <div class="border-bottom">
+                            <input class="form-control border-0 px-8 min-h-45px" name="subject" placeholder="Sujet" />
+                        </div>
+                        <!--end::Subject-->
+                        <!--begin::Message-->
+                        <textarea class="border-0 summernote" name="message"></textarea>
+                        <!--end::Message-->
+                    </div>
+                    <!--end::Body-->
+                    <!--begin::Footer-->
+                    <div class="d-flex align-items-center justify-content-between py-5 pl-8 pr-5 border-top">
+                        <!--begin::Actions-->
+                        <div class="d-flex align-items-center mr-3">
+                            <!--begin::Send-->
+                            <div class="btn-group mr-4">
+                                <button type="submit" id="btnEnvoye" class="btn btn-primary font-weight-bold px-6">Envoyer</button>
+                            </div>
+                            <!--end::Send-->
+                        </div>
+                        <!--end::Actions-->
+
+                    </div>
+                    <!--end::Footer-->
+                </form>
+                <!--end::Form-->
+            </div>
         </div>
     </div>
 @endsection
