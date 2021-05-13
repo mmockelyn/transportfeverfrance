@@ -28,7 +28,8 @@
         "socialiteproviders/steam": "^4.1",
         "socialiteproviders/twitter": "^4.1",
         "syntax/steam-api": "2.3.*",
-        "unisharp/laravel-filemanager": "^2.2"
+        "unisharp/laravel-filemanager": "^2.2",
+        "yoeunes/toastr": "^1.2"
     },
     "require-dev": {
         "arcanedev/route-viewer": "^4.0",
