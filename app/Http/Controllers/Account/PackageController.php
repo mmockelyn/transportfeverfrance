@@ -33,6 +33,7 @@ class PackageController extends Controller
 
     public function index()
     {
+        //dd(auth()->user()->downloads);
         return view('account.package.index');
     }
 }

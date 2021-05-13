@@ -208,14 +208,13 @@ class DatabaseSeeder extends Seeder
             $down_sub_categories = DownloadSubCategory::all();
             foreach ($down_sub_categories as $down_sub_category) {
                 foreach (range(1, 10) as $i) {
-                    $providers = ['steam', 'tfnet', 'tf_france', 'null'];
-                    shuffle($providers);
+                    $providers = rand(0,3);
                     $download = Download::factory()->create([
                         "title" => "Téléchargement " . $i,
                         "slug" => "telechargement-" . $down_sub_category->id . "-" . $i,
                         "seo_title" => "Téléchargement " . $i,
                         "image" => "img0" . $i . ".jpg",
-                        "provider" => $providers[0],
+                        "provider" => $providers,
                         "download_category_id" => $down_sub_category->download_category_id,
                         "download_sub_category_id" => $down_sub_category->id,
                     ]);
