@@ -41,6 +41,15 @@ class MessagerieController extends Controller
         return view('account.messagerie', compact('inboxes', 'users', 'count'));
     }
 
+    public function sentbox()
+    {
+        $count = $this->inbox->newQuery()->where('from_id', auth()->user()->id)->where('read_at', null)->get()->count();
+        $users = $this->userRepository->listingUsersOutActual();
+        $sentboxes = $this->inbox->newQuery()->where('from_id', auth()->user()->id)->get();
+
+        return view('account.messagerieSent', compact('sentboxes', 'users', 'count'));
+    }
+
     public function show($message_id)
     {
         $count = $this->inbox->newQuery()->where('from_id', auth()->user()->id)->where('read_at', null)->get()->count();

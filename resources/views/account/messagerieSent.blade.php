@@ -97,20 +97,20 @@
                         <!--begin::Items-->
                         <div class="list list-hover min-w-500px" data-inbox="list">
                             <!--begin::Item-->
-                            @foreach($inboxes->inboxes as $inbox)
+                            @foreach($sentboxes as $inbox)
                                 <div class="d-flex align-items-start list-item card-spacer-x py-3" data-inbox="message" data-item="{{ $inbox->id }}">
                                     <!--begin::Toolbar-->
                                     <div class="d-flex align-items-center">
                                         <!--begin::Author-->
                                         <div class="d-flex align-items-center flex-wrap w-xxl-200px mr-3" data-toggle="view">
 										<span class="symbol symbol-35 mr-3">
-                                            @if($inbox->from->avatar != null)
-                                                <span class="symbol-label" style="background-image: url('{{ $inbox->from->avatar }}')"></span>
+                                            @if($inbox->to->avatar != null)
+                                                <span class="symbol-label" style="background-image: url('{{ $inbox->to->avatar }}')"></span>
                                             @else
-                                                <span class="symbol-label" style="background-image: url('{{ \Creativeorange\Gravatar\Facades\Gravatar::get($inbox->from->email) }}')"></span>
+                                                <span class="symbol-label" style="background-image: url('{{ \Creativeorange\Gravatar\Facades\Gravatar::get($inbox->to->email) }}')"></span>
                                             @endif
 										</span>
-                                            <a href="#" class="font-weight-bold text-dark-75 text-hover-primary">{{ $inbox->from->name }}</a>
+                                            <a href="#" class="font-weight-bold text-dark-75 text-hover-primary">{{ $inbox->to->name }}</a>
                                         </div>
                                         <!--end::Author-->
                                     </div>
