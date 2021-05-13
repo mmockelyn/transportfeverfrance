@@ -134,4 +134,11 @@
     line-height: 18px;
 }
 
+.wave.wave-steam {
+    background-color: rgba(27, 40, 56, 0.1) !important;
+}
+
+.wave.wave-tfnet {
+    background-color: rgba(130, 22, 85, 0.1) !important;
+}
 

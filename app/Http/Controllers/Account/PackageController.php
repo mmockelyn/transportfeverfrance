@@ -36,4 +36,10 @@ class PackageController extends Controller
         //dd(auth()->user()->downloads);
         return view('account.package.index');
     }
+
+
+    public function create()
+    {
+        return view('account.package.create');
+    }
 }
