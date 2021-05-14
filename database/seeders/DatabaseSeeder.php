@@ -159,49 +159,292 @@ class DatabaseSeeder extends Seeder
 
         DB::table('download_categories')->insert([
             [
-                'title' => "Category 1",
-                'slug' => "category-1"
+                'title' => "Scénario",
+                'slug' => "scenario"
             ],
             [
-                'title' => "Category 2",
-                'slug' => "category-2"
+                'title' => "Cartes & Sauvegardes",
+                'slug' => "cartes-sauvegardes"
             ],
             [
-                'title' => "Category 3",
-                'slug' => "category-3"
+                'title' => "Véhicules",
+                'slug' => "vehicle"
             ],
             [
-                'title' => "Category 4",
-                'slug' => "category-4"
+                'title' => "Station",
+                'slug' => "station"
+            ],
+            [
+                'title' => "Rail & Voie",
+                'slug' => "track-street"
+            ],
+            [
+                'title' => "Dépot",
+                'slug' => "depot"
+            ],
+            [
+                'title' => "Batiments",
+                'slug' => "building"
+            ],
+            [
+                'title' => "Objets",
+                'slug' => "asset"
+            ],
+            [
+                'title' => "Autres",
+                'slug' => "other"
             ],
         ]);
 
-        $down_categories = DownloadCategory::all();
 
-        foreach ($down_categories as $category) {
-            DB::table('download_sub_categories')->insert([
-                [
-                    'title' => "Sub Category 1",
-                    'slug' => "sub-category-$category->id-1",
-                    "download_category_id" => $category->id
-                ],
-                [
-                    'title' => "Sub Category 2",
-                    'slug' => "sub-category-$category->id-2",
-                    "download_category_id" => $category->id
-                ],
-                [
-                    'title' => "Sub Category 3",
-                    'slug' => "sub-category-$category->id-3",
-                    "download_category_id" => $category->id
-                ],
-                [
-                    'title' => "Sub Category 4",
-                    'slug' => "sub-category-$category->id-4",
-                    "download_category_id" => $category->id
-                ],
-            ]);
-        }
+        DB::table('download_sub_categories')->insert([
+            [
+                'title' => "Tempéré",
+                'slug' => "temperate",
+                "download_category_id" => 1
+            ],
+            [
+                'title' => "Sec",
+                'slug' => "dry",
+                "download_category_id" => 1
+            ],
+            [
+                'title' => "Tropical",
+                'slug' => "tropical",
+                "download_category_id" => 1
+            ],
+            [
+                'title' => "Europe",
+                'slug' => "europe",
+                "download_category_id" => 1
+            ],
+            [
+                'title' => "USA",
+                'slug' => "usa",
+                "download_category_id" => 1
+            ],
+            [
+                'title' => "Asie",
+                'slug' => "asia",
+                "download_category_id" => 1
+            ],
+            [
+                'title' => "Carte",
+                'slug' => "map",
+                "download_category_id" => 2
+            ],
+            [
+                'title' => "Sauvegarde",
+                'slug' => "save",
+                "download_category_id" => 2
+            ],
+            [
+                'title' => "Locomotive",
+                'slug' => "locomotive",
+                "download_category_id" => 3
+            ],
+            [
+                'title' => "Wagon",
+                'slug' => "wagon",
+                "download_category_id" => 3
+            ],
+            [
+                'title' => "Unité Multiple",
+                'slug' => "multiple-unit",
+                "download_category_id" => 3
+            ],
+            [
+                'title' => "Bus / Car",
+                'slug' => "bus",
+                "download_category_id" => 3
+            ],
+            [
+                'title' => "Camion",
+                'slug' => "truck",
+                "download_category_id" => 3
+            ],
+            [
+                'title' => "Tram",
+                'slug' => "tram",
+                "download_category_id" => 3
+            ],
+            [
+                'title' => "Bateau",
+                'slug' => "ship",
+                "download_category_id" => 3
+            ],
+            [
+                'title' => "Avion",
+                'slug' => "plane",
+                "download_category_id" => 3
+            ],
+            [
+                'title' => "Station de train passagers",
+                'slug' => "train-station-passager",
+                "download_category_id" => 4
+            ],
+            [
+                'title' => "Station de train marchandise",
+                'slug' => "train-station-cargo",
+                "download_category_id" => 4
+            ],
+            [
+                'title' => "Station de bus",
+                'slug' => "bus-station",
+                "download_category_id" => 4
+            ],
+            [
+                'title' => "Station pour camion de marchandise",
+                'slug' => "truck-station",
+                "download_category_id" => 4
+            ],
+            [
+                'title' => "Station de tram",
+                'slug' => "tram-station",
+                "download_category_id" => 4
+            ],
+            [
+                'title' => "Aeroport",
+                'slug' => "airport",
+                "download_category_id" => 4
+            ],
+            [
+                'title' => "Port de passager",
+                'slug' => "passenger-harbor",
+                "download_category_id" => 4
+            ],
+            [
+                'title' => "Port de marchandise",
+                'slug' => "cargo-harbor",
+                "download_category_id" => 4
+            ],
+            [
+                'title' => "Rail",
+                'slug' => "rail",
+                "download_category_id" => 5
+            ],
+            [
+                'title' => "Route et rue",
+                'slug' => "street",
+                "download_category_id" => 5
+            ],
+            [
+                'title' => "Pont",
+                'slug' => "bridge",
+                "download_category_id" => 5
+            ],
+            [
+                'title' => "Tunnel",
+                'slug' => "tunnel",
+                "download_category_id" => 5
+            ],
+            [
+                'title' => "Signalisation",
+                'slug' => "signal",
+                "download_category_id" => 5
+            ],
+            [
+                'title' => "Passage à niveau",
+                'slug' => "railroad-crossing",
+                "download_category_id" => 5
+            ],
+            [
+                'title' => "Construction Urbaine",
+                'slug' => "street-construction",
+                "download_category_id" => 5
+            ],
+            [
+                'title' => "Dépot de train",
+                'slug' => "train-depot",
+                "download_category_id" => 6
+            ],
+            [
+                'title' => "Dépot de Voirie",
+                'slug' => "road-depot",
+                "download_category_id" => 6
+            ],
+            [
+                'title' => "Dépot de tram",
+                'slug' => "tram-depot",
+                "download_category_id" => 6
+            ],
+            [
+                'title' => "Chantier Naval",
+                'slug' => "shipyard",
+                "download_category_id" => 6
+            ],
+            [
+                'title' => "Industrie",
+                'slug' => "industry",
+                "download_category_id" => 7
+            ],
+            [
+                'title' => "Batiment de ville",
+                'slug' => "town-building",
+                "download_category_id" => 7
+            ],
+            [
+                'title' => "Brosse",
+                'slug' => "brush",
+                "download_category_id" => 8
+            ],
+            [
+                'title' => "Objet de voie",
+                'slug' => "track-asset",
+                "download_category_id" => 8
+            ],
+            [
+                'title' => "Script",
+                'slug' => "mod-script",
+                "download_category_id" => 9
+            ],
+            [
+                'title' => "Voiture",
+                'slug' => "car",
+                "download_category_id" => 9
+            ],
+            [
+                'title' => "Personne",
+                'slug' => "person",
+                "download_category_id" => 9
+            ],
+            [
+                'title' => "Animaux",
+                'slug' => "animal",
+                "download_category_id" => 9
+            ],
+            [
+                'title' => "Son",
+                'slug' => "sound",
+                "download_category_id" => 9
+            ],
+            [
+                'title' => "Shader",
+                'slug' => "shader",
+                "download_category_id" => 9
+            ],
+            [
+                'title' => "Mission",
+                'slug' => "mission",
+                "download_category_id" => 9
+            ],
+            [
+                'title' => "Campagne",
+                'slug' => "campaign",
+                "download_category_id" => 9
+            ],
+            [
+                'title' => "Localisation",
+                'slug' => "localization",
+                "download_category_id" => 9
+            ],
+            [
+                'title' => "Autres",
+                'slug' => "misc-other",
+                "download_category_id" => 9
+            ],
+
+        ]);
 
 
         Download::withoutEvents(function () {
