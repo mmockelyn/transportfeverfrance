@@ -23,9 +23,15 @@ Route::post('/download/category/{subcategory_id}', [SearchController::class, 'se
 Route::get('/list/users', [\App\Http\Controllers\Api\Front\UserController::class, "list"]);
 
 Route::group(["prefix" => "download"], function () {
-    Route::get('{slug}/ticket/{ticket_id}', [DownloadController::class, 'getInfoTicket']);
-    Route::post('{slug}/ticket/{ticket_id}/composer', [DownloadController::class, 'composer']);
-    Route::get('{slug}/ticket/{ticket_id}/close', [DownloadController::class, 'close']);
+
+    Route::get('search/category/{category_id}', [DownloadController::class, 'searchCategory']);
+
+    Route::group(["prefix" => "{slug}/ticket"], function () {
+        Route::get('{ticket_id}', [DownloadController::class, 'getInfoTicket']);
+        Route::post('{ticket_id}/composer', [DownloadController::class, 'composer']);
+        Route::get('{ticket_id}/close', [DownloadController::class, 'close']);
+    });
+
 });
 
 Route::group(["prefix" => "user"], function () {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Models\Download\DownloadCategory;
 use App\Packages\SteamApi\Steam;
 use App\Repository\Download\DownloadRepository;
 use Illuminate\Http\Request;
@@ -41,5 +42,11 @@ class PackageController extends Controller
     public function create()
     {
         return view('account.package.create');
+    }
+
+    public function createTffrance()
+    {
+        $categories = DownloadCategory::all();
+        return view('account.package.createTffrance', compact('categories'));
     }
 }
