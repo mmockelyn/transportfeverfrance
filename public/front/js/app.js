@@ -26,6 +26,7 @@ $('.summernote').summernote({
     height: 230
 })
 
+
 function setCookie(name, value) {
     let d = new Date()
     d.setTime(d.getTime() + (365*24*60*60*1000))

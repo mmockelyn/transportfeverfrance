@@ -31,6 +31,7 @@ class CreateDownloadsTable extends Migration
             $table->string('version_latest')->default('1.0');
             $table->integer('count_view')->default(0);
             $table->integer('count_download')->default(0);
+            $table->string('licence')->nullable();
             $table->timestamps();
 
             $table->foreignId('download_category_id')->constrained()

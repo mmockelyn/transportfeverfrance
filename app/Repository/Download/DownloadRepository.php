@@ -5,8 +5,11 @@ namespace App\Repository\Download;
 
 use App\Models\Blog\Blog;
 use App\Models\Download\Download;
+use App\Models\Download\DownloadCategory;
 use App\Models\Download\DownloadCommentReport;
+use App\Models\Download\DownloadSubCategory;
 use App\Models\Download\DownloadSupport;
+use Illuminate\Support\Str;
 
 class DownloadRepository
 {
@@ -111,6 +114,26 @@ class DownloadRepository
             ->whereActive(true)
             ->oldest('id')
             ->firstWhere('id', '>', $id);
+    }
+
+    public function createDownload($title, $meta_keyword, $provider, $short_content, $content, $category_id, $subcategory_id, $licence)
+    {
+        $category = DownloadCategory::find($category_id);
+        $subcategory = DownloadSubCategory::find($subcategory_id);
+
+        return Download::create([
+            "title" => $title,
+            "slug" => Str::slug($title),
+            "provider" => $provider,
+            "seo_title" => "{$category->title} - {$subcategory->title} - {$title}",
+            "short_content" => $short_content,
+            "content" => $content,
+            "meta_description" => Str::limit($content, 255),
+            "meta_keyword" => $meta_keyword,
+            "download_category_id" => $category_id,
+            "download_sub_category_id" => $subcategory_id,
+            "licence" => $licence
+        ]);
     }
 
 

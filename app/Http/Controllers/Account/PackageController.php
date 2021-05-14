@@ -49,4 +49,22 @@ class PackageController extends Controller
         $categories = DownloadCategory::all();
         return view('account.package.createTffrance', compact('categories'));
     }
+
+    public function store(Request $request)
+    {
+        try {
+            $download = $this->downloadRepository->createDownload(
+                $request->title,
+                $request->meta_keyword,
+                $request->provider,
+                $request->short_content,
+                $request->description,
+                $request->download_category_id,
+                $request->download_sub_category_id,
+                $request->licence
+            );
+        }catch (\Exception $exception) {
+
+        }
+    }
 }

@@ -38,7 +38,7 @@ class UserController extends Controller
 
     public function list()
     {
-        $users = $this->userRepository->listingUsersOutActual();
+        $users = $this->userRepository->listingUsersOutActual(null, true);
 
         return response()->json(['users' => $users]);
     }

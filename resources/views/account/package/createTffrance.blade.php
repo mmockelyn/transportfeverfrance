@@ -117,7 +117,7 @@
                     <div class="wizard-content bg-gray-100 d-flex flex-column flex-row-fluid py-15 px-5 px-lg-10">
                         <!--begin::Form-->
                         <div class="d-flex justify-content-center flex-row-fluid">
-                            <form action="{{ route('account.packages.store') }}" class="pb-5 w-400 w-md-850px w-lg-1350px" novalidate="novalidate" id="kt_form">
+                            <form action="{{ route('account.packages.store') }}" class="pb-5 w-400 w-md-850px w-lg-1350px" novalidate="novalidate" id="kt_form" method="post">
                                 @csrf
                                 <input type="hidden" name="provider" value="3">
                                 <!--begin: Wizard Step 1-->
@@ -131,6 +131,12 @@
                                     <div class="form-group">
                                         <label class="font-size-h6 font-weight-bolder text-dark">Titre du mod</label>
                                         <input type="text" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" name="title" placeholder="Titre du mod" value="" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="font-size-h6 font-weight-bolder text-dark">Mot-Clé</label>
+                                        <input type="text" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6 tagify" name="meta_keyword" />
+                                        <p>Tapez vos mots, suivi par <code>une virgule</code></p>
                                     </div>
                                     <!--end::Form Group-->
                                 </div>

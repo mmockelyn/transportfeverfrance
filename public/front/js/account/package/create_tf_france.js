@@ -90,6 +90,13 @@ let wizard = function () {
                                 message: "Le titre est obligatoire"
                             }
                         }
+                    },
+                    meta_keyword: {
+                        validators: {
+                            notEmpty: {
+                                message: "Les mots clefs sont obligatoire"
+                            }
+                        }
                     }
                 },
                 plugins: {
@@ -244,6 +251,7 @@ let wizard = function () {
         }
     }
 
+
     return {
         init: function () {
             _wizardEl = KTUtil.getById('kt_wizard')
@@ -271,4 +279,7 @@ jQuery(document).ready(function () {
         "placeholder": "aaaa",
         autoUnmask: true
     });
+
+    let meta = document.querySelector('.tagify')
+    new Tagify(meta)
 });
