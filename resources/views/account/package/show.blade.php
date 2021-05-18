@@ -170,8 +170,52 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="tab-pane fade" id="kt_tab_pane_2_4" role="tabpanel" aria-labelledby="kt_tab_pane_2_4">
-                                ...
+                            <div class="tab-pane fade" id="feature" role="tabpanel" aria-labelledby="feature">
+                                @if($download->feature->type_feature == 0)
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Disponibilité</th>
+                                            <th>Pays</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{ $download->feature->dispo_start }} @if($download->feature->end) - {{ $download->feature->dispo_end }} @endif</td>
+                                                <td>{{ $download->feature->pays }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Type de Vehicule</th>
+                                            <th>Conduite</th>
+                                            <th>Vitesse</th>
+                                            <th>Performance</th>
+                                            <th>Traction</th>
+                                            <th>Disponibilité</th>
+                                            <th>Ecartement</th>
+                                            <th>Capacité</th>
+                                            <th>Pays</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>{{ $download->feature->type_vehicule }}</td>
+                                            <td>{{ $download->feature->conduite_vehicule }}</td>
+                                            <td>{{ $download->feature->vitesse }} Km/H</td>
+                                            <td>{{ $download->feature->performance }} Kw</td>
+                                            <td>{{ $download->feature->traction }} kN</td>
+                                            <td>{{ $download->feature->dispo_start }} @if($download->feature->end) - {{ $download->feature->dispo_end }} @endif</td>
+                                            <td>{{ $download->feature->ecartement }} mm</td>
+                                            <td>{{ $download->feature->capacity }}</td>
+                                            <td>{{ $download->feature->pays }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                @endif
                             </div>
                             <div class="tab-pane fade" id="kt_tab_pane_3_4" role="tabpanel" aria-labelledby="kt_tab_pane_3_4">
                                 ...
