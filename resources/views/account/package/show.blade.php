@@ -63,6 +63,18 @@
                                         {{ $download->count_download }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>Nombre de commentaires</td>
+                                    <td class="text-right">
+                                        {{ count($download->comments) }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Nombre de Tickets de support</td>
+                                    <td class="text-right">
+                                        {{ count($download->supports) }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -252,6 +264,64 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments">
+                                <div class="card card-custom">
+                                    <div class="card-body">
+                                        <table class="table table-bordered" id="table_comments">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Auteur</th>
+                                                    <th>Commentaire</th>
+                                                    <th>Etat</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($download->comments as $comment)
+                                                    <tr>
+                                                        <td>{{ $comment->id }}</td>
+                                                        <td>
+                                                            <div class="d-flex align-items-center mb-10">
+                                                                <!--begin::Symbol-->
+                                                                <div class="symbol symbol-40 symbol-light-white mr-5">
+                                                                    <div class="symbol-label">
+                                                                        @if($comment->user->avatar != null)
+                                                                            <img src="{{ $comment->user->avatar }}" class="h-75 align-self-end" alt="">
+                                                                        @else
+                                                                            <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get($comment->user->email) }}" class="h-75 align-self-end" alt="">
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                                <!--end::Symbol-->
+                                                                <!--begin::Text-->
+                                                                <div class="d-flex flex-column font-weight-bold">
+                                                                    <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{ $comment->user->name }}</a>
+                                                                    @if(\Illuminate\Support\Facades\Cache::has('user-is-online-'.$comment->user->id))
+                                                                        <span class="text-muted text-success">Connecter</span>
+                                                                    @else
+                                                                        <span class="text-muted text-danger">Déconnecter</span>
+                                                                    @endif
+                                                                </div>
+                                                                <!--end::Text-->
+                                                            </div>
+                                                        </td>
+                                                        <td>{!! $comment->content !!}</td>
+                                                        <td>
+                                                            @if($comment->valid == 0)
+                                                                <span class="label label-danger label-inline">Non publier</span>
+                                                            @else
+                                                                <span class="label label-success label-inline">Publier</span>
+                                                            @endif
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
