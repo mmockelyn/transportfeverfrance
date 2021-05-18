@@ -217,8 +217,42 @@
                                     </table>
                                 @endif
                             </div>
-                            <div class="tab-pane fade" id="kt_tab_pane_3_4" role="tabpanel" aria-labelledby="kt_tab_pane_3_4">
-                                ...
+                            <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user">
+                                <div class="row">
+                                    @foreach($download->users as $user)
+                                        <div class="col-3">
+                                            <div class="card card-custom gutter-b card-stretch">
+                                                <!--begin::Body-->
+                                                <div class="card-body text-center pt-4">
+                                                    <!--begin::User-->
+                                                    <div class="mt-7">
+                                                        <div class="symbol symbol-circle symbol-lg-75">
+                                                            @if($user->avatar != null)
+                                                                <img src="{{ $user->avatar }}" alt="image">
+                                                            @else
+                                                                <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get($user->email) }}" alt="image">
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <!--end::User-->
+                                                    <!--begin::Name-->
+                                                    <div class="my-2">
+                                                        <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">{{ $user->name }}</a>
+                                                    </div>
+                                                    <!--end::Name-->
+                                                    <!--begin::Label-->
+                                                    @if(\Illuminate\Support\Facades\Cache::has('user-is-online-'.$user->id))
+                                                        <span class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Connecter</span>
+                                                    @else
+                                                        <span class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Déconnecter</span>
+                                                    @endif
+                                                    <!--end::Label-->
+                                                </div>
+                                                <!--end::Body-->
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
