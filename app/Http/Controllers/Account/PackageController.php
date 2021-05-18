@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
 use App\Models\Download\DownloadFeature;
 use App\Models\Download\DownloadUser;
@@ -10,6 +11,7 @@ use App\Packages\SteamApi\Steam;
 use App\Repository\Download\DownloadRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Syntax\SteamApi\Facades\SteamApi;
 
 class PackageController extends Controller
@@ -101,6 +103,55 @@ class PackageController extends Controller
                 toastr()->error("Erreur lors du traitement de votre package", "Erreur Système");
                 return redirect()->back();
             }
+        }catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            toastr()->error("Erreur lors du traitement de votre package", "Erreur Système");
+            return redirect()->back();
+        }
+    }
+
+    public function show($packages_id)
+    {
+        $download = Download::find($packages_id);
+
+        return view('account.package.show', compact('download'));
+    }
+
+    public function update_image(Request $request, $package_id)
+    {
+        $name_file = "img".$package_id.'.png';
+        $download = Download::find($package_id);
+        try {
+            $file = $request->file('image')->storePubliclyAs('files/shares/download/', $name_file, 'public');
+            $download->update([
+                "image" => $name_file
+            ]);
+
+            toastr()->success("Image du mod mise à jours", "OK");
+            return redirect()->back();
+        }catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            toastr()->error("Erreur lors du traitement de votre package", "Erreur Système");
+            return redirect()->back();
+        }
+    }
+
+    public function update_info(Request $request, $package_id)
+    {
+        $download = Download::find($package_id);
+
+        try {
+            $download->update([
+                "title" => $request->title,
+                "slug" => Str::slug($request->title),
+                "seo_title" => "{$download->category->title} - {$download->category->title} - {$request->title}",
+                "short_content" => $request->short_content,
+                "content" => $request->description,
+                "meta_keywords" => $request->meta_keywords
+            ]);
+
+            toastr()->success("Information du mod mis à jour", "OK");
+            return redirect()->back();
         }catch (\Exception $exception) {
             Log::error($exception->getMessage());
             toastr()->error("Erreur lors du traitement de votre package", "Erreur Système");
