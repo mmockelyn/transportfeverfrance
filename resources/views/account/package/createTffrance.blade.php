@@ -302,7 +302,7 @@
                                                         <option value="AR">Argentina</option>
                                                         <option value="AM">Armenia</option>
                                                         <option value="AW">Aruba</option>
-                                                        <option value="AU" selected="selected">Australia</option>
+                                                        <option value="AU">Australia</option>
                                                         <option value="AT">Austria</option>
                                                         <option value="AZ">Azerbaijan</option>
                                                         <option value="BS">Bahamas</option>
@@ -577,7 +577,7 @@
                                                 <option value="AR">Argentina</option>
                                                 <option value="AM">Armenia</option>
                                                 <option value="AW">Aruba</option>
-                                                <option value="AU" selected="selected">Australia</option>
+                                                <option value="AU">Australia</option>
                                                 <option value="AT">Austria</option>
                                                 <option value="AZ">Azerbaijan</option>
                                                 <option value="BS">Bahamas</option>

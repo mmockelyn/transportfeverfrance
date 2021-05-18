@@ -26,6 +26,10 @@ class CreateDownloadFeaturesTable extends Migration
             $table->string('ecartement')->nullable();
             $table->string('capacity')->nullable();
             $table->string('pays')->nullable();
+
+            $table->foreignId('download_id')->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

@@ -129,7 +129,7 @@ class DownloadRepository
             "short_content" => $short_content,
             "content" => $content,
             "meta_description" => Str::limit($content, 255),
-            "meta_keyword" => $meta_keyword,
+            "meta_keywords" => $meta_keyword,
             "download_category_id" => $category_id,
             "download_sub_category_id" => $subcategory_id,
             "licence" => $licence

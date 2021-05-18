@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class DownloadFeature extends Model
 {
-    use HasFactory;
+    protected $guarded = [];
+    public $timestamps = false;
+
+    public function download()
+    {
+        return $this->belongsTo(Download::class);
+    }
 }
