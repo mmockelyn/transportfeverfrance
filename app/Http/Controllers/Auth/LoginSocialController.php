@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Repository\Account\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use NotificationChannels\Discord\Discord;
 
@@ -170,7 +171,7 @@ class LoginSocialController extends Controller
     private function registerSteam($user)
     {
         if(!$user->email){
-            $email = $user->nickname."@none.tf";
+            $email = Str::slug($user->nickname)."@none.tf";
             $existing_user = User::where('email', $email)->first();
         } else {
             $email = $user->email;
@@ -183,7 +184,7 @@ class LoginSocialController extends Controller
         } else {
             $newUser = new User;
 
-            $newUser->name = $user->name;
+            $newUser->name = $user->nickname;
             $newUser->email = $email;
             $newUser->avatar = $user->avatar;
             $newUser->type = 1;
