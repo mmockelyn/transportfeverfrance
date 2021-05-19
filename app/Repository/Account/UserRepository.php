@@ -111,12 +111,18 @@ class UserRepository
         }
     }
 
-    public function listingUsersOutActual()
+    public function listingUsersOutActual($users_id = null, $all = false)
     {
-        return $this->user->newQuery()
-            ->where('id', '!=', \auth()->user()->id)
-            ->where('id', '!=', 1)
-            ->get();
+        if($all == false) {
+            return $this->user->newQuery()
+                ->where('id', '!=', ($users_id != null) ? $users_id : \auth()->user()->id)
+                ->where('id', '!=', 1)
+                ->get();
+        } else {
+            return $this->user->newQuery()
+                ->where('id', '!=', 1)
+                ->get();
+        }
     }
 
 

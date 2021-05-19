@@ -77,28 +77,28 @@
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column">
                                     <a href="{{ route('front.download.show', $download->slug) }}" class="text-dark font-weight-bold text-hover-primary font-size-h4 mb-0">{{ $download->title }}</a>
-                                    @if($download->provider == 'steam')
+                                    @if($download->provider == 1)
                                         <span class="label label-lg label-inline font-weight-bold label-rounded">
                                             <span class="symbol symbol-20 mr-3">
                                                 <img alt="Pic" src="storage/files/shares/core/icons/steam_icon.png"/>
                                             </span> Steam
                                         </span>
                                     @endif
-                                    @if($download->provider == 'tfnet')
+                                    @if($download->provider == 2)
                                         <span class="label label-lg label-inline font-weight-bold label-rounded">
                                             <span class="symbol symbol-20 mr-3">
                                                 <img alt="Pic" src="storage/files/shares/core/icons/tf_net_icon.png"/>
                                             </span> Transport Fever.net
                                         </span>
                                     @endif
-                                    @if($download->provider == 'tf_france')
+                                    @if($download->provider == 3)
                                         <span class="label label-lg label-inline font-weight-bold label-rounded">
                                             <span class="symbol symbol-20 mr-3">
                                                 <img alt="Pic" src="storage/files/shares/core/icons/tf_france_icon.png"/>
                                             </span> Transport Fever France
                                         </span>
                                     @endif
-                                    @if($download->provider == 'null')
+                                    @if($download->provider == 0)
                                         <span class="label label-lg label-inline font-weight-bold label-rounded">
                                             <span class="symbol symbol-20 mr-3">
                                                 <img alt="Pic" src="storage/files/shares/core/icons/null_icon.png"/>

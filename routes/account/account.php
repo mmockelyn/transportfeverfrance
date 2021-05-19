@@ -7,6 +7,7 @@ Route::group(["prefix" => "account", "middleware" => ["web"]], function () {
     include("badge.php");
     include("notification.php");
     include("messagerie.php");
+    include("package.php");
 });
 
 

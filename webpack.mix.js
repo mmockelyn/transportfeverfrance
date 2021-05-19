@@ -1,4 +1,7 @@
 const mix = require('laravel-mix');
+let LiveReloadPlugin = require('webpack-livereload-plugin');
+
+mix.disableNotifications();
 
 /*
  |--------------------------------------------------------------------------
@@ -11,7 +14,17 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix.sass('resources/sass/front/app.scss', 'public/front/css');
+
+
+mix.webpackConfig({
+    resolve: {
+        alias: {
+            'morris.js': 'morris.js/morris.js',
+            'jquery-ui': 'jquery-ui',
+        },
+    },
+    plugins: [
+        new LiveReloadPlugin()
+    ]
+});
