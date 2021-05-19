@@ -38,9 +38,38 @@ class UserController extends Controller
 
     public function list()
     {
-        $users = $this->userRepository->listingUsersOutActual();
+        $users = $this->userRepository->listingUsersOutActual(null, true);
 
         return response()->json(['users' => $users]);
+    }
+
+    public function packages($user_id)
+    {
+        $user = $this->userRepository->getInfoUser($user_id)->load('downloads');
+        $packages = $user->downloads;
+        $array = [];
+
+        foreach ($packages as $package) {
+            $array[] = [
+                "id" => $package->id,
+                "title" => $package->title,
+                "provider" => $package->provider,
+                "state" => $package->active,
+                "shortDescription" => $package->short_content,
+                "description" => $package->content,
+                "versionLatest" => $package->version_latest,
+                "countView" => $package->count_view,
+                "count_download" => $package->count_download,
+                "imgFile" => env('APP_URL').'/storage/files/shares/download/'.$package->image,
+                "category" => $package->category,
+                "subcategory" => $package->subcategory,
+                'actions' => null,
+            ];
+        }
+
+        return response()->json([
+            "data" => $array
+        ]);
     }
 
 

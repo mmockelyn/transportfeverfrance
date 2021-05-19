@@ -17,7 +17,7 @@ class CreateDownloadsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->enum('provider', ["steam", "tfnet", "tf_france", "null"])->default('null');
+            $table->integer('provider')->default(0)->comment("0: null |1: steam |2: tfnet |3: tf_france");
             $table->boolean('active')->default(false);
             $table->string('steam_link_package')->nullable();
             $table->string('tfnet_link_package')->nullable();
@@ -31,6 +31,7 @@ class CreateDownloadsTable extends Migration
             $table->string('version_latest')->default('1.0');
             $table->integer('count_view')->default(0);
             $table->integer('count_download')->default(0);
+            $table->string('licence')->nullable();
             $table->timestamps();
 
             $table->foreignId('download_category_id')->constrained()

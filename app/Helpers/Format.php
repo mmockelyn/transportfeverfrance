@@ -23,11 +23,11 @@ class Format
     public static function switchDownloadProvider($providers)
     {
         switch ($providers) {
-            case 'steam':
+            case 1:
                 return 'steam_icon.png';
-            case 'tfnet':
+            case 2:
                 return 'tf_net_icon.png';
-            case 'tf_france':
+            case 3:
                 return 'tf_france_icon.png';
             default:
                 return 'null_icon.png';
@@ -37,18 +37,18 @@ class Format
     public static function symbolDownloadProvider($provider, $size = 20)
     {
         switch ($provider) {
-            case 'steam':
+            case 1:
                 return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Steam">
                             <img alt="Pic" src="storage/files/shares/core/icons/steam_icon.png"/>
                         </div>';
                 break;
-            case 'tfnet':
+            case 2:
                 return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Transport Fever net">
                             <img alt="Pic" src="storage/files/shares/core/icons/tf_net_icon.png"/>
                         </div>';
                 break;
 
-            case 'tf_france':
+            case 3:
                 return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="TF France">
                             <img alt="Pic" src="storage/files/shares/core/icons/tf_france_icon.png"/>
                         </div>';
