@@ -20,7 +20,7 @@
     "url": "git://github.com/OwlCarousel2/OwlCarousel2.git"
   },
   "dependencies": {
-    "jquery": ">=3.5.0"
+    "jquery": ">=3.6.0"
   },
   "devDependencies": {
     "assemble": "~0.4.37",
