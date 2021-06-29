@@ -50,7 +50,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <a href="{{ route('account.packages.createSteam') }}" class="text-dark text-hover-default font-weight-bold font-size-h4 mb-3">
+                                        <a href="{{ route('account.packages.createSteam') }}" class="text-dark text-hover-default font-weight-bold font-size-h4 mb-3 disabled" disabled>
                                             Steam
                                         </a>
                                         <div class="text-dark-75">
@@ -71,7 +71,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <a href="{{ route('account.packages.createTfnet') }}" class="text-dark text-hover-danger font-weight-bold font-size-h4 mb-3">
+                                        <a href="{{ route('account.packages.createTfnet') }}" class="text-dark text-hover-danger font-weight-bold font-size-h4 mb-3 disabled" disabled>
                                             Transport fever.net
                                         </a>
                                         <div class="text-dark-75">
