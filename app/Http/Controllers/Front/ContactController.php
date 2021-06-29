@@ -16,16 +16,19 @@ class ContactController extends Controller
 
     public function store(ContactRequest $request)
     {
-        if($request->user()) {
-            $request->merge([
-                'user_id' => $request->user()->id,
-                'name'    => $request->user()->name,
-                'email'   => $request->user()->email,
+        try {
+            Contact::create ([
+                "user_id" => null,
+                "name" => $request->get('name'),
+                "email" => $request->get('email'),
+                "message" => $request->get('message')
             ]);
+
+            return back()->with ('status', 'Votre message a été enregistré, nous vous répondrons dès que possible.');
+        }catch (\Exception $exception) {
+            dd($exception);
         }
 
-        Contact::create ($request->all());
 
-        return back()->with ('status', 'Votre message a été enregistré, nous vous répondrons dès que possible.');
     }
 }
