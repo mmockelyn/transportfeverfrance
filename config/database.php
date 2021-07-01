@@ -63,6 +63,26 @@ return [
             ]) : [],
         ],
 
+        'project' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => 'transportfeverfrance.fr',
+            'port' => '3306',
+            'database' => 'tabm2849_projet',
+            'username' => 'tabm2849_beta',
+            'password' => '0^pms]lJC,af',
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
