@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(["prefix" => "account", "middleware" => ["web"]], function () {
+    include("projet.php");
     include("profil.php");
     include("badge.php");
     include("notification.php");

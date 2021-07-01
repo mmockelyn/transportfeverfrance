@@ -21,6 +21,7 @@ class CreateUserSocialTable extends Migration
             $table->string('steam_id')->nullable();
             $table->string('discord_user_id')->nullable();
             $table->string('discord_private_channel_id')->nullable();
+            $table->integer('project_active_user')->default(0);
 
             $table->foreignId('user_id')->constrained()
                 ->onDelete('cascade')
