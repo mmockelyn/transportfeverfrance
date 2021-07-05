@@ -826,6 +826,16 @@ class DatabaseSeeder extends Seeder
             ////////////////////////////////
 
         } else {
+            User::withoutEvents(function () {
+                User::create([
+                    'name' => "Bot TF France",
+                    'email' => "bot@transportfeverfrance.fr",
+                    'password' => bcrypt('0000'),
+                    'group' => 0,
+                    'avatar' => null,
+                ]);
+            });
+
             $items = [
                 ['about-us', 'About us'],
                 ['terms', 'Terms'],
