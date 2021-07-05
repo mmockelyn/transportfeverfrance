@@ -825,6 +825,37 @@ class DatabaseSeeder extends Seeder
 
             ////////////////////////////////
 
+        } else {
+            $items = [
+                ['about-us', 'About us'],
+                ['terms', 'Terms'],
+                ['faq', 'FAQ'],
+                ['privacy-policy', 'Privacy Policy'],
+            ];
+
+            foreach ($items as $item) {
+                Page::factory()->create([
+                    'slug' => $item[0],
+                    'title' => $item[1],
+                ]);
+            }
+
+            DB::table('follows')->insert([
+                ["title" => "Twitter", "href" => "#", "icon" => "twitter"],
+                ["title" => "Facebook", "href" => "#", "icon" => "facebook"],
+                ["title" => "Instagram", "href" => "#", "icon" => "instagram"],
+                ["title" => "Discord", "href" => "https://discord.com/invite/VaSSqzG", "icon" => "discord"],
+                ["title" => "Steam", "href" => "#", "icon" => "steam"],
+            ]);
+
+            Badge::create(["name" => "Nouveau", "action" => "newuser", "action_count" => 0, "description" => "Bienvenue sur TF France"]);
+            Badge::create(["name" => "Timide", "action" => "comments", "action_count" => 10, "description" => "Vous avez poster 10 commentaires"]);
+            Badge::create(["name" => "Bavard", "action" => "comments", "action_count" => 50, "description" => "Vous avez poster 50 commentaires"]);
+            Badge::create(["name" => "Pipelette", "action" => "comments", "action_count" => 100, "description" => "Vous avez poster 100 commentaires"]);
+            Badge::create(["name" => "Jeunot", "action" => "ages", "action_count" => 1, "description" => "Inscrit depuis 1 an"]);
+            Badge::create(["name" => "Habitué", "action" => "ages", "action_count" => 2, "description" => "Inscrit depuis 2 an"]);
+            Badge::create(["name" => "Ancien", "action" => "ages", "action_count" => 3, "description" => "Inscrit depuis 3 an"]);
+            Badge::create(["name" => "Curieux", "action" => "train", "action_count" => 0, "description" => "Vous avez trouver le train de Transport Fever France"]);
         }
     }
 }
