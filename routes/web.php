@@ -17,6 +17,7 @@ use UniSharp\LaravelFilemanager\Lfm;
 
 include('account/account.php');
 include('front/front.php');
+include('back/back.php');
 Route::group(["prefix" => "filemanager"], function() {
     Lfm::routes();
 });
