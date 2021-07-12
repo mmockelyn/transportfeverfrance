@@ -2,25 +2,26 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
-use Jhumanj\LaravelModelStats\LaravelModelStats;
-use Jhumanj\LaravelModelStats\ModelStatsServiceProvider as Provider;
+use Illuminate\Support\ServiceProvider;
 
-class ModelStatsServiceProvider extends Provider
+class ModelStatsServiceProvider extends ServiceProvider
 {
     /**
-     * Register the LaravelModelStats gate.
-     *
-     * This gate determines who can access ModelStats in non-local environments.
+     * Register any application services.
      *
      * @return void
      */
-    protected function gate()
+    public function register()
     {
-        Gate::define('viewModelStats', function ($user) {
-            return in_array($user->email, [
-                "bot@transportfeverfrance.fr"
-            ]);
-        });
+        //
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
     }
 }
