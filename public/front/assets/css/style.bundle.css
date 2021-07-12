@@ -83250,7 +83250,8 @@ body {
     -webkit-box-align: stretch;
     -ms-flex-align: stretch;
     align-items: stretch;
-    background-color: #3699FF;
+      background: rgb(228,0,0);
+      background: linear-gradient(90deg, rgba(228,0,0,1) 0%, rgba(230,61,0,1) 20%, rgba(217,207,0,1) 49%, rgba(66,186,0,1) 71%, rgba(3,141,208,1) 88%, rgba(0,212,255,1) 100%);
   }
   .header .header-top .container,
 .header .header-top .container-fluid,
