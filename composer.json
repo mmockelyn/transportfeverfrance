@@ -13,7 +13,6 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.3",
-        "jhumanj/laravel-model-stats": "^0.1.1",
         "jorenvanhocht/laravel-share": "^4.0",
         "kalnoy/nestedset": "^5.0",
         "laravel-notification-channels/discord": "^1.3",
