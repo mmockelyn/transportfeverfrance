@@ -12,8 +12,8 @@ License: For each use you must have a valid license purchased only from above li
 <!--begin::Head-->
 <head><base href="">
     <meta charset="utf-8" />
-    <title>{{ env("APP_NAME") }} - Administration</title>
-    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+    <title>TPF France - Administration</title>
+    <link rel="shortcut icon" href="/back/assets/media/logos/favicon.ico" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
