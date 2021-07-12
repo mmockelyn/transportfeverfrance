@@ -6,6 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-curl": "*",
+        "ext-json": "*",
         "arcanedev/log-viewer": "~8.0",
         "creativeorange/gravatar": "~1.0",
         "fideloper/proxy": "^4.4",
@@ -29,9 +31,7 @@
         "socialiteproviders/twitter": "^4.1",
         "syntax/steam-api": "2.3.*",
         "unisharp/laravel-filemanager": "^2.2",
-        "yoeunes/toastr": "^1.2",
-        "ext-curl": "*",
-        "ext-json": "*"
+        "yoeunes/toastr": "^1.2"
     },
     "require-dev": {
         "arcanedev/route-viewer": "^4.0",
