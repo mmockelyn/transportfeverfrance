@@ -199,7 +199,7 @@
 <!--end::Aside menu-->
 <!--begin::Footer-->
 <div class="aside-footer flex-column-auto pt-5 pb-7 px-5" id="kt_aside_footer">
-    <a href="documentation/getting-started.html" class="btn btn-custom btn-primary w-100" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-delay-show="8000" title="Voir les dernières nouveautés du back office">
+    <a href="{{ route('back.changelog') }}" class="btn btn-custom btn-primary w-100" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-delay-show="8000" title="Voir les dernières nouveautés du back office">
         <span class="btn-label">Changelog</span>
         <!--begin::Svg Icon | path: icons/duotone/General/Clipboard.svg-->
         <span class="svg-icon btn-icon svg-icon-2">
