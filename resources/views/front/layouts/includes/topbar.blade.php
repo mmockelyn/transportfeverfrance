@@ -6,7 +6,7 @@
         <div class="d-none d-lg-flex align-items-center mr-3">
             <!--begin::Logo-->
             <a href="{{ route('home') }}" class="mr-20">
-                <img alt="Logo" src="{{ asset("storage/files/shares/core/logo_couleur_2.png") }}" class="max-h-50px" />
+                <img alt="Logo" src="{{ asset("storage/files/shares/core/logo_couleur.png") }}" class="max-h-50px" />
             </a>
             <!--end::Logo-->
         </div>
