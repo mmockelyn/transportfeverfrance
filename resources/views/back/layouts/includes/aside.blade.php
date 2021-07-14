@@ -20,7 +20,7 @@
                 </a>
             </div>
             <div class="menu-item">
-                <a class="menu-link" href="landing.html">
+                <a class="menu-link" href="{{ route('back.calendar.index') }}">
 					<span class="menu-icon">
 						<!--begin::Svg Icon | path: icons/duotone/Design/Sketch.svg-->
 						<span class="svg-icon svg-icon-2">

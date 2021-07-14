@@ -21,6 +21,7 @@ License: For each use you must have a valid license purchased only from above li
     <link href="/back/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="/back/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
+    @yield("style")
 </head>
 <!--end::Head-->
 <!--begin::Body-->
