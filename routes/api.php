@@ -39,3 +39,8 @@ Route::group(["prefix" => "user"], function () {
     Route::get('{user_id}/inbox', [\App\Http\Controllers\Api\Front\UserController::class, 'inbox']);
     Route::post('{user_id}/packages', [\App\Http\Controllers\Api\Front\UserController::class, 'packages']);
 });
+
+Route::group(["prefix" => "calendar"], function () {
+    Route::get('list', [\App\Http\Controllers\Api\Back\CalendarController::class, 'list']);
+    Route::delete('{id}', [\App\Http\Controllers\Api\Back\CalendarController::class, 'delete']);
+});

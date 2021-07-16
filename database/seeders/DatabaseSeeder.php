@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Blog\Blog;
 use App\Models\Blog\BlogComment;
+use App\Models\Calendar;
 use App\Models\Contact;
 use App\Models\Core\Badge;
 use App\Models\Download\Download;
@@ -30,7 +31,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        if(env('APP_ENV') == 'local') {
+        if (config('app.env') == 'local') {
             // \App\Models\User::factory(10)->create();
             User::withoutEvents(function () {
                 User::create([
@@ -50,7 +51,7 @@ class DatabaseSeeder extends Seeder
             $users = User::all();
 
             foreach ($users as $user) {
-                for($i=0; $i < 9; $i++) {
+                for ($i = 0; $i < 9; $i++) {
                     UserTutorial::factory()->create([
                         'user_id' => $user->id,
                         'identifier' => $i
@@ -464,7 +465,13 @@ class DatabaseSeeder extends Seeder
             Badge::create(["name" => "Habitué", "action" => "ages", "action_count" => 2, "description" => "Inscrit depuis 2 an"]);
             Badge::create(["name" => "Ancien", "action" => "ages", "action_count" => 3, "description" => "Inscrit depuis 3 an"]);
             Badge::create(["name" => "Curieux", "action" => "train", "action_count" => 0, "description" => "Vous avez trouver le train de Transport Fever France"]);
-        } elseif(env("APP_ENV") == "beta") {
+
+            for ($l = 0; $l <= rand(1, 20); $l++) {
+                Calendar::factory()->create([
+                    "name" => "Event N°".$l
+                ]);
+            }
+        } elseif (config('app.env') == "beta") {
             // \App\Models\User::factory(10)->create();
             User::withoutEvents(function () {
                 User::create([
@@ -822,6 +829,12 @@ class DatabaseSeeder extends Seeder
             Badge::create(["name" => "Habitué", "action" => "ages", "action_count" => 2, "description" => "Inscrit depuis 2 an"]);
             Badge::create(["name" => "Ancien", "action" => "ages", "action_count" => 3, "description" => "Inscrit depuis 3 an"]);
             Badge::create(["name" => "Curieux", "action" => "train", "action_count" => 0, "description" => "Vous avez trouver le train de Transport Fever France"]);
+
+            for ($l = 0; $l <= rand(1, 20); $l++) {
+                Calendar::factory()->create([
+                    "name" => "Event N°".$l
+                ]);
+            }
 
             ////////////////////////////////
 
