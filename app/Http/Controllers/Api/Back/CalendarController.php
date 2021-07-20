@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Back;
 
 use App\Http\Controllers\Controller;
 use App\Models\Calendar;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -29,7 +30,54 @@ class CalendarController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        $start_date = Carbon::createFromTimestamp(strtotime($request->get('start_date')));
+        $end_date = Carbon::createFromTimestamp(strtotime($request->get('end_date')));
+
+        try {
+            $calendar = Calendar::create([
+                "name" => $request->get('name'),
+                "description" => $request->get('description'),
+                "location" => $request->get('location'),
+                "start_date" => $start_date,
+                "end_date" => $end_date,
+                "allday" => $request->get('allDay') == true ? 1 : 0
+            ]);
+
+            return response()->json($calendar);
+        } catch (\Exception $exception) {
+            Log::error("Impossible d'ajouter l'évènement", [
+                "sector" => "Calendar",
+                "error" => $exception->getMessage()
+            ]);
+
+            return $exception->getMessage();
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $start_date = Carbon::createFromTimestamp(strtotime($request->get('start_date')));
+        $end_date = Carbon::createFromTimestamp(strtotime($request->get('end_date')));
+
+        try {
+            $calendar = Calendar::find($id)->update([
+                "name" => $request->get('name'),
+                "description" => $request->get('description'),
+                "location" => $request->get('location'),
+                "start_date" => $start_date,
+                "end_date" => $end_date,
+                "allday" => $request->get('allDay') == true ? 1 : 0
+            ]);
+
+            return response()->json();
+        }catch (\Exception $exception) {
+            Log::error("Impossible d'éditer l'évènement", [
+                "sector" => "Calendar",
+                "error" => $exception->getMessage()
+            ]);
+
+            return $exception->getMessage();
+        }
     }
 
     public function delete($id)
@@ -38,7 +86,7 @@ class CalendarController extends Controller
             Calendar::find($id)->delete();
 
             return response()->json();
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             Log::error("Impossible de supprimer l'évènement", [
                 "sector" => "Calendar",
                 "error" => $exception->getMessage()
