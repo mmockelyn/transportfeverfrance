@@ -12,4 +12,8 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
    Route::group(["prefix" => "calendar"], function () {
        Route::get('/', [\App\Http\Controllers\Back\CalendarController::class, 'index'])->name('back.calendar.index');
    });
+
+   Route::group(["prefix" => "tasks"], function() {
+       Route::get('/', [\App\Http\Controllers\Back\TaskController::class, 'index'])->name('back.tasks.index');
+   });
 });
