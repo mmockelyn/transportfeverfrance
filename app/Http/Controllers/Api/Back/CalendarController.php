@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\Back;
 
 use App\Http\Controllers\Controller;
 use App\Models\Calendar;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CalendarController extends Controller
 {
@@ -17,12 +19,79 @@ class CalendarController extends Controller
             $arr[] = [
                 "id" => $event->id,
                 "title" => $event->name,
-                "start" => $event->start_date->format('Y-m-d').'T'.$event->start_time->format('H:i:s'),
+                "start" => $event->start_date->format('Y-m-d H:i:s'),
                 "description" => $event->description,
-                "end" => $event->end_date->format('Y-m-d').'T'.$event->end_time->format('H:i:s'),
+                "end" => $event->end_date->format('Y-m-d H:i:s'),
             ];
         }
 
         return response()->json($arr);
+    }
+
+    public function store(Request $request)
+    {
+        $start_date = Carbon::createFromTimestamp(strtotime($request->get('start_date')));
+        $end_date = Carbon::createFromTimestamp(strtotime($request->get('end_date')));
+
+        try {
+            $calendar = Calendar::create([
+                "name" => $request->get('name'),
+                "description" => $request->get('description'),
+                "location" => $request->get('location'),
+                "start_date" => $start_date,
+                "end_date" => $end_date,
+                "allday" => $request->get('allDay') == true ? 1 : 0
+            ]);
+
+            return response()->json($calendar);
+        } catch (\Exception $exception) {
+            Log::error("Impossible d'ajouter l'évènement", [
+                "sector" => "Calendar",
+                "error" => $exception->getMessage()
+            ]);
+
+            return $exception->getMessage();
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $start_date = Carbon::createFromTimestamp(strtotime($request->get('start_date')));
+        $end_date = Carbon::createFromTimestamp(strtotime($request->get('end_date')));
+
+        try {
+            $calendar = Calendar::find($id)->update([
+                "name" => $request->get('name'),
+                "description" => $request->get('description'),
+                "location" => $request->get('location'),
+                "start_date" => $start_date,
+                "end_date" => $end_date,
+                "allday" => $request->get('allDay') == true ? 1 : 0
+            ]);
+
+            return response()->json();
+        }catch (\Exception $exception) {
+            Log::error("Impossible d'éditer l'évènement", [
+                "sector" => "Calendar",
+                "error" => $exception->getMessage()
+            ]);
+
+            return $exception->getMessage();
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            Calendar::find($id)->delete();
+
+            return response()->json();
+        } catch (\Exception $exception) {
+            Log::error("Impossible de supprimer l'évènement", [
+                "sector" => "Calendar",
+                "error" => $exception->getMessage()
+            ]);
+            return $exception->getMessage();
+        }
     }
 }

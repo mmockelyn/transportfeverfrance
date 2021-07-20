@@ -10,5 +10,5 @@ class Calendar extends Model
     use HasFactory;
     protected $guarded = [];
 
-    protected $dates = ["created_at", "update_at", "start_date", "start_time", "end_date", "end_time"];
+    protected $dates = ["created_at", "update_at", "start_date", "end_date"];
 }

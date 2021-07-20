@@ -19,10 +19,8 @@ class CreateCalendarsTable extends Migration
             $table->text('description')->nullable();
             $table->string('location')->nullable();
             $table->integer('allday')->default(0);
-            $table->date('start_date')->nullable();
-            $table->time('start_time')->nullable();
-            $table->date('end_date')->nullable();
-            $table->time('end_time')->nullable();
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->timestamps();
         });
     }

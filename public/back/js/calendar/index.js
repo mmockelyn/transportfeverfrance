@@ -11,7 +11,7 @@ var e, t, n, a, o, r, i, l, d, s, c, m, u, v, f, p, y, _, D, g, k, b, S, h, T, Y
 };
 
 const x = () => {
-        v.innerText = "Add a New Event", u.show();
+        v.innerText = "Nouvelle évènement", u.show();
         const o = f.querySelectorAll('[data-kt-calendar="datepicker"]'),
             i = f.querySelector("#kt_calendar_datepicker_allday");
         i.addEventListener("click", (e => {
@@ -54,12 +54,13 @@ const x = () => {
             }
         }), _.addEventListener("click", (function(o) {
             o.preventDefault(), p && p.validate().then((function(o) {
+                console.log(o)
                 console.log("validated!"), "Valid" == o ? (_.setAttribute("data-kt-indicator", "on"), _.disabled = !0, setTimeout((function() {
                     _.removeAttribute("data-kt-indicator"), Swal.fire({
-                        text: "New event added to calendar!",
+                        text: "Nouvelle évènement à ajouter au calendrier, tous est en ordre !",
                         icon: "success",
                         buttonsStyling: !1,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: "Ok, Créer l'évènement !",
                         customClass: {
                             confirmButton: "btn btn-primary"
                         }
@@ -75,6 +76,24 @@ const x = () => {
                                     t = e;
                                 d = e + "T" + moment(s.selectedDates[0]).format("HH:mm:ss"), c = t + "T" + moment(m.selectedDates[0]).format("HH:mm:ss")
                             }
+                            $.ajax({
+                                url: '/api/calendar',
+                                method: 'POST',
+                                data: {
+                                    'name': t.value,
+                                    'description': n.value,
+                                    'location': a.value,
+                                    'start_date': d,
+                                    'end_date': c,
+                                    'allDay': o
+                                },
+                                success: (data) => {
+                                    window.location.refresh()
+                                },
+                                error: () => {
+                                    console.error("Ajax Error")
+                                }
+                            })
                             e.addEvent({
                                 id: A(),
                                 title: t.value,
@@ -105,7 +124,7 @@ const x = () => {
     q = () => {
         E.addEventListener("click", (o => {
             o.preventDefault(), w.hide(), (() => {
-                v.innerText = "Edit an Event", u.show();
+                v.innerText = "Editer un évènement", u.show();
                 const o = f.querySelectorAll('[data-kt-calendar="datepicker"]'),
                     i = f.querySelector("#kt_calendar_datepicker_allday");
                 i.addEventListener("click", (e => {
@@ -150,10 +169,10 @@ const x = () => {
                     o.preventDefault(), p && p.validate().then((function(o) {
                         console.log("validated!"), "Valid" == o ? (_.setAttribute("data-kt-indicator", "on"), _.disabled = !0, setTimeout((function() {
                             _.removeAttribute("data-kt-indicator"), Swal.fire({
-                                text: "New event added to calendar!",
+                                text: "Votre évènement va être éditer, tous est en ordre !",
                                 icon: "success",
                                 buttonsStyling: !1,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Ok, éditer l'évènement !",
                                 customClass: {
                                     confirmButton: "btn btn-primary"
                                 }
@@ -169,6 +188,18 @@ const x = () => {
                                             t = e;
                                         d = e + "T" + moment(s.selectedDates[0]).format("HH:mm:ss"), c = t + "T" + moment(m.selectedDates[0]).format("HH:mm:ss")
                                     }
+                                    $.ajax({
+                                        url: '/api/calendar/'+A(),
+                                        method: "PUT",
+                                        data: {'name': t.value, 'description': n.value, 'location': a.value, 'start_date': d, 'end_date': c, allDay: o},
+                                        success: (data) => {
+                                            console.log(data)
+                                            window.location.refresh()
+                                        },
+                                        error: () => {
+                                            console.error("Erreur Ajax")
+                                        }
+                                    })
                                     e.addEvent({
                                         id: A(),
                                         title: t.value,
@@ -319,15 +350,19 @@ function getEvents() {
                         url: '/api/calendar/'+M.id,
                         method: "DELETE",
                         success: () => {
-                            t.value ? (e.getEventById(M.id).remove(), w.hide()) : "cancel" === t.dismiss && Swal.fire({
-                                text: "Your event was not deleted!.",
+                            t.value ? (w.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                text: "Votre évènement n'à pas été supprimer !.",
                                 icon: "error",
                                 buttonsStyling: !1,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Ok",
                                 customClass: {
                                     confirmButton: "btn btn-primary"
                                 }
                             })
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1200)
+
                         },
                         error: () => {
                             toastr.error("Erreur lors du traitement de votre demande", "Erreur Serveur")
