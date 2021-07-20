@@ -42,5 +42,6 @@ Route::group(["prefix" => "user"], function () {
 
 Route::group(["prefix" => "calendar"], function () {
     Route::get('list', [\App\Http\Controllers\Api\Back\CalendarController::class, 'list']);
+    Route::post('/', [\App\Http\Controllers\Api\Back\CalendarController::class, 'store']);
     Route::delete('{id}', [\App\Http\Controllers\Api\Back\CalendarController::class, 'delete']);
 });

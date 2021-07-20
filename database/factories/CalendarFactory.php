@@ -22,13 +22,10 @@ class CalendarFactory extends Factory
     public function definition()
     {
         $start_date = $this->faker->dateTimeInInterval(now());
-        $start_time = $this->faker->time;
         return [
             "description" => $this->faker->paragraph,
             "start_date" => $start_date,
-            "start_time" => $start_time,
             "end_date" => $this->faker->dateTimeInInterval($start_date, '+'.rand(1,15).' days'),
-            "end_time" => $this->faker->time
         ];
     }
 }

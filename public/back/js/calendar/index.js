@@ -169,6 +169,17 @@ const x = () => {
                                             t = e;
                                         d = e + "T" + moment(s.selectedDates[0]).format("HH:mm:ss"), c = t + "T" + moment(m.selectedDates[0]).format("HH:mm:ss")
                                     }
+                                    $.ajax({
+                                        url: '/api/calendar',
+                                        method: "POST",
+                                        data: {'name': t.value, 'description': n.value, 'location': a.value, 'start_date': d, 'end_date': c, allDay: o},
+                                        success: (data) => {
+                                            console.log(data)
+                                        },
+                                        error: () => {
+                                            console.error("Erreur Ajax")
+                                        }
+                                    })
                                     e.addEvent({
                                         id: A(),
                                         title: t.value,
@@ -319,15 +330,19 @@ function getEvents() {
                         url: '/api/calendar/'+M.id,
                         method: "DELETE",
                         success: () => {
-                            t.value ? (e.getEventById(M.id).remove(), w.hide()) : "cancel" === t.dismiss && Swal.fire({
-                                text: "Your event was not deleted!.",
+                            t.value ? (w.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                text: "Votre évènement n'à pas été supprimer !.",
                                 icon: "error",
                                 buttonsStyling: !1,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Ok",
                                 customClass: {
                                     confirmButton: "btn btn-primary"
                                 }
                             })
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1200)
+
                         },
                         error: () => {
                             toastr.error("Erreur lors du traitement de votre demande", "Erreur Serveur")
