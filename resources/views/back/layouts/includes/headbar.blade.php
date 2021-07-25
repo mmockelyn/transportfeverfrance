@@ -63,7 +63,7 @@
                                 <h3 class="text-white fw-bold mb-3">Liens Rapides</h3>
                                 <!--end::Title-->
                                 <!--begin::Status-->
-                                <span class="badge bg-success py-2 px-3">{{ \App\Models\Task::where('check', 1)->get()->count() }} Tache en cours</span>
+                                <span class="badge bg-success py-2 px-3">{{ \App\Models\Task::where('check', 0)->get()->count() }} Tache en cours</span>
                                 <!--end::Status-->
                             </div>
                             <!--end::Heading-->
