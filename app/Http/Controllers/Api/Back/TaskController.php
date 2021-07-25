@@ -12,6 +12,11 @@ class TaskController extends Controller
     {
         $tasks = Task::all();
 
-        return response()->json($tasks);
+        return response()->json([
+            "count_tasks_pending" => $tasks->where('check', 0)->count(),
+            "count_tasks_complete" => $tasks->where('check', 1)->count(),
+            "tasks_complete" => $tasks->where('check', 1),
+            "tasks_pending" => $tasks->where('check', 0),
+        ]);
     }
 }
