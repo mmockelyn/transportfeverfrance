@@ -137,266 +137,42 @@
                         <!--begin::Table head-->
                         <thead class="fs-7 text-gray-400 text-uppercase">
                         <tr>
-                            <th class="min-w-250px">Target</th>
-                            <th class="min-w-90px">Section</th>
-                            <th class="min-w-150px">Due Date</th>
-                            <th class="min-w-90px">Members</th>
+                            <th class="min-w-250px">Tache</th>
+                            <th class="min-w-90px">Categorie</th>
+                            <th class="min-w-90px">Auteur</th>
                             <th class="min-w-90px">Status</th>
-                            <th class="min-w-50px"></th>
                         </tr>
                         </thead>
                         <!--end::Table head-->
                         <!--begin::Table body-->
                         <tbody class="fs-6">
                         <!--begin::Table row-->
+                        @foreach($tasks as $task)
                         <tr>
                             <td class="fw-bolder">
-                                <a href="#" class="text-gray-900 text-hover-primary">Meeting with customer</a>
+                                <a href="#" class="text-gray-900 text-hover-primary">{{ $task->task }}</a>
                             </td>
                             <td>
-                                <span class="badge badge-light fw-bold me-auto">UI Design</span>
+                                <span class="badge badge-light fw-bold me-auto">{{ $task->category }}</span>
                             </td>
-                            <td>May 17, 2020</td>
                             <td>
                                 <!--begin::Members-->
                                 <div class="symbol-group symbol-hover fs-8">
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Melody Macy">
-                                        <img alt="Pic" src="assets/media/avatars/150-3.jpg" />
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="John Mixin">
-                                        <img alt="Pic" src="assets/media/avatars/150-11.jpg" />
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Susan Redwood">
-                                        <span class="symbol-label bg-primary text-inverse-primary fw-bolder">S</span>
+                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="{{ $task->user->name }}">
+                                        <div class="symbol-label fs-2 fw-bold text-success">{{ \Illuminate\Support\Str::limit($task->user->name, 1, '') }}</div>
                                     </div>
                                 </div>
                                 <!--end::Members-->
                             </td>
                             <td>
-                                <span class="badge badge-light-primary fw-bolder me-auto">In Progress</span>
-                            </td>
-                            <td class="text-end">
-                                <a href="#" class="btn btn-bg-light btn-active-color-primary btn-sm">View</a>
-                            </td>
-                        </tr>
-                        <!--end::Table row-->
-                        <!--begin::Table row-->
-                        <tr>
-                            <td class="fw-bolder">
-                                <a href="#" class="text-gray-900 text-hover-primary">User Module Testing</a>
-                            </td>
-                            <td>
-                                <span class="badge badge-light fw-bold me-auto">Phase 2.6 QA</span>
-                            </td>
-                            <td>Sep 24, 2020</td>
-                            <td>
-                                <!--begin::Members-->
-                                <div class="symbol-group symbol-hover fs-8">
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Alan Warden">
-                                        <span class="symbol-label bg-warning text-inverse-warning fw-bolder">A</span>
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Robin Watterman">
-                                        <span class="symbol-label bg-success text-inverse-success fw-bolder">R</span>
-                                    </div>
-                                </div>
-                                <!--end::Members-->
-                            </td>
-                            <td>
-                                <span class="badge badge-light-success fw-bolder me-auto">Completed</span>
-                            </td>
-                            <td class="text-end">
-                                <a href="#" class="btn btn-bg-light btn-active-color-primary btn-sm">View</a>
+                                @if($task->check == 0)
+                                    <span class="badge badge-light-danger fw-bolder me-auto">A Faire</span>
+                                @else
+                                    <span class="badge badge-light-success fw-bolder me-auto">Terminer</span>
+                                @endif
                             </td>
                         </tr>
-                        <!--end::Table row-->
-                        <!--begin::Table row-->
-                        <tr>
-                            <td class="fw-bolder">
-                                <a href="#" class="text-gray-900 text-hover-primary">Sales report page</a>
-                            </td>
-                            <td>
-                                <span class="badge badge-light fw-bold me-auto">QA</span>
-                            </td>
-                            <td>Aug 24, 2020</td>
-                            <td>
-                                <!--begin::Members-->
-                                <div class="symbol-group symbol-hover fs-8">
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Melody Macy">
-                                        <img alt="Pic" src="assets/media/avatars/150-3.jpg" />
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Kristen Goodwin">
-                                        <img alt="Pic" src="assets/media/avatars/150-8.jpg" />
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Mikaela Collins">
-                                        <span class="symbol-label bg-info text-inverse-info fw-bolder">M</span>
-                                    </div>
-                                </div>
-                                <!--end::Members-->
-                            </td>
-                            <td>
-                                <span class="badge badge-light fw-bolder me-auto">Yet to start</span>
-                            </td>
-                            <td class="text-end">
-                                <a href="#" class="btn btn-bg-light btn-active-color-primary btn-sm">View</a>
-                            </td>
-                        </tr>
-                        <!--end::Table row-->
-                        <!--begin::Table row-->
-                        <tr>
-                            <td class="fw-bolder">
-                                <a href="#" class="text-gray-900 text-hover-primary">Meeting with customer</a>
-                            </td>
-                            <td>
-                                <span class="badge badge-light fw-bold me-auto">Prototype</span>
-                            </td>
-                            <td>Mar 10, 2020</td>
-                            <td>
-                                <!--begin::Members-->
-                                <div class="symbol-group symbol-hover fs-8">
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Robin Watterman">
-                                        <span class="symbol-label bg-success text-inverse-success fw-bolder">R</span>
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Brian Cox">
-                                        <img alt="Pic" src="assets/media/avatars/150-4.jpg" />
-                                    </div>
-                                </div>
-                                <!--end::Members-->
-                            </td>
-                            <td>
-                                <span class="badge badge-light-success fw-bolder me-auto">Completed</span>
-                            </td>
-                            <td class="text-end">
-                                <a href="#" class="btn btn-bg-light btn-active-color-primary btn-sm">View</a>
-                            </td>
-                        </tr>
-                        <!--end::Table row-->
-                        <!--begin::Table row-->
-                        <tr>
-                            <td class="fw-bolder">
-                                <a href="#" class="text-gray-900 text-hover-primary">Design main Dashboard</a>
-                            </td>
-                            <td>
-                                <span class="badge badge-light fw-bold me-auto">UI Design</span>
-                            </td>
-                            <td>May 22, 2020</td>
-                            <td>
-                                <!--begin::Members-->
-                                <div class="symbol-group symbol-hover fs-8">
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Melody Macy">
-                                        <img alt="Pic" src="assets/media/avatars/150-3.jpg" />
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Emma Smith">
-                                        <img alt="Pic" src="assets/media/avatars/150-1.jpg" />
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Lucy Matthews">
-                                        <img alt="Pic" src="assets/media/avatars/150-10.jpg" />
-                                    </div>
-                                </div>
-                                <!--end::Members-->
-                            </td>
-                            <td>
-                                <span class="badge badge-light-success fw-bolder me-auto">Completed</span>
-                            </td>
-                            <td class="text-end">
-                                <a href="#" class="btn btn-bg-light btn-active-color-primary btn-sm">View</a>
-                            </td>
-                        </tr>
-                        <!--end::Table row-->
-                        <!--begin::Table row-->
-                        <tr>
-                            <td class="fw-bolder">
-                                <a href="#" class="text-gray-900 text-hover-primary">User Module Testing</a>
-                            </td>
-                            <td>
-                                <span class="badge badge-light fw-bold me-auto">Development</span>
-                            </td>
-                            <td>Oct 6, 2020</td>
-                            <td>
-                                <!--begin::Members-->
-                                <div class="symbol-group symbol-hover fs-8">
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Francis Mitcham">
-                                        <img alt="Pic" src="assets/media/avatars/150-5.jpg" />
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Deanna Taylor">
-                                        <img alt="Pic" src="assets/media/avatars/150-6.jpg" />
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Mikaela Collins">
-                                        <span class="symbol-label bg-info text-inverse-info fw-bolder">M</span>
-                                    </div>
-                                </div>
-                                <!--end::Members-->
-                            </td>
-                            <td>
-                                <span class="badge badge-light-primary fw-bolder me-auto">In Progress</span>
-                            </td>
-                            <td class="text-end">
-                                <a href="#" class="btn btn-bg-light btn-active-color-primary btn-sm">View</a>
-                            </td>
-                        </tr>
-                        <!--end::Table row-->
-                        <!--begin::Table row-->
-                        <tr>
-                            <td class="fw-bolder">
-                                <a href="#" class="text-gray-900 text-hover-primary">To check User Management</a>
-                            </td>
-                            <td>
-                                <span class="badge badge-light fw-bold me-auto">Pahse 3.2</span>
-                            </td>
-                            <td>Oct 6, 2020</td>
-                            <td>
-                                <!--begin::Members-->
-                                <div class="symbol-group symbol-hover fs-8">
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Lucy Matthews">
-                                        <img alt="Pic" src="assets/media/avatars/150-10.jpg" />
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Kristen Goodwin">
-                                        <img alt="Pic" src="assets/media/avatars/150-8.jpg" />
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Michelle Swanston">
-                                        <img alt="Pic" src="assets/media/avatars/150-13.jpg" />
-                                    </div>
-                                </div>
-                                <!--end::Members-->
-                            </td>
-                            <td>
-                                <span class="badge badge-light fw-bolder me-auto">Yet to start</span>
-                            </td>
-                            <td class="text-end">
-                                <a href="#" class="btn btn-bg-light btn-active-color-primary btn-sm">View</a>
-                            </td>
-                        </tr>
-                        <!--end::Table row-->
-                        <!--begin::Table row-->
-                        <tr>
-                            <td class="fw-bolder">
-                                <a href="#" class="text-gray-900 text-hover-primary">Create Roles Module</a>
-                            </td>
-                            <td>
-                                <span class="badge badge-light fw-bold me-auto">Branding</span>
-                            </td>
-                            <td>Jan 21, 2020</td>
-                            <td>
-                                <!--begin::Members-->
-                                <div class="symbol-group symbol-hover fs-8">
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Michelle Swanston">
-                                        <img alt="Pic" src="assets/media/avatars/150-13.jpg" />
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Robin Watterman">
-                                        <span class="symbol-label bg-success text-inverse-success fw-bolder">R</span>
-                                    </div>
-                                    <div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="Alan Warden">
-                                        <span class="symbol-label bg-warning text-inverse-warning fw-bolder">A</span>
-                                    </div>
-                                </div>
-                                <!--end::Members-->
-                            </td>
-                            <td>
-                                <span class="badge badge-light fw-bolder me-auto">Yet to start</span>
-                            </td>
-                            <td class="text-end">
-                                <a href="#" class="btn btn-bg-light btn-active-color-primary btn-sm">View</a>
-                            </td>
-                        </tr>
+                        @endforeach
                         <!--end::Table row-->
                         </tbody>
                         <!--end::Table body-->
