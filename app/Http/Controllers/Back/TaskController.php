@@ -11,7 +11,7 @@ class TaskController extends Controller
     public function index()
     {
         return view('back.task.index', [
-            "tasks" => Task::all()
+            "tasks" => Task::all()->sortBy('created_at', SORT_DESC)
         ]);
     }
 }
