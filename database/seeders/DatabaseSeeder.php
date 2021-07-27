@@ -15,6 +15,7 @@ use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadVersion;
 use App\Models\Download\DownloadWiki;
 use App\Models\Page;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\UserSocial;
 use App\Models\UserTutorial;
@@ -58,6 +59,11 @@ class DatabaseSeeder extends Seeder
                     ]);
                 }
                 UserSocial::create(["user_id" => $user->id]);
+                for($p = 0; $p < rand(5,9); $p++) {
+                    Task::factory()->create([
+                        "user_id" => $user->id
+                    ]);
+                }
             }
 
 
@@ -487,6 +493,11 @@ class DatabaseSeeder extends Seeder
 
             foreach ($users as $user) {
                 UserSocial::create(["user_id" => $user->id]);
+                for($p = 0; $p < rand(5,9); $p++) {
+                    Task::factory()->create([
+                        "user_id" => $user->id
+                    ]);
+                }
             }
 
 
