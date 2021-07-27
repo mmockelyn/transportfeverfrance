@@ -19,4 +19,14 @@ class TaskController extends Controller
             "tasks_pending" => $tasks->where('check', 0),
         ]);
     }
+
+    public function store(Request $request)
+    {
+        try {
+            $task = Task::create($request->all());
+            return response()->json();
+        }catch (\Exception $exception) {
+            return response()->json($exception->getMessage());
+        }
+    }
 }

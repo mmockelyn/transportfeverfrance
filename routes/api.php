@@ -49,4 +49,5 @@ Route::group(["prefix" => "calendar"], function () {
 
 Route::group(["prefix" => "tasks"], function () {
     Route::get('/list', [\App\Http\Controllers\Api\Back\TaskController::class, 'list']);
+    Route::post('/', [\App\Http\Controllers\Api\Back\TaskController::class, 'store']);
 });
