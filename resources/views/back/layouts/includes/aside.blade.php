@@ -70,7 +70,7 @@
                 <div class="menu-sub menu-sub-accordion menu-active-bg">
                     <div class="menu-item menu-accordion">
                         <div class="menu-item">
-                            <a class="menu-link" href="pages/profile/overview.html">
+                            <a class="menu-link" href="{{ route('back.blog.category.index') }}">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
