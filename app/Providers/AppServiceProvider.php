@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Http\ViewComposers\HomeComposer;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Studio\Totem\Totem;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,6 +44,17 @@ class AppServiceProvider extends ServiceProvider
             }
 
             $view->with('theme', $theme);
+        });
+
+        Totem::auth(function($request) {
+            // return true / false . For e.g.
+            if(Auth::check()) {
+                if(\auth()->user()->group == 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         });
     }
 }

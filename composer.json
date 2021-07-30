@@ -29,6 +29,7 @@
         "socialiteproviders/google": "^4.1",
         "socialiteproviders/steam": "^4.1",
         "socialiteproviders/twitter": "^4.1",
+        "studio/laravel-totem": "^8.1",
         "syntax/steam-api": "2.3.*",
         "unisharp/laravel-filemanager": "^2.2",
         "yoeunes/toastr": "^1.2"
