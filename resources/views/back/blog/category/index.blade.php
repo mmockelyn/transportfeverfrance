@@ -43,7 +43,7 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-subscription-table-toolbar="base">
                     <!--begin::Add subscription-->
-                    <a href="apps/subscriptions/add.html" class="btn btn-primary">
+                    <a href="#add_category" class="btn btn-primary" data-bs-toggle="modal">
                         <!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
                         <span class="svg-icon svg-icon-2">
 							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -119,6 +119,42 @@
             <!--end::Table-->
         </div>
         <!--end::Card body-->
+    </div>
+    <div class="modal fade" tabindex="-1" id="add_category">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nouvelle catégorie</h5>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-2x"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <form id="formAddCategory" action="" method="post">
+                    <div class="modal-body">
+                        <div class="mb-10">
+                            <label class="form-label">Catégorie</label>
+                            <input type="text" name="title" class="form-control" placeholder="Site Web, Annonce, etc..."/>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary" id="btn_submit_category">
+                            <span class="indicator-label">
+                                Sauvegarder
+                            </span>
+                            <span class="indicator-progress">
+                                Veuillez Patienter... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection
 
