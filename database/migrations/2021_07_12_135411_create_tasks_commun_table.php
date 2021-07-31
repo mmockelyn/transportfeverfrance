@@ -13,7 +13,7 @@ class CreateTasksCommunTable extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('tasks_commun', function (Blueprint $table) {
             $table->id();
             $table->string('category');
             $table->string('task');
@@ -32,6 +32,6 @@ class CreateTasksCommunTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('tasks_commun);
     }
 }
