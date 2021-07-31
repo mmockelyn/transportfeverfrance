@@ -51,7 +51,7 @@ form_add_category.querySelector(".btn-primary").addEventListener('click', (e) =>
             }).then((function (o) {
                 if(o.isConfirmed) {
                     modal_add_category.modal('hide')
-                    $('#liste_category tbody').prepend(data.html).hide().fadeIn()
+                    window.location.reload()
                 }
             }))
         },

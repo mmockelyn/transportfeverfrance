@@ -46,7 +46,7 @@ class AdminDeleteTask extends Command
                 $i++;
             }
         }
-
-        return "Commande Delete Task Counter: ".$i;
+        $this->info("Nombre de tâche supprimer: $i");
+        return 0;
     }
 }
