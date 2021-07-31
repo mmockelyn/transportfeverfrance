@@ -61,3 +61,108 @@ form_add_category.querySelector(".btn-primary").addEventListener('click', (e) =>
         }
     })
 })
+document.querySelectorAll('.link_edit_category').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+        let id = btn.dataset.id
+
+        $.ajax({
+            url: '/api/blog/category/'+id,
+            success: (data) => {
+                $("#edit_category").find('[name="title"]').val(data.title)
+                $("#edit_category").modal('show')
+
+                $("#formEditCategory").on('submit', (e) => {
+                    e.preventDefault()
+                    let form = $("#formEditCategory");
+                    let btn = form.find('#btn_submit_category')
+                    let data = form.serializeArray()
+
+                    btn.attr("data-kt-indicator", "on")
+
+                    $.ajax({
+                        url: '/api/blog/category/'+id,
+                        method: 'PUT',
+                        data: data,
+                        success: (data) => {
+                            btn.removeAttr('data-kt-indicator')
+                            Swal.fire({
+                                text: `La Catégorie ${data.title} à été editer`,
+                                icon: "success",
+                                buttonsStyling: !1,
+                                confirmButtonText: "Ok ",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            }).then((function (o) {
+                                if(o.isConfirmed) {
+                                    $("#edit_category").modal('hide')
+                                    window.location.reload()
+                                }
+                            }))
+                        },
+                        error: (err) => {
+                            Swal.fire({
+                                text: `Erreur lors de l'édition de la catégorie`,
+                                icon: "error",
+                                buttonsStyling: !1,
+                                confirmButtonText: "Ok !",
+                                customClass: {
+                                    confirmButton: "btn btn-danger"
+                                }
+                            })
+                        }
+                    })
+                })
+            },
+            error: (err) => {
+                Swal.fire({
+                    text: `Erreur lors de la récupération des éléments.`,
+                    icon: "error",
+                    buttonsStyling: !1,
+                    confirmButtonText: "Ok !",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                })
+            }
+        })
+    })
+});
+document.querySelectorAll('.link_trash_category').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+        let id = btn.dataset.id
+
+        $.ajax({
+            url: '/api/blog/category/'+id,
+            method: 'DELETE',
+            success: () => {
+                Swal.fire({
+                    text: `La Catégorie à été supprimer`,
+                    icon: "success",
+                    buttonsStyling: !1,
+                    confirmButtonText: "Ok ",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                }).then((function (o) {
+                    if(o.isConfirmed) {
+                        window.location.reload()
+                    }
+                }))
+            },
+            error: (err) => {
+                Swal.fire({
+                    text: `Erreur lors de la suppression de la catégorie`,
+                    icon: "error",
+                    buttonsStyling: !1,
+                    confirmButtonText: "Ok !",
+                    customClass: {
+                        confirmButton: "btn btn-danger"
+                    }
+                })
+            }
+        })
+    })
+})

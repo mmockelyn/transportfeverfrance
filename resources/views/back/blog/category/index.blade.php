@@ -101,11 +101,11 @@
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="apps/subscriptions/add.html" class="menu-link px-3">Editer</a>
+                                    <a href="#" class="link_edit_category menu-link px-3" data-id="{{ $category->id }}">Editer</a>
                                 </div>
                                 <!--end::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="apps/subscriptions/add.html" class="menu-link px-3">Supprimer</a>
+                                    <a href="#" class="link_trash_category menu-link px-3" data-id="{{ $category->id }}">Supprimer</a>
                                 </div>
                             </div>
                             <!--end::Menu-->
@@ -134,6 +134,42 @@
                 </div>
 
                 <form id="formAddCategory" action="" method="post">
+                    <div class="modal-body">
+                        <div class="mb-10">
+                            <label class="form-label">Catégorie</label>
+                            <input type="text" name="title" class="form-control" placeholder="Site Web, Annonce, etc..."/>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary" id="btn_submit_category">
+                            <span class="indicator-label">
+                                Sauvegarder
+                            </span>
+                            <span class="indicator-progress">
+                                Veuillez Patienter... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="edit_category">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edition d'une categorie</h5>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-2x"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <form id="formEditCategory" action="" method="post">
                     <div class="modal-body">
                         <div class="mb-10">
                             <label class="form-label">Catégorie</label>

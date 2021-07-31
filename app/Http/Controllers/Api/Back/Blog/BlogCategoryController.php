@@ -63,4 +63,39 @@ class BlogCategoryController extends Controller
             return $exception;
         }
     }
+
+    public function info($id)
+    {
+        $category = BlogCategory::find($id);
+
+        return response()->json($category);
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $category = BlogCategory::find($id);
+
+            $category->update([
+                "title" => $request->title,
+                "slug" => Str::slug($request->title)
+            ]);
+
+            return response()->json($category);
+        }catch (\Exception $exception) {
+            return response()->json($exception->getMessage());
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $category = BlogCategory::find($id);
+            $category->delete();
+
+            return response()->json();
+        }catch (\Exception $exception) {
+            return response()->json($exception->getMessage());
+        }
+    }
 }
