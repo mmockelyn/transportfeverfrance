@@ -32,6 +32,6 @@ class CreateTasksCommunTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks_commun);
+        Schema::dropIfExists('tasks_commun');
     }
 }
