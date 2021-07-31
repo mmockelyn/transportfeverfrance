@@ -1,7 +1,7 @@
 @extends("back.layouts.layout")
 
 @section("style")
-
+    <link href="/back/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section("bread")
@@ -34,5 +34,6 @@
 @endsection
 
 @section("script")
-
+    <script src="/back/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+    <script src="/back/js/blog/index.js"></script>
 @endsection
