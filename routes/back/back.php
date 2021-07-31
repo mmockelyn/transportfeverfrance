@@ -16,4 +16,12 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
    Route::group(["prefix" => "tasks"], function() {
        Route::get('/', [\App\Http\Controllers\Back\TaskController::class, 'index'])->name('back.tasks.index');
    });
+
+    Route::group(["prefix" => "blogs"], function() {
+        Route::get('/', [\App\Http\Controllers\Back\Blog\BlogController::class, 'dashboard'])->name('back.blog.dashboard');
+
+        Route::group(["prefix" => "category"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Blog\BlogCategoryController::class, 'index'])->name('back.blog.category.index');
+        });
+    });
 });

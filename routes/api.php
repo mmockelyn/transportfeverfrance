@@ -51,3 +51,12 @@ Route::group(["prefix" => "tasks"], function () {
     Route::get('/list', [\App\Http\Controllers\Api\Back\TaskController::class, 'list']);
     Route::post('/', [\App\Http\Controllers\Api\Back\TaskController::class, 'store']);
 });
+
+Route::group(["prefix" => "blog"], function () {
+    Route::group(["prefix" => "category"], function () {
+        Route::post('/', [\App\Http\Controllers\Api\Back\Blog\BlogCategoryController::class, 'store']);
+        Route::get('{id}', [\App\Http\Controllers\Api\Back\Blog\BlogCategoryController::class, 'info']);
+        Route::put('{id}', [\App\Http\Controllers\Api\Back\Blog\BlogCategoryController::class, 'update']);
+        Route::delete('{id}', [\App\Http\Controllers\Api\Back\Blog\BlogCategoryController::class, 'delete']);
+    });
+});
