@@ -43,7 +43,7 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-subscription-table-toolbar="base">
                     <!--begin::Add subscription-->
-                    <a href="" class="btn btn-primary">
+                    <a href="{{ route('back.blog.create') }}" class="btn btn-primary">
                         <!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
                         <span class="svg-icon svg-icon-2">
 							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -110,8 +110,18 @@
                                 </div>
                                 <!--end::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3">Supprimer</a>
+                                    <a href="#" class="menu-link text-danger px-3">Supprimer</a>
                                 </div>
+
+                                @if($blog->active == 0)
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link text-success px-3">Publier</a>
+                                    </div>
+                                @else
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link text-danger px-3">Dépublier</a>
+                                    </div>
+                                @endif
                             </div>
                             <!--end::Menu-->
                         </td>

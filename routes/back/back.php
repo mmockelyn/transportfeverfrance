@@ -19,6 +19,8 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
 
     Route::group(["prefix" => "blogs"], function() {
         Route::get('/', [\App\Http\Controllers\Back\Blog\BlogController::class, 'dashboard'])->name('back.blog.dashboard');
+        Route::get('create', [\App\Http\Controllers\Back\Blog\BlogController::class, 'create'])->name('back.blog.create');
+        Route::post('create', [\App\Http\Controllers\Back\Blog\BlogController::class, 'store'])->name('back.blog.store');
 
         Route::group(["prefix" => "category"], function () {
             Route::get('/', [\App\Http\Controllers\Back\Blog\BlogCategoryController::class, 'index'])->name('back.blog.category.index');
