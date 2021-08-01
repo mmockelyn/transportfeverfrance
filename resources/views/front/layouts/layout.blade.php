@@ -109,7 +109,23 @@
 <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
 <script src="{{ asset('/front/js/app.js') }}"></script>
 <script src="{{ asset('/js/share.js') }}"></script>
-<script type="text/javascript">window.$sleek=[];window.SLEEK_PRODUCT_ID=518287786;(function(){d=document;s=d.createElement("script");s.src="https://client.sleekplan.com/sdk/e.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+<script>
+    var OlvyConfig = {
+        organisation: "tpffrance",
+        project: "Site Transport Feverfrance Front",
+        target: "#olvy-target",
+        type: "sidebar",
+        view: {
+            showSearch: false,
+            compact: false,
+            showHeader: true, // only applies when widget type is embed. you cannot hide header for modal and sidebar widgets
+            showUnreadIndicator: true,
+            unreadIndicatorColor: "#57EC00FF",
+            unreadIndicatorPosition: "bottom-right"
+        }
+    };
+</script>
+<script type="text/javascript" src="https://app.olvy.co/script.js" defer="defer"></script>
 <!--end::Global Theme Bundle-->
 <!--begin::Page Vendors(usedquick-search-wrapper by this page)-->
 {!! toastr()->render() !!}
