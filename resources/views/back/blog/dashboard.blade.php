@@ -104,22 +104,25 @@
                                 <!--end::Svg Icon--></a>
                             <!--begin::Menu-->
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
+                                <div class="menu-item px-3">
+                                    <a href="{{ route('back.blog.show', $blog->id) }}" class="menu-link px-3">Voir l'article</a>
+                                </div>
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3">Editer</a>
+                                    <a href="{{ route('back.blog.edit', $blog->id) }}" class="menu-link px-3">Editer</a>
                                 </div>
                                 <!--end::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link text-danger px-3">Supprimer</a>
+                                    <a href="#" class="delete menu-link text-danger px-3">Supprimer</a>
                                 </div>
 
                                 @if($blog->active == 0)
                                     <div class="menu-item px-3">
-                                        <a href="#" class="menu-link text-success px-3">Publier</a>
+                                        <a href="#" class="publish menu-link text-success px-3">Publier</a>
                                     </div>
                                 @else
                                     <div class="menu-item px-3">
-                                        <a href="#" class="menu-link text-danger px-3">Dépublier</a>
+                                        <a href="#" class="unpublish menu-link text-danger px-3">Dépublier</a>
                                     </div>
                                 @endif
                             </div>
