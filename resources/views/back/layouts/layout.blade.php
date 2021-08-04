@@ -70,6 +70,7 @@ License: For each use you must have a valid license purchased only from above li
                 <div class="post d-flex flex-column-fluid" id="kt_post">
                     <!--begin::Container-->
                     <div id="kt_content_container" class="container">
+                        @include("back.layouts.includes.errors")
                         @yield("content")
                     </div>
                     <!--end::Container-->
@@ -128,6 +129,7 @@ License: For each use you must have a valid license purchased only from above li
 <script src="/back/assets/js/scripts.bundle.js"></script>
 <!--end::Global Javascript Bundle-->
 <!--begin::Page Custom Javascript(used by this page)-->
+{!! toastr()->render() !!}
 @yield("script")
 <!--end::Page Custom Javascript-->
 <!--end::Javascript-->

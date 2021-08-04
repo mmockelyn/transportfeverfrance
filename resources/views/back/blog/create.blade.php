@@ -42,12 +42,12 @@
                 <div class="card-body">
                     <div class="mb-2">
                         <label for="" class="form-label"><span class="required">Titre de l'article</span> </label>
-                        <input type="text" class="form-control" name="title" required/>
+                        <input type="text" class="form-control" name="title" value="{{ old('title') }}" required/>
                     </div>
                     <div class="mb-2">
                         <label for="" class="form-label"><span class="required">Catégorie</span> </label>
                         <select class="form-select form-select-solid" data-control="select2"
-                                data-placeholder="Selectionner une ou plusieurs catégories" data-allow-clear="true"
+                                data-placeholder="Selectionner une ou plusieurs catégories" name="category[]" data-allow-clear="true"
                                 multiple="true">
                             <option></option>
                             @foreach($categories as $category)
@@ -60,62 +60,64 @@
                             <span>Tags</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Veuillez spécifier une liste de tags (Touche tabulation pour ajouter)" aria-label="Specify your unique app name"></i>
                         </label>
-                        <input class="form-control" name="meta_keywords" id="meta_keywords"/>
+                        <input class="form-control" name="meta_keywords" id="meta_keywords" value="{{ old('meta_keywords') }}"/>
                     </div>
                     <div class="mb-2">
                         <label for="" class="form-label"><span class="required">Courte description</span> </label>
-                        <textarea name="short_content" id="short_content" class="form-control" cols="30" rows="3"
-                                  required></textarea>
+                        <textarea name="short_content" id="short_content" class="form-control" cols="30" rows="3">{{ old('short_content') }}</textarea>
                     </div>
                     <div class="mb-2">
                         <label for="" class="form-label"><span class="required">Description</span> </label>
-                        <textarea name="content" id="content" class="form-control" cols="30" rows="3"
-                                  required></textarea>
+                        <textarea name="contents" id="content" class="form-control" cols="30" rows="3">{{ old("contents") }}</textarea>
                     </div>
                     <div class="mb-2 mt-5">
-                        <div class="image-input image-input-empty" data-kt-image-input="true"
-                             style="background-image: url(/back/assets/media/avatars/blank.png)">
-                            <!--begin::Image preview wrapper-->
-                            <div class="image-input-wrapper w-125px h-125px"></div>
-                            <!--end::Image preview wrapper-->
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="image-input image-input-empty" data-kt-image-input="true"
+                                     style="background-image: url(/back/assets/media/avatars/blank.png); background-position: center">
+                                    <!--begin::Image preview wrapper-->
+                                    <div class="image-input-wrapper w-1000px h-300px"></div>
+                                    <!--end::Image preview wrapper-->
 
-                            <!--begin::Edit button-->
-                            <label
-                                class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-                                data-kt-image-input-action="change"
-                                data-bs-toggle="tooltip"
-                                data-bs-dismiss="click"
-                                title="Changer l'image de présentation">
-                                <i class="bi bi-pencil-fill fs-7"></i>
+                                    <!--begin::Edit button-->
+                                    <label
+                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                        data-kt-image-input-action="change"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-dismiss="click"
+                                        title="Changer l'image de présentation">
+                                        <i class="bi bi-pencil-fill fs-7"></i>
 
-                                <!--begin::Inputs-->
-                                <input type="file" name="image" accept=".png, .jpg, .jpeg"/>
-                                <input type="hidden" name="avatar_remove"/>
-                                <!--end::Inputs-->
-                            </label>
-                            <!--end::Edit button-->
+                                        <!--begin::Inputs-->
+                                        <input type="file" name="image" accept=".png, .jpg, .jpeg" value="{{ old("image") }}"/>
+                                        <input type="hidden" name="avatar_remove"/>
+                                        <!--end::Inputs-->
+                                    </label>
+                                    <!--end::Edit button-->
 
-                            <!--begin::Cancel button-->
-                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-                                  data-kt-image-input-action="cancel"
-                                  data-bs-toggle="tooltip"
-                                  data-bs-dismiss="click"
-                                  title="Cancel avatar">
+                                    <!--begin::Cancel button-->
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                          data-kt-image-input-action="cancel"
+                                          data-bs-toggle="tooltip"
+                                          data-bs-dismiss="click"
+                                          title="Cancel avatar">
                                  <i class="bi bi-x fs-2"></i>
                              </span>
-                            <!--end::Cancel button-->
+                                    <!--end::Cancel button-->
 
-                            <!--begin::Remove button-->
-                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-                                  data-kt-image-input-action="remove"
-                                  data-bs-toggle="tooltip"
-                                  data-bs-dismiss="click"
-                                  title="Remove avatar">
+                                    <!--begin::Remove button-->
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                          data-kt-image-input-action="remove"
+                                          data-bs-toggle="tooltip"
+                                          data-bs-dismiss="click"
+                                          title="Remove avatar">
                                  <i class="bi bi-x fs-2"></i>
                              </span>
-                            <!--end::Remove button-->
+                                    <!--end::Remove button-->
+                                </div>
+                                <!--end::Image input-->
+                            </div>
                         </div>
-                        <!--end::Image input-->
                     </div>
                 </div>
                 <div class="card-footer text-end">
