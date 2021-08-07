@@ -61,7 +61,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-8"></div>
+        <div class="col-8">
+            <div class="card shadow-sm">
+                Statistique
+            </div>
+        </div>
     </div>
 </div>
 @endsection
