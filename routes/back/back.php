@@ -22,6 +22,7 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
         Route::get('create', [\App\Http\Controllers\Back\Blog\BlogController::class, 'create'])->name('back.blog.create');
         Route::post('create', [\App\Http\Controllers\Back\Blog\BlogController::class, 'store'])->name('back.blog.store');
         Route::get('{id}', [\App\Http\Controllers\Back\Blog\BlogController::class, 'show'])->name('back.blog.show');
+        Route::get('{id}/comments', [\App\Http\Controllers\Back\Blog\BlogController::class, 'comments'])->name('back.blog.comments');
         Route::get('{id}/edit', [\App\Http\Controllers\Back\Blog\BlogController::class, 'edit'])->name('back.blog.edit');
         Route::put('{id}/edit', [\App\Http\Controllers\Back\Blog\BlogController::class, 'update'])->name('back.blog.update');
 

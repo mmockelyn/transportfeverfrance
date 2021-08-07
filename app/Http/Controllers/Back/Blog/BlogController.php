@@ -81,4 +81,11 @@ class BlogController extends Controller
             dd($exception->getMessage());
         }
     }
+
+    public function show($id)
+    {
+        return view('back.blog.show', [
+            "blog" => Blog::find($id)
+        ]);
+    }
 }
