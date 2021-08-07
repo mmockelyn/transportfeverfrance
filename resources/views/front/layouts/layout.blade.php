@@ -129,6 +129,14 @@
 <!--end::Global Theme Bundle-->
 <!--begin::Page Vendors(usedquick-search-wrapper by this page)-->
 {!! toastr()->render() !!}
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RJFDQ8BL1T"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-RJFDQ8BL1T');
+</script>
 @yield("scripts")
 
 </body>
