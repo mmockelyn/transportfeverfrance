@@ -29,9 +29,9 @@
                 </div>
                 <!--begin::Button-->
                 @if($blog->active == 0)
-                    <button class="publish btn btn-sm btn-success">Publier l'article</button>
+                    <button class="publish btn btn-sm btn-success" data-provider="blog" data-provider-id="{{ $blog->id }}">Publier l'article</button>
                 @else
-                    <button class="unpublish btn btn-sm btn-danger">Dépublier l'article</button>
+                    <button class="unpublish btn btn-sm btn-danger" data-provider="blog" data-provider-id="{{ $blog->id }}">Dépublier l'article</button>
                 @endif
                 <!--end::Button-->
             </div>

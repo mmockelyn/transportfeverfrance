@@ -22,6 +22,11 @@ Route::post('/download/category/{subcategory_id}', [SearchController::class, 'se
 
 Route::get('/list/users', [\App\Http\Controllers\Api\Front\UserController::class, "list"]);
 
+Route::group(["prefix" => "back"], function () {
+    Route::post('publishing', [\App\Http\Controllers\Api\Back\BackController::class, 'publishing']);
+    Route::post('unpublishing', [\App\Http\Controllers\Api\Back\BackController::class, 'unpublishing']);
+});
+
 Route::group(["prefix" => "download"], function () {
 
     Route::get('search/category/{category_id}', [DownloadController::class, 'searchCategory']);
