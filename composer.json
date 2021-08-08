@@ -25,6 +25,7 @@
         "laravel/tinker": "^2.5",
         "lukeraymonddowning/honey": "^0.3.2",
         "predis/predis": "^1.1",
+        "snowfire/beautymail": "^1.1",
         "socialiteproviders/discord": "^4.1",
         "socialiteproviders/facebook": "^4.1",
         "socialiteproviders/google": "^4.1",
