@@ -102,7 +102,7 @@
                     </a>
                 </div>
             </div>
-            <div class="card shadow-sm">
+            <div class="card shadow-sm mb-8">
                 <div class="card-header">
                     <h3 class="card-title">Derniers Commentaires</h3>
                 </div>
@@ -135,12 +135,20 @@
                     </table>
                 </div>
             </div>
-            <div class="card shadow-sm">
+            <div class="card shadow-sm mb-8">
                 <div class="card-header">
                     <h3 class="card-title">Statistique des vues</h3>
                 </div>
                 <div class="card-body">
-                    <div id="chart" style="height: 300px;"></div>
+                    <div id="chart_view" style="height: 300px;"></div>
+                </div>
+            </div>
+            <div class="card shadow-sm mb-8">
+                <div class="card-header">
+                    <h3 class="card-title">Statistique des Commentaires</h3>
+                </div>
+                <div class="card-body">
+                    <div id="chart_comments" style="height: 300px;"></div>
                 </div>
             </div>
         </div>

@@ -7,6 +7,7 @@ use App\Http\Requests\Back\Blog\CreateBlogRequest;
 use App\Models\Blog\Blog;
 use App\Models\Blog\BlogCategory;
 use App\Models\Blog\BlogComment;
+use App\Models\Blog\BlogStat;
 use App\Models\Blog\BlogTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -87,7 +88,7 @@ class BlogController extends Controller
     {
         $actualYear = $request->year;
 
-        $year = BlogComment::all()->count() != 0 ? range(BlogComment::oldest()->first()->created_at->year, now()->year) : range(2010, now()->year);
+        $year = range(BlogStat::oldest()->first()->created_at->year, now()->year);
 
         return view('back.blog.show', [
             "blog" => Blog::find($id),

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Charts\Blog\BlogCommentChart;
 use App\Charts\Blog\BlogViewChart;
 use App\Http\ViewComposers\HomeComposer;
 use Illuminate\Support\Facades\Auth;
@@ -63,7 +64,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $charts->register([
-            BlogViewChart::class
+            BlogViewChart::class,
+            BlogCommentChart::class
         ]);
     }
 }

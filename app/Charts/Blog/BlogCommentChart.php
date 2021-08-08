@@ -5,16 +5,14 @@ declare(strict_types = 1);
 namespace App\Charts\Blog;
 
 use App\Charts\CommonChart;
-use App\Models\Blog\Blog;
 use App\Models\Blog\BlogComment;
-use App\Models\Blog\BlogStat;
 use Chartisan\PHP\Chartisan;
 use ConsoleTVs\Charts\BaseChart;
 use Illuminate\Http\Request;
 
-class BlogViewChart extends CommonChart
+class BlogCommentChart extends CommonChart
 {
-    public ?string $name = 'blog_view_chart';
+    public ?string $name = 'blog_comment_chart';
     /**
      * Handles the HTTP request for the given chart.
      * It must always return an instance of Chartisan
@@ -22,6 +20,6 @@ class BlogViewChart extends CommonChart
      */
     public function handler(Request $request): Chartisan
     {
-        return $this->chartisan(new BlogStat, 'Vue');
+        return $this->chartisan(new BlogComment, 'Commentaires');
     }
 }
