@@ -9,6 +9,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "arcanedev/log-viewer": "~8.0",
+        "consoletvs/charts": "7.*",
         "creativeorange/gravatar": "~1.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",

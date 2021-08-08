@@ -135,6 +135,14 @@
                     </table>
                 </div>
             </div>
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h3 class="card-title">Statistique des vues</h3>
+                </div>
+                <div class="card-body">
+                    <div id="chart" style="height: 300px;"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -127,6 +127,8 @@ License: For each use you must have a valid license purchased only from above li
 <!--begin::Global Javascript Bundle(used by all pages)-->
 <script src="/back/assets/plugins/global/plugins.bundle.js"></script>
 <script src="/back/assets/js/scripts.bundle.js"></script>
+<script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+<script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
 <!--end::Global Javascript Bundle-->
 <!--begin::Page Custom Javascript(used by this page)-->
 {!! toastr()->render() !!}

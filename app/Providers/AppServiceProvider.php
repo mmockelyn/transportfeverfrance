@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 
+use App\Charts\Blog\BlogViewChart;
 use App\Http\ViewComposers\HomeComposer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Studio\Totem\Totem;
+use ConsoleTVs\Charts\Registrar as Charts;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,10 +27,12 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
+     * @param Charts $charts
      * @return void
      */
-    public function boot()
+    public function boot(Charts $charts)
     {
+        DB::statement("SET lc_time_names = 'fr_FR'");
         View::composer([
             'front.layouts.layout',
             'front.index',
@@ -56,5 +61,9 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
         });
+
+        $charts->register([
+            BlogViewChart::class
+        ]);
     }
 }
