@@ -14,7 +14,17 @@ class BackController extends Controller
 
         switch ($request->provider) {
             case 'blog':
-                return $this->publishBlog($request->providerId); break;
+                return $this->publishBlog($request->providerId);
+                break;
+        }
+    }
+
+    public function unpublishing(Request $request)
+    {
+        switch ($request->provider) {
+            case 'blog':
+                return $this->unpublishBlog($request->providerId);
+                break;
         }
     }
 
@@ -27,7 +37,21 @@ class BackController extends Controller
             ]);
 
             return Blog::find($id);
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
+
+    private function unpublishBlog($id)
+    {
+        try {
+            Blog::find($id)->update([
+                "active" => false,
+                "updated_at" => now()
+            ]);
+
+            return Blog::find($id);
+        } catch (\Exception $exception) {
             return $exception->getMessage();
         }
     }
