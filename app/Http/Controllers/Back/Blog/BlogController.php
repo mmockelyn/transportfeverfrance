@@ -150,4 +150,12 @@ class BlogController extends Controller
             dd($exception->getMessage());
         }
     }
+
+    public function comments($id)
+    {
+        return view("back.blog.comments", [
+            "blog" => Blog::find($id),
+            "comments" => Blog::find($id)->comments()
+        ]);
+    }
 }
