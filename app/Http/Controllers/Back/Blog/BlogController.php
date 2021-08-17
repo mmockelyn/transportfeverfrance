@@ -96,4 +96,58 @@ class BlogController extends Controller
             "actualYear" => $actualYear
         ]);
     }
+
+    public function edit($id)
+    {
+        return view('back.blog.edit', [
+            "blog" => Blog::find($id),
+            "categories" => BlogCategory::all()
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            Blog::find($id)->update([
+                "title" => $request->title,
+                "slug" => Str::slug($request->title),
+                "seo_title" => $request->title,
+                "short_content" => $request->short_content,
+                "content" => $request->contents,
+                "meta_description" => Str::limit($request->contents, 255, ''),
+                "meta_keywords" => null,
+                "active" => 0,
+                "image" => null
+            ]);
+
+            $article = Blog::find($id);
+
+            $article->update(["meta_keywords" => $request->meta_keywords]);
+
+            if($request->has('image')) {
+                try {
+                    $request->image->storeAs('files/shares/blog', $article->id . '.' . $request->image->extension(), 'public');
+
+                    try {
+                        $article->update([
+                            "image" => $article->id . '.' . $request->image->extension()
+                        ]);
+
+                        toastr()->success("L'article <strong>$article->title</strong> à été editer avec succès !", "Edition d'un article");
+                        return redirect()->route('back.blog.edit', $id);
+
+                    } catch (\Exception $exception) {
+                        dd($exception);
+                    }
+                } catch (FileException $exception) {
+                    dd($exception->getMessage());
+                }
+            }
+
+            toastr()->success("L'article <strong>$article->title</strong> à été editer avec succès !", "Edition d'un article");
+            return redirect()->route('back.blog.edit', $id);
+        }catch (\Exception $exception) {
+            dd($exception->getMessage());
+        }
+    }
 }
