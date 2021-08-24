@@ -1,6 +1,7 @@
 @extends("back.layouts.layout")
 
 @section("style")
+    <link href="/back/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section("bread")
@@ -61,7 +62,49 @@
             </div>
         </div>
         <div class="col-8">
-
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h3 class="card-title">Liste des commentaires ({{ $blog->comments->count() }})</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-row-bordered gy-5" id="liste_blog_comment">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Utilisateur</th>
+                                <th>Commentaire</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($blog->comments as $comment)
+                                <tr>
+                                    <td>{{ $comment->id }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center mb-7">
+                                            <!--begin::Avatar-->
+                                            <div class="symbol symbol-50px me-5">
+                                                <img src="/metronic8/demo1/assets/media/avatars/150-1.jpg" class="" alt="">
+                                            </div>
+                                            <!--end::Avatar-->
+                                            <!--begin::Text-->
+                                            <div class="flex-grow-1">
+                                                <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">{{ $comment->user->name }}</a>
+                                                <span class="text-muted d-block fw-bold">{{ \App\Helpers\Format::formatUserGroup($comment->user->group) }}</span>
+                                            </div>
+                                            <!--end::Text-->
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {{ $comment->content }}
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -69,5 +112,6 @@
 
 @section("script")
     <script src="/back/assets/plugins/custom/tinymce/tinymce.bundle.js"></script>
+    <script src="/back/assets/plugins/custom/datatables/datatables.bundle.js"></script>
     <script src="/back/js/blog/comments.js"></script>
 @endsection

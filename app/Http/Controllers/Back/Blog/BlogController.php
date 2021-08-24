@@ -155,7 +155,11 @@ class BlogController extends Controller
     {
         return view("back.blog.comments", [
             "blog" => Blog::find($id),
-            "comments" => Blog::find($id)->comments()
+            "comments" => Blog::find($id)->validComments()
+                ->withDepth()
+                ->latest()
+                ->get()
+                ->toTree()
         ]);
     }
 }
