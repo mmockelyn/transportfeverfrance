@@ -73,6 +73,7 @@
                                 <th>#</th>
                                 <th>Utilisateur</th>
                                 <th>Commentaire</th>
+                                <th>Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -98,7 +99,10 @@
                                     <td>
                                         {{ $comment->content }}
                                     </td>
-                                    <td></td>
+                                    <td>{{ $comment->updated_at->format('d/m/Y à H:i') }}</td>
+                                    <td>
+                                        <button class="btn btn-danger btn-icon btn-sm deleteComment" data-bs-toggle="tooltip" title="Supprimer le commentaire" data-comment="{{ $comment->id }}"><i class="fas fa-trash"></i> </button>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
