@@ -25,6 +25,10 @@ Route::get('/list/users', [\App\Http\Controllers\Api\Front\UserController::class
 Route::group(["prefix" => "back"], function () {
     Route::post('publishing', [\App\Http\Controllers\Api\Back\BackController::class, 'publishing']);
     Route::post('unpublishing', [\App\Http\Controllers\Api\Back\BackController::class, 'unpublishing']);
+
+    Route::group('blog', function () {
+        Route::delete('{blog}', [\App\Http\Controllers\Api\Back\Blog\BlogController::class, 'delete']);
+    });
 });
 
 Route::group(["prefix" => "download"], function () {
