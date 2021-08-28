@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Account;
 
 use App\Helpers\Format;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Account\UpdatePasswordRequest;
 use App\Jobs\Account\DeleteAccount;
 use App\Notifications\Account\UpdateInfoProfil;
 use App\Repository\Account\UserRepository;
@@ -87,15 +88,9 @@ class ProfilController extends Controller
         }
     }
 
-    public function updatePassword(Request $request)
+    public function updatePassword(UpdatePasswordRequest $request)
     {
-        try {
-            Validator::make($request->all(), [
-                'password' => ['required', 'confirmed', Password::min(6)->letters()->mixedCase()->numbers()->symbols()]
-            ])->validate();
-        } catch (\Exception $exception) {
-            return response()->json($exception->getMessage(), 422);
-        }
+
         $user = $this->userRepository->getInfoUser();
 
         if (Hash::check($request->old_password, $user->password) == true) {

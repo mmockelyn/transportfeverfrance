@@ -70,6 +70,7 @@ License: For each use you must have a valid license purchased only from above li
                 <div class="post d-flex flex-column-fluid" id="kt_post">
                     <!--begin::Container-->
                     <div id="kt_content_container" class="container">
+                        @include("back.layouts.includes.errors")
                         @yield("content")
                     </div>
                     <!--end::Container-->
@@ -126,8 +127,12 @@ License: For each use you must have a valid license purchased only from above li
 <!--begin::Global Javascript Bundle(used by all pages)-->
 <script src="/back/assets/plugins/global/plugins.bundle.js"></script>
 <script src="/back/assets/js/scripts.bundle.js"></script>
+<script src="/back/js/app.js"></script>
+<script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+<script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
 <!--end::Global Javascript Bundle-->
 <!--begin::Page Custom Javascript(used by this page)-->
+{!! toastr()->render() !!}
 @yield("script")
 <!--end::Page Custom Javascript-->
 <!--end::Javascript-->

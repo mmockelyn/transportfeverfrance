@@ -20,6 +20,6 @@
     },
     "dependencies": {
         "moment": "^2.29.1",
-        "webpack-livereload-plugin": "^3.0.1"
+        "webpack-livereload-plugin": "^3.0.2"
     }
 }
