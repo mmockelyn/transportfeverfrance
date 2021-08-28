@@ -26,8 +26,8 @@ Route::group(["prefix" => "back"], function () {
     Route::post('publishing', [\App\Http\Controllers\Api\Back\BackController::class, 'publishing']);
     Route::post('unpublishing', [\App\Http\Controllers\Api\Back\BackController::class, 'unpublishing']);
 
-    Route::group('blog', function () {
-        Route::delete('{blog}', [\App\Http\Controllers\Api\Back\Blog\BlogController::class, 'delete']);
+    Route::group(["prefix" => 'blog'], function () {
+        Route::delete('{id}/comments/{comment_id}', [\App\Http\Controllers\Api\Back\Blog\BlogController::class, 'delete']);
     });
 });
 

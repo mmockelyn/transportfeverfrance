@@ -3,15 +3,21 @@
 namespace App\Http\Controllers\Api\Back\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog\Blog;
+use App\Models\Blog\BlogComment;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function delete(Blog $blog)
+    public function delete($id, $comment_id)
     {
-        Blog::findOrFail($blog)->delete();
+        try {
+            $comments = BlogComment::where("id", $comment_id);
 
-        return response()->json();
+            $comments->delete();
+
+            return response()->json();
+        }catch (\Exception $exception) {
+            return response()->json($exception->getMessage());
+        }
     }
 }
