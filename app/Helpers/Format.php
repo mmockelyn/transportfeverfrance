@@ -237,4 +237,23 @@ class Format
 
         return $result * $lgt;
     }
+
+    public static function AdminStateBlog($state, $formated = true)
+    {
+        if($formated == true) {
+            switch ($state)
+            {
+                case 0: return '<span class="text-danger">Non Publier</span>'; break;
+                case 1: return '<span class="text-success">Publier</span>'; break;
+                default: return null;
+            }
+        } else {
+            switch ($state)
+            {
+                case 0: return 'Non Publier'; break;
+                case 1: return 'Publier'; break;
+                default: return null;
+            }
+        }
+    }
 }
