@@ -123,7 +123,7 @@
                                     </td>
                                 </tr>
                             @else
-                                @foreach($blog->comments()->limit(5) as $comment)
+                                @foreach($comments as $comment)
                                     <tr>
                                         <td>{{ $comment->user->name }}</td>
                                         <td>{{ $comment->content }}</td>
