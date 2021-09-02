@@ -32,4 +32,10 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
             Route::put('{id}/edit', [\App\Http\Controllers\Back\Blog\BlogController::class, 'update'])->name('back.blog.update');
         });
     });
+
+    Route::group(["prefix" => "packages"], function () {
+        Route::group(["prefix" => "category"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Packages\PackageCategoryController::class, 'index'])->name('back.packages.categories');
+        });
+    });
 });
