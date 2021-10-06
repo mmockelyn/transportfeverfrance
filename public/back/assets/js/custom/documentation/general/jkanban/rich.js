@@ -24,7 +24,7 @@ var KTJKanbanDemoRich = function() {
                             'title': `
                                 <div class="d-flex align-items-center">
                         	        <div class="symbol symbol-success me-3">
-                        	            <img alt="Pic" src="assets/media/avatars/150-1.jpg" />
+                        	            <img alt="Pic" src="${hostUrl}media/avatars/150-1.jpg" />
                         	        </div>
                         	        <div class="d-flex flex-column align-items-start">
                         	            <span class="text-dark-50 fw-bold mb-1">SEO Optimization</span>
@@ -56,7 +56,7 @@ var KTJKanbanDemoRich = function() {
                             'title': `
                                 <div class="d-flex align-items-center">
                         	        <div class="symbol symbol-success me-3">
-                        	            <img alt="Pic" src="assets/media/avatars/150-2.jpg" />
+                        	            <img alt="Pic" src="${hostUrl}media/avatars/150-2.jpg" />
                         	        </div>
                         	        <div class="d-flex flex-column align-items-start">
                         	            <span class="text-dark-50 fw-bold mb-1">Server Setup</span>
@@ -69,7 +69,7 @@ var KTJKanbanDemoRich = function() {
                             'title': `
                                 <div class="d-flex align-items-center">
                         	        <div class="symbol symbol-success me-3">
-                        	            <img alt="Pic" src="assets/media/avatars/150-3.jpg" />
+                        	            <img alt="Pic" src="${hostUrl}media/avatars/150-3.jpg" />
                         	        </div>
                         	        <div class="d-flex flex-column align-items-start">
                         	            <span class="text-dark-50 fw-bold mb-1">Report Generation</span>
@@ -88,7 +88,7 @@ var KTJKanbanDemoRich = function() {
                             'title': `
                                 <div class="d-flex align-items-center">
                         	        <div class="symbol symbol-success me-3">
-                            	         <img alt="Pic" src="assets/media/avatars/150-1.jpg" />
+                            	         <img alt="Pic" src="${hostUrl}media/avatars/150-1.jpg" />
                         	        </div>
                         	        <div class="d-flex flex-column align-items-start">
                         	            <span class="text-dark-50 fw-bold mb-1">Marketing</span>
@@ -120,7 +120,7 @@ var KTJKanbanDemoRich = function() {
                             'title': `
                                 <div class="d-flex align-items-center">
                         	        <div class="symbol symbol-success me-3">
-                        	            <img alt="Pic" src="assets/media/avatars/150-4.jpg" />
+                        	            <img alt="Pic" src="${hostUrl}media/avatars/150-4.jpg" />
                         	        </div>
                         	        <div class="d-flex flex-column align-items-start">
                         	            <span class="text-dark-50 fw-bold mb-1">SEO Optimization</span>
@@ -133,7 +133,7 @@ var KTJKanbanDemoRich = function() {
                             'title': `
                                 <div class="d-flex align-items-center">
                         	        <div class="symbol symbol-success me-3">
-                        	            <img alt="Pic" src="assets/media/avatars/150-5.jpg" />
+                        	            <img alt="Pic" src="${hostUrl}media/avatars/150-5.jpg" />
                         	        </div>
                         	        <div class="d-flex flex-column align-items-start">
                         	            <span class="text-dark-50 fw-bold mb-1">Product Team</span>
@@ -186,7 +186,7 @@ var KTJKanbanDemoRich = function() {
                     'title': `
                         <div class="d-flex align-items-center">
                             <div class="symbol symbol-light-primary me-3">
-                                <img alt="Pic" src="assets/media/avatars/150-6.jpg" />
+                                <img alt="Pic" src="${hostUrl}media/avatars/150-6.jpg" />
                             </div>
                             <div class="d-flex flex-column align-items-start">
                                 <span class="text-dark-50 fw-bold mb-1">Requirement Study</span>
@@ -209,7 +209,7 @@ var KTJKanbanDemoRich = function() {
                             'title': `
                                 <div class="d-flex align-items-center">
                                     <div class="symbol symbol-success me-3">
-                                        <img alt="Pic" src="assets/media/avatars/150-7.jpg" />
+                                        <img alt="Pic" src="${hostUrl}media/avatars/150-7.jpg" />
                                     </div>
                                     <div class="d-flex flex-column align-items-start">
                                         <span class="text-dark-50 fw-bold mb-1">Payment Modules</span>
@@ -220,7 +220,7 @@ var KTJKanbanDemoRich = function() {
                             'title': `
                                 <div class="d-flex align-items-center">
                                     <div class="symbol symbol-success me-3">
-                                        <img alt="Pic" src="assets/media/avatars/150-8.jpg" />
+                                        <img alt="Pic" src="${hostUrl}media/avatars/150-8.jpg" />
                                     </div>
                                     <div class="d-flex flex-column align-items-start">
                                     <span class="text-dark-50 fw-bold mb-1">New Project</span>

@@ -21,6 +21,8 @@ Route::get('/search', [SearchController::class, 'search']);
 Route::post('/download/category/{subcategory_id}', [SearchController::class, 'search_download']);
 
 Route::get('/list/users', [\App\Http\Controllers\Api\Front\UserController::class, "list"]);
+Route::get('/list/download/comment/{user}', [\App\Http\Controllers\Api\Front\UserController::class, 'downloadComment']);
+Route::get('/list/blog/comment/{user}', [\App\Http\Controllers\Api\Front\UserController::class, 'blogComment']);
 
 Route::group(["prefix" => "back"], function () {
     Route::post('publishing', [\App\Http\Controllers\Api\Back\BackController::class, 'publishing']);
@@ -34,6 +36,8 @@ Route::group(["prefix" => "back"], function () {
 Route::group(["prefix" => "download"], function () {
 
     Route::get('search/category/{category_id}', [DownloadController::class, 'searchCategory']);
+    Route::post('list/categories', [DownloadController::class, 'listCategories']);
+    Route::get('list/category/{category_id}/subcategories', [DownloadController::class, 'listSubCategories']);
 
     Route::group(["prefix" => "{slug}/ticket"], function () {
         Route::get('{ticket_id}', [DownloadController::class, 'getInfoTicket']);

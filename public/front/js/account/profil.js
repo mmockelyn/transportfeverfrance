@@ -1,4 +1,6 @@
 let app = document.querySelector('#profile')
+let tableDownload = document.querySelector('#listDownloadComment')
+//let tableBlog = document.querySelector('#listDownloadComment')
 let user_id = app.dataset.id
 
 function updateNumberComments(data) {
@@ -174,6 +176,48 @@ function getUser() {
     })
 }
 
+function loadDownloadComment()
+{
+    dt = $("#listDownloadComment").DataTable({
+        responsive: true,
+        searchDelay: 500,
+        processing: true,
+        serverSide: true,
+        order: [[5, 'desc']],
+        stateSave: true,
+        ajax: {
+            url: "/api/list/download/comment/"+user_id,
+        },
+        columns: [
+            { data: 'title' },
+            { data: 'comment' },
+            { data: 'date' },
+            { data: null },
+        ],
+    })
+}
+
+function loadBlogComment()
+{
+    dt = $("#listblogComment").DataTable({
+        responsive: true,
+        searchDelay: 500,
+        processing: true,
+        serverSide: true,
+        order: [[5, 'desc']],
+        stateSave: true,
+        ajax: {
+            url: "/api/list/blog/comment/"+user_id,
+        },
+        columns: [
+            { data: 'title' },
+            { data: 'comment' },
+            { data: 'date' },
+            { data: null },
+        ],
+    })
+}
+
 function init() {
     getUser()
     updateUser()
@@ -181,6 +225,7 @@ function init() {
     deleteAccount()
     startTotp()
     stopTotp()
+    loadDownloadComment()
     $('.summernote').summernote({
         height: 150
     });
