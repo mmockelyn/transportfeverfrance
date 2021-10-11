@@ -18,6 +18,22 @@ class PackageCategoryController extends Controller
         ]);
     }
 
+    public function store(Request $request)
+    {
+        try {
+            DownloadCategory::create([
+                "title" => $request->get('title'),
+                "slug" => Str::slug($request->get('title'))
+            ]);
+
+            toastr()->success("Catégorie créer avec succès");
+            return redirect()->back();
+        }catch (\Exception $exception) {
+            toastr()->error("Erreur lors de la création de la catégorie");
+            return redirect()->back();
+        }
+    }
+
     public function createSubCategory(Request $request)
     {
         try {

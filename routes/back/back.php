@@ -36,6 +36,7 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
     Route::group(["prefix" => "packages"], function () {
         Route::group(["prefix" => "category"], function () {
             Route::get('/', [\App\Http\Controllers\Back\Packages\PackageCategoryController::class, 'index'])->name('back.packages.categories');
+            Route::post('/', [\App\Http\Controllers\Back\Packages\PackageCategoryController::class, 'store'])->name('back.packages.categories.store');
             Route::post('sub', [\App\Http\Controllers\Back\Packages\PackageCategoryController::class, 'createSubCategory'])->name('back.packages.category.sub.create');
         });
     });

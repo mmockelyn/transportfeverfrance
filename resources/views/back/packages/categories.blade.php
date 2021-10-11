@@ -36,7 +36,7 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                     <!--begin::Add customer-->
-                    <button type="button" class="btn btn-primary ml-3" data-bs-toggle="tooltip" title="Coming Soon">
+                    <button type="button" class="btn btn-primary ml-3" data-bs-toggle="modal" data-bs-target="#add_category">
                         <span class="svg-icon svg-icon-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="black"/>
@@ -47,7 +47,7 @@
                         Nouvelle catégorie
                     </button>
 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#new_subcategory">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#new_subcategory" data-intro='Hello step two!'>
                         <span class="svg-icon svg-icon-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="black"/>
@@ -64,7 +64,7 @@
             <!--end::Wrapper-->
 
             <!--begin::Datatable-->
-            <table id="liste_categories" class="table align-middle table-row-dashed fs-6 gy-5">
+            <table id="liste_categories" class="table align-middle table-row-dashed fs-6 gy-5" data-hint='Hello step one!'>
                 <thead>
                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                     <th>#</th>
@@ -136,6 +136,42 @@
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
                     <button type="button" class="btn btn-primary" data-bs-action="submit">Sauvegarder</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="add_category">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nouvelle catégorie</h5>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-2x">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black"></rect>
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black"></rect>
+							</svg>
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <form action="{{ route('back.packages.categories.store') }}" method="post">
+                    <div class="modal-body">
+
+                        <div class="mb-10">
+                            <label for="exampleFormControlInput1" class="required form-label">Nom de la catégorie</label>
+                            <input type="text" class="form-control form-control-solid" name="title"/>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary" data-bs-action="submit">Sauvegarder</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
