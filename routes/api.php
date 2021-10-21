@@ -38,6 +38,9 @@ Route::group(["prefix" => "download"], function () {
     Route::get('search/category/{category_id}', [DownloadController::class, 'searchCategory']);
     Route::post('list/categories', [DownloadController::class, 'listCategories']);
     Route::get('list/category/{category_id}/subcategories', [DownloadController::class, 'listSubCategories']);
+    Route::get('category/{category_id}', [DownloadController::class, 'category']);
+    Route::put('category/{category_id}', [DownloadController::class, 'updateCategory']);
+    Route::delete('category/{category_id}', [DownloadController::class, 'deleteCategory']);
 
     Route::group(["prefix" => "{slug}/ticket"], function () {
         Route::get('{ticket_id}', [DownloadController::class, 'getInfoTicket']);

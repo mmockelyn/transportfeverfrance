@@ -128,14 +128,23 @@
                     <!--end::Close-->
                 </div>
 
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
+                <form id="formEditCategory" action="" method="post">
+                    @csrf
+                    @method("PUT")
+                    <div class="modal-body">
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
-                    <button type="button" class="btn btn-primary" data-bs-action="submit">Sauvegarder</button>
-                </div>
+                        <div class="mb-10">
+                            <label for="exampleFormControlInput1" class="required form-label">Nom de la catégorie</label>
+                            <input type="text" class="form-control form-control-solid formTitle" name="title"/>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary" data-bs-action="submit">Sauvegarder</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

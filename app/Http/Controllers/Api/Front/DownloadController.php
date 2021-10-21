@@ -9,6 +9,7 @@ use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadSupportRoom;
 use App\Repository\Download\DownloadRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DownloadController extends Controller
 {
@@ -88,6 +89,42 @@ class DownloadController extends Controller
         $subs = $this->downloadCategory->newQuery()->find($category_id);
 
         return response()->json(["subs" => $subs->subcategories]);
+    }
+
+    public function category($category_id)
+    {
+        $cat = $this->downloadCategory->newQuery()->find($category_id);
+
+        return response()->json($cat);
+    }
+
+    public function updateCategory(Request $request, $category_id)
+    {
+        try {
+            $this->downloadCategory->newQuery()->find($category_id)
+                ->update([
+                    "title" => $request->get('title'),
+                    "slug" => Str::slug($request->get('title'))
+                ]);
+
+            toastr()->success("Un catégorie à été mise à jour !");
+            return redirect()->back();
+        }catch (\Exception $exception) {
+            toastr()->error("Erreur lors de la mise à jour d'une catégorie", "Erreur Server");
+            return redirect()->back();
+        }
+    }
+
+    public function deleteCategory($category_id)
+    {
+        try {
+            $this->downloadCategory->newQuery()->find($category_id)
+                ->delete();
+
+            return response()->json();
+        }catch (\Exception $exception) {
+            return response()->json($exception->getMessage());
+        }
     }
 
     public function listSubCategories($category_id)
