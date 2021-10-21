@@ -127,6 +127,18 @@ class DownloadController extends Controller
         }
     }
 
+    public function deleteSubCategory($category_id, $sub_id)
+    {
+        try {
+            $this->downloadSubCategory->newQuery()->find($sub_id)
+                ->delete();
+
+            return null;
+        }catch (\Exception $exception) {
+            return response()->json($exception->getMessage());
+        }
+    }
+
     public function listSubCategories($category_id)
     {
         $subs = $this->downloadCategory->newQuery()->find($category_id);
@@ -147,7 +159,7 @@ class DownloadController extends Controller
                     <td><?= $subcategory->id; ?></td>
                     <td><?= $subcategory->title; ?></td>
                     <td class="text-end">
-                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Supprimer</button>
+                        <button class="btn btn-danger btn-sm deleteSub" data-category-id="<?= $category_id; ?>" data-sub-id="<?= $subcategory->id; ?>"><i class="fa fa-trash"></i> Supprimer</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -158,6 +170,24 @@ class DownloadController extends Controller
             jQuery(document).ready(function () {
                 $("#list_subs_categories").DataTable();
             });
+
+            document.querySelectorAll('.deleteSub').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.preventDefault()
+                    let modal = $("#list_sub_categories")
+                    $.ajax({
+                        url: `/api/download/category/${btn.dataset.categoryId}/sub/${btn.dataset.subId}`,
+                        method: 'DELETE',
+                        success: data => {
+                            btn.parentNode.parentNode.style.display = 'none'
+                            toastr.success("La sous catégorie à été supprimer");
+                        },
+                        error: err => {
+                            toastr.error(err.responseText, "Erreur Serveur")
+                        }
+                    })
+                })
+            })
         </script>
         <?php
 
