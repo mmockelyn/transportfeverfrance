@@ -40,4 +40,10 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
             Route::post('sub', [\App\Http\Controllers\Back\Packages\PackageCategoryController::class, 'createSubCategory'])->name('back.packages.category.sub.create');
         });
     });
+
+    Route::group(["prefix" => "settings"], function () {
+        Route::group(["prefix" => "users"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Settings\UserController::class, 'index'])->name("back.settings.users.index");
+        });
+    });
 });
