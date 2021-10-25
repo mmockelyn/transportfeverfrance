@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Badgeable;
 use App\Events\ModelCreated;
 use App\Models\Account\Inbox;
+use App\Models\Account\UserDeviceToken;
 use App\Models\Blog\BlogComment;
 use App\Models\Core\Badge;
 use App\Models\Core\BadgeUnlock;
@@ -106,6 +107,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function devices()
+    {
+        return $this->hasMany(UserDeviceToken::class);
     }
 
     public function routeNotificationForDiscord()
