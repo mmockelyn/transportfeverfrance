@@ -818,6 +818,46 @@ KTDrawer.getInstance = function(element) {
     }
 }
 
+// Hide all drawers and skip one if provided
+KTDrawer.hideAll = function(skip = null, selector = '[data-kt-drawer="true"]') {
+    var items = document.querySelectorAll(selector);
+
+    if (items && items.length > 0) {
+        for (var i = 0, len = items.length; i < len; i++) {
+            var item = items[i];
+            var drawer = KTDrawer.getInstance(item);
+
+            if (!drawer) {
+                continue;
+            }
+
+            if ( skip ) {
+                if ( item !== skip ) {
+                    drawer.hide();
+                }
+            } else {
+                drawer.hide();
+            }
+        }
+    }
+}
+
+// Update all drawers
+KTDrawer.updateAll = function(selector = '[data-kt-drawer="true"]') {
+    var items = document.querySelectorAll(selector);
+
+    if (items && items.length > 0) {
+        for (var i = 0, len = items.length; i < len; i++) {
+            var item = items[i];
+            var drawer = KTDrawer.getInstance(item);
+
+            if (drawer) {
+                drawer.update();;
+            }
+        }
+    }
+}
+
 // Create instances
 KTDrawer.createInstances = function(selector = '[data-kt-drawer="true"]') {
     var body = document.getElementsByTagName("BODY")[0];
@@ -1979,16 +2019,14 @@ var KTMenu = function(element, options) {
             placement = 'right';
         }
 
-        // Flip
-        var flipValue = _getItemOption(item, 'flip');
-        var flip = flipValue ? flipValue.split(",") : [];
-
         // Offset
         var offsetValue = _getItemOption(item, 'offset');
         var offset = offsetValue ? offsetValue.split(",") : [];
 
         // Strategy
         var strategy = _getItemOption(item, 'overflow') === true ? 'absolute' : 'fixed';
+
+        var altAxis = _getItemOption(item, 'flip') !== false ? true : false;
 
         var popperConfig = {
             placement: placement,
@@ -2001,12 +2039,12 @@ var KTMenu = function(element, options) {
             }, {
                 name: 'preventOverflow',
                 options: {
-                    rootBoundary: 'clippingParents'
+                    altAxis: altAxis
                 }
             }, {
                 name: 'flip', 
                 options: {
-                    fallbackPlacements: flip
+                    flipVariations: false
                 }
             }]
         };
@@ -4018,13 +4056,12 @@ var KTSticky = function(element, options) {
     // Default Options
     var defaultOptions = {
         offset: 200,
-        flipOffset: 0,
+        releaseOffset: 0,
         reverse: false,
         animation: true,
         animationSpeed: '0.3s',
         animationClass: 'animation-slide-in-down'
     };
-
     ////////////////////////////
     // ** Private Methods  ** //
     ////////////////////////////
@@ -4045,6 +4082,7 @@ var KTSticky = function(element, options) {
         the.attributeName = 'data-kt-sticky-' + the.name;
         the.eventTriggerState = true;
         the.lastScrollTop = 0;
+        the.scrollHandler;
 
         // Set initialized
         the.element.setAttribute('data-kt-sticky', 'true');
@@ -4061,6 +4099,7 @@ var KTSticky = function(element, options) {
 
     var _scroll = function(e) {
         var offset = _getOption('offset');
+        var releaseOffset = _getOption('release-offset');
         var reverse = _getOption('reverse');
         var st;
         var attrName;
@@ -4072,10 +4111,12 @@ var KTSticky = function(element, options) {
         }
 
         offset = parseInt(offset);
+        releaseOffset = releaseOffset ? parseInt(releaseOffset) : 0;
         st = KTUtil.getScrollTop();
+        diff = document.documentElement.scrollHeight - window.innerHeight - KTUtil.getScrollTop();
 
         if ( reverse === true ) {  // Release on reverse scroll mode
-            if ( st > offset) {
+            if ( st > offset && (releaseOffset === 0 || releaseOffset < diff)) {
                 if ( body.hasAttribute(the.attributeName) === false) {
                     _enable();
                     body.setAttribute(the.attributeName, 'on');
@@ -4102,7 +4143,7 @@ var KTSticky = function(element, options) {
 
             the.lastScrollTop = st;
         } else { // Classic scroll mode
-            if ( st > offset) {
+            if ( st > offset && (releaseOffset === 0 || releaseOffset < diff)) {
                 if ( body.hasAttribute(the.attributeName) === false) {
                     _enable();
                     body.setAttribute(the.attributeName, 'on');
@@ -4127,7 +4168,13 @@ var KTSticky = function(element, options) {
             }
         }
 
-        //_flip();
+        if (releaseOffset > 0) {
+            if ( diff < releaseOffset ) {
+                the.element.setAttribute('data-kt-sticky-released', 'true');
+            } else {
+                the.element.removeAttribute('data-kt-sticky-released');
+            }
+        }        
     }
 
     var _enable = function(update) {
@@ -4182,23 +4229,6 @@ var KTSticky = function(element, options) {
         KTUtil.css(the.element, 'position', '');
     }
 
-    var _flip = function() {        
-        var flipOffset = _getOption('flip-offset');
-        var flipBottom = _getOption('flip-bottom');
-        var diff = document.documentElement.scrollHeight - window.innerHeight - KTUtil.getScrollTop();
-        flipOffset = parseInt(flipOffset);
-
-        if (flipOffset > 0) {
-            if (diff >= flipOffset) {
-                KTUtil.css(the.element, 'top', top);
-                KTUtil.css(the.element, 'bottom', 'auto');
-            } else {
-                KTUtil.css(the.element, 'top', 'auto');
-                KTUtil.css(the.element, 'bottom', flipBottom);
-            }
-        }
-    } 
-
     var _getOption = function(name) {
         if ( the.element.hasAttribute('data-kt-sticky-' + name) === true ) {
             var attr = the.element.getAttribute('data-kt-sticky-' + name);
@@ -4223,6 +4253,7 @@ var KTSticky = function(element, options) {
     }
 
     var _destroy = function() {
+        window.removeEventListener('scroll', _scroll);
         KTUtil.data(the.element).remove('sticky');
     }
 
@@ -6516,7 +6547,7 @@ var KTApp = function() {
                 var options = {};
 
                 var value = element.getAttribute('data-kt-countup-value');
-                value = parseFloat(value.replace(/,/,''));
+                value = parseFloat(value.replace(/,/g,""));
 
                 if (element.hasAttribute('data-kt-countup-start-val')) {
                     options.startVal = parseFloat(element.getAttribute('data-kt-countup-start-val'));
@@ -6635,7 +6666,9 @@ var KTApp = function() {
 
     var initSmoothScroll = function() {
         if (SmoothScroll) {
+
             new SmoothScroll('a[data-kt-scroll-toggle][href*="#"]', {
+                speed: 900,
                 offset: function (anchor, toggle) {
                     // Integer or Function returning an integer. How far to offset the scrolling anchor location in pixels
                     // This example is a function, but you could do something as simple as `offset: 25`

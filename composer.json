@@ -9,6 +9,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "arcanedev/log-viewer": "~8.0",
+        "aws/aws-sdk-php": "^3.199",
         "consoletvs/charts": "7.*",
         "creativeorange/gravatar": "~1.0",
         "fideloper/proxy": "^4.4",
@@ -35,7 +36,8 @@
         "studio/laravel-totem": "^8.1",
         "syntax/steam-api": "2.3.*",
         "unisharp/laravel-filemanager": "^2.2",
-        "yoeunes/toastr": "^1.2"
+        "yoeunes/toastr": "^1.2",
+        "aws/aws-sdk-php-laravel": "~3.0"
     },
     "require-dev": {
         "arcanedev/route-viewer": "^4.0",

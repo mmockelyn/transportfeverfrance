@@ -60,10 +60,30 @@ class UserController extends Controller
                 "versionLatest" => $package->version_latest,
                 "countView" => $package->count_view,
                 "count_download" => $package->count_download,
-                "imgFile" => env('APP_URL').'/storage/files/shares/download/'.$package->image,
+                "imgFile" => env('APP_URL') . '/storage/files/shares/download/' . $package->image,
                 "category" => $package->category,
                 "subcategory" => $package->subcategory,
                 'actions' => null,
+            ];
+        }
+
+        return response()->json([
+            "data" => $array
+        ]);
+    }
+
+    public function downloadComment($user_id)
+    {
+        $user = $this->userRepository->getInfoUser($user_id)->load('downloadcomments');
+        $comments = $user->downloadcomments;
+        $array = [];
+
+        foreach ($comments as $comment) {
+            $array[] = [
+                "title" => $comment->download->title,
+                "comment" => $comment->content,
+                "date" => $comment->updated_at->format('d/m/Y à H:i'),
+                "action" => null
             ];
         }
 

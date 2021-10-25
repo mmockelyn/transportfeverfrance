@@ -39,11 +39,11 @@ var KTVisTimelineStyle = function () {
         var items = new vis.DataSet([
             {
                 start: new Date(2010, 7, 23),
-                content: getContent('Conversation', './assets/media/avatars/150-1.jpg')
+                content: getContent('Conversation', hostUrl + '/media/avatars/150-1.jpg')
             },
             {
                 start: new Date(2010, 7, 23, 23, 0, 0),
-                content: getContent('Mail from boss', './assets/media/avatars/150-2.jpg')
+                content: getContent('Mail from boss', hostUrl + '/media/avatars/150-2.jpg')
             },
             { start: new Date(2010, 7, 24, 16, 0, 0), content: "Report" },
             {
@@ -53,11 +53,11 @@ var KTVisTimelineStyle = function () {
             },
             {
                 start: new Date(2010, 7, 28),
-                content: getContent('Memo', './assets/media/avatars/150-3.jpg')
+                content: getContent('Memo', hostUrl + '/media/avatars/150-3.jpg')
             },
             {
                 start: new Date(2010, 7, 29),
-                content: getContent('Phone call', './assets/media/avatars/150-4.jpg')
+                content: getContent('Phone call', hostUrl + '/media/avatars/150-4.jpg')
             },
             {
                 start: new Date(2010, 7, 31),
@@ -66,7 +66,7 @@ var KTVisTimelineStyle = function () {
             },
             {
                 start: new Date(2010, 8, 4, 12, 0, 0),
-                content: getContent('Report', './assets/media/avatars/150-5.jpg')
+                content: getContent('Report', hostUrl + '/media/avatars/150-5.jpg')
             },
         ]);
 

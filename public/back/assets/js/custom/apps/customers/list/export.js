@@ -46,6 +46,13 @@ var KTCustomersExport = function () {
 		submitButton.addEventListener('click', function (e) {
 			e.preventDefault();
 
+            const dateEls = form.querySelectorAll("input");
+
+            // Disable form on submit click
+            dateEls.forEach(dateEl => {
+                dateEl.disabled = true;
+            });           
+
 			// Validate form before submit
 			if (validator) {
 				validator.validate().then(function (status) {
@@ -74,6 +81,11 @@ var KTCustomersExport = function () {
 
                                     // Enable submit button after loading
                                     submitButton.disabled = false;
+
+                                    // Enable datepicker after loading
+                                    dateEls.forEach(dateEl => {
+                                        dateEl.disabled = false;
+                                    });           
 								}
 							});
 
@@ -88,7 +100,12 @@ var KTCustomersExport = function () {
 							customClass: {
 								confirmButton: "btn btn-primary"
 							}
-						});
+						}).then(function(){
+                            // Enable datepicker after loading
+                            dateEls.forEach(dateEl => {
+                                dateEl.disabled = false;
+                            });           
+                        });
 					}
 				});
 			}
@@ -97,6 +114,13 @@ var KTCustomersExport = function () {
         cancelButton.addEventListener('click', function (e) {
             e.preventDefault();
 
+            const dateEls = form.querySelectorAll("input");
+
+            // Disable form on submit click
+            dateEls.forEach(dateEl => {
+                dateEl.disabled = true;
+            }); 
+
             Swal.fire({
                 text: "Are you sure you would like to cancel?",
                 icon: "warning",
@@ -111,7 +135,12 @@ var KTCustomersExport = function () {
             }).then(function (result) {
                 if (result.value) {
                     form.reset(); // Reset form	
-                    modal.hide(); // Hide modal				
+                    modal.hide(); // Hide modal		
+                    
+                    // Enable datepicker after loading
+                    dateEls.forEach(dateEl => {
+                        dateEl.disabled = false;
+                    });  
                 } else if (result.dismiss === 'cancel') {
                     Swal.fire({
                         text: "Your form has not been cancelled!.",
@@ -121,6 +150,11 @@ var KTCustomersExport = function () {
                         customClass: {
                             confirmButton: "btn btn-primary",
                         }
+                    }).then(function(){
+                        // Enable datepicker after loading
+                        dateEls.forEach(dateEl => {
+                            dateEl.disabled = false;
+                        });           
                     });
                 }
             });
@@ -129,6 +163,13 @@ var KTCustomersExport = function () {
 		closeButton.addEventListener('click', function(e){
 			e.preventDefault();
 
+            const dateEls = form.querySelectorAll("input");
+
+            // Disable form on submit click
+            dateEls.forEach(dateEl => {
+                dateEl.disabled = true;
+            }); 
+
             Swal.fire({
                 text: "Are you sure you would like to cancel?",
                 icon: "warning",
@@ -143,7 +184,12 @@ var KTCustomersExport = function () {
             }).then(function (result) {
                 if (result.value) {
                     form.reset(); // Reset form	
-                    modal.hide(); // Hide modal				
+                    modal.hide(); // Hide modal			
+                    
+                    // Enable datepicker after loading
+                    dateEls.forEach(dateEl => {
+                        dateEl.disabled = false;
+                    });  
                 } else if (result.dismiss === 'cancel') {
                     Swal.fire({
                         text: "Your form has not been cancelled!.",
@@ -153,6 +199,11 @@ var KTCustomersExport = function () {
                         customClass: {
                             confirmButton: "btn btn-primary",
                         }
+                    }).then(function(){
+                        // Enable datepicker after loading
+                        dateEls.forEach(dateEl => {
+                            dateEl.disabled = false;
+                        });           
                     });
                 }
             });

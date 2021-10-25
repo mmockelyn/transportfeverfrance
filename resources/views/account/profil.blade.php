@@ -1,6 +1,8 @@
 @extends("front.layouts.layout")
 @section("styles")
-    <link rel="stylesheet" href="{{ asset('front/assets/plugins/custom/password-requirement/css/jquery.passwordRequirements.css') }}">
+    <link href="/front/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet"
+          href="{{ asset('front/assets/plugins/custom/password-requirement/css/jquery.passwordRequirements.css') }}">
 @endsection
 
 @section("bread")
@@ -45,7 +47,8 @@
                             @if($user->avatar)
                                 <img src="{{ $user->avatar }}" alt="image">
                             @else
-                                <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get($user->email) }}" alt="image">
+                                <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get($user->email) }}"
+                                     alt="image">
                             @endif
 
                         </div>
@@ -56,9 +59,10 @@
                         <!--begin::Title-->
                         <div class="d-flex justify-content-between flex-wrap mt-1">
                             <div class="d-flex mr-3">
-                                <a href="#" class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">{{ \Illuminate\Support\Str::ucfirst($user->name) }}</a>
+                                <a href="#"
+                                   class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">{{ \Illuminate\Support\Str::ucfirst($user->name) }}</a>
                                 @if(\Illuminate\Support\Facades\Cache::has('user-is-online-'.$user->id) == true)
-                                <a href="#"><i class="fas fa-circle text-success"></i></a>
+                                    <a href="#"><i class="fas fa-circle text-success"></i></a>
                                 @else
                                     <a href="#"><i class="fas fa-circle text-danger"></i></a>
                                 @endif
@@ -67,7 +71,9 @@
                                 <!--<a href="#" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">ask</a>
                                 <a href="#" class="btn btn-sm btn-info font-weight-bolder text-uppercase">hire</a>-->
                                 @if($user->valid == 0 && $user->email_verified_at == null)
-                                    <a href="/email/verify" class="btn btn-xs btn-danger" data-toggle="tooltip" data-theme="dark" title="Renvoyer le mail de vérification"><i class="fas fa-envelope"></i> Compte non valider</a>
+                                    <a href="/email/verify" class="btn btn-xs btn-danger" data-toggle="tooltip"
+                                       data-theme="dark" title="Renvoyer le mail de vérification"><i
+                                            class="fas fa-envelope"></i> Compte non valider</a>
                                 @endif
                                 <x-account.social_active :user="$user"/>
                             </div>
@@ -77,16 +83,21 @@
                         <div class="d-flex flex-wrap justify-content-between mt-1">
                             <div class="d-flex flex-column flex-grow-1 pr-8">
                                 <div class="d-flex flex-wrap mb-4">
-                                    <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                    <a href="#"
+                                       class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                         <i class="flaticon2-new-email mr-2 font-size-lg"></i>{{ $user->email }}</a>
-                                    <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                    <a href="#"
+                                       class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                         @if(\Illuminate\Support\Facades\Cache::has('user-is-online-'.$user->id) == true)
-                                            <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>Dernière connexion: <span class="text-success fw-bold">Connecter</span></a>
-                                        @else
-                                            <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>Dernière connexion: {{ $user->last_seen->diffForHumans() }}</a>
-                                        @endif
+                                            <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>Dernière connexion:
+                                            <span class="text-success fw-bold">Connecter</span></a>
+                                    @else
+                                        <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>Dernière
+                                        connexion: {{ $user->last_seen->diffForHumans() }}</a>
+                                    @endif
                                     <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">
-                                        <i class="flaticon2-folder mr-2 font-size-lg"></i>{{ \App\Helpers\Format::formatUserGroup($user->group) }}</a>
+                                        <i class="flaticon2-folder mr-2 font-size-lg"></i>{{ \App\Helpers\Format::formatUserGroup($user->group) }}
+                                    </a>
                                 </div>
                                 <div class="font-weight-bold text-dark-50">{!! $user->description !!}</div>
                             </div>
@@ -104,12 +115,16 @@
                 <!--begin::Items-->
                 <div class="row">
                     <div class="col-md-8">
-                        <ul class="nav nav-pills nav-primary row row-paddingless m-0 p-0 flex-column flex-sm-row" role="tablist">
+                        <ul class="nav nav-pills nav-primary row row-paddingless m-0 p-0 flex-column flex-sm-row"
+                            role="tablist">
                             <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-                                <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center active" data-toggle="tab" href="#overview">
+                                <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center active"
+                                   data-toggle="tab" href="#overview">
                                     <span class="nav-icon py-2 w-auto">
 										<span class="svg-icon svg-icon-3x">
-											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+											<svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                     <polygon points="0 0 24 0 24 24 0 24"/>
                                                     <circle fill="#000000" opacity="0.3" cx="15" cy="17" r="5"/>
@@ -125,50 +140,79 @@
                                 </a>
                             </li>
                             <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-                                <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="tab" href="#config">
+                                <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
+                                   data-toggle="tab" href="#config">
                                     <span class="nav-icon py-2 w-auto">
 										<span class="svg-icon svg-icon-3x">
 											<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Home/Library.svg-->
-											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+											<svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                     <rect x="0" y="0" width="24" height="24"/>
-                                                    <path d="M18.6225,9.75 L18.75,9.75 C19.9926407,9.75 21,10.7573593 21,12 C21,13.2426407 19.9926407,14.25 18.75,14.25 L18.6854912,14.249994 C18.4911876,14.250769 18.3158978,14.366855 18.2393549,14.5454486 C18.1556809,14.7351461 18.1942911,14.948087 18.3278301,15.0846699 L18.372535,15.129375 C18.7950334,15.5514036 19.03243,16.1240792 19.03243,16.72125 C19.03243,17.3184208 18.7950334,17.8910964 18.373125,18.312535 C17.9510964,18.7350334 17.3784208,18.97243 16.78125,18.97243 C16.1840792,18.97243 15.6114036,18.7350334 15.1896699,18.3128301 L15.1505513,18.2736469 C15.008087,18.1342911 14.7951461,18.0956809 14.6054486,18.1793549 C14.426855,18.2558978 14.310769,18.4311876 14.31,18.6225 L14.31,18.75 C14.31,19.9926407 13.3026407,21 12.06,21 C10.8173593,21 9.81,19.9926407 9.81,18.75 C9.80552409,18.4999185 9.67898539,18.3229986 9.44717599,18.2361469 C9.26485393,18.1556809 9.05191298,18.1942911 8.91533009,18.3278301 L8.870625,18.372535 C8.44859642,18.7950334 7.87592081,19.03243 7.27875,19.03243 C6.68157919,19.03243 6.10890358,18.7950334 5.68746499,18.373125 C5.26496665,17.9510964 5.02757002,17.3784208 5.02757002,16.78125 C5.02757002,16.1840792 5.26496665,15.6114036 5.68716991,15.1896699 L5.72635306,15.1505513 C5.86570889,15.008087 5.90431906,14.7951461 5.82064513,14.6054486 C5.74410223,14.426855 5.56881236,14.310769 5.3775,14.31 L5.25,14.31 C4.00735931,14.31 3,13.3026407 3,12.06 C3,10.8173593 4.00735931,9.81 5.25,9.81 C5.50008154,9.80552409 5.67700139,9.67898539 5.76385306,9.44717599 C5.84431906,9.26485393 5.80570889,9.05191298 5.67216991,8.91533009 L5.62746499,8.870625 C5.20496665,8.44859642 4.96757002,7.87592081 4.96757002,7.27875 C4.96757002,6.68157919 5.20496665,6.10890358 5.626875,5.68746499 C6.04890358,5.26496665 6.62157919,5.02757002 7.21875,5.02757002 C7.81592081,5.02757002 8.38859642,5.26496665 8.81033009,5.68716991 L8.84944872,5.72635306 C8.99191298,5.86570889 9.20485393,5.90431906 9.38717599,5.82385306 L9.49484664,5.80114977 C9.65041313,5.71688974 9.7492905,5.55401473 9.75,5.3775 L9.75,5.25 C9.75,4.00735931 10.7573593,3 12,3 C13.2426407,3 14.25,4.00735931 14.25,5.25 L14.249994,5.31450877 C14.250769,5.50881236 14.366855,5.68410223 14.552824,5.76385306 C14.7351461,5.84431906 14.948087,5.80570889 15.0846699,5.67216991 L15.129375,5.62746499 C15.5514036,5.20496665 16.1240792,4.96757002 16.72125,4.96757002 C17.3184208,4.96757002 17.8910964,5.20496665 18.312535,5.626875 C18.7350334,6.04890358 18.97243,6.62157919 18.97243,7.21875 C18.97243,7.81592081 18.7350334,8.38859642 18.3128301,8.81033009 L18.2736469,8.84944872 C18.1342911,8.99191298 18.0956809,9.20485393 18.1761469,9.38717599 L18.1988502,9.49484664 C18.2831103,9.65041313 18.4459853,9.7492905 18.6225,9.75 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-                                                    <path d="M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z" fill="#000000"/>
+                                                    <path
+                                                        d="M18.6225,9.75 L18.75,9.75 C19.9926407,9.75 21,10.7573593 21,12 C21,13.2426407 19.9926407,14.25 18.75,14.25 L18.6854912,14.249994 C18.4911876,14.250769 18.3158978,14.366855 18.2393549,14.5454486 C18.1556809,14.7351461 18.1942911,14.948087 18.3278301,15.0846699 L18.372535,15.129375 C18.7950334,15.5514036 19.03243,16.1240792 19.03243,16.72125 C19.03243,17.3184208 18.7950334,17.8910964 18.373125,18.312535 C17.9510964,18.7350334 17.3784208,18.97243 16.78125,18.97243 C16.1840792,18.97243 15.6114036,18.7350334 15.1896699,18.3128301 L15.1505513,18.2736469 C15.008087,18.1342911 14.7951461,18.0956809 14.6054486,18.1793549 C14.426855,18.2558978 14.310769,18.4311876 14.31,18.6225 L14.31,18.75 C14.31,19.9926407 13.3026407,21 12.06,21 C10.8173593,21 9.81,19.9926407 9.81,18.75 C9.80552409,18.4999185 9.67898539,18.3229986 9.44717599,18.2361469 C9.26485393,18.1556809 9.05191298,18.1942911 8.91533009,18.3278301 L8.870625,18.372535 C8.44859642,18.7950334 7.87592081,19.03243 7.27875,19.03243 C6.68157919,19.03243 6.10890358,18.7950334 5.68746499,18.373125 C5.26496665,17.9510964 5.02757002,17.3784208 5.02757002,16.78125 C5.02757002,16.1840792 5.26496665,15.6114036 5.68716991,15.1896699 L5.72635306,15.1505513 C5.86570889,15.008087 5.90431906,14.7951461 5.82064513,14.6054486 C5.74410223,14.426855 5.56881236,14.310769 5.3775,14.31 L5.25,14.31 C4.00735931,14.31 3,13.3026407 3,12.06 C3,10.8173593 4.00735931,9.81 5.25,9.81 C5.50008154,9.80552409 5.67700139,9.67898539 5.76385306,9.44717599 C5.84431906,9.26485393 5.80570889,9.05191298 5.67216991,8.91533009 L5.62746499,8.870625 C5.20496665,8.44859642 4.96757002,7.87592081 4.96757002,7.27875 C4.96757002,6.68157919 5.20496665,6.10890358 5.626875,5.68746499 C6.04890358,5.26496665 6.62157919,5.02757002 7.21875,5.02757002 C7.81592081,5.02757002 8.38859642,5.26496665 8.81033009,5.68716991 L8.84944872,5.72635306 C8.99191298,5.86570889 9.20485393,5.90431906 9.38717599,5.82385306 L9.49484664,5.80114977 C9.65041313,5.71688974 9.7492905,5.55401473 9.75,5.3775 L9.75,5.25 C9.75,4.00735931 10.7573593,3 12,3 C13.2426407,3 14.25,4.00735931 14.25,5.25 L14.249994,5.31450877 C14.250769,5.50881236 14.366855,5.68410223 14.552824,5.76385306 C14.7351461,5.84431906 14.948087,5.80570889 15.0846699,5.67216991 L15.129375,5.62746499 C15.5514036,5.20496665 16.1240792,4.96757002 16.72125,4.96757002 C17.3184208,4.96757002 17.8910964,5.20496665 18.312535,5.626875 C18.7350334,6.04890358 18.97243,6.62157919 18.97243,7.21875 C18.97243,7.81592081 18.7350334,8.38859642 18.3128301,8.81033009 L18.2736469,8.84944872 C18.1342911,8.99191298 18.0956809,9.20485393 18.1761469,9.38717599 L18.1988502,9.49484664 C18.2831103,9.65041313 18.4459853,9.7492905 18.6225,9.75 Z"
+                                                        fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                                                    <path
+                                                        d="M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z"
+                                                        fill="#000000"/>
                                                 </g>
                                             </svg>
                                             <!--end::Svg Icon-->
 										</span>
 									</span>
-                                    <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Configuration</span>
+                                    <span
+                                        class="nav-text font-size-lg py-2 font-weight-bold text-center">Configuration</span>
                                 </a>
                             </li>
                             <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-                                <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="tab" href="#security">
+                                <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
+                                   data-toggle="tab" href="#security">
                                     <span class="nav-icon py-2 w-auto">
 										<span class="svg-icon svg-icon-3x">
-											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+											<svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                     <rect x="0" y="0" width="24" height="24"/>
-                                                    <path d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z" fill="#000000" opacity="0.3"/>
-                                                    <path d="M14.5,11 C15.0522847,11 15.5,11.4477153 15.5,12 L15.5,15 C15.5,15.5522847 15.0522847,16 14.5,16 L9.5,16 C8.94771525,16 8.5,15.5522847 8.5,15 L8.5,12 C8.5,11.4477153 8.94771525,11 9.5,11 L9.5,10.5 C9.5,9.11928813 10.6192881,8 12,8 C13.3807119,8 14.5,9.11928813 14.5,10.5 L14.5,11 Z M12,9 C11.1715729,9 10.5,9.67157288 10.5,10.5 L10.5,11 L13.5,11 L13.5,10.5 C13.5,9.67157288 12.8284271,9 12,9 Z" fill="#000000"/>
+                                                    <path
+                                                        d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z"
+                                                        fill="#000000" opacity="0.3"/>
+                                                    <path
+                                                        d="M14.5,11 C15.0522847,11 15.5,11.4477153 15.5,12 L15.5,15 C15.5,15.5522847 15.0522847,16 14.5,16 L9.5,16 C8.94771525,16 8.5,15.5522847 8.5,15 L8.5,12 C8.5,11.4477153 8.94771525,11 9.5,11 L9.5,10.5 C9.5,9.11928813 10.6192881,8 12,8 C13.3807119,8 14.5,9.11928813 14.5,10.5 L14.5,11 Z M12,9 C11.1715729,9 10.5,9.67157288 10.5,10.5 L10.5,11 L13.5,11 L13.5,10.5 C13.5,9.67157288 12.8284271,9 12,9 Z"
+                                                        fill="#000000"/>
                                                 </g>
                                             </svg>
 										</span>
 									</span>
-                                    <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Sécurité</span>
+                                    <span
+                                        class="nav-text font-size-lg py-2 font-weight-bold text-center">Sécurité</span>
                                 </a>
                             </li>
                             <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-                                <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="tab" href="#social">
+                                <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
+                                   data-toggle="tab" href="#social">
                                     <span class="nav-icon py-2 w-auto">
 										<span class="svg-icon svg-icon-3x">
-											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+											<svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                     <polygon points="0 0 24 0 24 24 0 24"/>
-                                                    <rect fill="#000000" opacity="0.3" transform="translate(13.000000, 6.000000) rotate(-450.000000) translate(-13.000000, -6.000000) " x="12" y="8.8817842e-16" width="2" height="12" rx="1"/>
-                                                    <path d="M9.79289322,3.79289322 C10.1834175,3.40236893 10.8165825,3.40236893 11.2071068,3.79289322 C11.5976311,4.18341751 11.5976311,4.81658249 11.2071068,5.20710678 L8.20710678,8.20710678 C7.81658249,8.59763107 7.18341751,8.59763107 6.79289322,8.20710678 L3.79289322,5.20710678 C3.40236893,4.81658249 3.40236893,4.18341751 3.79289322,3.79289322 C4.18341751,3.40236893 4.81658249,3.40236893 5.20710678,3.79289322 L7.5,6.08578644 L9.79289322,3.79289322 Z" fill="#000000" fill-rule="nonzero" transform="translate(7.500000, 6.000000) rotate(-270.000000) translate(-7.500000, -6.000000) "/>
-                                                    <rect fill="#000000" opacity="0.3" transform="translate(11.000000, 18.000000) scale(1, -1) rotate(90.000000) translate(-11.000000, -18.000000) " x="10" y="12" width="2" height="12" rx="1"/>
-                                                    <path d="M18.7928932,15.7928932 C19.1834175,15.4023689 19.8165825,15.4023689 20.2071068,15.7928932 C20.5976311,16.1834175 20.5976311,16.8165825 20.2071068,17.2071068 L17.2071068,20.2071068 C16.8165825,20.5976311 16.1834175,20.5976311 15.7928932,20.2071068 L12.7928932,17.2071068 C12.4023689,16.8165825 12.4023689,16.1834175 12.7928932,15.7928932 C13.1834175,15.4023689 13.8165825,15.4023689 14.2071068,15.7928932 L16.5,18.0857864 L18.7928932,15.7928932 Z" fill="#000000" fill-rule="nonzero" transform="translate(16.500000, 18.000000) scale(1, -1) rotate(270.000000) translate(-16.500000, -18.000000) "/>
+                                                    <rect fill="#000000" opacity="0.3"
+                                                          transform="translate(13.000000, 6.000000) rotate(-450.000000) translate(-13.000000, -6.000000) "
+                                                          x="12" y="8.8817842e-16" width="2" height="12" rx="1"/>
+                                                    <path
+                                                        d="M9.79289322,3.79289322 C10.1834175,3.40236893 10.8165825,3.40236893 11.2071068,3.79289322 C11.5976311,4.18341751 11.5976311,4.81658249 11.2071068,5.20710678 L8.20710678,8.20710678 C7.81658249,8.59763107 7.18341751,8.59763107 6.79289322,8.20710678 L3.79289322,5.20710678 C3.40236893,4.81658249 3.40236893,4.18341751 3.79289322,3.79289322 C4.18341751,3.40236893 4.81658249,3.40236893 5.20710678,3.79289322 L7.5,6.08578644 L9.79289322,3.79289322 Z"
+                                                        fill="#000000" fill-rule="nonzero"
+                                                        transform="translate(7.500000, 6.000000) rotate(-270.000000) translate(-7.500000, -6.000000) "/>
+                                                    <rect fill="#000000" opacity="0.3"
+                                                          transform="translate(11.000000, 18.000000) scale(1, -1) rotate(90.000000) translate(-11.000000, -18.000000) "
+                                                          x="10" y="12" width="2" height="12" rx="1"/>
+                                                    <path
+                                                        d="M18.7928932,15.7928932 C19.1834175,15.4023689 19.8165825,15.4023689 20.2071068,15.7928932 C20.5976311,16.1834175 20.5976311,16.8165825 20.2071068,17.2071068 L17.2071068,20.2071068 C16.8165825,20.5976311 16.1834175,20.5976311 15.7928932,20.2071068 L12.7928932,17.2071068 C12.4023689,16.8165825 12.4023689,16.1834175 12.7928932,15.7928932 C13.1834175,15.4023689 13.8165825,15.4023689 14.2071068,15.7928932 L16.5,18.0857864 L18.7928932,15.7928932 Z"
+                                                        fill="#000000" fill-rule="nonzero"
+                                                        transform="translate(16.500000, 18.000000) scale(1, -1) rotate(270.000000) translate(-16.500000, -18.000000) "/>
                                                 </g>
                                             </svg>
 										</span>
@@ -223,35 +267,41 @@
                                             <!--begin::Symbol-->
                                             <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
                                                 @if(\Illuminate\Support\Facades\Storage::exists('files/shares/download/'.$download->image) == true)
-                                                    <div class="symbol-label" style="background-image: url('/storage/files/shares/download/{{ $download->image }}')"></div>
+                                                    <div class="symbol-label"
+                                                         style="background-image: url('/storage/files/shares/download/{{ $download->image }}')"></div>
                                                 @else
-                                                    <div class="symbol-label" style="background-image: url('https://via.placeholder.com/600x400')"></div>
+                                                    <div class="symbol-label"
+                                                         style="background-image: url('https://via.placeholder.com/600x400')"></div>
                                                 @endif
                                             </div>
                                             <!--end::Symbol-->
                                             <!--begin::Title-->
                                             <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
-                                                <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">{{ $download->title }}</a>
+                                                <a href="#"
+                                                   class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">{{ $download->title }}</a>
                                                 <span class="text-muted font-weight-bold font-size-sm my-1">{{ $download->category->title }} -> {{ $download->subcategory->title }}</span>
                                                 <span class="text-muted font-weight-bold font-size-sm">Mise à jour:
-																<span class="text-primary font-weight-bold">{{ $download->updated_at->format("d/m/Y à H:i") }}</span></span>
+																<span
+                                                                    class="text-primary font-weight-bold">{{ $download->updated_at->format("d/m/Y à H:i") }}</span></span>
                                             </div>
                                             <!--end::Title-->
                                             <!--begin::Info-->
                                             <div class="d-flex align-items-center py-lg-0 py-2">
                                                 <div class="d-flex flex-column text-right mr-5">
-                                                    <span class="text-dark-75 font-weight-bolder font-size-h4">{{ $download->count_view }}</span>
+                                                    <span
+                                                        class="text-dark-75 font-weight-bolder font-size-h4">{{ $download->count_view }}</span>
                                                     <span class="text-muted font-size-sm font-weight-bolder">Vues</span>
                                                 </div>
                                                 <div class="d-flex flex-column text-right">
-                                                    <button class="btn btn-icon btn-lg btn-default"><i class="fas fa-eye"></i> </button>
+                                                    <button class="btn btn-icon btn-lg btn-default"><i
+                                                            class="fas fa-eye"></i></button>
                                                 </div>
                                             </div>
                                             <!--end::Info-->
                                         </div>
                                 @endforeach
-                                @endif
-                                <!--end::Item-->
+                            @endif
+                            <!--end::Item-->
                             </div>
                             <!--end::Body-->
                         </div>
@@ -260,7 +310,8 @@
                         <div class="card card-custom card-stretch gutter-b">
                             <!--begin::Header-->
                             <div class="card-header border-0">
-                                <h3 class="card-title font-weight-bolder text-dark">Derniers Commentaire (Téléchargement)</h3>
+                                <h3 class="card-title font-weight-bolder text-dark">Derniers Commentaire
+                                    (Téléchargement)</h3>
                             </div>
                             <!--end::Header-->
                             <!--begin::Body-->
@@ -274,9 +325,18 @@
                                         <div class="alert-text">Aucun Commentaire publier</div>
                                     </div>
                                 @else
-                                    @foreach($user->downloadcomments()->orderBy('updated_at', 'desc')->limit(5)->get() as $comment)
-
-                                    @endforeach
+                                    <table id="listDownloadComment"
+                                           class="table align-middle table-row-dashed fs-6 gy-5">
+                                        <thead>
+                                        <tr>
+                                            <th>Package</th>
+                                            <th>Commentaire</th>
+                                            <th>Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-gray-600 fw-bold"></tbody>
+                                    </table>
                             @endif
                             <!--end::Item-->
                             </div>
@@ -300,10 +360,19 @@
                                         </div>
                                         <div class="alert-text">Aucun Commentaire publier</div>
                                     </div>
-                                @else
-                                    @foreach($user->blogcomments()->orderBy('updated_at', 'desc')->limit(5)->get() as $comment)
-
-                                    @endforeach
+                            @else
+                                    <table id="listBlogComment"
+                                           class="table align-middle table-row-dashed fs-6 gy-5">
+                                        <thead>
+                                        <tr>
+                                            <th>Article</th>
+                                            <th>Commentaire</th>
+                                            <th>Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-gray-600 fw-bold"></tbody>
+                                    </table>
                             @endif
                             <!--end::Item-->
                             </div>
@@ -324,7 +393,8 @@
                                     @csrf
                                     <div class="form-group">
                                         <label>Adresse Mail</label>
-                                        <input type="email" class="form-control" name="email" value="{{ $user->email }}">
+                                        <input type="email" class="form-control" name="email"
+                                               value="{{ $user->email }}">
                                     </div>
                                     <div class="form-group">
                                         <label>Nom d'utilisateur ou Pseudo</label>
@@ -332,10 +402,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Description</label>
-                                        <textarea class="form-control summernote" name="description">{!! $user->description !!}</textarea>
+                                        <textarea class="form-control summernote"
+                                                  name="description">{!! $user->description !!}</textarea>
                                     </div>
                                     <div class="text-right">
-                                        <button type="submit" id="btnFormUpdateUser" class="btn btn-primary"><i class="fas fa-check"></i> Mettre à jour</button>
+                                        <button type="submit" id="btnFormUpdateUser" class="btn btn-primary"><i
+                                                class="fas fa-check"></i> Mettre à jour
+                                        </button>
                                     </div>
                                 </form>
                             </div>
@@ -347,28 +420,38 @@
                                 <h3 class="card-title">Edition de l'avatar</h3>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('account.profil.avatar') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('account.profil.avatar') }}" method="POST"
+                                      enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="image-input image-input-outline image-input-circle" id="kt_image_3">
                                         @if($user->avatar)
-                                            <div class="image-input-wrapper" style="background-image: url({{ $user->avatar }})"></div>
+                                            <div class="image-input-wrapper"
+                                                 style="background-image: url({{ $user->avatar }})"></div>
                                         @else
-                                            <div class="image-input-wrapper" style="background-image: url({{ \Creativeorange\Gravatar\Facades\Gravatar::get($user->email) }})"></div>
+                                            <div class="image-input-wrapper"
+                                                 style="background-image: url({{ \Creativeorange\Gravatar\Facades\Gravatar::get($user->email) }})"></div>
                                         @endif
 
-                                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
+                                        <label
+                                            class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                            data-action="change" data-toggle="tooltip" title=""
+                                            data-original-title="Change avatar">
                                             <i class="fa fa-pen icon-sm text-muted"></i>
                                             <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg"/>
                                             <input type="hidden" name="profile_avatar_remove"/>
                                         </label>
 
-                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
+                                        <span
+                                            class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                            data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
                                           <i class="ki ki-bold-close icon-xs text-muted"></i>
                                          </span>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" id="btnFormUpdateUser" class="btn btn-block btn-primary"><i class="fas fa-check"></i> Mettre à jour</button>
+                                        <button type="submit" id="btnFormUpdateUser" class="btn btn-block btn-primary">
+                                            <i class="fas fa-check"></i> Mettre à jour
+                                        </button>
                                     </div>
                                 </form>
                             </div>
@@ -379,43 +462,59 @@
             <div class="tab-pane" id="security" role="tabpanel">
                 <div class="row">
                     <div class="col-9">
-                        <div class="accordion accordion-solid accordion-panel accordion-svg-toggle" id="accordionExample8">
+                        <div class="accordion accordion-solid accordion-panel accordion-svg-toggle"
+                             id="accordionExample8">
                             <div class="card">
                                 <div class="card-header" id="headingOne8">
                                     <div class="card-title" data-toggle="collapse" data-target="#password">
                                         <div class="card-label">Changement du mot de passe</div>
                                         <span class="svg-icon">
 											<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Angle-double-right.svg-->
-											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+											<svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
 												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 													<polygon points="0 0 24 0 24 24 0 24"></polygon>
-													<path d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z" fill="#000000" fill-rule="nonzero"></path>
-													<path d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999)"></path>
+													<path
+                                                        d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z"
+                                                        fill="#000000" fill-rule="nonzero"></path>
+													<path
+                                                        d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z"
+                                                        fill="#000000" fill-rule="nonzero" opacity="0.3"
+                                                        transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999)"></path>
 												</g>
 											</svg>
-                                        <!--end::Svg Icon-->
+                                            <!--end::Svg Icon-->
 										</span>
                                     </div>
                                 </div>
                                 <div id="password" class="collapse show" data-parent="#accordionExample8">
                                     <div class="card-body">
-                                        <form action="{{ route('account.profil.password') }}" method="POST" id="formPasswordUpdate">
+                                        <form action="{{ route('account.profil.password') }}" method="POST"
+                                              id="formPasswordUpdate">
                                             @csrf
                                             @method('PUT')
                                             <div class="form-group">
                                                 <label>Ancien mot de passe <span class="text-danger">*</span></label>
-                                                <input type="password" class="form-control" name="old_password" @if($user->password == null) readonly disabled @else required @endif >
+                                                <input type="password" class="form-control" name="old_password"
+                                                       @if($user->password == null) readonly disabled
+                                                       @else required @endif >
                                             </div>
                                             <div class="form-group">
                                                 <label>Nouveau mot de passe <span class="text-danger">*</span></label>
-                                                <input type="password" class="form-control pr-password" name="password" required>
+                                                <input type="password" class="form-control pr-password" name="password"
+                                                       required>
                                             </div>
                                             <div class="form-group">
-                                                <label>Confirmation du mot de passe <span class="text-danger">*</span></label>
-                                                <input type="password" class="form-control" name="password_confirmation" required>
+                                                <label>Confirmation du mot de passe <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="password" class="form-control" name="password_confirmation"
+                                                       required>
                                             </div>
                                             <div class="text-right">
-                                                <button type="submit" class="btn btn-primary" id="btnFormPassUpdate"><i class="fas fa-check"></i> Mettre à jours</button>
+                                                <button type="submit" class="btn btn-primary" id="btnFormPassUpdate"><i
+                                                        class="fas fa-check"></i> Mettre à jours
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -427,56 +526,131 @@
                                         <div class="card-label">Authentification à double facteur</div>
                                         <span class="svg-icon">
 											<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Angle-double-right.svg-->
-											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+											<svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
 												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 													<polygon points="0 0 24 0 24 24 0 24"></polygon>
-													<path d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z" fill="#000000" fill-rule="nonzero"></path>
-													<path d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999)"></path>
+													<path
+                                                        d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z"
+                                                        fill="#000000" fill-rule="nonzero"></path>
+													<path
+                                                        d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z"
+                                                        fill="#000000" fill-rule="nonzero" opacity="0.3"
+                                                        transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999)"></path>
 												</g>
 											</svg>
-                                        <!--end::Svg Icon-->
+                                            <!--end::Svg Icon-->
 										</span>
                                     </div>
                                 </div>
                                 @if($user->type == 0)
-                                <div id="auth" class="collapse show" data-parent="#accordionExample8">
-                                    <div class="card-body">
-                                        <p>L'authentification à double facteur ajoute une deuxième couche de protection à votre compte.</p>
-                                        <div class="row">
-                                            <div class="col-8">
-                                                <table class="table">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td class="fw-bold">Etat de l'authentification</td>
-                                                        <td>
-                                                            @if($user->two_factor_secret == null)
-                                                                <span class="label label-inline label-danger">Désactiver</span>
-                                                            @else
-                                                                <span class="label label-inline label-success">Activer</span>
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-4">
-                                                @if($user->two_factor_secret == null)
-                                                    <button id="btnStartTotp" class="btn btn-block btn-success"><i class="fas fa-lock"></i> Activer l'authentification TOTP</button>
-                                                @else
-                                                    <button id="btnEndTotp" class="btn btn-block btn-danger"><i class="fas fa-unlock"></i> Désactiver l'authentification TOTP</button>
-                                                @endif
-                                                @if($user->two_factor_secret != null)
+                                    <div id="auth" class="collapse show" data-parent="#accordionExample8">
+                                        <div class="card-body">
+                                            <p>L'authentification à double facteur ajoute une deuxième couche de
+                                                protection à votre compte.</p>
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    <table class="table">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td class="fw-bold">Etat de l'authentification</td>
+                                                            <td>
+                                                                @if($user->two_factor_secret == null)
+                                                                    <span class="label label-inline label-danger">Désactiver</span>
+                                                                @else
+                                                                    <span class="label label-inline label-success">Activer</span>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-4">
+                                                    @if($user->two_factor_secret == null)
+                                                        <button id="btnStartTotp" class="btn btn-block btn-success"><i
+                                                                class="fas fa-lock"></i> Activer l'authentification TOTP
+                                                        </button>
+                                                    @else
+                                                        <button id="btnEndTotp" class="btn btn-block btn-danger"><i
+                                                                class="fas fa-unlock"></i> Désactiver l'authentification
+                                                            TOTP
+                                                        </button>
+                                                    @endif
+                                                    @if($user->two_factor_secret != null)
                                                         <div id="contentSvgQrCode">
-                                                            <p>Veuillez télécharger Google Authenticator ou un autre Programme TOTP et scanner le QR Code ci-dessous:</p>
+                                                            <p>Veuillez télécharger Google Authenticator ou un autre
+                                                                Programme TOTP et scanner le QR Code ci-dessous:</p>
                                                             <div class="text-center">
                                                                 {!! request()->user()->twoFactorQrCodeSvg() !!}
                                                             </div>
                                                         </div>
-                                                @endif
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                @endif
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingOne8">
+                                    <div class="card-title" data-toggle="collapse" data-target="#auth">
+                                        <div class="card-label">Notification Mobile Push</div>
+                                        <span class="svg-icon">
+											<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Angle-double-right.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<polygon points="0 0 24 0 24 24 0 24"></polygon>
+													<path
+                                                        d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z"
+                                                        fill="#000000" fill-rule="nonzero"></path>
+													<path
+                                                        d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z"
+                                                        fill="#000000" fill-rule="nonzero" opacity="0.3"
+                                                        transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999)"></path>
+												</g>
+											</svg>
+                                            <!--end::Svg Icon-->
+										</span>
+                                    </div>
                                 </div>
+                                @if($user->type == 0)
+                                    <div id="auth" class="collapse show" data-parent="#accordionExample8">
+                                        <div class="card-body">
+                                            <p>Vous permet de recevoir des notifications sur votre mobile</p>
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    <table class="table">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td class="fw-bold">Etat</td>
+                                                            <td>
+                                                                @if($user->device->device_token == null)
+                                                                    <span class="label label-inline label-danger">Désactiver</span>
+                                                                @else
+                                                                    <span class="label label-inline label-success">Activer</span>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-4">
+                                                    @if($user->device->device_token == null)
+                                                        <button id="btnStartPushNotification" class="btn btn-block btn-success" data-user-id="{{ $user->id }}"><i
+                                                                class="fas fa-lock"></i> Activer la notification Push Mobile
+                                                        </button>
+                                                    @else
+                                                        <button id="btnEndPushNotification" class="btn btn-block btn-danger"><i
+                                                                class="fas fa-unlock"></i> Désactiver la notification Push Mobile
+                                                        </button>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endif
                             </div>
                             <div class="card">
@@ -485,14 +659,21 @@
                                         <div class="card-label text-danger">Danger Zone</div>
                                         <span class="svg-icon">
 											<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Angle-double-right.svg-->
-											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+											<svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
 												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 													<polygon points="0 0 24 0 24 24 0 24"></polygon>
-													<path d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z" fill="#000000" fill-rule="nonzero"></path>
-													<path d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999)"></path>
+													<path
+                                                        d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z"
+                                                        fill="#000000" fill-rule="nonzero"></path>
+													<path
+                                                        d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z"
+                                                        fill="#000000" fill-rule="nonzero" opacity="0.3"
+                                                        transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999)"></path>
 												</g>
 											</svg>
-                                        <!--end::Svg Icon-->
+                                            <!--end::Svg Icon-->
 										</span>
                                     </div>
                                 </div>
@@ -501,10 +682,14 @@
                                         <div class="row">
                                             <div class="col-9">
                                                 <p class="h3 fw-bold">Vous n'êtes pas satisfait du contenu du site ?<br>
-                                                    Ou vous souhaitez supprimer toutes les informations associées à ce compte ?</p>
+                                                    Ou vous souhaitez supprimer toutes les informations associées à ce
+                                                    compte ?</p>
                                             </div>
                                             <div class="col-3">
-                                                <button class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#deleteAccount"><i class="fas fa-trash"></i> Supprimer mon compte</button>
+                                                <button class="btn btn-outline-danger btn-block" data-toggle="modal"
+                                                        data-target="#deleteAccount"><i class="fas fa-trash"></i>
+                                                    Supprimer mon compte
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -521,18 +706,18 @@
                                 <x-account.shield_security :user="$user"/>
                                 <table class="table">
                                     <tbody>
-                                        <tr>
-                                            <td class="text-left">Complexité du mot de passe</td>
-                                            <td class="text-right">
-                                                <x-account.password_complexity :user="$user"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-left">Etat des entrées echouer</td>
-                                            <td class="text-right">
-                                                <x-account.state_entry_attempt :user="$user"/>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td class="text-left">Complexité du mot de passe</td>
+                                        <td class="text-right">
+                                            <x-account.password_complexity :user="$user"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Etat des entrées echouer</td>
+                                        <td class="text-right">
+                                            <x-account.state_entry_attempt :user="$user"/>
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -561,16 +746,19 @@
                                         <!--end::User-->
                                         <!--begin::Name-->
                                         <div class="my-2">
-                                            <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">Facebook</a>
+                                            <a href="#"
+                                               class="text-dark font-weight-bold text-hover-primary font-size-h4">Facebook</a>
                                         </div>
                                         <!--end::Name-->
                                         <!--begin::Label-->
                                         @if($user->social->facebook_id != null)
-                                            <span class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
+                                            <span
+                                                class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
                                         @else
-                                            <span class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
-                                        @endif
-                                        <!--end::Label-->
+                                            <span
+                                                class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
+                                    @endif
+                                    <!--end::Label-->
                                         <!--begin::Buttons-->
                                         <div class="mt-9 mb-6">
                                             @if($user->social->facebook_id != null)
@@ -599,16 +787,19 @@
                                         <!--end::User-->
                                         <!--begin::Name-->
                                         <div class="my-2">
-                                            <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">Google</a>
+                                            <a href="#"
+                                               class="text-dark font-weight-bold text-hover-primary font-size-h4">Google</a>
                                         </div>
                                         <!--end::Name-->
                                         <!--begin::Label-->
                                         @if($user->social->google_id != null)
-                                            <span class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
+                                            <span
+                                                class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
                                         @else
-                                            <span class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
-                                        @endif
-                                        <!--end::Label-->
+                                            <span
+                                                class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
+                                    @endif
+                                    <!--end::Label-->
                                         <!--begin::Buttons-->
                                         <div class="mt-9 mb-6">
                                             @if($user->social->google_id != null)
@@ -637,16 +828,19 @@
                                         <!--end::User-->
                                         <!--begin::Name-->
                                         <div class="my-2">
-                                            <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">Twitter</a>
+                                            <a href="#"
+                                               class="text-dark font-weight-bold text-hover-primary font-size-h4">Twitter</a>
                                         </div>
                                         <!--end::Name-->
                                         <!--begin::Label-->
                                         @if($user->social->twitter_id != null)
-                                            <span class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
+                                            <span
+                                                class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
                                         @else
-                                            <span class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
-                                        @endif
-                                        <!--end::Label-->
+                                            <span
+                                                class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
+                                    @endif
+                                    <!--end::Label-->
                                         <!--begin::Buttons-->
                                         <div class="mt-9 mb-6">
                                             @if($user->social->twitter_id != null)
@@ -675,16 +869,19 @@
                                         <!--end::User-->
                                         <!--begin::Name-->
                                         <div class="my-2">
-                                            <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">Steam</a>
+                                            <a href="#"
+                                               class="text-dark font-weight-bold text-hover-primary font-size-h4">Steam</a>
                                         </div>
                                         <!--end::Name-->
                                         <!--begin::Label-->
                                         @if($user->social->steam_id != null)
-                                            <span class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
+                                            <span
+                                                class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
                                         @else
-                                            <span class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
-                                        @endif
-                                        <!--end::Label-->
+                                            <span
+                                                class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
+                                    @endif
+                                    <!--end::Label-->
                                         <!--begin::Buttons-->
                                         <div class="mt-9 mb-6">
                                             @if($user->social->steam_id != null)
@@ -713,16 +910,19 @@
                                         <!--end::User-->
                                         <!--begin::Name-->
                                         <div class="my-2">
-                                            <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">Discord</a>
+                                            <a href="#"
+                                               class="text-dark font-weight-bold text-hover-primary font-size-h4">Discord</a>
                                         </div>
                                         <!--end::Name-->
                                         <!--begin::Label-->
                                         @if($user->social->discord_user_id != null)
-                                            <span class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
+                                            <span
+                                                class="label label-inline label-lg label-light-success btn-sm font-weight-bold">Compte Lié</span>
                                         @else
-                                            <span class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
-                                        @endif
-                                        <!--end::Label-->
+                                            <span
+                                                class="label label-inline label-lg label-light-danger btn-sm font-weight-bold">Désactivé</span>
+                                    @endif
+                                    <!--end::Label-->
                                         <!--begin::Buttons-->
                                         <div class="mt-9 mb-6">
                                             @if($user->social->discord_user_id != null)
@@ -743,7 +943,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -762,9 +963,12 @@
                     <form action="{{ route('account.profil.delete') }}" method="POST" id="formDeleteAccount">
                         @csrf
                         <div class="form-group">
-                            <input type="password" class="form-control" name="password" placeholder="Entrez votre mot de passe pour confirmer" required>
+                            <input type="password" class="form-control" name="password"
+                                   placeholder="Entrez votre mot de passe pour confirmer" required>
                         </div>
-                        <button class="btn btn-block btn-danger btn-lg" id="btnDeleteAccount"><i class="fas fa-trash"></i> Confirmer la suppression</button>
+                        <button class="btn btn-block btn-danger btn-lg" id="btnDeleteAccount"><i
+                                class="fas fa-trash"></i> Confirmer la suppression
+                        </button>
                     </form>
                 </div>
             </div>
@@ -773,6 +977,8 @@
 @endsection
 
 @section("scripts")
-    <script src="{{ asset('front/assets/plugins/custom/password-requirement/js/jquery.passwordRequirements.js') }}"></script>
+    <script src="/front/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+    <script
+        src="{{ asset('front/assets/plugins/custom/password-requirement/js/jquery.passwordRequirements.js') }}"></script>
     <script src="{{ asset('/front/js/account/profil.js') }}"></script>
 @endsection

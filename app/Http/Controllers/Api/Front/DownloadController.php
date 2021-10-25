@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Download\DownloadCategory;
+use App\Models\Download\DownloadSubCategory;
 use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadSupportRoom;
 use App\Repository\Download\DownloadRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DownloadController extends Controller
 {
@@ -27,6 +29,10 @@ class DownloadController extends Controller
      * @var DownloadCategory
      */
     private DownloadCategory $downloadCategory;
+    /**
+     * @var DownloadSubCategory
+     */
+    private DownloadSubCategory $downloadSubCategory;
 
     /**
      * DownloadController constructor.
@@ -34,13 +40,15 @@ class DownloadController extends Controller
      * @param DownloadSupport $downloadSupport
      * @param DownloadSupportRoom $downloadSupportRoom
      * @param DownloadCategory $downloadCategory
+     * @param DownloadSubCategory $downloadSubCategory
      */
-    public function __construct(DownloadRepository $downloadRepository, DownloadSupport $downloadSupport, DownloadSupportRoom $downloadSupportRoom, DownloadCategory $downloadCategory)
+    public function __construct(DownloadRepository $downloadRepository, DownloadSupport $downloadSupport, DownloadSupportRoom $downloadSupportRoom, DownloadCategory $downloadCategory, DownloadSubCategory $downloadSubCategory)
     {
         $this->downloadRepository = $downloadRepository;
         $this->downloadSupport = $downloadSupport;
         $this->downloadSupportRoom = $downloadSupportRoom;
         $this->downloadCategory = $downloadCategory;
+        $this->downloadSubCategory = $downloadSubCategory;
     }
 
     public function getInfoTicket($slug, $ticket_id)
@@ -81,5 +89,108 @@ class DownloadController extends Controller
         $subs = $this->downloadCategory->newQuery()->find($category_id);
 
         return response()->json(["subs" => $subs->subcategories]);
+    }
+
+    public function category($category_id)
+    {
+        $cat = $this->downloadCategory->newQuery()->find($category_id);
+
+        return response()->json($cat);
+    }
+
+    public function updateCategory(Request $request, $category_id)
+    {
+        try {
+            $this->downloadCategory->newQuery()->find($category_id)
+                ->update([
+                    "title" => $request->get('title'),
+                    "slug" => Str::slug($request->get('title'))
+                ]);
+
+            toastr()->success("Un catégorie à été mise à jour !");
+            return redirect()->back();
+        }catch (\Exception $exception) {
+            toastr()->error("Erreur lors de la mise à jour d'une catégorie", "Erreur Server");
+            return redirect()->back();
+        }
+    }
+
+    public function deleteCategory($category_id)
+    {
+        try {
+            $this->downloadCategory->newQuery()->find($category_id)
+                ->delete();
+
+            return response()->json();
+        }catch (\Exception $exception) {
+            return response()->json($exception->getMessage());
+        }
+    }
+
+    public function deleteSubCategory($category_id, $sub_id)
+    {
+        try {
+            $this->downloadSubCategory->newQuery()->find($sub_id)
+                ->delete();
+
+            return null;
+        }catch (\Exception $exception) {
+            return response()->json($exception->getMessage());
+        }
+    }
+
+    public function listSubCategories($category_id)
+    {
+        $subs = $this->downloadCategory->newQuery()->find($category_id);
+
+        ob_start();
+        ?>
+        <table id="list_subs_categories" class="table align-middle table-row-dashed fs-6 gy-5">
+            <thead>
+            <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                <th>#</th>
+                <th>Titre</th>
+                <th class="text-end min-w-100px">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($subs->subcategories as $subcategory): ?>
+                <tr>
+                    <td><?= $subcategory->id; ?></td>
+                    <td><?= $subcategory->title; ?></td>
+                    <td class="text-end">
+                        <button class="btn btn-danger btn-sm deleteSub" data-category-id="<?= $category_id; ?>" data-sub-id="<?= $subcategory->id; ?>"><i class="fa fa-trash"></i> Supprimer</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                $("#list_subs_categories").DataTable();
+            });
+
+            document.querySelectorAll('.deleteSub').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.preventDefault()
+                    let modal = $("#list_sub_categories")
+                    $.ajax({
+                        url: `/api/download/category/${btn.dataset.categoryId}/sub/${btn.dataset.subId}`,
+                        method: 'DELETE',
+                        success: data => {
+                            btn.parentNode.parentNode.style.display = 'none'
+                            toastr.success("La sous catégorie à été supprimer");
+                        },
+                        error: err => {
+                            toastr.error(err.responseText, "Erreur Serveur")
+                        }
+                    })
+                })
+            })
+        </script>
+        <?php
+
+        return response()->json(["subs" => $subs->subcategories, "category" => $subs, "content" => ob_get_clean()]);
     }
 }

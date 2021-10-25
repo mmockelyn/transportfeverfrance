@@ -21,6 +21,8 @@ Route::get('/search', [SearchController::class, 'search']);
 Route::post('/download/category/{subcategory_id}', [SearchController::class, 'search_download']);
 
 Route::get('/list/users', [\App\Http\Controllers\Api\Front\UserController::class, "list"]);
+Route::get('/list/download/comment/{user}', [\App\Http\Controllers\Api\Front\UserController::class, 'downloadComment']);
+Route::get('/list/blog/comment/{user}', [\App\Http\Controllers\Api\Front\UserController::class, 'blogComment']);
 
 Route::group(["prefix" => "back"], function () {
     Route::post('publishing', [\App\Http\Controllers\Api\Back\BackController::class, 'publishing']);
@@ -34,6 +36,12 @@ Route::group(["prefix" => "back"], function () {
 Route::group(["prefix" => "download"], function () {
 
     Route::get('search/category/{category_id}', [DownloadController::class, 'searchCategory']);
+    Route::post('list/categories', [DownloadController::class, 'listCategories']);
+    Route::get('list/category/{category_id}/subcategories', [DownloadController::class, 'listSubCategories']);
+    Route::get('category/{category_id}', [DownloadController::class, 'category']);
+    Route::put('category/{category_id}', [DownloadController::class, 'updateCategory']);
+    Route::delete('category/{category_id}', [DownloadController::class, 'deleteCategory']);
+    Route::delete('category/{category_id}/sub/{sub_id}', [DownloadController::class, 'deleteSubCategory']);
 
     Route::group(["prefix" => "{slug}/ticket"], function () {
         Route::get('{ticket_id}', [DownloadController::class, 'getInfoTicket']);
@@ -47,6 +55,8 @@ Route::group(["prefix" => "user"], function () {
     Route::get('{user_id}', [\App\Http\Controllers\Api\Front\UserController::class, 'get']);
     Route::get('{user_id}/inbox', [\App\Http\Controllers\Api\Front\UserController::class, 'inbox']);
     Route::post('{user_id}/packages', [\App\Http\Controllers\Api\Front\UserController::class, 'packages']);
+
+    Route::post('{user_id}/mobile/activate', [\App\Http\Controllers\Account\UserDeviceTokenController::class, 'getDeviceToken']);
 });
 
 Route::group(["prefix" => "calendar"], function () {

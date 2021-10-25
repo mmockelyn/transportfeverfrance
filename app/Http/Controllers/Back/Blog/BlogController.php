@@ -93,7 +93,8 @@ class BlogController extends Controller
         return view('back.blog.show', [
             "blog" => Blog::find($id),
             "years" => $year,
-            "actualYear" => $actualYear
+            "actualYear" => $actualYear,
+            "comments" => BlogComment::where('blog_id', $id)->limit(5)->get()
         ]);
     }
 
