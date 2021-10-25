@@ -109,9 +109,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Task::class);
     }
 
-    public function devices()
+    public function device()
     {
-        return $this->hasMany(UserDeviceToken::class);
+        return $this->hasOne(UserDeviceToken::class);
     }
 
     public function routeNotificationForDiscord()

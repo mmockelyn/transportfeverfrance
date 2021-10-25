@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Account\UserDeviceToken;
 use App\Models\Blog\Blog;
 use App\Models\Blog\BlogComment;
 use App\Models\Calendar;
@@ -65,6 +66,8 @@ class DatabaseSeeder extends Seeder
                         "user_id" => $user->id
                     ]);
                 }
+
+                UserDeviceToken::create(["user_id" => $user->id]);
             }
 
 

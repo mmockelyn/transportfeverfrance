@@ -158,6 +158,35 @@ function stopTotp() {
     })
 }
 
+function startNotificationPush() {
+    $("#btnStartPushNotification").on('click', (e) => {
+        e.preventDefault()
+        let btn = KTUtil.getById('btnStartTotp')
+        let id = btn.dataset.userId
+
+        KTUtil.btnWait(btn, 'spinner spinner-right spinner-white pr-15', 'Veuillez patientez...')
+
+        $.ajax({
+            url: `/api/user/${id}/mobile/activate`,
+            method: "POST",
+            success: (data) => {
+                KTUtil.btnRelease(btn)
+                toastr.success(`La notification Psuh mobile a été activer`)
+                $("#btnStartPushNotification").attr('id', 'btnEndPushNotification')
+                $("#btnStartPushNotification").removeClass('btn-success')
+                $("#btnStartPushNotification").addClass('btn-danger')
+                $("#btnStartPushNotification").html('<i class="fas fa-unlock"></i> Désactiver la notification Push Mobile')
+
+                //stopTotp()
+            },
+            error: (err) => {
+                KTUtil.btnRelease(btn)
+                console.error(err)
+            }
+        })
+    })
+}
+
 function getUser() {
     KTApp.block(app)
 
@@ -225,6 +254,7 @@ function init() {
     deleteAccount()
     startTotp()
     stopTotp()
+    startNotificationPush()
     loadDownloadComment()
     $('.summernote').summernote({
         height: 150
