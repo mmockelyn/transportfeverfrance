@@ -2700,6 +2700,65 @@ var KTWidgets = function () {
             chart.render(); 
         }); 
 	}
+    
+    var initMixedWidget16 = function() {
+        var element = document.getElementById("kt_charts_mixed_widget_16_chart");
+        var height = parseInt(KTUtil.css(element, 'height'));
+
+        if (!element) {
+            return;
+        }
+
+        var options = {
+            labels: ["Total Members"],
+            series: [74],
+            chart: {
+                fontFamily: 'inherit',
+                height: height,
+                type: 'radialBar',
+                offsetY: 0
+            },
+            plotOptions: {
+                radialBar: {
+                    startAngle: -90,
+                    endAngle: 90,
+
+                    hollow: {
+                        margin: 0,
+                        size: "70%"
+                    },
+                    dataLabels: {
+                        showOn: "always",
+                        name: {
+                            show: true,
+                            fontSize: "13px",
+                            fontWeight: "700",
+                            offsetY: -5,
+                            color: KTUtil.getCssVariableValue('--bs-gray-500')
+                        },
+                        value: {
+                            color: KTUtil.getCssVariableValue('--bs-gray-700'),
+                            fontSize: "30px",
+                            fontWeight: "700",
+                            offsetY: -40,
+                            show: true
+                        }
+                    },
+                    track: {
+                        background: KTUtil.getCssVariableValue('--bs-light-primary'),
+                        strokeWidth: '100%'
+                    }
+                }
+            },
+            colors: [KTUtil.getCssVariableValue('--bs-primary')],
+            stroke: {
+                lineCap: "round",
+            }            
+        };
+
+        var chart = new ApexCharts(element, options);
+        chart.render();
+    }
 
     // Feeds Widgets
     var initFeedWidget1 = function() {
@@ -3023,6 +3082,7 @@ var KTWidgets = function () {
             initMixedWidget12();
             initMixedWidget13(); 
             initMixedWidget14();
+            initMixedWidget16();
 
             // Feeds
             initFeedWidget1();

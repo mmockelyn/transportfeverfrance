@@ -20,6 +20,7 @@ License: For each use you must have a valid license purchased only from above li
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="/back/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="/back/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.2.2/introjs.min.css" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
     @yield("style")
 </head>
@@ -130,6 +131,7 @@ License: For each use you must have a valid license purchased only from above li
 <script src="/back/js/app.js"></script>
 <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
 <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.2.2/intro.min.js"></script>
 <!--end::Global Javascript Bundle-->
 <!--begin::Page Custom Javascript(used by this page)-->
 {!! toastr()->render() !!}

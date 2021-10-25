@@ -10,7 +10,6 @@ var __webpack_exports__ = {};
 var KTGeneralDrawerDemos = function() {
     // Private functions
     var _exampleBasic = function() {
-        
     }
 
     return {

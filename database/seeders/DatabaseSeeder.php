@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Account\UserDeviceToken;
 use App\Models\Blog\Blog;
 use App\Models\Blog\BlogComment;
 use App\Models\Calendar;
@@ -22,6 +23,7 @@ use App\Models\UserTutorial;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -59,11 +61,13 @@ class DatabaseSeeder extends Seeder
                     ]);
                 }
                 UserSocial::create(["user_id" => $user->id]);
-                for($p = 0; $p < rand(5,9); $p++) {
+                for ($p = 0; $p < rand(5, 9); $p++) {
                     Task::factory()->create([
                         "user_id" => $user->id
                     ]);
                 }
+
+                UserDeviceToken::create(["user_id" => $user->id]);
             }
 
 
@@ -204,6 +208,7 @@ class DatabaseSeeder extends Seeder
                 ],
             ]);
 
+            $nbDownloadCategory = DownloadCategory::all()->count();
 
             DB::table('download_sub_categories')->insert([
                 [
@@ -454,6 +459,28 @@ class DatabaseSeeder extends Seeder
 
             ]);
 
+            $nbDownloadSubCategory = DownloadSubCategory::all()->count();
+
+            for ($c = 1; $c <= $nbDownloadCategory; $c++) {
+                for ($d = 1; $d <= $nbDownloadSubCategory; $d++) {
+                    $provider = rand(0, 3);
+                    $download = Download::factory()->create([
+                        "title" => "Packages $c $d",
+                        "slug" => "packages-$c-$d",
+                        "provider" => $provider,
+                        "active" => rand(0, 1),
+                        "steam_link_package" => $provider == 1 ? "https://steamcommunity.com/sharedfiles/filedetails/?id=" . rand(1000000, 9999999) : null,
+                        "tfnet_link_package" => $provider == 2 ? "https://www.transportfever.net/filebase/index.php?entry/" . rand(1000000, 9999999) . "-packages-$d/" : null,
+                        "download_category_id" => $c,
+                        "download_sub_category_id" => $d,
+                    ]);
+
+                    $download->update([
+                        "image" => Storage::exists(storage_path('files/shares/download/img'.$download->id.'.jpg')) == true ? 'img'.$download->id.'.jpg' : 'img01.jpg',
+                    ]);
+                }
+            }
+
 
             DB::table('follows')->insert([
                 ["title" => "Twitter", "href" => "https://twitter.com/T_FeverFR", "icon" => "twitter"],
@@ -474,7 +501,7 @@ class DatabaseSeeder extends Seeder
 
             for ($l = 0; $l <= rand(1, 20); $l++) {
                 Calendar::factory()->create([
-                    "name" => "Event N°".$l
+                    "name" => "Event N°" . $l
                 ]);
             }
         } elseif (config('app.env') == "beta") {
@@ -493,7 +520,7 @@ class DatabaseSeeder extends Seeder
 
             foreach ($users as $user) {
                 UserSocial::create(["user_id" => $user->id]);
-                for($p = 0; $p < rand(5,9); $p++) {
+                for ($p = 0; $p < rand(5, 9); $p++) {
                     Task::factory()->create([
                         "user_id" => $user->id
                     ]);
@@ -843,7 +870,7 @@ class DatabaseSeeder extends Seeder
 
             for ($l = 0; $l <= rand(1, 20); $l++) {
                 Calendar::factory()->create([
-                    "name" => "Event N°".$l
+                    "name" => "Event N°" . $l
                 ]);
             }
 

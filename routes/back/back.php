@@ -18,16 +18,32 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
    });
 
     Route::group(["prefix" => "blogs"], function() {
-        Route::get('/', [\App\Http\Controllers\Back\Blog\BlogController::class, 'dashboard'])->name('back.blog.dashboard');
-        Route::get('create', [\App\Http\Controllers\Back\Blog\BlogController::class, 'create'])->name('back.blog.create');
-        Route::post('create', [\App\Http\Controllers\Back\Blog\BlogController::class, 'store'])->name('back.blog.store');
-        Route::get('{id}', [\App\Http\Controllers\Back\Blog\BlogController::class, 'show'])->name('back.blog.show');
-        Route::get('{id}/comments', [\App\Http\Controllers\Back\Blog\BlogController::class, 'comments'])->name('back.blog.comments');
-        Route::get('{id}/edit', [\App\Http\Controllers\Back\Blog\BlogController::class, 'edit'])->name('back.blog.edit');
-        Route::put('{id}/edit', [\App\Http\Controllers\Back\Blog\BlogController::class, 'update'])->name('back.blog.update');
-
         Route::group(["prefix" => "category"], function () {
             Route::get('/', [\App\Http\Controllers\Back\Blog\BlogCategoryController::class, 'index'])->name('back.blog.category.index');
+        });
+
+        Route::group(["prefix" => "blog"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Blog\BlogController::class, 'dashboard'])->name('back.blog.dashboard');
+            Route::get('create', [\App\Http\Controllers\Back\Blog\BlogController::class, 'create'])->name('back.blog.create');
+            Route::post('create', [\App\Http\Controllers\Back\Blog\BlogController::class, 'store'])->name('back.blog.store');
+            Route::get('{id}', [\App\Http\Controllers\Back\Blog\BlogController::class, 'show'])->name('back.blog.show');
+            Route::get('{id}/comments', [\App\Http\Controllers\Back\Blog\BlogController::class, 'comments'])->name('back.blog.comments');
+            Route::get('{id}/edit', [\App\Http\Controllers\Back\Blog\BlogController::class, 'edit'])->name('back.blog.edit');
+            Route::put('{id}/edit', [\App\Http\Controllers\Back\Blog\BlogController::class, 'update'])->name('back.blog.update');
+        });
+    });
+
+    Route::group(["prefix" => "packages"], function () {
+        Route::group(["prefix" => "category"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Packages\PackageCategoryController::class, 'index'])->name('back.packages.categories');
+            Route::post('/', [\App\Http\Controllers\Back\Packages\PackageCategoryController::class, 'store'])->name('back.packages.categories.store');
+            Route::post('sub', [\App\Http\Controllers\Back\Packages\PackageCategoryController::class, 'createSubCategory'])->name('back.packages.category.sub.create');
+        });
+    });
+
+    Route::group(["prefix" => "settings"], function () {
+        Route::group(["prefix" => "users"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Settings\UserController::class, 'index'])->name("back.settings.users.index");
         });
     });
 });
