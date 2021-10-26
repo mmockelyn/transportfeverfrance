@@ -91,19 +91,26 @@ class UserController extends Controller
         ]);
     }
 
+    public function show($user_id)
+    {
+        return view('back.settings.users.show', [
+            "user" => User::query()->find($user_id)
+        ]);
+    }
+
     private function exportExcel($request)
     {
-        return Excel::download(new UsersExport($request->get('group')), 'users_'.now()->format('d_m_Y_H_i').".xlsx", \Maatwebsite\Excel\Excel::XLSX);
+        return Excel::download(new UsersExport($request->get('group')), 'users_' . now()->format('d_m_Y_H_i') . ".xlsx", \Maatwebsite\Excel\Excel::XLSX);
     }
 
     private function exportPdf($request)
     {
-        return Excel::download(new UsersExport($request->get('group')), 'users_'.now()->format('d_m_Y_H_i').".pdf", \Maatwebsite\Excel\Excel::DOMPDF);
+        return Excel::download(new UsersExport($request->get('group')), 'users_' . now()->format('d_m_Y_H_i') . ".pdf", \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
     private function exportCsv($request)
     {
-        return Excel::download(new UsersExport($request->get('group')), 'users_'.now()->format('d_m_Y_H_i').".csv", \Maatwebsite\Excel\Excel::CSV, [
+        return Excel::download(new UsersExport($request->get('group')), 'users_' . now()->format('d_m_Y_H_i') . ".csv", \Maatwebsite\Excel\Excel::CSV, [
             'Content-Type' => 'text/csv',
         ]);
     }

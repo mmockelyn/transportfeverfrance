@@ -438,11 +438,6 @@
                             </div>
                             <!--begin::Menu item-->
                             <div class="menu-item px-3">
-                                <a href="" class="menu-link px-3">Editer</a>
-                            </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
                                 <a href="#" class="menu-link px-3 deleteUser" data-id="{{ $user->id }}">Supprimer</a>
                             </div>
                             <!--end::Menu item-->
