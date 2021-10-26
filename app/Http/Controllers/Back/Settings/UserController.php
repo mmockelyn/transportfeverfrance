@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Back\Settings;
 
+use App\Exports\Back\Settings\UsersExport;
 use App\Helpers\Format;
 use App\Http\Controllers\Controller;
 use App\Models\Account\UserDeviceToken;
@@ -12,6 +13,7 @@ use App\Repository\Account\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -60,8 +62,25 @@ class UserController extends Controller
             $user->notify(new NewUserWithoutPassword($user, $password));
 
             return response()->json($user);
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             return response()->json(["error" => $exception->getMessage()], 500);
+        }
+    }
+
+    public function exportUsers(Request $request)
+    {
+        switch ($request->get('format')) {
+            case 'excel':
+                return $this->exportExcel($request);
+                break;
+
+            case 'pdf':
+                return $this->exportPdf($request);
+                break;
+
+            case 'csv':
+                return $this->exportCsv($request);
+                break;
         }
     }
 
@@ -69,6 +88,23 @@ class UserController extends Controller
     {
         return view('back.settings.users.index', [
             "users" => User::all()
+        ]);
+    }
+
+    private function exportExcel($request)
+    {
+        return Excel::download(new UsersExport($request->get('group')), 'users_'.now()->format('d_m_Y_H_i').".xlsx", \Maatwebsite\Excel\Excel::XLSX);
+    }
+
+    private function exportPdf($request)
+    {
+        return Excel::download(new UsersExport($request->get('group')), 'users_'.now()->format('d_m_Y_H_i').".pdf", \Maatwebsite\Excel\Excel::DOMPDF);
+    }
+
+    private function exportCsv($request)
+    {
+        return Excel::download(new UsersExport($request->get('group')), 'users_'.now()->format('d_m_Y_H_i').".csv", \Maatwebsite\Excel\Excel::CSV, [
+            'Content-Type' => 'text/csv',
         ]);
     }
 }

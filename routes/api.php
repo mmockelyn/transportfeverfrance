@@ -53,6 +53,7 @@ Route::group(["prefix" => "download"], function () {
 
 Route::group(["prefix" => "user"], function () {
     Route::post('/', [\App\Http\Controllers\Back\Settings\UserController::class, 'createNewUser'])->name('api.back.settings.user.create');
+    Route::post('/export', [\App\Http\Controllers\Back\Settings\UserController::class, 'exportUsers'])->name('api.back.settings.user.export');
     Route::get('{user_id}', [\App\Http\Controllers\Api\Front\UserController::class, 'get']);
     Route::get('{user_id}/inbox', [\App\Http\Controllers\Api\Front\UserController::class, 'inbox']);
     Route::post('{user_id}/packages', [\App\Http\Controllers\Api\Front\UserController::class, 'packages']);

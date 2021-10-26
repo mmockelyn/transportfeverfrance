@@ -128,7 +128,10 @@ var KTUsersList = function() {
                 }],
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json'
-                }
+                },
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
             })).on("draw", (function() {
                 l(), c(), a()
             })), l(), document.querySelector('[data-kt-user-table-filter="search"]').addEventListener("keyup", (function(t) {
@@ -179,6 +182,35 @@ function createUser() {
              }
          })
      })
+}
+
+function exportUsers() {
+    let form = $("#kt_modal_export_users_form")
+
+    form.on('submit', (e) => {
+        e.preventDefault()
+        let form = $("#kt_modal_export_users_form")
+        let uri = form.attr('action')
+        let data = form.serializeArray()
+
+        let btn = form.find('.btn-primary')
+
+        btn.attr('data-kt-indicator', 'on')
+
+        $.ajax({
+            url: uri,
+            method: 'POST',
+            data: data,
+            success: data => {
+                btn.attr('data-kt-indicator', 'off')
+                console.log(data)
+            },
+            error: err => {
+                btn.attr('data-kt-indicator', 'off')
+                toastr.error(err.responseText, "Erreur Serveur")
+            }
+        })
+    })
 }
 KTUtil.onDOMContentLoaded((function() {
     KTUsersList.init()

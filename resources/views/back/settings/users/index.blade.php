@@ -165,14 +165,14 @@
                             <!--begin::Modal body-->
                             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                                 <!--begin::Form-->
-                                <form id="kt_modal_export_users_form" class="form" action="#">
+                                <form id="kt_modal_export_users_form" method="POST" class="form" action="{{ route('api.back.settings.user.export') }}">
                                     <!--begin::Input group-->
                                     <div class="fv-row mb-10">
                                         <!--begin::Label-->
-                                        <label class="fs-6 fw-bold form-label mb-2">Select Roles:</label>
+                                        <label class="fs-6 fw-bold form-label mb-2">Groupe:</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="role" data-control="select2" data-placeholder="Select a role" data-hide-search="true" class="form-select form-select-solid fw-bolder">
+                                        <select name="group" data-control="select2" data-placeholder="Selectionner un groupe" data-hide-search="true" class="form-select form-select-solid fw-bolder">
                                             <option></option>
                                             <option value="0">Utilisateur</option>
                                             <option value="1">Administrateur</option>
@@ -183,22 +183,21 @@
                                     <!--begin::Input group-->
                                     <div class="fv-row mb-10">
                                         <!--begin::Label-->
-                                        <label class="required fs-6 fw-bold form-label mb-2">Select Export Format:</label>
+                                        <label class="required fs-6 fw-bold form-label mb-2">Format d'Export:</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="format" data-control="select2" data-placeholder="Select a format" data-hide-search="true" class="form-select form-select-solid fw-bolder">
+                                        <select name="format" data-control="select2" data-placeholder="Selectionner un format" data-hide-search="true" class="form-select form-select-solid fw-bolder">
                                             <option></option>
                                             <option value="excel">Excel</option>
                                             <option value="pdf">PDF</option>
                                             <option value="cvs">CVS</option>
-                                            <option value="zip">ZIP</option>
                                         </select>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Actions-->
                                     <div class="text-center">
-                                        <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Discard</button>
+                                        <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Annuler</button>
                                         <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
                                             <span class="indicator-label">Exporter</span>
                                             <span class="indicator-progress">Veuillez patienter...
