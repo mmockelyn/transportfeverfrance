@@ -8,22 +8,22 @@ var KTUsersList = function() {
                     const n = t.target.closest("tr"),
                         r = n.querySelectorAll("td")[1].querySelectorAll("a")[1].innerText;
                     Swal.fire({
-                        text: "Are you sure you want to delete " + r + "?",
+                        text: "Êtes-vous sur de vouloir supprimer " + r + "?",
                         icon: "warning",
                         showCancelButton: !0,
                         buttonsStyling: !1,
-                        confirmButtonText: "Yes, delete!",
-                        cancelButtonText: "No, cancel",
+                        confirmButtonText: "Oui, Supprimer!",
+                        cancelButtonText: "Non, Annuler",
                         customClass: {
                             confirmButton: "btn fw-bold btn-danger",
                             cancelButton: "btn fw-bold btn-active-light-primary"
                         }
                     }).then((function(t) {
                         t.value ? Swal.fire({
-                            text: "You have deleted " + r + "!.",
+                            text: "Vous avez supprimer " + r + "!.",
                             icon: "success",
                             buttonsStyling: !1,
-                            confirmButtonText: "Ok, got it!",
+                            confirmButtonText: "Ok !",
                             customClass: {
                                 confirmButton: "btn fw-bold btn-primary"
                             }
@@ -32,10 +32,10 @@ var KTUsersList = function() {
                         })).then((function() {
                             a()
                         })) : "cancel" === t.dismiss && Swal.fire({
-                            text: customerName + " was not deleted.",
+                            text: customerName + " n'a pas été supprimer.",
                             icon: "error",
                             buttonsStyling: !1,
-                            confirmButtonText: "Ok, got it!",
+                            confirmButtonText: "Ok !",
                             customClass: {
                                 confirmButton: "btn fw-bold btn-primary"
                             }
@@ -56,22 +56,22 @@ var KTUsersList = function() {
                 }))
             })), s.addEventListener("click", (function() {
                 Swal.fire({
-                    text: "Are you sure you want to delete selected customers?",
+                    text: "Êtes-vous sur de vouloir supprimer tous les utilisateurs selectionner ?",
                     icon: "warning",
                     showCancelButton: !0,
                     buttonsStyling: !1,
-                    confirmButtonText: "Yes, delete!",
-                    cancelButtonText: "No, cancel",
+                    confirmButtonText: "Oui, supprimer!",
+                    cancelButtonText: "Non, annuler",
                     customClass: {
                         confirmButton: "btn fw-bold btn-danger",
                         cancelButton: "btn fw-bold btn-active-light-primary"
                     }
                 }).then((function(t) {
                     t.value ? Swal.fire({
-                        text: "You have deleted all selected customers!.",
+                        text: "Vous avez supprimer tous les utilisateurs selectionner!.",
                         icon: "success",
                         buttonsStyling: !1,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: "Ok !",
                         customClass: {
                             confirmButton: "btn fw-bold btn-primary"
                         }
@@ -83,10 +83,10 @@ var KTUsersList = function() {
                     })).then((function() {
                         a(), l()
                     })) : "cancel" === t.dismiss && Swal.fire({
-                        text: "Selected customers was not deleted.",
+                        text: "Les utilisateurs selectionner n'ont pas été supprimer.",
                         icon: "error",
                         buttonsStyling: !1,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: "Ok !",
                         customClass: {
                             confirmButton: "btn fw-bold btn-primary"
                         }
@@ -125,7 +125,10 @@ var KTUsersList = function() {
                 }, {
                     orderable: !1,
                     targets: 6
-                }]
+                }],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json'
+                }
             })).on("draw", (function() {
                 l(), c(), a()
             })), l(), document.querySelector('[data-kt-user-table-filter="search"]').addEventListener("keyup", (function(t) {
@@ -148,6 +151,36 @@ var KTUsersList = function() {
         }
     }
 }();
+
+function createUser() {
+    let form = $("#kt_modal_add_user_form")
+     form.on('submit', (e) => {
+         e.preventDefault()
+         let form = $("#kt_modal_add_user_form")
+         let uri = form.attr('action')
+         let data = form.serializeArray()
+
+         let btn = form.find('.btn-primary')
+
+         btn.attr('data-kt-indicator', 'on')
+
+         $.ajax({
+             url: uri,
+             method: 'POST',
+             data: data,
+             success: data => {
+                 btn.attr('data-kt-indicator', 'off')
+                 console.log(data)
+                 toastr.success(`Le compte de l'utilisateur <strong>${data.name}</strong> à été ajouté avec succès`);
+             },
+             error: err => {
+                 btn.attr('data-kt-indicator', 'off')
+                 toastr.error(err.responseText, "Erreur Serveur")
+             }
+         })
+     })
+}
 KTUtil.onDOMContentLoaded((function() {
     KTUsersList.init()
+    createUser()
 }));
