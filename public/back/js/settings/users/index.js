@@ -50,9 +50,7 @@ var KTUsersList = function() {
             const s = document.querySelector('[data-kt-user-table-select="delete_selected"]');
             c.forEach((e => {
                 e.addEventListener("click", (function() {
-                    setTimeout((function() {
-                        a()
-                    }), 50)
+                    a()
                 }))
             })), s.addEventListener("click", (function() {
                 Swal.fire({
@@ -212,7 +210,32 @@ function exportUsers() {
         })
     })
 }
+
+function deleteUser() {
+    let users = document.querySelectorAll('.deleteUser')
+
+    users.forEach(user => {
+        user.addEventListener('click', (e) => {
+            e.preventDefault()
+            let user_id = user.dataset.id
+
+            $.ajax({
+                url: '/api/back/settings/users/'+user_id,
+                method: "DELETE",
+                success: () => {
+                    toastr.success("Un utilisateur à été supprimer de la base de donnée")
+                    user.parentNode.parentNode.parentNode.parentNode.style.display = 'none'
+                },
+                error: err => {
+                    toastr.error(err.error)
+                }
+            })
+        })
+    })
+}
+
 KTUtil.onDOMContentLoaded((function() {
     KTUsersList.init()
     createUser()
+    deleteUser()
 }));

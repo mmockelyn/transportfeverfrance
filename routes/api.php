@@ -31,6 +31,12 @@ Route::group(["prefix" => "back"], function () {
     Route::group(["prefix" => 'blog'], function () {
         Route::delete('{id}/comments/{comment_id}', [\App\Http\Controllers\Api\Back\Blog\BlogController::class, 'delete']);
     });
+
+    Route::group(["prefix" => "settings"], function () {
+        Route::group(["prefix" => "users"], function () {
+            Route::delete('{user_id}', [\App\Http\Controllers\Api\Back\Settings\UserController::class, 'delete']);
+        });
+    });
 });
 
 Route::group(["prefix" => "download"], function () {
