@@ -7,6 +7,7 @@ use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Models\User;
+use App\Models\UserConnectLog;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -48,6 +49,30 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::loginView(function () {
             return view('auth.login');
+        });
+
+        Fortify::authenticateUsing(function (Request $request) {
+            try {
+                $user = User::query()->where('email', $request->email)->first();
+
+                if($user && Hash::check($request->password, $user->password)) {
+                    $userIp = $request->ip();
+                    /*$locationG = \Location::get($userIp);
+                    $agent = new \Jenssegers\Agent\Agent;
+                    UserConnectLog::create([
+                        "location" => "[".$locationG->countryCode."] - ".$locationG->regionName." - ".$locationG->cityName,
+                        "device" => $agent->isDesktop() ? 'Ordinateur' : 'Mobile',
+                        "ip" => $request->ip()
+                    ]);*/
+                    return $user;
+                } else {
+                    toastr()->error("Ces identifiants ne correspondent pas !");
+                    return null;
+                }
+            }catch (\Exception $exception) {
+                toastr()->error($exception->getMessage());
+                return $exception;
+            }
         });
 
 
