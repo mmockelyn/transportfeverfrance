@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Back;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Calendar;
 use Carbon\Carbon;
@@ -43,12 +44,10 @@ class CalendarController extends Controller
                 "allday" => $request->get('allDay') == true ? 1 : 0
             ]);
 
+            LogActivity::addToLog("Ajout de l'évènement <strong>$calendar->name</strong> à votre calendrier effectuer");
             return response()->json($calendar);
         } catch (\Exception $exception) {
-            Log::error("Impossible d'ajouter l'évènement", [
-                "sector" => "Calendar",
-                "error" => $exception->getMessage()
-            ]);
+            LogActivity::addToLog($exception->getMessage());
 
             return $exception->getMessage();
         }
@@ -60,7 +59,8 @@ class CalendarController extends Controller
         $end_date = Carbon::createFromTimestamp(strtotime($request->get('end_date')));
 
         try {
-            $calendar = Calendar::find($id)->update([
+            $calendar = Calendar::find($id);
+            $calendar->update([
                 "name" => $request->get('name'),
                 "description" => $request->get('description'),
                 "location" => $request->get('location'),
@@ -69,12 +69,10 @@ class CalendarController extends Controller
                 "allday" => $request->get('allDay') == true ? 1 : 0
             ]);
 
+            LogActivity::addToLog("Edition de l'évènement <strong>$calendar->name</strong> à votre calendrier effectuer");
             return response()->json();
         }catch (\Exception $exception) {
-            Log::error("Impossible d'éditer l'évènement", [
-                "sector" => "Calendar",
-                "error" => $exception->getMessage()
-            ]);
+            LogActivity::addToLog($exception->getMessage());
 
             return $exception->getMessage();
         }
@@ -83,14 +81,13 @@ class CalendarController extends Controller
     public function delete($id)
     {
         try {
-            Calendar::find($id)->delete();
+            $calendar = Calendar::find($id);
+            $calendar->delete();
 
+            LogActivity::addToLog("Suppression de l'évènement <strong>$calendar->name</strong> à votre calendrier effectuer");
             return response()->json();
         } catch (\Exception $exception) {
-            Log::error("Impossible de supprimer l'évènement", [
-                "sector" => "Calendar",
-                "error" => $exception->getMessage()
-            ]);
+            LogActivity::addToLog($exception->getMessage());
             return $exception->getMessage();
         }
     }

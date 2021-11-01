@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Back\Settings;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Notifications\Back\Setting\User\UserDeleted;
@@ -18,8 +19,10 @@ class UserController extends Controller
 
             $user->notify(new UserDeleted($user));
 
+            LogActivity::addToLog("Suppression de l'utilisateur <strong>$user->name</strong> effectuer");
             return response()->json();
         }catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
             return response()->json(["error", $exception->getMessage()], 500);
         }
     }

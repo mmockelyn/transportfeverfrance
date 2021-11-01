@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Helpers\Format;
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\UpdatePasswordRequest;
 use App\Jobs\Account\DeleteAccount;
@@ -57,10 +58,11 @@ class ProfilController extends Controller
             if ($user->description !== null)
                 $this->userRepository->checkedTutoriel($user->id, 8);
 
+            LogActivity::addToLog("Information de profil mise à jours");
             $user->notify(new UpdateInfoProfil());
             return response()->json();
         } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
+            LogActivity::addToLog($exception->getMessage());
             return response()->json();
         }
     }
@@ -80,10 +82,11 @@ class ProfilController extends Controller
             if ($user->avatar !== null)
                 $this->userRepository->checkedTutoriel($user->id, 2);
 
+            LogActivity::addToLog("Avatar mis à jours");
             $user->notify(new UpdateInfoProfil());
             return redirect()->back();
         } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
+            LogActivity::addToLog($exception->getMessage());
             return redirect()->back();
         }
     }
@@ -101,11 +104,14 @@ class ProfilController extends Controller
                     "password_complexity" => $complexity
                 ]);
 
+                LogActivity::addToLog("Mot de passe mis à jour");
                 return response()->json();
             } catch (\Exception $exception) {
+                LogActivity::addToLog($exception->getMessage());
                 return response()->json(null, 500);
             }
         } else {
+            LogActivity::addToLog("Erreur lors de la mise à jours du mot de passe");
             return response()->json(null, 900);
         }
     }
@@ -120,9 +126,10 @@ class ProfilController extends Controller
                 "deleted_at" => now()->addDays(5),
                 "deleted_job_id" => $job_id
             ]);
-
+            
             return response()->json();
         } else {
+            LogActivity::addToLog("Erreur lors de la suppression du compte");
             return response()->json(null, 500);
         }
     }

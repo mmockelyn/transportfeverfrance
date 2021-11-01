@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Account\UserDeviceToken;
 use App\Models\User;
@@ -39,6 +40,7 @@ class UserDeviceTokenController extends Controller
             $deviceToken->user_id = $input['user_id'];
             $deviceToken->save();
         } catch (SnsException $exception) {
+            LogActivity::addToLog($exception->getMessage());
             return response()->json(['error' => "Unexpected Error"], 500);
         }
 

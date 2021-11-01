@@ -6,6 +6,7 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Helpers\LogActivity;
 use App\Models\User;
 use App\Models\UserConnectLog;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -58,13 +59,16 @@ class FortifyServiceProvider extends ServiceProvider
 
                 if($user && Hash::check($request->password, $user->password)) {
                     $this->logStatement($request->ip(), $user->id);
+                    LogActivity::addToLog("Connection effectuer");
                     return $user;
                 } else {
+                    LogActivity::addToLog("Erreur de connexion - Identifiant erronée");
                     toastr()->error("Ces identifiants ne correspondent pas !");
                     return null;
                 }
 
             }catch (\Exception $exception) {
+                LogActivity::addToLog("Erreur de connexion: ".$exception->getMessage());
                 toastr()->error($exception->getMessage());
                 return $exception;
             }

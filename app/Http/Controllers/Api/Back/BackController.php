@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Back;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Blog\Blog;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ class BackController extends Controller
 
         switch ($request->provider) {
             case 'blog':
+                LogActivity::addToLog("Publication de l'article $request->providerId effectuer");
                 return $this->publishBlog($request->providerId);
                 break;
         }
@@ -23,6 +25,7 @@ class BackController extends Controller
     {
         switch ($request->provider) {
             case 'blog':
+                LogActivity::addToLog("Dépublication de l'article $request->providerId effectuer");
                 return $this->unpublishBlog($request->providerId);
                 break;
         }

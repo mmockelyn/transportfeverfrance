@@ -277,6 +277,7 @@ return [
         'Socialite' => \Laravel\Socialite\Facades\Socialite::class,
         'Location' => Stevebauman\Location\Facades\Location::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'LogActivity' => App\Helpers\LogActivity::class,
 
     ],
 
