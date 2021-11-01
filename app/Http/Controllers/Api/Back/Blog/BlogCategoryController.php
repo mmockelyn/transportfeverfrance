@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Back\Blog;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Blog\BlogCategory;
 use Illuminate\Http\Request;
@@ -55,11 +56,14 @@ class BlogCategoryController extends Controller
             </tr>
             <?php
 
+            LogActivity::addToLog("Catégorie d'article <strong>$category->title</strong> ajouter");
+
             return response()->json([
                 "category" => $category,
                 "html" => ob_get_clean()
             ]);
         }catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
             return $exception;
         }
     }
@@ -81,8 +85,10 @@ class BlogCategoryController extends Controller
                 "slug" => Str::slug($request->title)
             ]);
 
+            LogActivity::addToLog("Catégorie d'article <strong>$category->title</strong> editer");
             return response()->json($category);
         }catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
             return response()->json($exception->getMessage());
         }
     }
@@ -93,8 +99,10 @@ class BlogCategoryController extends Controller
             $category = BlogCategory::find($id);
             $category->delete();
 
+            LogActivity::addToLog("Catégorie d'article <strong>$category->title</strong> supprimer");
             return response()->json();
         }catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
             return response()->json($exception->getMessage());
         }
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -39,11 +40,13 @@ class ProjectController extends Controller
                 "project_active_user" => 1
             ]);
 
+            LogActivity::addToLog("Liaison au gestionnaire de projet effectuer");
             toastr()->success("Votre compte TPF France est maintenant lié au gestionnaire de projet.");
 
             return redirect()->back();
         }catch (\Exception $exception) {
 
+            LogActivity::addToLog($exception->getMessage());
             toastr()->error("Erreur lors de la liaison de votre compte au gestionnaire de projet.", "Erreur Serveur");
 
             return redirect()->back();

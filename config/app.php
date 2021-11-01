@@ -275,6 +275,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Socialite' => \Laravel\Socialite\Facades\Socialite::class,
+        'Location' => Stevebauman\Location\Facades\Location::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'LogActivity' => App\Helpers\LogActivity::class,
 
     ],
 

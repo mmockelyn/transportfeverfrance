@@ -60,6 +60,7 @@
         @foreach($follows as $follow)
             <a href="{{ $follow->href }}" class="btn btn-default btn-icon"><i class="socicon-{{ $follow->icon }} icon-2x"></i> </a>
         @endforeach
+            <a href="#modal_donation" class="btn btn-primary" data-toggle="modal"><i class="socicon-paypal icon-2x"></i> Effectuer un don</a>
     </div>
     <!--end::Nav-->
 </div>
