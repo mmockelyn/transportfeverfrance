@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Back\Settings;
 
 use App\Exports\Back\Settings\UsersExport;
 use App\Helpers\Format;
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Account\UserDeviceToken;
 use App\Models\User;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class UserController extends Controller
 {
@@ -96,6 +98,50 @@ class UserController extends Controller
         return view('back.settings.users.show', [
             "user" => User::query()->find($user_id)
         ]);
+    }
+
+    public function updateProfil(Request $request, $user_id)
+    {
+        //dd($request->all());
+        $user = User::find($user_id);
+        try {
+            $user->update([
+                "name" => $request->get('name'),
+                "email" => $request->get('email'),
+                "description" => $request->get('description')
+            ]);
+
+            //Mise à jour de l'avatar
+            if($request->file('avatar')) {
+                try {
+                    $request->file('avatar')->storeAs('files/shares/avatar/', $request->file('avatar')->getClientOriginalName(), 'public');
+                    try {
+                        $user->update([
+                            "avatar" => $request->file('avatar')->getClientOriginalName()
+                        ]);
+                        LogActivity::addToLog("Mise à jour du profil de l'utilisateur <strong>$user->name</strong> effectuer");
+                        toastr()->success("Le profil de l'utilisateur $user->name à été mis à jour", "Mise à jour des informations");
+                        return redirect()->back();
+                    }catch (\Exception $exception) {
+                        LogActivity::addToLog($exception->getMessage());
+                        toastr()->error("Erreur lors de la mise à jour du profil de l'utilisateur", "Erreur Serveur");
+                        return redirect()->back();
+                    }
+                }catch (FileException $exception) {
+                    LogActivity::addToLog($exception->getMessage());
+                    toastr()->error("Erreur lors de la mise à jour de l'avatar de l'utilisateur", "Erreur File Serveur");
+                    return redirect()->back();
+                }
+            } else {
+                LogActivity::addToLog("Mise à jour du profil de l'utilisateur <strong>$user->name</strong> effectuer");
+                toastr()->success("Le profil de l'utilisateur $user->name à été mis à jour", "Mise à jour des informations");
+                return redirect()->back();
+            }
+        }catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
+            toastr()->error("Erreur lors de la mise à jour du profil de l'utilisateur", "Erreur Serveur");
+            return redirect()->back();
+        }
     }
 
     private function exportExcel($request)
