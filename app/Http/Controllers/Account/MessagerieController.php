@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Account\Inbox;
 use App\Notifications\Account\NewMessageFrom;
@@ -82,8 +83,10 @@ class MessagerieController extends Controller
                 return response()->json(null);
             }
 
+            LogActivity::addToLog("Envoie d'un message à ".$request->to_id->name);
             return response()->json(null);
         }catch (\Exception $exception) {
+            LogActivity::addToLog("Messagerie: ".$exception->getMessage());
             Log::error($exception->getMessage());
             return response()->json(null);
         }
@@ -129,6 +132,8 @@ class MessagerieController extends Controller
     public function delete($messagerie_id)
     {
         $this->inbox->newQuery()->find($messagerie_id)->delete();
+
+        LogActivity::addToLog("Suppression du message ".$messagerie_id);
 
         return response()->json();
     }

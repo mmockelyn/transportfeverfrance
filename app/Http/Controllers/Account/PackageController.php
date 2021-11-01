@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
@@ -90,21 +91,21 @@ class PackageController extends Controller
                         "download_id" => $download->id,
                         "user_id" => auth()->user()->id
                     ]);
-
+                    LogActivity::addToLog("Le Package <strong>".$request->title."</strong> à été ajouter.");
                     toastr()->success("Package créer avec succès", "OK");
                     return redirect()->route('account.packages');
                 }catch (\Exception $exception) {
-                    Log::error($exception->getMessage());
+                    LogActivity::addToLog($exception->getMessage());
                     toastr()->error("Erreur lors du traitement de votre package", "Erreur Système");
                     return redirect()->back();
                 }
             }catch (\Exception $exception) {
-                Log::error($exception->getMessage());
+                LogActivity::addToLog($exception->getMessage());
                 toastr()->error("Erreur lors du traitement de votre package", "Erreur Système");
                 return redirect()->back();
             }
         }catch (\Exception $exception) {
-            Log::error($exception->getMessage());
+            LogActivity::addToLog($exception->getMessage());
             toastr()->error("Erreur lors du traitement de votre package", "Erreur Système");
             return redirect()->back();
         }
@@ -127,10 +128,11 @@ class PackageController extends Controller
                 "image" => $name_file
             ]);
 
+            LogActivity::addToLog("Image du mod $download->title mis à jours");
             toastr()->success("Image du mod mise à jours", "OK");
             return redirect()->back();
         }catch (\Exception $exception) {
-            Log::error($exception->getMessage());
+            LogActivity::addToLog($exception->getMessage());
             toastr()->error("Erreur lors du traitement de votre package", "Erreur Système");
             return redirect()->back();
         }
@@ -150,10 +152,11 @@ class PackageController extends Controller
                 "meta_keywords" => $request->meta_keywords
             ]);
 
+            LogActivity::addToLog("Information du mod $download->title mis à jours");
             toastr()->success("Information du mod mis à jour", "OK");
             return redirect()->back();
         }catch (\Exception $exception) {
-            Log::error($exception->getMessage());
+            LogActivity::addToLog($exception->getMessage());
             toastr()->error("Erreur lors du traitement de votre package", "Erreur Système");
             return redirect()->back();
         }

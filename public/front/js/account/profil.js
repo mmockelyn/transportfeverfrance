@@ -162,7 +162,7 @@ function startNotificationPush() {
     $("#btnStartPushNotification").on('click', (e) => {
         e.preventDefault()
         let btn = KTUtil.getById('btnStartTotp')
-        let id = btn.dataset.userId
+        let id = $("#btnStartPushNotification").attr('data-user-id')
 
         KTUtil.btnWait(btn, 'spinner spinner-right spinner-white pr-15', 'Veuillez patientez...')
 

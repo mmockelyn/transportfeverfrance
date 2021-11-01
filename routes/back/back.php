@@ -44,6 +44,8 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
     Route::group(["prefix" => "settings"], function () {
         Route::group(["prefix" => "users"], function () {
             Route::get('/', [\App\Http\Controllers\Back\Settings\UserController::class, 'index'])->name("back.settings.users.index");
+            Route::get('{user_id}', [\App\Http\Controllers\Back\Settings\UserController::class, 'show'])->name("back.settings.users.show");
+            Route::put('{user_id}/update_profil', [\App\Http\Controllers\Back\Settings\UserController::class, 'updateProfil'])->name("back.settings.users.updateProfil");
         });
     });
 });
