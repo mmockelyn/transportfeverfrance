@@ -119,6 +119,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(UserConnectLog::class);
     }
 
+    public function activityLogs()
+    {
+        return $this->hasMany(UserActivityLog::class);
+    }
+
     public function routeNotificationForDiscord()
     {
         return $this->discord_channel;
