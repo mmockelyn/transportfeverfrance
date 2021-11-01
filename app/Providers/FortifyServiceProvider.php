@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
+use Stevebauman\Location\Facades\Location;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -56,19 +57,13 @@ class FortifyServiceProvider extends ServiceProvider
                 $user = User::query()->where('email', $request->email)->first();
 
                 if($user && Hash::check($request->password, $user->password)) {
-                    $userIp = $request->ip();
-                    /*$locationG = \Location::get($userIp);
-                    $agent = new \Jenssegers\Agent\Agent;
-                    UserConnectLog::create([
-                        "location" => "[".$locationG->countryCode."] - ".$locationG->regionName." - ".$locationG->cityName,
-                        "device" => $agent->isDesktop() ? 'Ordinateur' : 'Mobile',
-                        "ip" => $request->ip()
-                    ]);*/
+                    $this->logStatement($request->ip(), $user->id);
                     return $user;
                 } else {
                     toastr()->error("Ces identifiants ne correspondent pas !");
                     return null;
                 }
+
             }catch (\Exception $exception) {
                 toastr()->error($exception->getMessage());
                 return $exception;
@@ -95,6 +90,29 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::twoFactorChallengeView(function () {
             return view('auth.two-factor-challenge');
         });
+
+    }
+
+    private function logStatement($ip, $user_id)
+    {
+        $locationG = Location::get("176.171.108.192");
+        $agent = new \Jenssegers\Agent\Agent;
+
+        if($locationG != false) {
+            return UserConnectLog::create([
+                "location" => "[".$locationG->countryCode."] - ".$locationG->regionName." - ".$locationG->cityName,
+                "device" => $agent->device()." - ".$agent->platform()." - ".$agent->browser(),
+                "ip" => $ip,
+                "user_id" => $user_id
+            ]);
+        } else {
+            return UserConnectLog::create([
+                "location" => "[FR] - Local - DEV",
+                "device" => $agent->isDesktop() ? 'Ordinateur' : 'Mobile',
+                "ip" => $ip,
+                "user_id" => $user_id
+            ]);
+        }
 
     }
 }
