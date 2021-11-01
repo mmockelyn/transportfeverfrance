@@ -216,9 +216,19 @@
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     @if($user->social->facebook_id == null)
-                                    <button data-provider="facebook" data-action="connect" class="btn btn-outline-success btn-sm btnProvider">Connecter</button>
+                                    <button data-provider="facebook" data-action="connect" class="btn btn-outline-success btn-sm btnProvider">
+                                        <span class="indicator-label">Connecter</span>
+                                        <span class="indicator-progress">Veuillez Patienter...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                        </span>
+                                    </button>
                                     @else
-                                    <button data-provider="facebook" data-action="disconnect" class="btn btn-outline-danger btn-sm btnProvider">Déconnecter</button>
+                                    <button data-provider="facebook" data-action="disconnect" class="btn btn-outline-danger btn-sm btnProvider">
+                                        <span class="indicator-label">Déconnecter</span>
+                                        <span class="indicator-progress">Veuillez Patienter...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                        </span>
+                                    </button>
                                     @endif
                                 </div>
                             </div>
@@ -235,9 +245,19 @@
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     @if($user->social->google_id == null)
-                                        <button data-provider="google" data-action="connect" class="btn btn-outline-success btn-sm btnProvider">Connecter</button>
+                                        <button data-provider="google" data-action="connect" class="btn btn-outline-success btn-sm btnProvider">
+                                            <span class="indicator-label">Connecter</span>
+                                            <span class="indicator-progress">Veuillez Patienter...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                        </span>
+                                        </button>
                                     @else
-                                        <button data-provider="google" data-action="disconnect" class="btn btn-outline-danger btn-sm btnProvider">Déconnecter</button>
+                                        <button data-provider="google" data-action="disconnect" class="btn btn-outline-danger btn-sm btnProvider">
+                                            <span class="indicator-label">Déconnecter</span>
+                                            <span class="indicator-progress">Veuillez Patienter...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                        </span>
+                                        </button>
                                     @endif
                                 </div>
                             </div>
@@ -254,9 +274,19 @@
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     @if($user->social->twitter_id == null)
-                                        <button data-provider="twitter" data-action="connect" class="btn btn-outline-success btn-sm btnProvider">Connecter</button>
+                                        <button data-provider="twitter" data-action="connect" class="btn btn-outline-success btn-sm btnProvider">
+                                            <span class="indicator-label">Connecter</span>
+                                                <span class="indicator-progress">Veuillez Patienter...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                            </span>
+                                        </button>
                                     @else
-                                        <button data-provider="twitter" data-action="disconnect" class="btn btn-outline-danger btn-sm btnProvider">Déconnecter</button>
+                                        <button data-provider="twitter" data-action="disconnect" class="btn btn-outline-danger btn-sm btnProvider">
+                                            <span class="indicator-label">Déconnecter</span>
+                                            <span class="indicator-progress">Veuillez Patienter...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                            </span>
+                                        </button>
                                     @endif
                                 </div>
                             </div>
@@ -273,9 +303,19 @@
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     @if($user->social->steam_id == null)
-                                        <button data-provider="steam" data-action="connect" class="btn btn-outline-success btn-sm btnProvider">Connecter</button>
+                                        <button data-provider="steam" data-action="connect" class="btn btn-outline-success btn-sm btnProvider">
+                                            <span class="indicator-label">Connecter</span>
+                                            <span class="indicator-progress">Veuillez Patienter...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                            </span>
+                                        </button>
                                     @else
-                                        <button data-provider="steam" data-action="disconnect" class="btn btn-outline-danger btn-sm btnProvider">Déconnecter</button>
+                                        <button data-provider="steam" data-action="disconnect" class="btn btn-outline-danger btn-sm btnProvider">
+                                            <span class="indicator-label">Déconnecter</span>
+                                            <span class="indicator-progress">Veuillez Patienter...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                            </span>
+                                        </button>
                                     @endif
                                 </div>
                             </div>
@@ -293,9 +333,19 @@
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     @if($user->social->discord_user_id == null)
-                                        <button data-provider="discord" data-action="connect" class="btn btn-outline-success btn-sm btnProvider">Connecter</button>
+                                        <button data-provider="discord" data-action="connect" class="btn btn-outline-success btn-sm btnProvider">
+                                            <span class="indicator-label">Connecter</span>
+                                            <span class="indicator-progress">Veuillez Patienter...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                            </span>
+                                        </button>
                                     @else
-                                        <button data-provider="discord" data-action="disconnect" class="btn btn-outline-danger btn-sm btnProvider">Déconnecter</button>
+                                        <button data-provider="discord" data-action="disconnect" class="btn btn-outline-danger btn-sm btnProvider">
+                                            <span class="indicator-label">Déconnecter</span>
+                                            <span class="indicator-progress">Veuillez Patienter...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                            </span>
+                                        </button>
                                     @endif
                                 </div>
                             </div>
@@ -776,7 +826,8 @@
                             <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
                                 <span class="indicator-label">Valider</span>
                                 <span class="indicator-progress">Veuillez Patienter...
-														<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
                             </button>
                             <!--end::Button-->
                         </div>
