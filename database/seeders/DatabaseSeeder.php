@@ -16,6 +16,7 @@ use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadVersion;
 use App\Models\Download\DownloadWiki;
 use App\Models\Page;
+use App\Models\Site;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\UserSocial;
@@ -35,6 +36,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         if (config('app.env') == 'local') {
+            Site::create([
+                "name" => "Transport Fever France",
+                "facebook_link" => "https://www.facebook.com/groups/TransportFeverFR",
+                "twitter_link" => "https://twitter.com/T_FeverFR",
+                "insta_link" => "https://www.instagram.com/transportfeverfrance/?hl=fr",
+                "discord_link" => "https://discord.com/invite/VaSSqzG",
+                "steam_link" => "https://steamcommunity.com/profiles/76561199062863693/myworkshopfiles/?appid=1066780",
+            ]);
+
             // \App\Models\User::factory(10)->create();
             User::withoutEvents(function () {
                 User::create([
@@ -505,6 +515,14 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         } elseif (config('app.env') == "beta") {
+            Site::create([
+                "name" => "Transport Fever France",
+                "facebook_link" => "https://www.facebook.com/groups/TransportFeverFR",
+                "twitter_link" => "https://twitter.com/T_FeverFR",
+                "insta_link" => "https://www.instagram.com/transportfeverfrance/?hl=fr",
+                "discord_link" => "https://discord.com/invite/VaSSqzG",
+                "steam_link" => "https://steamcommunity.com/profiles/76561199062863693/myworkshopfiles/?appid=1066780",
+            ]);
             // \App\Models\User::factory(10)->create();
             User::withoutEvents(function () {
                 User::create([
@@ -877,6 +895,14 @@ class DatabaseSeeder extends Seeder
             ////////////////////////////////
 
         } else {
+            Site::create([
+                "name" => "Transport Fever France",
+                "facebook_link" => "https://www.facebook.com/groups/TransportFeverFR",
+                "twitter_link" => "https://twitter.com/T_FeverFR",
+                "insta_link" => "https://www.instagram.com/transportfeverfrance/?hl=fr",
+                "discord_link" => "https://discord.com/invite/VaSSqzG",
+                "steam_link" => "https://steamcommunity.com/profiles/76561199062863693/myworkshopfiles/?appid=1066780",
+            ]);
             User::withoutEvents(function () {
                 User::create([
                     'name' => "Bot TF France",

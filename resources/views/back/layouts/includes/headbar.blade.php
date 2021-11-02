@@ -656,7 +656,7 @@
                         <!--begin::Menu wrapper-->
                         <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
                             @if(auth()->user()->avatar)
-                                <img src="{{ auth()->user()->avatar }}" alt="{{ auth()->user()->name }}">
+                                <img src="/storage/files/shares/avatar/{{ auth()->user()->avatar }}" alt="{{ auth()->user()->name }}">
                             @else
                                 <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get(auth()->user()->email) }}" alt="{{ auth()->user()->name }}">
                             @endif
@@ -669,7 +669,7 @@
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
                                         @if(auth()->user()->avatar)
-                                            <img src="{{ auth()->user()->avatar }}" alt="{{ auth()->user()->name }}">
+                                            <img src="/storage/files/shares/avatar/{{ auth()->user()->avatar }}" alt="{{ auth()->user()->name }}">
                                             @if(\Illuminate\Support\Facades\Cache::has('user-is-online-'.auth()->user()->id))
                                                 <i class="symbol-badge bg-success"></i>
                                             @else

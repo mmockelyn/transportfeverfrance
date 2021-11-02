@@ -174,7 +174,7 @@
                             </div>
                             <div class="symbol symbol-35">
                                 @if($user->avatar)
-                                    <img src="{{ $user->avatar }}" alt="{{ $user->name }}">
+                                    <img src="/storage/files/shares/avatar/{{ $user->avatar }}" alt="{{ $user->name }}">
                                 @else
                                     <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get($user->email) }}" alt="{{ $user->name }}">
                                 @endif
