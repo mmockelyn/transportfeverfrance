@@ -51,5 +51,8 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
             Route::get('{user_id}', [\App\Http\Controllers\Back\Settings\UserController::class, 'show'])->name("back.settings.users.show");
             Route::put('{user_id}/update_profil', [\App\Http\Controllers\Back\Settings\UserController::class, 'updateProfil'])->name("back.settings.users.updateProfil");
         });
+        Route::group(["prefix" => "badges"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Settings\BadgeController::class, 'index'])->name('back.settings.badges.index');
+        });
     });
 });
