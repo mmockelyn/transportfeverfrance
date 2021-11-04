@@ -54,5 +54,9 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
         Route::group(["prefix" => "badges"], function () {
             Route::get('/', [\App\Http\Controllers\Back\Settings\BadgeController::class, 'index'])->name('back.settings.badges.index');
         });
+
+        Route::group(['prefix' => "pages"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Settings\PagesController::class, 'index'])->name('back.settings.pages.index');
+        });
     });
 });
