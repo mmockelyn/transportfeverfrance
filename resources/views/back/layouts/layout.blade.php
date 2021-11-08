@@ -70,7 +70,7 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin::Post-->
                 <div class="post d-flex flex-column-fluid" id="kt_post">
                     <!--begin::Container-->
-                    <div id="kt_content_container" class="container">
+                    <div id="kt_content_container" class="container-fluid">
                         @include("back.layouts.includes.errors")
                         @yield("content")
                     </div>
