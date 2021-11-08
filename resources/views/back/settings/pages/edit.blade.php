@@ -28,7 +28,7 @@
                     <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                     <!--end::Separator-->
                     <!--begin::Description-->
-                    <small class="text-muted fs-7 fw-bold my-1 ms-1">Création d'une page</small>
+                    <small class="text-muted fs-7 fw-bold my-1 ms-1">Edition de la page: {{ $page->title }}</small>
                     <!--end::Description-->
                 </h1>
                 <!--end::Title-->
@@ -56,17 +56,17 @@
                 </a>
             </div>
         </div>
-        <form action="#" method="post" id="form_add_page">
+        <form action="/api/back/settings/cms/{{ $page->id }}" method="post" id="form_edit_page">
             @csrf
-            @method("POST")
+            @method("PUT")
             <div class="card-body">
                 <div class="mb-10">
                     <label for="exampleFormControlInput1" class="required form-label">Titre de la page</label>
-                    <input type="text" class="form-control form-control-solid" name="title" required/>
+                    <input type="text" class="form-control form-control-solid" name="title" value="{{ $page->title }}" required/>
                 </div>
                 <div class="mb-10">
                     <label for="exampleFormControlInput1" class="required form-label">Contenue</label>
-                    <div id="contents"></div>
+                    <div id="contents">{!! $page->body !!}</div>
                     <input type="hidden" name="over_content" id="over_content">
                 </div>
             </div>
@@ -84,5 +84,5 @@
 
 @section("script")
     <script src="/back/assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js"></script>
-    <script src="/back/js/settings/pages/create.js"></script>
+    <script src="/back/js/settings/pages/edit.js"></script>
 @endsection

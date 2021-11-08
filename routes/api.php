@@ -39,6 +39,8 @@ Route::group(["prefix" => "back"], function () {
 
         Route::group(["prefix" => "cms"], function () {
             Route::post('/add', [\App\Http\Controllers\Api\Back\Settings\PageController::class, 'store']);
+            Route::put('/{id}', [\App\Http\Controllers\Api\Back\Settings\PageController::class, 'update']);
+            Route::delete('/{id}', [\App\Http\Controllers\Api\Back\Settings\PageController::class, 'delete']);
         });
     });
 });
