@@ -14,4 +14,16 @@ class PagesController extends Controller
             "pages" => Page::all()
         ]);
     }
+
+    public function create()
+    {
+        return view("back.settings.pages.create");
+    }
+
+    public function edit($page_id)
+    {
+        return view("back.settings.pages.edit", [
+            "page" => Page::find($page_id)
+        ]);
+    }
 }
