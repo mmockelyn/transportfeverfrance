@@ -14,4 +14,9 @@ class PagesController extends Controller
             "pages" => Page::all()
         ]);
     }
+
+    public function create()
+    {
+        return view("back.settings.pages.create");
+    }
 }

@@ -252,16 +252,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.200.0",
+            "version": "3.200.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "9b3f45c51fe1d07845446675109bb0a8a98c806e"
+                "reference": "41ffdb283c524c6632610ec43d89ba7f6094b575"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9b3f45c51fe1d07845446675109bb0a8a98c806e",
-                "reference": "9b3f45c51fe1d07845446675109bb0a8a98c806e",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/41ffdb283c524c6632610ec43d89ba7f6094b575",
+                "reference": "41ffdb283c524c6632610ec43d89ba7f6094b575",
                 "shasum": ""
             },
             "require": {
@@ -337,9 +337,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.200.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.200.1"
             },
-            "time": "2021-11-04T18:42:25+00:00"
+            "time": "2021-11-05T19:19:45+00:00"
         },
         {
             "name": "aws/aws-sdk-php-laravel",
@@ -2355,16 +2355,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.219.0",
+            "version": "v0.221.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client-services.git",
-                "reference": "ea990973edf24d959c9e9f550182a53672d5a4bc"
+                "reference": "55fb77c4dcb7ec2b41128d41815b3aac65ddfadb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/ea990973edf24d959c9e9f550182a53672d5a4bc",
-                "reference": "ea990973edf24d959c9e9f550182a53672d5a4bc",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/55fb77c4dcb7ec2b41128d41815b3aac65ddfadb",
+                "reference": "55fb77c4dcb7ec2b41128d41815b3aac65ddfadb",
                 "shasum": ""
             },
             "require": {
@@ -2393,9 +2393,9 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/google-api-php-client-services/issues",
-                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.219.0"
+                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.221.0"
             },
-            "time": "2021-10-06T11:20:29+00:00"
+            "time": "2021-11-06T11:26:11+00:00"
         },
         {
             "name": "google/auth",
@@ -5831,20 +5831,20 @@
         },
         {
             "name": "psr/container",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/container.git",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf"
+                "reference": "513e0666f7216c7459170d56df27dfcefe1689ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/8622567409010282b7aeebe4bb841fe98b58dcaf",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/513e0666f7216c7459170d56df27dfcefe1689ea",
+                "reference": "513e0666f7216c7459170d56df27dfcefe1689ea",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.0"
+                "php": ">=7.4.0"
             },
             "type": "library",
             "autoload": {
@@ -5873,9 +5873,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/1.1.1"
+                "source": "https://github.com/php-fig/container/tree/1.1.2"
             },
-            "time": "2021-03-05T17:36:06+00:00"
+            "time": "2021-11-05T16:50:12+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -9137,32 +9137,32 @@
         },
         {
             "name": "symfony/psr-http-message-bridge",
-            "version": "v2.1.1",
+            "version": "v2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/psr-http-message-bridge.git",
-                "reference": "c9012994c4b4fb23e7c57dd86b763a417a04feba"
+                "reference": "22b37c8a3f6b5d94e9cdbd88e1270d96e2f97b34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/psr-http-message-bridge/zipball/c9012994c4b4fb23e7c57dd86b763a417a04feba",
-                "reference": "c9012994c4b4fb23e7c57dd86b763a417a04feba",
+                "url": "https://api.github.com/repos/symfony/psr-http-message-bridge/zipball/22b37c8a3f6b5d94e9cdbd88e1270d96e2f97b34",
+                "reference": "22b37c8a3f6b5d94e9cdbd88e1270d96e2f97b34",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1",
                 "psr/http-message": "^1.0",
-                "symfony/http-foundation": "^4.4 || ^5.0"
+                "symfony/http-foundation": "^4.4 || ^5.0 || ^6.0"
             },
             "require-dev": {
                 "nyholm/psr7": "^1.1",
                 "psr/log": "^1.1 || ^2 || ^3",
-                "symfony/browser-kit": "^4.4 || ^5.0",
-                "symfony/config": "^4.4 || ^5.0",
-                "symfony/event-dispatcher": "^4.4 || ^5.0",
-                "symfony/framework-bundle": "^4.4 || ^5.0",
-                "symfony/http-kernel": "^4.4 || ^5.0",
-                "symfony/phpunit-bridge": "^4.4.19 || ^5.2"
+                "symfony/browser-kit": "^4.4 || ^5.0 || ^6.0",
+                "symfony/config": "^4.4 || ^5.0 || ^6.0",
+                "symfony/event-dispatcher": "^4.4 || ^5.0 || ^6.0",
+                "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0",
+                "symfony/http-kernel": "^4.4 || ^5.0 || ^6.0",
+                "symfony/phpunit-bridge": "^5.4@dev || ^6.0"
             },
             "suggest": {
                 "nyholm/psr7": "For a super lightweight PSR-7/17 implementation"
@@ -9205,7 +9205,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/psr-http-message-bridge/issues",
-                "source": "https://github.com/symfony/psr-http-message-bridge/tree/v2.1.1"
+                "source": "https://github.com/symfony/psr-http-message-bridge/tree/v2.1.2"
             },
             "funding": [
                 {
@@ -9221,7 +9221,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-27T17:25:39+00:00"
+            "time": "2021-11-05T13:13:39+00:00"
         },
         {
             "name": "symfony/routing",
@@ -11092,16 +11092,16 @@
         },
         {
             "name": "laravel/homestead",
-            "version": "v12.7.1",
+            "version": "v12.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/homestead.git",
-                "reference": "be8db431ed7a12bb9791fd6957b072b45934fc3c"
+                "reference": "9cbb84c1e423b0370cbe13c53cb2b1dafef40892"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/homestead/zipball/be8db431ed7a12bb9791fd6957b072b45934fc3c",
-                "reference": "be8db431ed7a12bb9791fd6957b072b45934fc3c",
+                "url": "https://api.github.com/repos/laravel/homestead/zipball/9cbb84c1e423b0370cbe13c53cb2b1dafef40892",
+                "reference": "9cbb84c1e423b0370cbe13c53cb2b1dafef40892",
                 "shasum": ""
             },
             "require": {
@@ -11140,22 +11140,22 @@
             "description": "A virtual machine for web artisans.",
             "support": {
                 "issues": "https://github.com/laravel/homestead/issues",
-                "source": "https://github.com/laravel/homestead/tree/v12.7.1"
+                "source": "https://github.com/laravel/homestead/tree/v12.8.0"
             },
-            "time": "2021-10-15T22:08:26+00:00"
+            "time": "2021-11-07T00:33:03+00:00"
         },
         {
             "name": "laravel/sail",
-            "version": "v1.12.2",
+            "version": "v1.12.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "1acae00ddb5c6ec4a2957fe42c0004f13cd17a7a"
+                "reference": "f335277677188b79d12f4caad88577cf76e54dfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/1acae00ddb5c6ec4a2957fe42c0004f13cd17a7a",
-                "reference": "1acae00ddb5c6ec4a2957fe42c0004f13cd17a7a",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/f335277677188b79d12f4caad88577cf76e54dfa",
+                "reference": "f335277677188b79d12f4caad88577cf76e54dfa",
                 "shasum": ""
             },
             "require": {
@@ -11202,7 +11202,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2021-10-26T21:37:54+00:00"
+            "time": "2021-11-05T13:35:24+00:00"
         },
         {
             "name": "maximebf/debugbar",

@@ -36,6 +36,10 @@ Route::group(["prefix" => "back"], function () {
         Route::group(["prefix" => "users"], function () {
             Route::delete('{user_id}', [\App\Http\Controllers\Api\Back\Settings\UserController::class, 'delete']);
         });
+
+        Route::group(["prefix" => "cms"], function () {
+            Route::post('/add', [\App\Http\Controllers\Api\Back\Settings\PageController::class, 'store']);
+        });
     });
 });
 
