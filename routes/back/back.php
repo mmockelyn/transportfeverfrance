@@ -60,5 +60,9 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
             Route::get('create', [\App\Http\Controllers\Back\Settings\PagesController::class, 'create'])->name('back.settings.pages.create');
             Route::get('{id}', [\App\Http\Controllers\Back\Settings\PagesController::class, 'edit'])->name('back.settings.pages.edit');
         });
+
+        Route::group(["prefix" => "social"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Settings\SocialController::class, 'index'])->name('back.settings.social.index');
+        });
     });
 });

@@ -198,6 +198,11 @@
       <path value="$PROJECT_DIR$/vendor/maxmind/web-service-common" />
       <path value="$PROJECT_DIR$/vendor/beyondcode/laravel-self-diagnosis" />
       <path value="$PROJECT_DIR$/vendor/geerlingguy/ping" />
+      <path value="$PROJECT_DIR$/vendor/laravel-notification-channels/twitter" />
+      <path value="$PROJECT_DIR$/vendor/laravel-notification-channels/facebook-poster" />
+      <path value="$PROJECT_DIR$/vendor/dymantic/laravel-instagram-feed" />
+      <path value="$PROJECT_DIR$/vendor/abraham/twitteroauth" />
+      <path value="$PROJECT_DIR$/vendor/kylewm/brevity" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />

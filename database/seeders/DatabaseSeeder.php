@@ -493,11 +493,11 @@ class DatabaseSeeder extends Seeder
 
 
             DB::table('follows')->insert([
-                ["title" => "Twitter", "href" => "https://twitter.com/T_FeverFR", "icon" => "twitter"],
-                ["title" => "Facebook", "href" => "https://www.facebook.com/groups/TransportFeverFR", "icon" => "facebook"],
-                ["title" => "Instagram", "href" => "https://www.instagram.com/transportfeverfrance/?hl=fr", "icon" => "instagram"],
-                ["title" => "Discord", "href" => "https://discord.com/invite/VaSSqzG", "icon" => "discord"],
-                ["title" => "Steam", "href" => "https://steamcommunity.com/profiles/76561199062863693/myworkshopfiles/?appid=1066780", "icon" => "steam"],
+                ["title" => "Twitter", "href" => "https://twitter.com/T_FeverFR", "icon" => "twitter", "slug" => "twitter"],
+                ["title" => "Facebook", "href" => "https://www.facebook.com/groups/TransportFeverFR", "icon" => "facebook", "slug" => "facebook"],
+                ["title" => "Instagram", "href" => "https://www.instagram.com/transportfeverfrance/?hl=fr", "icon" => "instagram", "slug" => "instagram"],
+                ["title" => "Discord", "href" => "https://discord.com/invite/VaSSqzG", "icon" => "discord", "slug" => "discord"],
+                ["title" => "Steam", "href" => "https://steamcommunity.com/profiles/76561199062863693/myworkshopfiles/?appid=1066780", "icon" => "steam", "slug" => "steam"],
             ]);
 
             Badge::create(["name" => "Nouveau", "action" => "newuser", "action_count" => 0, "description" => "Bienvenue sur TF France"]);
@@ -870,11 +870,11 @@ class DatabaseSeeder extends Seeder
 
 
             DB::table('follows')->insert([
-                ["title" => "Twitter", "href" => "https://twitter.com/T_FeverFR", "icon" => "twitter"],
-                ["title" => "Facebook", "href" => "https://www.facebook.com/groups/TransportFeverFR", "icon" => "facebook"],
-                ["title" => "Instagram", "href" => "https://www.instagram.com/transportfeverfrance/?hl=fr", "icon" => "instagram"],
-                ["title" => "Discord", "href" => "https://discord.com/invite/VaSSqzG", "icon" => "discord"],
-                ["title" => "Steam", "href" => "https://steamcommunity.com/profiles/76561199062863693/myworkshopfiles/?appid=1066780", "icon" => "steam"],
+                ["title" => "Twitter", "href" => "https://twitter.com/T_FeverFR", "icon" => "twitter", "slug" => "twitter"],
+                ["title" => "Facebook", "href" => "https://www.facebook.com/groups/TransportFeverFR", "icon" => "facebook", "slug" => "facebook"],
+                ["title" => "Instagram", "href" => "https://www.instagram.com/transportfeverfrance/?hl=fr", "icon" => "instagram", "slug" => "instagram"],
+                ["title" => "Discord", "href" => "https://discord.com/invite/VaSSqzG", "icon" => "discord", "slug" => "discord"],
+                ["title" => "Steam", "href" => "https://steamcommunity.com/profiles/76561199062863693/myworkshopfiles/?appid=1066780", "icon" => "steam", "slug" => "steam"],
             ]);
 
             Badge::create(["name" => "Nouveau", "action" => "newuser", "action_count" => 0, "description" => "Bienvenue sur TF France"]);
@@ -928,11 +928,11 @@ class DatabaseSeeder extends Seeder
             }
 
             DB::table('follows')->insert([
-                ["title" => "Twitter", "href" => "https://twitter.com/T_FeverFR", "icon" => "twitter"],
-                ["title" => "Facebook", "href" => "https://www.facebook.com/groups/TransportFeverFR", "icon" => "facebook"],
-                ["title" => "Instagram", "href" => "https://www.instagram.com/transportfeverfrance/?hl=fr", "icon" => "instagram"],
-                ["title" => "Discord", "href" => "https://discord.com/invite/VaSSqzG", "icon" => "discord"],
-                ["title" => "Steam", "href" => "https://steamcommunity.com/profiles/76561199062863693/myworkshopfiles/?appid=1066780", "icon" => "steam"],
+                ["title" => "Twitter", "href" => "https://twitter.com/T_FeverFR", "icon" => "twitter", "slug" => "twitter"],
+                ["title" => "Facebook", "href" => "https://www.facebook.com/groups/TransportFeverFR", "icon" => "facebook", "slug" => "facebook"],
+                ["title" => "Instagram", "href" => "https://www.instagram.com/transportfeverfrance/?hl=fr", "icon" => "instagram", "slug" => "instagram"],
+                ["title" => "Discord", "href" => "https://discord.com/invite/VaSSqzG", "icon" => "discord", "slug" => "discord"],
+                ["title" => "Steam", "href" => "https://steamcommunity.com/profiles/76561199062863693/myworkshopfiles/?appid=1066780", "icon" => "steam", "slug" => "steam"],
             ]);
 
             Badge::create(["name" => "Nouveau", "action" => "newuser", "action_count" => 0, "description" => "Bienvenue sur TF France"]);

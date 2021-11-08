@@ -12,6 +12,7 @@
       <excludeFolder url="file://$MODULE_DIR$/public/account" />
       <excludeFolder url="file://$MODULE_DIR$/public/back" />
       <excludeFolder url="file://$MODULE_DIR$/public/front" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/abraham/twitteroauth" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/arcanedev/log-viewer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/arcanedev/route-viewer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/arcanedev/support" />
@@ -39,6 +40,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dompdf/dompdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dragonmantank/cron-expression" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dymantic/laravel-instagram-feed" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/egulias/email-validator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/elibyy/tcpdf-laravel" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ezyang/htmlpurifier" />
@@ -65,8 +67,11 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/jenssegers/agent" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jorenvanhocht/laravel-share" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/kalnoy/nestedset" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/kylewm/brevity" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel-notification-channels/discord" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel-notification-channels/facebook-poster" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel-notification-channels/onesignal" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel-notification-channels/twitter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/dusk" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/fortify" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/framework" />

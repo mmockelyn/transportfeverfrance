@@ -4,8 +4,69 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c511b6a34e94818477147d9d23dc5023",
+    "content-hash": "5e63643142700b959bff3dc58892b8f0",
     "packages": [
+        {
+            "name": "abraham/twitteroauth",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/abraham/twitteroauth.git",
+                "reference": "5a424e80a1200674451844fbaae8a0098a316a01"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/abraham/twitteroauth/zipball/5a424e80a1200674451844fbaae8a0098a316a01",
+                "reference": "5a424e80a1200674451844fbaae8a0098a316a01",
+                "shasum": ""
+            },
+            "require": {
+                "composer/ca-bundle": "^1.2",
+                "ext-curl": "*",
+                "php": "^7.3 || ^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "php-vcr/php-vcr": "^1",
+                "php-vcr/phpunit-testlistener-vcr": "dev-php-8",
+                "phpmd/phpmd": "^2",
+                "phpunit/phpunit": "^8 || ^9",
+                "squizlabs/php_codesniffer": "^3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Abraham\\TwitterOAuth\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Abraham Williams",
+                    "email": "abraham@abrah.am",
+                    "homepage": "https://abrah.am",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The most popular PHP library for use with the Twitter OAuth REST API.",
+            "homepage": "https://twitteroauth.com",
+            "keywords": [
+                "Twitter API",
+                "Twitter oAuth",
+                "api",
+                "oauth",
+                "rest",
+                "social",
+                "twitter"
+            ],
+            "support": {
+                "issues": "https://github.com/abraham/twitteroauth/issues",
+                "source": "https://github.com/abraham/twitteroauth"
+            },
+            "time": "2021-06-11T02:56:14+00:00"
+        },
         {
             "name": "arcanedev/log-viewer",
             "version": "8.1.0",
@@ -1819,6 +1880,64 @@
             "time": "2020-11-24T19:55:57+00:00"
         },
         {
+            "name": "dymantic/laravel-instagram-feed",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dymantic/laravel-instagram-feed.git",
+                "reference": "2d4844c3de757d606641deaf3fff1677ee943bb6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dymantic/laravel-instagram-feed/zipball/2d4844c3de757d606641deaf3fff1677ee943bb6",
+                "reference": "2d4844c3de757d606641deaf3fff1677ee943bb6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^7.0.1",
+                "illuminate/config": "^7.0 | ^8.0",
+                "illuminate/console": "^7.0 | ^8.0",
+                "illuminate/database": "^7.0 | ^8.0",
+                "illuminate/http": "^7.0 | ^8.0",
+                "illuminate/mail": "^7.0 | ^8.0",
+                "illuminate/support": "^7.0 | ^8.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dymantic\\InstagramFeed\\InstagramFeedServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dymantic\\InstagramFeed\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Joyner",
+                    "email": "joyner.michael@gmail.com"
+                }
+            ],
+            "description": "Fetches the instagram feed for given authenticated profiles",
+            "support": {
+                "issues": "https://github.com/Dymantic/laravel-instagram-feed/issues",
+                "source": "https://github.com/Dymantic/laravel-instagram-feed/tree/v3.0.0"
+            },
+            "time": "2021-10-01T02:06:29+00:00"
+        },
+        {
             "name": "egulias/email-validator",
             "version": "2.1.25",
             "source": {
@@ -3183,6 +3302,46 @@
             "time": "2021-05-28T07:23:48+00:00"
         },
         {
+            "name": "kylewm/brevity",
+            "version": "0.2.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kylewm/brevity-php.git",
+                "reference": "9700a3ca666ff9486bd8bed322d7096ef78b6580"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kylewm/brevity-php/zipball/9700a3ca666ff9486bd8bed322d7096ef78b6580",
+                "reference": "9700a3ca666ff9486bd8bed322d7096ef78b6580",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Kylewm\\Brevity": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC0"
+            ],
+            "authors": [
+                {
+                    "name": "Kyle Mahan",
+                    "email": "kyle+brevityphp@kylewm.com"
+                }
+            ],
+            "description": "A small utility to count characters and shorten posts to tweet-length.",
+            "support": {
+                "issues": "https://github.com/kylewm/brevity-php/issues",
+                "source": "https://github.com/kylewm/brevity-php/tree/master"
+            },
+            "time": "2017-11-25T19:51:26+00:00"
+        },
+        {
             "name": "laravel-notification-channels/discord",
             "version": "1.3.0",
             "source": {
@@ -3249,6 +3408,53 @@
                 "source": "https://github.com/laravel-notification-channels/discord/tree/1.3.0"
             },
             "time": "2020-12-26T22:05:21+00:00"
+        },
+        {
+            "name": "laravel-notification-channels/facebook-poster",
+            "version": "5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-notification-channels/facebook-poster.git",
+                "reference": "325df43c4cf0f01416115bc3a0c521f7b9ef91a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-notification-channels/facebook-poster/zipball/325df43c4cf0f01416115bc3a0c521f7b9ef91a9",
+                "reference": "325df43c4cf0f01416115bc3a0c521f7b9ef91a9",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.2",
+                "illuminate/notifications": "^8.0",
+                "illuminate/support": "^8.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3.3",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "NotificationChannels\\FacebookPoster\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ahmed Ashraf",
+                    "email": "ahmed29329@gmail.com"
+                }
+            ],
+            "description": "Use notification to create posts on Facebook",
+            "support": {
+                "issues": "https://github.com/laravel-notification-channels/facebook-poster/issues",
+                "source": "https://github.com/laravel-notification-channels/facebook-poster/tree/5.0.0"
+            },
+            "time": "2021-01-09T09:44:45+00:00"
         },
         {
             "name": "laravel-notification-channels/onesignal",
@@ -3321,6 +3527,65 @@
                 "source": "https://github.com/laravel-notification-channels/onesignal/tree/v2.3.0"
             },
             "time": "2021-01-05T05:30:27+00:00"
+        },
+        {
+            "name": "laravel-notification-channels/twitter",
+            "version": "v5.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-notification-channels/twitter.git",
+                "reference": "bcab129f7f294b0a192aaefbfde7266a39a6b2ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-notification-channels/twitter/zipball/bcab129f7f294b0a192aaefbfde7266a39a6b2ba",
+                "reference": "bcab129f7f294b0a192aaefbfde7266a39a6b2ba",
+                "shasum": ""
+            },
+            "require": {
+                "abraham/twitteroauth": "^2.0.0",
+                "illuminate/notifications": "^8.0",
+                "illuminate/support": "^8.0",
+                "kylewm/brevity": "^0.2.9",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3.1",
+                "orchestra/testbench": "~6.0",
+                "phpunit/phpunit": "^9.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NotificationChannels\\Twitter\\TwitterServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NotificationChannels\\Twitter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christoph Rumpel",
+                    "email": "c.rumpel@kabsi.at",
+                    "homepage": "https://christoph-rumpel.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This package makes it easy to send notifications via Twitter with Laravel",
+            "homepage": "https://github.com/laravel-notification-channels/twitter",
+            "support": {
+                "issues": "https://github.com/laravel-notification-channels/twitter/issues",
+                "source": "https://github.com/laravel-notification-channels/twitter/tree/v5.1.0"
+            },
+            "time": "2020-12-09T09:49:26+00:00"
         },
         {
             "name": "laravel/fortify",
