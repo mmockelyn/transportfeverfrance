@@ -174,7 +174,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="pages/profile/overview.html">
+                            <a class="menu-link" href="{{ route('back.settings.social.index') }}">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
