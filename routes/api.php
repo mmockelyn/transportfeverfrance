@@ -42,6 +42,10 @@ Route::group(["prefix" => "back"], function () {
             Route::put('/{id}', [\App\Http\Controllers\Api\Back\Settings\PageController::class, 'update']);
             Route::delete('/{id}', [\App\Http\Controllers\Api\Back\Settings\PageController::class, 'delete']);
         });
+
+        Route::group(["prefix" => "social"], function () {
+            Route::post('/posting', [\App\Http\Controllers\Api\Back\Settings\SocialController::class, 'posting']);
+        });
     });
 });
 

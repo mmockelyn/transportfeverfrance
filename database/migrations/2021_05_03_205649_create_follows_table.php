@@ -17,6 +17,7 @@ class CreateFollowsTable extends Migration
             $table->id();
             $table->string('href');
             $table->string('title');
+            $table->string('slug');
             $table->string('icon');
         });
     }
