@@ -14,4 +14,9 @@ class SocialController extends Controller
             "follows" => Follow::all()
         ]);
     }
+
+    public function update(Request $request)
+    {
+        dd($request->all());
+    }
 }

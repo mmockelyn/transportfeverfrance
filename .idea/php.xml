@@ -198,11 +198,27 @@
       <path value="$PROJECT_DIR$/vendor/maxmind/web-service-common" />
       <path value="$PROJECT_DIR$/vendor/beyondcode/laravel-self-diagnosis" />
       <path value="$PROJECT_DIR$/vendor/geerlingguy/ping" />
-      <path value="$PROJECT_DIR$/vendor/laravel-notification-channels/twitter" />
       <path value="$PROJECT_DIR$/vendor/laravel-notification-channels/facebook-poster" />
       <path value="$PROJECT_DIR$/vendor/dymantic/laravel-instagram-feed" />
       <path value="$PROJECT_DIR$/vendor/abraham/twitteroauth" />
-      <path value="$PROJECT_DIR$/vendor/kylewm/brevity" />
+      <path value="$PROJECT_DIR$/vendor/atymic/twitter" />
+      <path value="$PROJECT_DIR$/vendor/league/oauth2-client" />
+      <path value="$PROJECT_DIR$/vendor/ringcentral/psr7" />
+      <path value="$PROJECT_DIR$/vendor/react/stream" />
+      <path value="$PROJECT_DIR$/vendor/react/promise-stream" />
+      <path value="$PROJECT_DIR$/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/vendor/react/socket" />
+      <path value="$PROJECT_DIR$/vendor/react/promise-timer" />
+      <path value="$PROJECT_DIR$/vendor/react/dns" />
+      <path value="$PROJECT_DIR$/vendor/react/cache" />
+      <path value="$PROJECT_DIR$/vendor/react/http" />
+      <path value="$PROJECT_DIR$/vendor/react/event-loop" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/oauth-subscriber" />
+      <path value="$PROJECT_DIR$/vendor/php-di/phpdoc-reader" />
+      <path value="$PROJECT_DIR$/vendor/php-di/php-di" />
+      <path value="$PROJECT_DIR$/vendor/php-di/invoker" />
+      <path value="$PROJECT_DIR$/vendor/evenement/evenement" />
+      <path value="$PROJECT_DIR$/vendor/kamermans/guzzle-oauth2-subscriber" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />

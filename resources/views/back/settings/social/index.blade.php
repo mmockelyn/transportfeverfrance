@@ -33,47 +33,8 @@
 
 @section("content")
     <!--begin::Accordion-->
-    <div class="accordion" id="kt_accordion_1">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="kt_accordion_1_header_1">
-                <button class="accordion-button fs-4 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#kt_accordion_1_body_1" aria-expanded="false" aria-controls="kt_accordion_1_body_1">
-                    Configuration des Réseaux Sociaux
-                </button>
-            </h2>
-            <div id="kt_accordion_1_body_1" class="accordion-collapse collapse" aria-labelledby="kt_accordion_1_header_1" data-bs-parent="#kt_accordion_1">
-                <div class="accordion-body">
-                    <form action="" id="form_edit_social_provider">
-                        @foreach($follows as $follow)
-                            <div class="mb-10">
-                                <label for="exampleFormControlInput1" class="required form-label">{{ $follow->title }}</label>
-                                <div class="input-group mb-5">
-                                <span class="input-group-text" id="basic-addon1">
-                                    <!--begin::Svg Icon | path: icons/duotune/communication/com006.svg-->
-                                    <span class="svg-icon">
-                                        <img src="/back/assets/media/svg/brand-logos/{{ $follow->icon }}.svg" width="24" height="24"/>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                </span>
-                                    <input type="text" class="form-control" name="twitter" value="{{ $follow->href }}" aria-label="twitter" aria-describedby="basic-addon1"/>
-                                </div>
-                            </div>
-                        @endforeach
-
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-success">
-                                <span class="indicator-label">Sauvegarder</span>
-                                <span class="indicator-progress">Veuillez patienter...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                    </span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="card shadow-sm mt-5">
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="/api/back/settings/social/posting" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-header">
                 <h3 class="card-title">Poster une news</h3>
@@ -90,7 +51,7 @@
                 <div class="row">
                     <div class="col-2">
                         <!--begin::Option-->
-                        <input type="checkbox" class="btn-check" name="providers" value="twitter" checked="checked"  id="kt_radio_buttons_2_option_1"/>
+                        <input type="checkbox" class="btn-check" name="providers[]" value="twitter" checked="checked"  id="kt_radio_buttons_2_option_1"/>
                         <label class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center mb-5" for="kt_radio_buttons_2_option_1">
                             <!--begin::Svg Icon | path: icons/duotune/coding/cod001.svg-->
                             <span class="svg-icon svg-icon-4x me-4">
@@ -109,7 +70,7 @@
                     </div>
                     <div class="col-2">
                         <!--begin::Option-->
-                        <input type="checkbox" class="btn-check" name="providers" value="facebook" id="kt_radio_buttons_2_option_3"/>
+                        <input type="checkbox" class="btn-check" name="providers[]" value="facebook" id="kt_radio_buttons_2_option_3"/>
                         <label class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center mb-5" for="kt_radio_buttons_2_option_3">
                             <!--begin::Svg Icon | path: icons/duotune/coding/cod001.svg-->
                             <span class="svg-icon svg-icon-4x me-4">
@@ -128,7 +89,7 @@
                     </div>
                     <div class="col-2">
                         <!--begin::Option-->
-                        <input type="checkbox" class="btn-check" name="providers" value="instagram" id="kt_radio_buttons_2_option_4"/>
+                        <input type="checkbox" class="btn-check" name="providers[]" value="instagram" id="kt_radio_buttons_2_option_4"/>
                         <label class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center mb-5" for="kt_radio_buttons_2_option_4">
                             <!--begin::Svg Icon | path: icons/duotune/coding/cod001.svg-->
                             <span class="svg-icon svg-icon-4x me-4">
@@ -147,7 +108,7 @@
                     </div>
                     <div class="col-2">
                         <!--begin::Option-->
-                        <input type="checkbox" class="btn-check" name="providers" value="discord" id="kt_radio_buttons_2_option_5"/>
+                        <input type="checkbox" class="btn-check" name="providers[]" value="discord" id="kt_radio_buttons_2_option_5"/>
                         <label class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center mb-5" for="kt_radio_buttons_2_option_5">
                             <!--begin::Svg Icon | path: icons/duotune/coding/cod001.svg-->
                             <span class="svg-icon svg-icon-4x me-4">
@@ -164,9 +125,9 @@
                         </label>
                         <!--end::Option-->
                     </div>
-                    <div class="col-2">
+                    <div class="col-2"  >
                         <!--begin::Option-->
-                        <input type="checkbox" class="btn-check" name="providers" value="steam" id="kt_radio_buttons_2_option_6"/>
+                        <input type="checkbox" class="btn-check" name="providers[]" value="steam" id="kt_radio_buttons_2_option_6"/>
                         <label class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center mb-5" for="kt_radio_buttons_2_option_6">
                             <!--begin::Svg Icon | path: icons/duotune/coding/cod001.svg-->
                             <span class="svg-icon svg-icon-4x me-4">
