@@ -41,6 +41,22 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
         });
     });
 
+    Route::group(["prefix" => "accounting"], function () {
+        Route::get('/', [\App\Http\Controllers\Back\Accounting\AccountingController::class, 'dashboard'])->name('back.accounting.dashboard');
+
+        Route::group(["prefix" => "sales"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Accounting\SalesController::class, 'index'])->name('back.accounting.sales.index');
+        });
+
+        Route::group(["prefix" => "purchase"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Accounting\PurchaseController::class, 'index'])->name('back.accounting.purchase.index');
+        });
+
+        Route::group(["prefix" => "finance"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Accounting\FinanceController::class, 'index'])->name('back.accounting.finance.index');
+        });
+    });
+
     Route::group(["prefix" => "settings"], function () {
         Route::group(["prefix" => "site"], function () {
             Route::get('/', [\App\Http\Controllers\Back\Settings\SiteController::class, 'index'])->name('back.settings.site.index');
