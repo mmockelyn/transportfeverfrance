@@ -15,9 +15,9 @@ class AccountingController extends Controller
     public function dashboard()
     {
         return view("back.accounting.dashboard", [
-            "sales" => Sale::query()->limit(5)->orderBy('created_at', 'asc')->get(),
-            "purchases" => Purchase::query()->limit(5)->orderBy('created_at', 'asc')->get(),
-            "banks" => Bank::query()->limit(5)->orderBy('created_at', 'asc')->get(),
+            "sales" => Sale::query()->limit(5)->orderBy('created_at', 'desc')->get(),
+            "purchases" => Purchase::query()->limit(5)->orderBy('created_at', 'desc')->get(),
+            "banks" => Bank::query()->limit(5)->orderBy('created_at', 'desc')->get(),
         ]);
     }
 }

@@ -39,6 +39,8 @@ Route::group(["prefix" => "back"], function () {
         Route::get('/getLastSales', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getLastSales']);
         Route::get('/getLastPurchase', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getLastPurchase']);
         Route::get('/getLastBalance', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getLastBalance']);
+
+        Route::post('/sale', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'addSale']);
     });
 
     Route::group(["prefix" => "settings"], function () {
