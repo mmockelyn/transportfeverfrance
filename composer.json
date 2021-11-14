@@ -35,6 +35,7 @@
         "laravel/tinker": "^2.5",
         "lukeraymonddowning/honey": "^0.3.2",
         "maatwebsite/excel": "^3.1",
+        "paypal/rest-api-sdk-php": "*",
         "predis/predis": "^1.1",
         "snowfire/beautymail": "^1.1",
         "socialiteproviders/discord": "^4.1",

@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Account\UserDeviceToken;
+use App\Models\Accounting\Bank;
+use App\Models\Accounting\Purchase;
+use App\Models\Accounting\Sale;
 use App\Models\Blog\Blog;
 use App\Models\Blog\BlogComment;
 use App\Models\Calendar;
@@ -25,6 +28,7 @@ use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -44,6 +48,34 @@ class DatabaseSeeder extends Seeder
                 "discord_link" => "https://discord.com/invite/VaSSqzG",
                 "steam_link" => "https://steamcommunity.com/profiles/76561199062863693/myworkshopfiles/?appid=1066780",
             ]);
+
+            Sale::factory()->count(rand(5,25))->create();
+
+            $sales = Sale::all();
+            foreach ($sales as $sale) {
+                Bank::query()->create([
+                    "reference" => $sale->reference ? $sale->reference : null,
+                    "designation" => "Incoming: ".$sale->designation,
+                    "amount" => $sale->amount,
+                    "paypal_id" => Str::random(16),
+                    "created_at" => $sale->created_at,
+                    "updated_at" => $sale->updated_at
+                ]);
+            }
+
+            Purchase::factory()->count(rand(5,25))->create();
+
+            $purchases = Purchase::all();
+            foreach ($purchases as $purchase) {
+                Bank::query()->create([
+                    "reference" => $purchase->reference ? $purchase->reference : null,
+                    "designation" => "Outgoing: ".$purchase->designation,
+                    "amount" => "-".$purchase->amount,
+                    "paypal_id" => Str::random(16),
+                    "created_at" => $purchase->created_at,
+                    "updated_at" => $purchase->updated_at
+                ]);
+            }
 
             // \App\Models\User::factory(10)->create();
             User::withoutEvents(function () {

@@ -32,6 +32,15 @@ Route::group(["prefix" => "back"], function () {
         Route::delete('{id}/comments/{comment_id}', [\App\Http\Controllers\Api\Back\Blog\BlogController::class, 'delete']);
     });
 
+    Route::group(["prefix" => "accounting"], function () {
+        Route::get('/getSalesStat', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getSalesStat']);
+        Route::get('/getPurchaseStat', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getPurchaseStat']);
+        Route::get('/getBalance', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getBalance']);
+        Route::get('/getLastSales', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getLastSales']);
+        Route::get('/getLastPurchase', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getLastPurchase']);
+        Route::get('/getLastBalance', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getLastBalance']);
+    });
+
     Route::group(["prefix" => "settings"], function () {
         Route::group(["prefix" => "users"], function () {
             Route::delete('{user_id}', [\App\Http\Controllers\Api\Back\Settings\UserController::class, 'delete']);

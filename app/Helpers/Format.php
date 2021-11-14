@@ -240,20 +240,47 @@ class Format
 
     public static function AdminStateBlog($state, $formated = true)
     {
-        if($formated == true) {
-            switch ($state)
-            {
-                case 0: return '<span class="text-danger">Non Publier</span>'; break;
-                case 1: return '<span class="text-success">Publier</span>'; break;
-                default: return null;
+        if ($formated == true) {
+            switch ($state) {
+                case 0:
+                    return '<span class="text-danger">Non Publier</span>';
+                    break;
+                case 1:
+                    return '<span class="text-success">Publier</span>';
+                    break;
+                default:
+                    return null;
             }
         } else {
-            switch ($state)
-            {
-                case 0: return 'Non Publier'; break;
-                case 1: return 'Publier'; break;
-                default: return null;
+            switch ($state) {
+                case 0:
+                    return 'Non Publier';
+                    break;
+                case 1:
+                    return 'Publier';
+                    break;
+                default:
+                    return null;
             }
+        }
+    }
+
+    public static function number_format($number, $euro = true, $stringColor = false)
+    {
+        if ($euro == true) {
+            if($stringColor == false) {
+                return number_format($number, 2, ',', ' ')." €";
+            } else {
+                if($number < 0) {
+                    return "<span class='text-danger'>".self::number_format($number)."</span>";
+                } elseif($number > 0) {
+                    return "<span class='text-success'>".self::number_format($number)."</span>";
+                } else {
+                    return self::number_format($number);
+                }
+            }
+        } else {
+            return $number;
         }
     }
 }
