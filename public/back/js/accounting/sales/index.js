@@ -31,7 +31,23 @@ $(".createdField").daterangepicker({
     }
 );
 
-let modal = $("#add_sale")
+let modal_add_sale = $("#add_sale")
+let modal_edit_sale = $("#edit_sale")
+
+function getSolde() {
+    let divSaleSoldeYearly = document.querySelector('.saleSoldeYear')
+    let divSaleSoldeMonthly = document.querySelector('.saleSoldeMonthly')
+    let divSaleSoldeDaily = document.querySelector('.saleSoldeDay')
+
+    $.ajax({
+        url: '/api/back/accounting/getSalesAmount',
+        success: data => {
+            divSaleSoldeYearly.innerHTML = data.yearly
+            divSaleSoldeMonthly.innerHTML = data.monthly
+            divSaleSoldeDaily.innerHTML = data.daily
+        }
+    })
+}
 
 $("#formAddSale").on('submit', e => {
     e.preventDefault()
@@ -50,7 +66,7 @@ $("#formAddSale").on('submit', e => {
             btn.removeAttr('data-kt-indicator')
             toastr.success("Vente enregistrer avec succès")
             t.querySelector('tbody').innerHTML += data.content
-            modal.modal('hide')
+            modal_add_sale.modal('hide')
         },
         error: err => {
             btn.removeAttr('data-kt-indicator')
@@ -59,3 +75,12 @@ $("#formAddSale").on('submit', e => {
         }
     })
 })
+
+document.querySelectorAll('.editSale').forEach(btn => {
+    btn.addEventListener('click', e => {
+        e.preventDefault()
+        console.log(btn.dataset.id)
+    })
+})
+
+getSolde()

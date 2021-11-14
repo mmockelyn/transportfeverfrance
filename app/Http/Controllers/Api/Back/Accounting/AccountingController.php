@@ -34,6 +34,15 @@ class AccountingController extends Controller
         return response()->json(["data" => [$janv, $fev, $mars, $avr, $mai, $juin, $jul, $aout, $sept, $oct, $nov, $dec], "sum" => Format::number_format($total)]);
     }
 
+    public function getSalesAmount()
+    {
+        $annual = Sale::query()->whereBetween('created_at', [now()->startOfYear(), now()->endOfYear()])->sum('amount');
+        $monthly = Sale::query()->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->sum('amount');
+        $daily = Sale::query()->whereBetween('created_at', [now()->startOfDay(), now()->endOfDay()])->sum('amount');
+
+        return response()->json(["yearly" => Format::number_format($annual), "monthly" => Format::number_format($monthly), "daily" => Format::number_format($daily)]);
+    }
+
     public function getPurchaseStat()
     {
         $janv = Purchase::query()->whereBetween('created_at', [now()->year . '-01-01', now()->year . '-01-31'])->sum('amount');
@@ -100,7 +109,7 @@ class AccountingController extends Controller
                 ob_start();
                 ?>
                 <tr>
-                    <td><?= $sale->created_at->format("d/m/Y"); ?></td>
+                    <td><?= $sale->created_at->format("Y-m-d"); ?></td>
                     <td>
                         <strong><?= $sale->designation; ?></strong><br>
                         <?php if($sale->reference): ?> <span class="text-muted">Référence: <?= $sale->reference; ?></span> <?php endif; ?>

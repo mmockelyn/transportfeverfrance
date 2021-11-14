@@ -34,6 +34,7 @@ Route::group(["prefix" => "back"], function () {
 
     Route::group(["prefix" => "accounting"], function () {
         Route::get('/getSalesStat', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getSalesStat']);
+        Route::get('/getSalesAmount', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getSalesAmount']);
         Route::get('/getPurchaseStat', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getPurchaseStat']);
         Route::get('/getBalance', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getBalance']);
         Route::get('/getLastSales', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getLastSales']);
