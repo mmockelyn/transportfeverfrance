@@ -75,11 +75,66 @@ $("#formAddSale").on('submit', e => {
         }
     })
 })
+$("#formEditSale").on('submit', e => {
+    e.preventDefault()
+    let form = $("#formEditSale")
+    let id = form.find('.idField').val()
+    let uri = '/api/back/accounting/sale/'+id
+    let btn = form.find('.btn-primary')
+    let data = form.serializeArray()
+
+    btn.attr('data-kt-indicator', 'on')
+
+    $.ajax({
+        url: uri,
+        method: "PUT",
+        data: data,
+        success: data => {
+            btn.removeAttr('data-kt-indicator')
+            btn.prepend('tr').fadeOut()
+            t.querySelector('tbody').innerHTML += data.content
+            modal_edit_sale.modal('hide')
+            toastr.success("Ventes Modifier avec Succès")
+            getSolde()
+        },
+        error: err => {
+            btn.removeAttr('data-kt-indicator')
+            console.error(err)
+        }
+    })
+})
 
 document.querySelectorAll('.editSale').forEach(btn => {
     btn.addEventListener('click', e => {
         e.preventDefault()
         console.log(btn.dataset.id)
+        $.ajax({
+            url: '/api/back/accounting/sale/'+btn.dataset.id,
+            success: data => {
+                modal_edit_sale.find('.modal-title').html('Edition de la vente: '+data.designation)
+                modal_edit_sale.find('.idField').val(data.id)
+                modal_edit_sale.find('.createdField').val(data.created_at)
+                modal_edit_sale.find('.designationField').val(data.designation)
+                modal_edit_sale.find('.referenceField').val(data.reference)
+                modal_edit_sale.find('.amountField').val(data.amount)
+
+                modal_edit_sale.modal('show')
+            }
+        })
+    })
+})
+
+document.querySelectorAll('.delSale').forEach(btn => {
+    btn.addEventListener('click', e => {
+        e.preventDefault()
+        $.ajax({
+            url: '/api/back/accounting/sale/'+btn.dataset.id,
+            success: data => {
+                toastr.success("Vente supprimer avec succès")
+                btn.parentNode.parentNode.parentNode.parentNode.style.display = 'none'
+                getSolde()
+            }
+        })
     })
 })
 

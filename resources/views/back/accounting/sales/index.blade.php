@@ -252,6 +252,7 @@
                 </div>
 
                 <form id="formEditSale" action="" method="post">
+                    <input type="hidden" name="id" class="idField" value="">
                     <div class="modal-body">
                         <div class="mb-10">
                             <label for="exampleFormControlInput1" class="required form-label">Date du mouvement</label>

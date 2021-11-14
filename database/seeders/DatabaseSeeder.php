@@ -59,7 +59,9 @@ class DatabaseSeeder extends Seeder
                     "amount" => $sale->amount,
                     "paypal_id" => Str::random(16),
                     "created_at" => $sale->created_at,
-                    "updated_at" => $sale->updated_at
+                    "updated_at" => $sale->updated_at,
+                    "model_type" => "sale",
+                    "model_id" => $sale->id
                 ]);
             }
 
@@ -73,7 +75,9 @@ class DatabaseSeeder extends Seeder
                     "amount" => "-".$purchase->amount,
                     "paypal_id" => Str::random(16),
                     "created_at" => $purchase->created_at,
-                    "updated_at" => $purchase->updated_at
+                    "updated_at" => $purchase->updated_at,
+                    "model_type" => "purchase",
+                    "model_id" => $purchase->id
                 ]);
             }
 

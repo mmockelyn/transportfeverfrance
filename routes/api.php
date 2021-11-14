@@ -42,6 +42,9 @@ Route::group(["prefix" => "back"], function () {
         Route::get('/getLastBalance', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getLastBalance']);
 
         Route::post('/sale', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'addSale']);
+        Route::get('/sale/{sale_id}', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'getSale']);
+        Route::put('/sale/{sale_id}', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'updateSale']);
+        Route::delete('/sale/{sale_id}', [\App\Http\Controllers\Api\Back\Accounting\AccountingController::class, 'deleteSale']);
     });
 
     Route::group(["prefix" => "settings"], function () {

@@ -19,6 +19,8 @@ class CreateBanksTable extends Migration
             $table->string('designation');
             $table->string('amount');
             $table->string('paypal_id')->nullable();
+            $table->string('model_type')->nullable();
+            $table->integer("model_id")->nullable();
             $table->timestamps();
         });
     }

@@ -103,7 +103,9 @@ class AccountingController extends Controller
                     "reference" => $sale->reference,
                     "designation" => $sale->designation,
                     "amount" => $sale->amount,
-                    "created_at" => $sale->created_at
+                    "created_at" => $sale->created_at,
+                    "model_type" => "sale",
+                    "model_id" => $sale->id
                 ]);
 
                 ob_start();
@@ -151,6 +153,116 @@ class AccountingController extends Controller
                 return response()->json($exception->getMessage(), 500);
             }
         } catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
+            Log::error($exception->getMessage());
+            return response()->json($exception->getMessage(), 500);
+        }
+    }
+
+    public function getSale($sale_id)
+    {
+        $sale = Sale::query()->find($sale_id);
+
+        $array = [
+            "id" => $sale->id,
+            "designation" => $sale->designation,
+            "reference" => $sale->reference,
+            "amount" => $sale->amount,
+            "created_at" => $sale->created_at->format('Y-m-d')
+        ];
+
+        return response()->json($array);
+    }
+
+    public function updateSale(Request $request, $sale_id)
+    {
+        try {
+            $sale = Sale::query()->find($sale_id);
+            $sale->update($request->all());
+
+            try {
+                $bank = Bank::query()->where('model_type', 'sale')
+                    ->where('model_id', $sale_id)
+                    ->first();
+
+                $bank->update($request->all());
+                ob_start();
+                ?>
+                <tr>
+                    <td><?= $sale->created_at->format("Y-m-d"); ?></td>
+                    <td>
+                        <strong><?= $sale->designation; ?></strong><br>
+                        <?php if($sale->reference): ?> <span class="text-muted">Référence: <?= $sale->reference; ?></span> <?php endif; ?>
+                    </td>
+                    <td class="text-end">
+                        <?= \App\Helpers\Format::number_format($sale->amount) ?>
+                    </td>
+                    <td class="text-end">
+                        <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                            <span class="svg-icon svg-icon-5 m-0">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+								</svg>
+							</span>
+                            <!--end::Svg Icon--></a>
+                        <!--begin::Menu-->
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
+                            <!--begin::Menu item-->
+                            <div class="menu-item px-3">
+                                <a href="../../demo1/dist/apps/subscriptions/add.html" class="menu-link px-3 editSale" data-id="<?= $sale->id ?>">Editer</a>
+                            </div>
+                            <!--end::Menu item-->
+                            <!--begin::Menu item-->
+                            <div class="menu-item px-3">
+                                <a href="#" data-kt-subscriptions-table-filter="delete_row" class="menu-link text-danger px-3 delSale" data-id="<? $sale->id ?>">Supprimer</a>
+                            </div>
+                            <!--end::Menu item-->
+                        </div>
+                        <!--end::Menu-->
+                    </td>
+                </tr>
+                <script type="text/javascript">
+                    let modal_edit_sale = $("#edit_sale")
+                    let t = document.getElementById('table_sales')
+                    $("#formEditSale").on('submit', e => {
+                        e.preventDefault()
+                        let form = $("#formEditSale")
+                        let id = form.find('.idField').val()
+                        let uri = '/api/back/accounting/sale/'+id
+                        let btn = form.find('.btn-primary')
+                        let data = form.serializeArray()
+
+                        btn.attr('data-kt-indicator', 'on')
+
+                        $.ajax({
+                            url: uri,
+                            method: "PUT",
+                            data: data,
+                            success: data => {
+                                btn.removeAttr('data-kt-indicator')
+                                btn.prepend('tr').fadeOut()
+                                t.querySelector('tbody').innerHTML += data.content
+                                modal_edit_sale.modal('hide')
+                                toastr.success("Ventes Modifier avec Succès")
+                                getSolde()
+                            },
+                            error: err => {
+                                btn.removeAttr('data-kt-indicator')
+                                console.error(err)
+                            }
+                        })
+                    })
+                </script>
+                <?php
+                LogActivity::addToLog("Edition de la vente <strong>".$sale->designation."</strong> d'un montant de <strong>".Format::number_format($sale->amount)."</strong>");
+                return response()->json(["sale" => $sale, "content" => ob_get_clean()]);
+            }catch (\Exception $exception) {
+                LogActivity::addToLog($exception->getMessage());
+                Log::error($exception->getMessage());
+                return response()->json($exception->getMessage(), 500);
+            }
+        }catch (\Exception $exception) {
             LogActivity::addToLog($exception->getMessage());
             Log::error($exception->getMessage());
             return response()->json($exception->getMessage(), 500);
