@@ -14,6 +14,7 @@ License: For each use you must have a valid license purchased only from above li
     <meta charset="utf-8" />
     <title>TPF France - Administration</title>
     <link rel="shortcut icon" href="/back/assets/media/logos/favicon.ico" />
+    <link rel="manifest" href="/manifest.json">
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -22,6 +23,13 @@ License: For each use you must have a valid license purchased only from above li
     <link href="/back/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.2.2/introjs.min.css" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" type="text/css" />
+    <script>
+        window.addEventListener('load', () => {
+            if("serviceWorker" in navigator) {
+                navigator.serviceWorker.register('/sw.js')
+            }
+        })
+    </script>
     <!--end::Global Stylesheets Bundle-->
     @yield("style")
 </head>

@@ -1,0 +1,17 @@
+{
+    "name": "TPFF Administrator",
+    "icons": [
+        {
+            "src": "/storage/files/shares/core/icons/tf_france_icon_512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "/storage/files/shares/core/icons/tf_france_icon_192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        }
+    ],
+    "start_url": "/backoffice?source=pwa",
+    "display": "standalone"
+}
