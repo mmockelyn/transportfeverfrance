@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(["prefix" => "account", "middleware" => ["web"]], function () {
+Route::group(["prefix" => "account"], function () {
     include("projet.php");
     include("profil.php");
     include("badge.php");

@@ -36,6 +36,7 @@ class ProfilController extends Controller
 
     public function index()
     {
+        $this->getAuthenticated();
         $user = $this->userRepository->getInfoUser(auth()->user()->id);
         $profilPercent = $this->userRepository->getValueCompleteTuto(auth()->user()->id);
 
@@ -46,6 +47,7 @@ class ProfilController extends Controller
 
     public function updateUser(Request $request)
     {
+        $this->getAuthenticated();
         try {
             $user = $this->userRepository->getInfoUser()->update([
                 'name' => $request->name,
@@ -69,6 +71,7 @@ class ProfilController extends Controller
 
     public function updateAvatar(Request $request)
     {
+        $this->getAuthenticated();
         try {
             $uploadedFile = $request->file('profile_avatar');
             $uploadedFile->storeAs('files/shares/avatar/', $uploadedFile->getClientOriginalName(), 'public');
@@ -93,6 +96,7 @@ class ProfilController extends Controller
 
     public function updatePassword(UpdatePasswordRequest $request)
     {
+        $this->getAuthenticated();
 
         $user = $this->userRepository->getInfoUser();
 
@@ -118,6 +122,7 @@ class ProfilController extends Controller
 
     public function deleteAccount(Request $request)
     {
+        $this->getAuthenticated();
         $user = $this->userRepository->getInfoUser();
         if(Hash::check($request->password, $user->password) == true) {
             $job = (new DeleteAccount($user->id))->delay(now()->addDays(5));
@@ -126,7 +131,7 @@ class ProfilController extends Controller
                 "deleted_at" => now()->addDays(5),
                 "deleted_job_id" => $job_id
             ]);
-            
+
             return response()->json();
         } else {
             LogActivity::addToLog("Erreur lors de la suppression du compte");

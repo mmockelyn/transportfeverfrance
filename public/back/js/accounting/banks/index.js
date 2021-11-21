@@ -1,5 +1,5 @@
-let t = document.getElementById('table_sales')
-let e = $("#table_sales").DataTable({
+let t = document.getElementById('table_banks')
+let e = $("#table_banks").DataTable({
     info: !1,
     order: [],
     pageLength: 10,
@@ -31,16 +31,16 @@ $(".createdField").daterangepicker({
     }
 );
 
-let modal_add_sale = $("#add_sale")
-let modal_edit_sale = $("#edit_sale")
+let modal_add_sale = $("#add_bank")
+let modal_edit_sale = $("#edit_bank")
 
 function getSolde() {
-    let divSaleSoldeYearly = document.querySelector('.saleSoldeYear')
-    let divSaleSoldeMonthly = document.querySelector('.saleSoldeMonthly')
-    let divSaleSoldeDaily = document.querySelector('.saleSoldeDay')
+    let divSaleSoldeYearly = document.querySelector('.bankSoldeYear')
+    let divSaleSoldeMonthly = document.querySelector('.bankSoldeMonthly')
+    let divSaleSoldeDaily = document.querySelector('.bankSoldeDay')
 
     $.ajax({
-        url: '/api/back/accounting/getSalesAmount',
+        url: '/api/back/accounting/getBanksAmount',
         success: data => {
             divSaleSoldeYearly.innerHTML = data.yearly
             divSaleSoldeMonthly.innerHTML = data.monthly
@@ -49,10 +49,10 @@ function getSolde() {
     })
 }
 
-$("#formAddSale").on('submit', e => {
+$("#formAddBank").on('submit', e => {
     e.preventDefault()
-    let form = $("#formAddSale")
-    let uri = '/api/back/accounting/sale'
+    let form = $("#formAddBank")
+    let uri = '/api/back/accounting/bank'
     let btn = form.find('.btn-primary')
     let data = form.serializeArray()
 
@@ -64,23 +64,23 @@ $("#formAddSale").on('submit', e => {
         data: data,
         success: data => {
             btn.removeAttr('data-kt-indicator')
-            toastr.success("Vente enregistrer avec succès")
+            toastr.success("Mouvement enregistrer avec succès")
             t.querySelector('tbody').innerHTML += data.content
             modal_add_sale.modal('hide')
             getSolde()
         },
         error: err => {
             btn.removeAttr('data-kt-indicator')
-            toastr.error("Erreur lors de l'ajout de la vente")
+            toastr.error("Erreur lors de l'ajout du mouvement bancaire")
             console.error(err)
         }
     })
 })
-$("#formEditSale").on('submit', e => {
+$("#formEditBank").on('submit', e => {
     e.preventDefault()
-    let form = $("#formEditSale")
+    let form = $("#formEditBank")
     let id = form.find('.idField').val()
-    let uri = '/api/back/accounting/sale/'+id
+    let uri = '/api/back/accounting/bank/'+id
     let btn = form.find('.btn-primary')
     let data = form.serializeArray()
 
@@ -95,7 +95,7 @@ $("#formEditSale").on('submit', e => {
             btn.prepend('tr').fadeOut()
             t.querySelector('tbody').innerHTML += data.content
             modal_edit_sale.modal('hide')
-            toastr.success("Ventes Modifier avec Succès")
+            toastr.success("Mouvement bancaire Modifier avec Succès")
             getSolde()
         },
         error: err => {
@@ -105,19 +105,26 @@ $("#formEditSale").on('submit', e => {
     })
 })
 
-document.querySelectorAll('.editSale').forEach(btn => {
+document.querySelectorAll('.editBank').forEach(btn => {
     btn.addEventListener('click', e => {
         e.preventDefault()
         console.log(btn.dataset.id)
         $.ajax({
-            url: '/api/back/accounting/sale/'+btn.dataset.id,
+            url: '/api/back/accounting/bank/'+btn.dataset.id,
             success: data => {
-                modal_edit_sale.find('.modal-title').html('Edition de la vente: '+data.designation)
+                modal_edit_sale.find('.modal-title').html('Edition du mouvement: '+data.designation)
                 modal_edit_sale.find('.idField').val(data.id)
                 modal_edit_sale.find('.createdField').val(data.created_at)
                 modal_edit_sale.find('.designationField').val(data.designation)
                 modal_edit_sale.find('.referenceField').val(data.reference)
                 modal_edit_sale.find('.amountField').val(data.amount)
+                modal_edit_sale.find('.paypalField').val(data.paypal_id)
+
+                if(data.model_type === 'sale') {
+                    modal_edit_sale.find('.modelTypeSaleField').attr('checked')
+                } else {
+                    modal_edit_sale.find('.modelTypePurchaseField').attr('checked')
+                }
 
                 modal_edit_sale.modal('show')
             }
@@ -125,13 +132,13 @@ document.querySelectorAll('.editSale').forEach(btn => {
     })
 })
 
-document.querySelectorAll('.delSale').forEach(btn => {
+document.querySelectorAll('.delBank').forEach(btn => {
     btn.addEventListener('click', e => {
         e.preventDefault()
         $.ajax({
-            url: '/api/back/accounting/sale/'+btn.dataset.id,
+            url: '/api/back/accounting/bank/'+btn.dataset.id,
             success: data => {
-                toastr.success("Vente supprimer avec succès")
+                toastr.success("Mouvement bancaire supprimer avec succès")
                 btn.parentNode.parentNode.parentNode.parentNode.style.display = 'none'
                 getSolde()
             }

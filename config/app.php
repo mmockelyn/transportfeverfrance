@@ -278,6 +278,7 @@ return [
         'Location' => Stevebauman\Location\Facades\Location::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'LogActivity' => App\Helpers\LogActivity::class,
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
 
     ],
 

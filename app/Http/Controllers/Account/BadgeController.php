@@ -10,10 +10,14 @@ class BadgeController extends Controller
 {
     public function __construct()
     {
+        if(auth()->guest()) {
+            return redirect()->route('login');
+        }
     }
 
     public function index()
     {
+        $this->getAuthenticated();
         $user = auth()->user();
         $badges = Badge::all();
 

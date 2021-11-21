@@ -35,11 +35,15 @@ class PackageController extends Controller
     {
         $this->downloadRepository = $downloadRepository;
         $this->steam = $steam;
+        if(auth()->guest()) {
+            return redirect()->route('login');
+        }
     }
 
 
     public function index()
     {
+        $this->getAuthenticated();
         //dd(auth()->user()->downloads);
         return view('account.package.index');
     }
@@ -47,17 +51,20 @@ class PackageController extends Controller
 
     public function create()
     {
+        $this->getAuthenticated();
         return view('account.package.create');
     }
 
     public function createTffrance()
     {
+        $this->getAuthenticated();
         $categories = DownloadCategory::all();
         return view('account.package.createTffrance', compact('categories'));
     }
 
     public function store(Request $request)
     {
+        $this->getAuthenticated();
         try {
             $download = $this->downloadRepository->createDownload(
                 $request->title,
@@ -113,6 +120,7 @@ class PackageController extends Controller
 
     public function show($packages_id)
     {
+        $this->getAuthenticated();
         $download = Download::find($packages_id);
 
         return view('account.package.show', compact('download'));
@@ -120,6 +128,7 @@ class PackageController extends Controller
 
     public function update_image(Request $request, $package_id)
     {
+        $this->getAuthenticated();
         $name_file = "img".$package_id.'.png';
         $download = Download::find($package_id);
         try {
@@ -140,6 +149,7 @@ class PackageController extends Controller
 
     public function update_info(Request $request, $package_id)
     {
+        $this->getAuthenticated();
         $download = Download::find($package_id);
 
         try {

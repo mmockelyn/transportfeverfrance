@@ -12,8 +12,16 @@ use Illuminate\Support\Facades\App;
 
 class UserDeviceTokenController extends Controller
 {
+    public function __construct()
+    {
+        if(auth()->guest()) {
+            return redirect()->route('login');
+        }
+    }
+
     public function getDeviceToken(Request $request)
     {
+        $this->getAuthenticated();
         $input = $request->only('user_id', 'platform', 'device_token');
         try {
             $deviceToken = UserDeviceToken::whereDeviceToken($input['device_token'])->first();

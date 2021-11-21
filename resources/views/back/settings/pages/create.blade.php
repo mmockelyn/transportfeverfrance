@@ -6,6 +6,7 @@
             height: 350px;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.css">
 @endsection
 
 @section("bread")
@@ -66,8 +67,7 @@
                 </div>
                 <div class="mb-10">
                     <label for="exampleFormControlInput1" class="required form-label">Contenue</label>
-                    <div id="contents"></div>
-                    <input type="hidden" name="over_content" id="over_content">
+                    <textarea id="editor" name="body"></textarea>
                 </div>
             </div>
             <div class="card-footer text-end">
@@ -83,6 +83,6 @@
 @endsection
 
 @section("script")
-    <script src="/back/assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.js"></script>
     <script src="/back/js/settings/pages/create.js"></script>
 @endsection
