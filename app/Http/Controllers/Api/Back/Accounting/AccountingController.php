@@ -52,6 +52,15 @@ class AccountingController extends Controller
         return response()->json(["yearly" => Format::number_format($annual), "monthly" => Format::number_format($monthly), "daily" => Format::number_format($daily)]);
     }
 
+    public function getBankAmount()
+    {
+        $annual = Bank::query()->whereBetween('created_at', [now()->startOfYear(), now()->endOfYear()])->sum('amount');
+        $monthly = Bank::query()->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->sum('amount');
+        $daily = Bank::query()->whereBetween('created_at', [now()->startOfDay(), now()->endOfDay()])->sum('amount');
+
+        return response()->json(["yearly" => Format::number_format($annual), "monthly" => Format::number_format($monthly), "daily" => Format::number_format($daily)]);
+    }
+
     public function getPurchaseStat()
     {
         $janv = Purchase::query()->whereBetween('created_at', [now()->year . '-01-01', now()->year . '-01-31'])->sum('amount');
@@ -113,6 +122,7 @@ class AccountingController extends Controller
                     "designation" => $sale->designation,
                     "amount" => $sale->amount,
                     "created_at" => $sale->created_at,
+                    "paypal_id" => $request->get('paypal_id') ? $request->get('paypal_id') : null,
                     "model_type" => "sale",
                     "model_id" => $sale->id
                 ]);
@@ -199,6 +209,7 @@ class AccountingController extends Controller
                     "designation" => "Incoming: ".$sale->designation,
                     "amount" => "-".$sale->amount,
                     "created_at" => $sale->created_at,
+                    "paypal_id" => $request->get('paypal_id') ? $request->get('paypal_id') : null,
                     "model_type" => "sale",
                     "model_id" => $sale->id
                 ]);
@@ -304,6 +315,7 @@ class AccountingController extends Controller
                     "designation" => "Outgoing: ".$sale->designation,
                     "amount" => "-".$sale->amount,
                     "created_at" => $sale->created_at,
+                    "paypal_id" => $request->get('paypal_id') ? $request->get('paypal_id') : null,
                     "model_type" => "purchase",
                     "model_id" => $sale->id
                 ]);
@@ -390,6 +402,7 @@ class AccountingController extends Controller
                     "designation" => "Outgoing: ".$sale->designation,
                     "amount" => "-".$sale->amount,
                     "created_at" => $sale->created_at,
+                    "paypal_id" => $request->get('paypal_id') ? $request->get('paypal_id') : null,
                     "model_type" => "purchase",
                     "model_id" => $sale->id
                 ]);
@@ -473,6 +486,47 @@ class AccountingController extends Controller
             LogActivity::addToLog($exception->getMessage());
             Log::error($exception->getMessage());
             return response()->json($exception->getMessage(), 500);
+        }
+    }
+
+    //--------------------------------------//
+
+    public function addBank(Request $request)
+    {
+        //dd($request->all());
+        if($request->get('model_type') == 'sale') {
+            $this->addSale($request);
+        } else {
+            $this->addPurchase($request);
+        }
+    }
+
+    public function getBank($bank_id)
+    {
+        $sale = Bank::query()->find($bank_id);
+
+        $array = [
+            "id" => $sale->id,
+            "designation" => $sale->designation,
+            "reference" => $sale->reference,
+            "amount" => $sale->amount,
+            "paypal_id" => $sale->paypal_id,
+            "model_type" => $sale->model_type,
+            "model_id" => $sale->model_id,
+            "created_at" => $sale->created_at->format('Y-m-d')
+        ];
+
+        return response()->json($array);
+    }
+
+    public function updateBank(Request $request, $bank_id)
+    {
+        $bank = Bank::query()->find($bank_id);
+
+        if($request->get('model_type') == 'sale') {
+            $this->updateSale($request, $bank->model_id);
+        } else {
+            $this->updatePurchase($request, $bank->model_id);
         }
     }
 }
