@@ -311,3 +311,22 @@
   width: 768px;
   height: 360px;
 }
+
+
+.btn-insta {
+    color: #ffffff;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+    border-color: #b6b6b6;
+}
+
+.btn-discord {
+    color: #7289DA;
+    background: #e5e5e5;
+    border-color: #b6b6b6;
+}
+
+.btn-steam {
+    color: #7289DA;
+    background: #e5e5e5;
+    border-color: #b6b6b6;
+}

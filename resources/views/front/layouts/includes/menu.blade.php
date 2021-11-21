@@ -58,7 +58,7 @@
     </ul>
     <div class="align-self-center">
         @foreach($follows as $follow)
-            <a href="{{ $follow->href }}" class="btn btn-default btn-icon"><i class="socicon-{{ $follow->icon }} icon-2x"></i> </a>
+            <a href="{{ $follow->href }}" class="btn {{ $follow->color }} btn-icon"><i class="socicon-{{ $follow->icon }} icon-2x"></i> </a>
         @endforeach
             <a href="{{ \App\Helpers\Format::linkToPaypal() }}" class="btn btn-primary"><i class="socicon-paypal icon-2x"></i> Effectuer un don</a>
     </div>

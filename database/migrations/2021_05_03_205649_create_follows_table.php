@@ -19,6 +19,7 @@ class CreateFollowsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('icon');
+            $table->string('color')->nullable();
         });
     }
 
