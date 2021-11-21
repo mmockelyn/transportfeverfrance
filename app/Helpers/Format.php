@@ -283,4 +283,13 @@ class Format
             return $number;
         }
     }
+
+    public static function linkToPaypal()
+    {
+        if(config("paypal.mode") == 'sandbox') {
+            return config('paypal.sandbox.donation_uri');
+        } else {
+            return config('paypal.live.donation_uri');
+        }
+    }
 }

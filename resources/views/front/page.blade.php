@@ -38,13 +38,15 @@
             <div class="card-header">
                 <h3 class="card-title">{{ $page->title }}</h3>
             </div>
-            <div class="card-body">
-                {!! $page->body !!}
-            </div>
+            <div class="card-body" id="contents" data-value="{{ $page->body }}"></div>
         </div>
     </div>
 @endsection
 
 @section("scripts")
-
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script type="text/javascript">
+        document.getElementById('contents').innerHTML =
+            marked.parse(document.getElementById('contents').dataset.value);
+    </script>
 @endsection
