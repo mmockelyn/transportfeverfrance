@@ -14,10 +14,14 @@ class ProjectController extends Controller
 {
     public function __construct()
     {
+        if(auth()->guest()) {
+            return redirect()->route('login');
+        }
     }
 
     public function index()
     {
+        $this->getAuthenticated();
         $user = User::find(auth()->user()->id);
         if ($user->social->project_active_user == 0) {
             return view('account.project.index');
@@ -28,6 +32,7 @@ class ProjectController extends Controller
 
     public function register(Request $request)
     {
+        $this->getAuthenticated();
         $user = User::where('email', $request->get('email'))->first();
         try {
             DB::connection('project')->table('users')->insert([

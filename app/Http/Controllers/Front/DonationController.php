@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Front;
 
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
+use App\Models\Accounting\Sale;
 use Illuminate\Http\Request;
+use Srmklive\PayPal\Facades\PayPal;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class DonationController extends Controller
 {
@@ -22,6 +25,5 @@ class DonationController extends Controller
 
     public function donationNotify(Request $request)
     {
-        dd($request->all());
     }
 }

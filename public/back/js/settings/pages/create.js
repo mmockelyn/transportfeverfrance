@@ -1,16 +1,6 @@
-let quill = new Quill('#contents', {
-    modules: {
-        toolbar: [
-            [{
-                header: [1, 2, 3, 4, false]
-            }],
-            ['bold', 'italic', 'underline', 'align', 'background', "color", "blockquote"],
-            ['image', 'code-block', 'video']
-        ]
-    },
-    placeholder: 'Type your text here...',
-    theme: 'snow' // or 'bubble'
-});
+new SimpleMDE({
+    element: document.getElementById("editor")
+})
 
 $("#form_add_page").on('submit', e => {
     e.preventDefault()
@@ -20,19 +10,12 @@ $("#form_add_page").on('submit', e => {
     let uri = '/api/back/settings/cms/add'
     let data = form.serializeArray()
 
-    let b_contents = $("#contents")
-    let a_contents = $("#over_content")
-
-    a_contents.val(b_contents.find('.ql-editor').html())
-
-    console.log(a_contents.html())
-
     btn.attr('data-kt-indicator', 'on')
 
     $.ajax({
         url: uri,
         method: "POST",
-        data: {"title": document.querySelector('[name="title"]').value, "body": b_contents.find('.ql-editor').html()},
+        data: data,
         success: data => {
             btn.removeAttr('data-kt-indicator')
             toastr.success(`La page <strong>${data.title}</strong> à été ajouter avec succès`)
