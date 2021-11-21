@@ -1,5 +1,5 @@
-let t = document.getElementById('table_sales')
-let e = $("#table_sales").DataTable({
+let t = document.getElementById('table_purchases')
+let e = $("#table_purchases").DataTable({
     info: !1,
     order: [],
     pageLength: 10,
@@ -31,17 +31,18 @@ $(".createdField").daterangepicker({
     }
 );
 
-let modal_add_sale = $("#add_sale")
-let modal_edit_sale = $("#edit_sale")
+let modal_add_sale = $("#add_purchase")
+let modal_edit_sale = $("#edit_purchase")
 
 function getSolde() {
-    let divSaleSoldeYearly = document.querySelector('.saleSoldeYear')
-    let divSaleSoldeMonthly = document.querySelector('.saleSoldeMonthly')
-    let divSaleSoldeDaily = document.querySelector('.saleSoldeDay')
+    let divSaleSoldeYearly = document.querySelector('.purchasesSoldeYear')
+    let divSaleSoldeMonthly = document.querySelector('.purchasesSoldeMonthly')
+    let divSaleSoldeDaily = document.querySelector('.purchasesSoldeDay')
 
     $.ajax({
-        url: '/api/back/accounting/getSalesAmount',
+        url: '/api/back/accounting/getPurchaseAmount',
         success: data => {
+            console.log(data)
             divSaleSoldeYearly.innerHTML = data.yearly
             divSaleSoldeMonthly.innerHTML = data.monthly
             divSaleSoldeDaily.innerHTML = data.daily
@@ -49,10 +50,10 @@ function getSolde() {
     })
 }
 
-$("#formAddSale").on('submit', e => {
+$("#formAddPurchase").on('submit', e => {
     e.preventDefault()
-    let form = $("#formAddSale")
-    let uri = '/api/back/accounting/sale'
+    let form = $("#formAddPurchase")
+    let uri = '/api/back/accounting/purchase'
     let btn = form.find('.btn-primary')
     let data = form.serializeArray()
 
@@ -64,23 +65,23 @@ $("#formAddSale").on('submit', e => {
         data: data,
         success: data => {
             btn.removeAttr('data-kt-indicator')
-            toastr.success("Vente enregistrer avec succès")
+            toastr.success("Achat enregistrer avec succès")
             t.querySelector('tbody').innerHTML += data.content
             modal_add_sale.modal('hide')
             getSolde()
         },
         error: err => {
             btn.removeAttr('data-kt-indicator')
-            toastr.error("Erreur lors de l'ajout de la vente")
+            toastr.error("Erreur lors de l'ajout de l'achat")
             console.error(err)
         }
     })
 })
-$("#formEditSale").on('submit', e => {
+$("#formEditPurchase").on('submit', e => {
     e.preventDefault()
-    let form = $("#formEditSale")
+    let form = $("#formEditPurchase")
     let id = form.find('.idField').val()
-    let uri = '/api/back/accounting/sale/'+id
+    let uri = '/api/back/accounting/purchase/'+id
     let btn = form.find('.btn-primary')
     let data = form.serializeArray()
 
@@ -95,7 +96,7 @@ $("#formEditSale").on('submit', e => {
             btn.prepend('tr').fadeOut()
             t.querySelector('tbody').innerHTML += data.content
             modal_edit_sale.modal('hide')
-            toastr.success("Ventes Modifier avec Succès")
+            toastr.success("Achat Modifier avec Succès")
             getSolde()
         },
         error: err => {
@@ -105,14 +106,14 @@ $("#formEditSale").on('submit', e => {
     })
 })
 
-document.querySelectorAll('.editSale').forEach(btn => {
+document.querySelectorAll('.editPurchase').forEach(btn => {
     btn.addEventListener('click', e => {
         e.preventDefault()
         console.log(btn.dataset.id)
         $.ajax({
-            url: '/api/back/accounting/sale/'+btn.dataset.id,
+            url: '/api/back/accounting/purchase/'+btn.dataset.id,
             success: data => {
-                modal_edit_sale.find('.modal-title').html('Edition de la vente: '+data.designation)
+                modal_edit_sale.find('.modal-title').html('Edition de l\'achat: '+data.designation)
                 modal_edit_sale.find('.idField').val(data.id)
                 modal_edit_sale.find('.createdField').val(data.created_at)
                 modal_edit_sale.find('.designationField').val(data.designation)
@@ -125,13 +126,13 @@ document.querySelectorAll('.editSale').forEach(btn => {
     })
 })
 
-document.querySelectorAll('.delSale').forEach(btn => {
+document.querySelectorAll('.delPurchase').forEach(btn => {
     btn.addEventListener('click', e => {
         e.preventDefault()
         $.ajax({
-            url: '/api/back/accounting/sale/'+btn.dataset.id,
+            url: '/api/back/accounting/purchase/'+btn.dataset.id,
             success: data => {
-                toastr.success("Vente supprimer avec succès")
+                toastr.success("Achat supprimer avec succès")
                 btn.parentNode.parentNode.parentNode.parentNode.style.display = 'none'
                 getSolde()
             }
