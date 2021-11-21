@@ -31,10 +31,14 @@ class MessagerieController extends Controller
     {
         $this->userRepository = $userRepository;
         $this->inbox = $inbox;
+        if(auth()->guest()) {
+            return redirect()->route('login');
+        }
     }
 
     public function index()
     {
+        $this->getAuthenticated();
         $count = $this->inbox->newQuery()->where('from_id', auth()->user()->id)->where('read_at', null)->get()->count();
         $users = $this->userRepository->listingUsersOutActual();
         $inboxes = $this->userRepository->getInfoUser()->load('inboxes');
@@ -44,6 +48,7 @@ class MessagerieController extends Controller
 
     public function sentbox()
     {
+        $this->getAuthenticated();
         $count = $this->inbox->newQuery()->where('from_id', auth()->user()->id)->where('read_at', null)->get()->count();
         $users = $this->userRepository->listingUsersOutActual();
         $sentboxes = $this->inbox->newQuery()->where('from_id', auth()->user()->id)->get();
@@ -53,6 +58,7 @@ class MessagerieController extends Controller
 
     public function show($message_id)
     {
+        $this->getAuthenticated();
         $count = $this->inbox->newQuery()->where('from_id', auth()->user()->id)->where('read_at', null)->get()->count();
         $users = $this->userRepository->listingUsersOutActual();
         $message = $this->inbox->newQuery()->find($message_id);
@@ -68,6 +74,7 @@ class MessagerieController extends Controller
 
     public function sending(Request $request)
     {
+        $this->getAuthenticated();
         try {
             $message = $this->inbox->newQuery()->create([
                 "subject" => $request->subject,
@@ -94,7 +101,7 @@ class MessagerieController extends Controller
 
     public function viewCompose(Request $request, $message_id)
     {
-
+        $this->getAuthenticated();
         try {
             $message = $this->inbox->newQuery()->find($message_id);
             ob_start();
@@ -131,6 +138,7 @@ class MessagerieController extends Controller
 
     public function delete($messagerie_id)
     {
+        $this->getAuthenticated();
         $this->inbox->newQuery()->find($messagerie_id)->delete();
 
         LogActivity::addToLog("Suppression du message ".$messagerie_id);

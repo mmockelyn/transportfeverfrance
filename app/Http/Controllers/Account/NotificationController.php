@@ -12,10 +12,14 @@ class NotificationController extends Controller
 
     public function __construct()
     {
+        if(auth()->guest()) {
+            return redirect()->route('login');
+        }
     }
 
     public function index()
     {
+        $this->getAuthenticated();
         $user = User::find(auth()->user()->id);
         $notifications = $user->notifications;
 
@@ -24,6 +28,7 @@ class NotificationController extends Controller
 
     public function markAllRead()
     {
+        $this->getAuthenticated();
         try {
             $user = User::find(auth()->user()->id);
             $user->unreadNotifications->markAsRead();
@@ -35,6 +40,7 @@ class NotificationController extends Controller
 
     public function allTrash()
     {
+        $this->getAuthenticated();
         try {
             $user = User::find(auth()->user()->id);
             $user->notifications()->delete();
@@ -46,6 +52,7 @@ class NotificationController extends Controller
 
     public function readNotif($notif_id)
     {
+        $this->getAuthenticated();
         $user = User::find(auth()->user()->id);
         $user->notifications()->find($notif_id)->update(["read_at" => now()]);
 
@@ -54,6 +61,7 @@ class NotificationController extends Controller
 
     public function trashNotif($notif_id)
     {
+        $this->getAuthenticated();
         $user = User::find(auth()->user()->id);
         $user->notifications()->find($notif_id)->delete();
 
