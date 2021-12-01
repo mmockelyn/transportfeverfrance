@@ -1,12 +1,13 @@
 function allMarkAsRead() {
-    let btn = KTUtil.getById('btnAllMark')
+    let btn = document.querySelector('#btnAllMark')
     btn.addEventListener('click', (e) => {
         e.preventDefault
-        KTUtil.btnWait(btn, 'spinner spinner-right spinner-white pr-15', 'Veuillez patientez...')
+        btn.setAttribute('data-kt-indicator', 'on')
 
         $.ajax({
             url: '/account/notify/markAllRead',
             success: () => {
+                btn.removeAttribute('data-kt-indicator')
                 window.location.reload()
             },
             error: (err) => {
@@ -18,14 +19,15 @@ function allMarkAsRead() {
 }
 
 function allTrash() {
-    let btn = KTUtil.getById('btnAllTrash')
+    let btn = document.querySelector('#btnAllTrash')
     btn.addEventListener('click', (e) => {
         e.preventDefault
-        KTUtil.btnWait(btn, 'spinner spinner-right spinner-white pr-15', 'Veuillez patientez...')
+        btn.setAttribute('data-kt-indicator', 'on')
 
         $.ajax({
             url: '/account/notify/allTrash',
             success: () => {
+                btn.removeAttribute('data-kt-indicator')
                 window.location.reload()
             },
             error: (err) => {
