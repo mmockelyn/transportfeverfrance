@@ -16,7 +16,7 @@
     <div class="row gy-5 g-xl-8 d-flex align-items-center mt-lg-0 mb-10 mb-lg-15">
         <!--begin::Col-->
         <div class="col-xl-6 d-flex align-items-center">
-            <h1 class="fs-2hx">Bienvenue {{ auth()->user()->name }}</h1>
+            <h1 class="fs-2hx">Mon Profil</h1>
 
         </div>
         <!--end::Col-->
