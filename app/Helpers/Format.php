@@ -92,6 +92,28 @@ class Format
         }
     }
 
+    public static function labelDownloadVersionState($state)
+    {
+        switch ($state)
+        {
+            case 0:
+                return '<span class="label label-light-danger font-weight-bolder label-inline ml-2">Non publier</span>';
+                break;
+
+            case 1:
+                return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">En cours de publication</span>';
+                break;
+
+            case 2:
+                return '<span class="label label-light-success font-weight-bolder label-inline ml-2">Publier</span>';
+                break;
+
+            default:
+                return '<span class="label label-light-default font-weight-bolder label-inline ml-2">Inconnue</span>';
+
+        }
+    }
+
     public static function labelDownloadSupportState($state)
     {
         switch ($state) {
@@ -115,23 +137,11 @@ class Format
     public static function percentProfilComplete($value)
     {
         if ($value <= 33) {
-            return '
-                <div class="progress progress-xs mx-3 w-100">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: ' . $value . '%;" aria-valuenow="' . $value . '" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <span class="font-weight-bolder text-dark">' . round($value, 0) . ' % completer</span>';
+            return '<div class="bg-danger rounded h-5px" role="progressbar" style="width: '.$value.'%;" aria-valuenow="'.$value.'" aria-valuemin="0" aria-valuemax="100"></div>';
         } elseif ($value > 34 && $value <= 66) {
-            return '
-                <div class="progress progress-xs mx-3 w-100">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: ' . $value . '%;" aria-valuenow="' . $value . '" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <span class="font-weight-bolder text-dark">' . round($value, 0) . ' % completer</span>';
+            return '<div class="bg-warning rounded h-5px" role="progressbar" style="width: '.$value.'%;" aria-valuenow="'.$value.'" aria-valuemin="0" aria-valuemax="100"></div>';
         } else {
-            return '
-                <div class="progress progress-xs mx-3 w-100">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: ' . $value . '%;" aria-valuenow="' . $value . '" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <span class="font-weight-bolder text-dark">' . round($value, 0) . ' % completer</span>';
+            return '<div class="bg-success rounded h-5px" role="progressbar" style="width: '.$value.'%;" aria-valuenow="'.$value.'" aria-valuemin="0" aria-valuemax="100"></div>';
         }
     }
 

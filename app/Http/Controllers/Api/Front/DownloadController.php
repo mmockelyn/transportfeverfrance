@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
 use App\Models\Download\DownloadSubCategory;
 use App\Models\Download\DownloadSupport;
@@ -192,5 +193,31 @@ class DownloadController extends Controller
         <?php
 
         return response()->json(["subs" => $subs->subcategories, "category" => $subs, "content" => ob_get_clean()]);
+    }
+
+    public function downloadFeature($download_id)
+    {
+        $download = Download::query()->find($download_id);
+
+        return response()->json($download->feature);
+    }
+
+    public function updateDownloadFeature(Request $request, $download_id)
+    {
+        $download = Download::query()->find($download_id);
+        $download->feature()->update([
+            "type_vehicule" => $request->get('type_vehicule'),
+            "conduite_vehicule" => $request->get('conduite_vehicule'),
+            "vitesse",
+            "performance",
+            "traction",
+            "dispo_start",
+            "dispo_end",
+            "ecartement",
+            "capacity",
+            "pays"
+        ]);
+
+        return response()->json($download->feature);
     }
 }
