@@ -9,6 +9,7 @@ Route::group(['prefix' => "messagerie"], function () {
     Route::get('/', [MessagerieController::class, 'index'])->name('account.messagerie');
     Route::get('/sent', [MessagerieController::class, 'sentbox'])->name('account.messagerieSent');
 
+    Route::get('compose', [MessagerieController::class, 'compose'])->name('account.messagerie.compose');
     Route::post('compose', [MessagerieController::class, 'sending'])->name('account.messagerie.sending');
 
     Route::get('{message_id}', [MessagerieController::class, 'show'])->name('account.messagerie.view');

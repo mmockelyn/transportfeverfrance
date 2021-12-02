@@ -94,8 +94,7 @@ class Format
 
     public static function labelDownloadVersionState($state)
     {
-        switch ($state)
-        {
+        switch ($state) {
             case 0:
                 return '<span class="label label-light-danger font-weight-bolder label-inline ml-2">Non publier</span>';
                 break;
@@ -137,11 +136,11 @@ class Format
     public static function percentProfilComplete($value)
     {
         if ($value <= 33) {
-            return '<div class="bg-danger rounded h-5px" role="progressbar" style="width: '.$value.'%;" aria-valuenow="'.$value.'" aria-valuemin="0" aria-valuemax="100"></div>';
+            return '<div class="bg-danger rounded h-5px" role="progressbar" style="width: ' . $value . '%;" aria-valuenow="' . $value . '" aria-valuemin="0" aria-valuemax="100"></div>';
         } elseif ($value > 34 && $value <= 66) {
-            return '<div class="bg-warning rounded h-5px" role="progressbar" style="width: '.$value.'%;" aria-valuenow="'.$value.'" aria-valuemin="0" aria-valuemax="100"></div>';
+            return '<div class="bg-warning rounded h-5px" role="progressbar" style="width: ' . $value . '%;" aria-valuenow="' . $value . '" aria-valuemin="0" aria-valuemax="100"></div>';
         } else {
-            return '<div class="bg-success rounded h-5px" role="progressbar" style="width: '.$value.'%;" aria-valuenow="'.$value.'" aria-valuemin="0" aria-valuemax="100"></div>';
+            return '<div class="bg-success rounded h-5px" role="progressbar" style="width: ' . $value . '%;" aria-valuenow="' . $value . '" aria-valuemin="0" aria-valuemax="100"></div>';
         }
     }
 
@@ -278,13 +277,13 @@ class Format
     public static function number_format($number, $euro = true, $stringColor = false)
     {
         if ($euro == true) {
-            if($stringColor == false) {
-                return number_format($number, 2, ',', ' ')." €";
+            if ($stringColor == false) {
+                return number_format($number, 2, ',', ' ') . " €";
             } else {
-                if($number < 0) {
-                    return "<span class='text-danger'>".self::number_format($number)."</span>";
-                } elseif($number > 0) {
-                    return "<span class='text-success'>".self::number_format($number)."</span>";
+                if ($number < 0) {
+                    return "<span class='text-danger'>" . self::number_format($number) . "</span>";
+                } elseif ($number > 0) {
+                    return "<span class='text-success'>" . self::number_format($number) . "</span>";
                 } else {
                     return self::number_format($number);
                 }
@@ -296,18 +295,86 @@ class Format
 
     public static function linkToPaypal()
     {
-        if(config("paypal.mode") == 'sandbox') {
+        if (config("paypal.mode") == 'sandbox') {
             return config('paypal.sandbox.donation_uri');
         } else {
             return config('paypal.live.donation_uri');
         }
     }
+
     public static function urlToPaypalActivity($paypal_id)
     {
-        if(config("paypal.mode") == 'sandbox') {
+        if (config("paypal.mode") == 'sandbox') {
             return "https://www.sandbox.paypal.com/activity/payment/{$paypal_id}";
         } else {
             return "https://www.paypal.com/activity/payment/{$paypal_id}";
+        }
+    }
+
+    public static function formatRandomBadge($light = false)
+    {
+        $value = rand(0, 6);
+
+        if ($light == false) {
+            switch ($value) {
+                case 0:
+                    return 'bg-primary';
+                    break;
+
+                case 1:
+                    return 'bg-secondary';
+                    break;
+
+                case 2:
+                    return 'bg-success';
+                    break;
+
+                case 3:
+                    return 'bg-info';
+                    break;
+
+                case 4:
+                    return 'bg-warning';
+                    break;
+
+                case 5:
+                    return 'bg-danger';
+                    break;
+
+                case 6:
+                    return 'bg-dark';
+                    break;
+            }
+        } else {
+            switch ($value) {
+                case 0:
+                    return 'bg-light-primary';
+                    break;
+
+                case 1:
+                    return 'bg-light-secondary';
+                    break;
+
+                case 2:
+                    return 'bg-light-success';
+                    break;
+
+                case 3:
+                    return 'bg-light-info';
+                    break;
+
+                case 4:
+                    return 'bg-light-warning';
+                    break;
+
+                case 5:
+                    return 'bg-light-danger';
+                    break;
+
+                case 6:
+                    return 'bg-light-dark';
+                    break;
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Account\Inbox;
 use App\Notifications\Account\NewMessageFrom;
 use App\Repository\Account\UserRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Nahid\Talk\Facades\Talk;
@@ -34,10 +35,12 @@ class MessagerieController extends Controller
         if(auth()->guest()) {
             return redirect()->route('login');
         }
+
     }
 
     public function index()
     {
+        Carbon::setLocale('fr');
         $this->getAuthenticated();
         $count = $this->inbox->newQuery()->where('from_id', auth()->user()->id)->where('read_at', null)->get()->count();
         $users = $this->userRepository->listingUsersOutActual();
@@ -48,6 +51,7 @@ class MessagerieController extends Controller
 
     public function sentbox()
     {
+        Carbon::setLocale('fr');
         $this->getAuthenticated();
         $count = $this->inbox->newQuery()->where('from_id', auth()->user()->id)->where('read_at', null)->get()->count();
         $users = $this->userRepository->listingUsersOutActual();
@@ -58,10 +62,15 @@ class MessagerieController extends Controller
 
     public function show($message_id)
     {
+        Carbon::setLocale('fr');
         $this->getAuthenticated();
         $count = $this->inbox->newQuery()->where('from_id', auth()->user()->id)->where('read_at', null)->get()->count();
         $users = $this->userRepository->listingUsersOutActual();
         $message = $this->inbox->newQuery()->find($message_id);
+        $next = $this->inbox->next($message_id);
+        $previous = $this->inbox->previous($message_id);
+
+        //dd($next, $previous);
 
         if ($message->read_at == null) {
             $message->update([
@@ -69,7 +78,7 @@ class MessagerieController extends Controller
             ]);
         }
 
-        return view('account.messagerieView', compact('message', 'users', 'count'));
+        return view('account.messagerieView', compact('message', 'users', 'count', 'next', 'previous'));
     }
 
     public function sending(Request $request)
