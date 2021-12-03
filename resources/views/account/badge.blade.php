@@ -108,7 +108,7 @@
             <div class="card-body">
                 <div class="row">
                     @foreach($badges as $badge)
-                    <div class="col-3 text-center mb-8">
+                    <div class="col-md-3 col-sm-4 text-center mb-8">
                         <div class="symbol symbol-150 symbol-circle">
                             @if($badge->isUnlockedFor($user) == true)
                             <img alt="Pic" src="/storage/files/shares/badges/{{ $badge->action }}{{ ($badge->action_count != 0) ? "-".$badge->action_count : null }}.png"/>

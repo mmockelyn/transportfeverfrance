@@ -263,7 +263,7 @@
     <div class="tab-content">
         <div class="tab-pane fade show active" id="overview" role="tabpanel">
             <div class="row">
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <div class="card shadow-sm">
                         <div class="card-header">
                             <h3 class="card-title">Derniers Packages</h3>
@@ -328,7 +328,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <div class="card shadow-sm">
                         <div class="card-header">
                             <h3 class="card-title">Derniers Commentaires (Téléchargement)</h3>
@@ -414,7 +414,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <div class="card shadow-sm">
                         <div class="card-header">
                             <h3 class="card-title">Derniers Commentaires (Blog)</h3>
@@ -504,7 +504,7 @@
         </div>
         <div class="tab-pane fade" id="configuration" role="tabpanel">
             <div class="row">
-                <div class="col-9">
+                <div class="col-md-9 col-sm-12">
                     <div class="card shadow-sm">
                         <div class="card-header">
                             <h3 class="card-title">Editer mes informations</h3>
@@ -535,7 +535,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-sm-12">
                     <div class="card shadow-sm">
                         <div class="card-header">
                             <h3 class="card-title">Editer mon avatar</h3>
@@ -604,7 +604,7 @@
         </div>
         <div class="tab-pane fade" id="security" role="tabpanel">
             <div class="row">
-                <div class="col-9">
+                <div class="col-md-9 col-sm-12">
                     <div class="card shadow-sm mb-10">
                         <div class="card-header collapsible cursor-pointer rotate" data-bs-toggle="collapse" data-bs-target="#block_change_password">
                             <h3 class="card-title">Changer mon mot de passe</h3>
@@ -799,7 +799,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-sm-12">
                     <div class="card shadow-sm">
                         <div class="card-header">
                             <h3 class="card-title">Etat de la sécurité de votre compte</h3>
@@ -834,7 +834,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-md-3 col-sm-12">
                             <!--begin::Card-->
                             <div class="card card-custom gutter-b card-stretch">
                                 <!--begin::Body-->
@@ -875,7 +875,7 @@
                             </div>
                             <!--end::Card-->
                         </div>
-                        <div class="col-3">
+                        <div class="col-md-3 col-sm-12">
                             <!--begin::Card-->
                             <div class="card card-custom gutter-b card-stretch">
                                 <!--begin::Body-->
@@ -916,7 +916,7 @@
                             </div>
                             <!--end::Card-->
                         </div>
-                        <div class="col-3">
+                        <div class="col-md-3 col-sm-12">
                             <!--begin::Card-->
                             <div class="card card-custom gutter-b card-stretch">
                                 <!--begin::Body-->
@@ -957,7 +957,7 @@
                             </div>
                             <!--end::Card-->
                         </div>
-                        <div class="col-3">
+                        <div class="col-md-3 col-sm-12">
                             <!--begin::Card-->
                             <div class="card card-custom gutter-b card-stretch">
                                 <!--begin::Body-->
@@ -998,7 +998,7 @@
                             </div>
                             <!--end::Card-->
                         </div>
-                        <div class="col-3">
+                        <div class="col-md-3 col-sm-12">
                             <!--begin::Card-->
                             <div class="card card-custom gutter-b card-stretch">
                                 <!--begin::Body-->
