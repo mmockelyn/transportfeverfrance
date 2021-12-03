@@ -730,6 +730,20 @@ License: For each use you must have a valid license purchased only from above li
 			</span>
     <!--end::Svg Icon-->
 </div>
+
+<div class="position-fixed top-0 end-0 p-3 z-index-3">
+    <div id="toastElement" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <span class="svg-icon svg-icon-2 svg-icon-primary me-3">...</span>
+            <strong class="me-auto">Keenthemes</strong>
+            <small id="small">11 mins ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Hello, world! This is a toast message.
+        </div>
+    </div>
+</div>
 <!--end::Scrolltop-->
 <!--end::Main-->
 <script>var hostUrl = "assets/";</script>
@@ -737,6 +751,7 @@ License: For each use you must have a valid license purchased only from above li
 <!--begin::Global Javascript Bundle(used by all pages)-->
 <script src="/account/assets/plugins/global/plugins.bundle.js"></script>
 <script src="/account/assets/js/scripts.bundle.js"></script>
+<script src="/account/js/app.js"></script>
 <!--end::Global Javascript Bundle-->
 <!--begin::Page Vendors Javascript(used by this page)-->
 @yield("script")
