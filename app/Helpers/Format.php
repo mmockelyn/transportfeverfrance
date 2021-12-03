@@ -39,25 +39,42 @@ class Format
         switch ($provider) {
             case 1:
                 return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Steam">
-                            <img alt="Pic" src="storage/files/shares/core/icons/steam_icon.png"/>
+                            <img alt="Pic" src="/storage/files/shares/core/icons/steam_icon.png"/>
                         </div>';
                 break;
             case 2:
                 return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Transport Fever net">
-                            <img alt="Pic" src="storage/files/shares/core/icons/tf_net_icon.png"/>
+                            <img alt="Pic" src="/storage/files/shares/core/icons/tf_net_icon.png"/>
                         </div>';
                 break;
 
             case 3:
                 return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="TF France">
-                            <img alt="Pic" src="storage/files/shares/core/icons/tf_france_icon.png"/>
+                            <img alt="Pic" src="/storage/files/shares/core/icons/tf_france_icon.png"/>
                         </div>';
                 break;
 
             default:
                 return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Aucun">
-                            <img alt="Pic" src="storage/files/shares/core/icons/null_icon.png"/>
+                            <img alt="Pic" src="/storage/files/shares/core/icons/null_icon.png"/>
                         </div>';
+                break;
+        }
+    }
+
+    public static function DownloadState($state)
+    {
+        switch ($state) {
+            case 0:
+                return "<span class='badge badge-danger'>Non Publier</span>";
+                break;
+
+            case 1:
+                return "<span class='badge badge-success'>Publier</span>";
+                break;
+
+            default:
+                return "<span class='badge badge-default'>Inconnue</span>";
                 break;
         }
     }
