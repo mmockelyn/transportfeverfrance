@@ -164,6 +164,13 @@ class PackageController extends Controller
         $this->getAuthenticated();
         $download = Download::find($package_id);
 
+        if($download->active == 1) {
+            return response()->json([
+                "code" => "W202",
+                "message" => "Le mod est actuellement publier et ne peut pas être modifier.<br>Pour modifier le mod, veuillez le dépublier."
+            ], 200);
+        }
+
         try {
             $download->update([
                 "title" => $request->title,
@@ -175,12 +182,16 @@ class PackageController extends Controller
             ]);
 
             LogActivity::addToLog("Information du mod $download->title mis à jours");
-            toastr()->success("Information du mod mis à jour", "OK");
-            return redirect()->back();
+            return response()->json([
+                "message" => "Le mod $download->title à été mis à jours"
+            ]);
         }catch (\Exception $exception) {
             LogActivity::addToLog($exception->getMessage());
-            toastr()->error("Erreur lors du traitement de votre package", "Erreur Système");
-            return redirect()->back();
+            return response()->json([
+                "message" => "Impossible de mettre à jours le mod",
+                "error" => $exception->getMessage(),
+                "trace" => $exception->getTrace()
+            ]);
         }
     }
 }

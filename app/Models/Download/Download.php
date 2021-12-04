@@ -6,10 +6,11 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use NotificationChannels\WebPush\HasPushSubscriptions;
 
 class Download extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasPushSubscriptions;
     protected $guarded = [];
 
     public function category()
@@ -57,5 +58,10 @@ class Download extends Model
         return $this->comments()->whereHas('user', function ($query) {
             $query->whereValid(true);
         });
+    }
+
+    public function routeNotificationForDiscord()
+    {
+        return $this->discord_channel;
     }
 }

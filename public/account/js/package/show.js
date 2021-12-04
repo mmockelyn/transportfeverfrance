@@ -141,3 +141,56 @@ $("#short_content").maxlength({
     warningClass: "badge badge-primary",
     limitReachedClass: "badge badge-success"
 })
+
+$("#formUpdateModInfo").on('submit', (e) => {
+    e.preventDefault()
+    let form = $("#formUpdateModInfo")
+    let uri = form.attr('action')
+    let btn = document.querySelector('.btn-success')
+    let data = form.serializeArray()
+
+    btn.setAttribute('data-kt-indicator', 'on')
+
+    $.ajax({
+        url: uri,
+        method: "PUT",
+        data: data,
+        success: data => {
+            btn.removeAttribute('data-kt-indicator')
+            if (data.code == 'W202') {
+                getToast('warning', time, data)
+                KTUtil.scrollTop()
+            } else {
+                getToast('success', time, data)
+                KTUtil.scrollTop()
+            }
+            getToast('success', time, data)
+            KTUtil.scrollTop()
+        },
+        error: data => {
+            btn.removeAttribute('data-kt-indicator')
+            getToast('error', time, data)
+            KTUtil.scrollTop()
+        }
+    })
+})
+
+document.querySelectorAll('.publish').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        btn.setAttribute('data-kt-indicator', 'on')
+
+        $.ajax({
+            url: `/api/download/${btn.dataset.download}/publish`,
+            success: data => {
+                btn.removeAttribute('data-kt-indicator')
+                getToast('success', time, data.message)
+            },
+            error: data => {
+                btn.removeAttribute('data-kt-indicator')
+                getToast('success', time, data.message)
+            }
+        })
+    })
+})

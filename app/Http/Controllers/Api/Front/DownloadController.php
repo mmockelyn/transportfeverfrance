@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers\Api\Front;
 
+use App\Helpers\DiscordNotification;
+use App\Helpers\LogActivity;
+use App\Helpers\TwitterNotification;
 use App\Http\Controllers\Controller;
 use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
 use App\Models\Download\DownloadSubCategory;
 use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadSupportRoom;
+use App\Notifications\Account\Package\publishModNotification;
 use App\Repository\Download\DownloadRepository;
+use Atymic\Twitter\Facade\Twitter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -35,6 +40,8 @@ class DownloadController extends Controller
      */
     private DownloadSubCategory $downloadSubCategory;
 
+    private DiscordNotification $discordNotification;
+
     /**
      * DownloadController constructor.
      * @param DownloadRepository $downloadRepository
@@ -42,14 +49,20 @@ class DownloadController extends Controller
      * @param DownloadSupportRoom $downloadSupportRoom
      * @param DownloadCategory $downloadCategory
      * @param DownloadSubCategory $downloadSubCategory
+     * @param DiscordNotification $discordNotification
      */
-    public function __construct(DownloadRepository $downloadRepository, DownloadSupport $downloadSupport, DownloadSupportRoom $downloadSupportRoom, DownloadCategory $downloadCategory, DownloadSubCategory $downloadSubCategory)
+    public function __construct(DownloadRepository $downloadRepository,
+                                DownloadSupport $downloadSupport,
+                                DownloadSupportRoom $downloadSupportRoom,
+                                DownloadCategory $downloadCategory,
+                                DownloadSubCategory $downloadSubCategory, DiscordNotification $discordNotification)
     {
         $this->downloadRepository = $downloadRepository;
         $this->downloadSupport = $downloadSupport;
         $this->downloadSupportRoom = $downloadSupportRoom;
         $this->downloadCategory = $downloadCategory;
         $this->downloadSubCategory = $downloadSubCategory;
+        $this->discordNotification = $discordNotification;
     }
 
     public function getInfoTicket($slug, $ticket_id)
@@ -219,5 +232,36 @@ class DownloadController extends Controller
         ]);
 
         return response()->json($download->feature);
+    }
+
+    public function publishMod($download_id)
+    {
+        $download = Download::query()->find($download_id);
+
+        try {
+            $download->update([
+                "active" => 1
+            ]);
+
+            $download->notify(new publishModNotification($download));
+            $this->discordNotification->notify(
+                "Le mod $download->title à été publier: ".route('front.download.show', $download->slug),
+                $download->title,
+                "Le mod <strong>".$download->title."</strong> à été publier sur le site transport fever france");
+            TwitterNotification::notification("Le mod {$download->title} à été publier ".route('front.download.show', $download->slug),'files/shares/download/'.$download->image);
+
+            LogActivity::addToLog("Publication du mod: {$download->title}");
+
+            return response()->json([
+                "message" => "Votre mod à été publier avec succès"
+            ]);
+        }catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
+            return response()->json([
+                "message" => "Impossible de mettre à jours le mod",
+                "error" => $exception->getMessage(),
+                "trace" => $exception->getTrace()
+            ]);
+        }
     }
 }
