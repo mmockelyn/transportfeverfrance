@@ -169,23 +169,42 @@ class Format
         }
     }
 
-    public static function labelDownloadSupportState($state)
+    public static function labelDownloadSupportState($state, $back = false)
     {
-        switch ($state) {
-            case 0:
-                return '<span class="label label-success font-weight-bolder label-inline ml-2">Ouvert</span>';
-                break;
-            case 1:
-                return '<span class="label label-info font-weight-bolder label-inline ml-2">En attente de l\'auteur</span>';
-                break;
-            case 2:
-                return '<span class="label label-info font-weight-bolder label-inline ml-2">En attente de l\'utilisateur</span>';
-                break;
-            case 3:
-                return '<span class="label label-danger font-weight-bolder label-inline ml-2">Terminer</span>';
-                break;
-            default:
-                return null;
+        if($back == false) {
+            switch ($state) {
+                case 0:
+                    return '<span class="label label-success font-weight-bolder label-inline ml-2">Ouvert</span>';
+                    break;
+                case 1:
+                    return '<span class="label label-info font-weight-bolder label-inline ml-2">En attente de l\'auteur</span>';
+                    break;
+                case 2:
+                    return '<span class="label label-info font-weight-bolder label-inline ml-2">En attente de l\'utilisateur</span>';
+                    break;
+                case 3:
+                    return '<span class="label label-danger font-weight-bolder label-inline ml-2">Terminer</span>';
+                    break;
+                default:
+                    return null;
+            }
+        } else {
+            switch ($state) {
+                case 0:
+                    return '<span class="badge badge-success font-weight-bolder label-inline ml-2">Ouvert</span>';
+                    break;
+                case 1:
+                    return '<span class="badge badge-info font-weight-bolder label-inline ml-2">En attente de l\'auteur</span>';
+                    break;
+                case 2:
+                    return '<span class="badge badge-info font-weight-bolder label-inline ml-2">En attente de l\'utilisateur</span>';
+                    break;
+                case 3:
+                    return '<span class="badge badge-danger font-weight-bolder label-inline ml-2">Terminer</span>';
+                    break;
+                default:
+                    return null;
+            }
         }
     }
 

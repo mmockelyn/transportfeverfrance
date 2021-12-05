@@ -4,11 +4,10 @@
 @endsection
 
 @section("content")
-    #
     <div class="row gy-5 g-xl-8 d-flex align-items-center mt-lg-0 mb-10 mb-lg-15">
         <!--begin::Col-->
         <div class="col-xl-6 d-flex align-items-center">
-            <h1 class="fs-2hx">Mes Projets</h1>
+            <h1 class="fs-2hx">Mes Packages</h1>
 
         </div>
         <!--end::Col-->
@@ -64,7 +63,7 @@
 					</span>
                     <!--end::Svg Icon-->
                 </a>
-                <a href="{{ route('account.packages') }}" class="btn btn-icon btn-outline btn-nav h-50px w-50px h-lg-70px w-lg-70px ms-2" data-bs-toggle="tooltip" title="Mes Packages">
+                <a href="{{ route('account.packages') }}" class="btn btn-icon btn-outline btn-nav active h-50px w-50px h-lg-70px w-lg-70px ms-2" data-bs-toggle="tooltip" title="Mes Packages">
                     <!--begin::Svg Icon | path: icons/duotune/abstract/abs036.svg-->
                     <span class="svg-icon svg-icon-1 svg-icon-lg-2hx">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -74,7 +73,7 @@
 					</span>
                     <!--end::Svg Icon-->
                 </a>
-                <a href="{{ route('account.project') }}" class="btn btn-icon btn-outline btn-nav active h-50px w-50px h-lg-70px w-lg-70px ms-2" data-bs-toggle="tooltip" title="Mes Projets">
+                <a href="{{ route('account.project') }}" class="btn btn-icon btn-outline btn-nav h-50px w-50px h-lg-70px w-lg-70px ms-2" data-bs-toggle="tooltip" title="Mes Projets">
                     <!--begin::Svg Icon | path: icons/duotune/abstract/abs036.svg-->
                     <span class="svg-icon svg-icon-1 svg-icon-lg-2hx">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -127,105 +126,173 @@
         </div>
         <!--end::Alert-->
     @endif
-
-    @if(auth()->user()->social->project_active_user == 0)
-        <!--begin::Alert-->
-        <div class="alert alert-dismissible bg-light-warning d-flex flex-center flex-column py-10 px-10 px-lg-20 mb-10">
-            <!--begin::Close-->
-            <button type="button" class="position-absolute top-0 end-0 m-2 btn btn-icon btn-icon-warning" data-bs-dismiss="alert">
-                <span class="svg-icon svg-icon-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="black"/>
-                        <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="black"/>
-                    </svg>
-                </span>
-            </button>
-            <!--end::Close-->
-
-            <!--begin::Icon-->
-            <span class="svg-icon svg-icon-5tx svg-icon-warning mb-5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="black"/>
-                    <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="black"/>
-                    <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="black"/>
-                </svg>
-            </span>
-            <!--end::Icon-->
-
-            <!--begin::Wrapper-->
-            <div class="text-center">
-                <!--begin::Title-->
-                <h1 class="fw-bolder mb-5">Information</h1>
-                <!--end::Title-->
-
-                <!--begin::Separator-->
-                <div class="separator separator-dashed border-danger opacity-25 mb-5"></div>
-                <!--end::Separator-->
-
-                <!--begin::Content-->
-                <div class="mb-9 text-dark">
-                    Votre compte n'est actuellement pas lié au gestionnaire de projet, cliquez sur <strong>Lié mon compte</strong> pour lié votre compte TPF France au gestionnaire de projet
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h3 class="card-title">Information</h3>
+                    <div class="card-toolbar">
+                        <button type="button" class="btn btn-sm btn-danger" data-download="{{ $ticket->download_id }}" data-ticket="{{ $ticket->id }}">
+                            <span class="indicator-label">
+                                Cloturer le ticket
+                            </span>
+                            <span class="indicator-progress">
+                                Veuillez Patienter... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                    </div>
                 </div>
-                <!--end::Content-->
-
-                <!--begin::Buttons-->
-                <div class="d-flex flex-center flex-wrap">
-                    <button class="btn btn-warning m-2" data-email="{{ auth()->user()->email }}">
-                        <span class="indicator-label">
-                            Lié mon compte
-                        </span>
-                        <span class="indicator-progress">
-                            Veuillez Patienter... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                        </span>
-                    </button>
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-8 px-5">
+                        <!--begin::Description-->
+                        <div class="flex-grow-1">
+                            <a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">Numéro du ticket</a>
+                        </div>
+                        <!--end::Description-->
+                        TCK-MOD{{ $ticket->download->id }}-{{ $ticket->id }}
+                    </div>
+                    <div class="d-flex align-items-center mb-8 px-5">
+                        <!--begin::Description-->
+                        <div class="flex-grow-1">
+                            <a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">Etat du ticket</a>
+                        </div>
+                        <!--end::Description-->
+                        {!! \App\Helpers\Format::labelDownloadSupportState($ticket->state, true) !!}
+                    </div>
                 </div>
-                <!--end::Buttons-->
             </div>
-            <!--end::Wrapper-->
         </div>
-        <!--end::Alert-->
-    @endif
-
-    <div class="card shadow-sm">
-        <div class="card-header">
-            <h3 class="card-title">Liste de mes projets</h3>
-        </div>
-        <div class="card-body">
-            <table class="table table-bordered fs-6" id="list_account_project">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th class="text-center">Icone</th>
-                        <th>Titre du projet</th>
-                        <th>Publication</th>
-                        <th>Etat</th>
-                        <th class="text-end"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($projects as $project)
-                    <tr>
-                        <td>{{ $project['projects']->id }}</td>
-                        <td class="text-center">
-                            <div class="symbol symbol-50px">
-                                <div class="symbol-label fs-2 fw-bold text-success">{{ \Illuminate\Support\Str::limit($project['projects']->title, 1, '') }}</div>
+        <div class="col-md-8 col-sm-12">
+            <div class="card" id="kt_chat_messenger">
+                <!--begin::Card header-->
+                <div class="card-header" id="kt_chat_messenger_header">
+                    <!--begin::Title-->
+                    <div class="card-title">
+                        <!--begin::User-->
+                        <div class="d-flex justify-content-center flex-column me-3">
+                            <a href="#" class="fs-4 fw-bolder text-gray-900 text-hover-primary me-1 mb-2 lh-1">{{ $ticket->subject }}</a>
+                            <!--begin::Info-->
+                            <div class="mb-0 lh-1">
+                                {!! \App\Helpers\Format::labelDownloadSupportState($ticket->state, true) !!}
                             </div>
-                        </td>
-                        <td>{{ $project['projects']->title }}</td>
-                        <td>{!! \App\Helpers\ProjectHelper::badgeProjectPublished($project['projects']->published) !!}</td>
-                        <td>{!! \App\Helpers\ProjectHelper::badgeProjectState($project['projects']->state) !!}</td>
-                        <td>
-                            <a href="{{ config('app.url_project') }}/project/{{ $project['projects']->id }}" class="btn btn-icon btn-sm btn-secondary" data-bs-toggle="tooltip" title="Voir le projet"><i class="fas fa-eye"></i> </a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            <!--end::Info-->
+                        </div>
+                        <!--end::User-->
+                    </div>
+                    <!--end::Title-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body" id="kt_chat_messenger_body">
+                    <!--begin::Messages-->
+                    <div class="scroll-y me-n5 pe-5 h-300px h-lg-auto" data-kt-element="messages" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_header, #kt_toolbar, #kt_footer, #kt_chat_messenger_header, #kt_chat_messenger_footer" data-kt-scroll-wrappers="#kt_content, #kt_chat_messenger_body" data-kt-scroll-offset="5px" style="max-height: 374px;">
+                        @foreach($ticket->rooms as $room)
+                            @if($room->user_id)
+                                <!--begin::Message(out)-->
+                                <div class="d-flex justify-content-end mb-10">
+                                    <!--begin::Wrapper-->
+                                    <div class="d-flex flex-column align-items-end">
+                                        <!--begin::User-->
+                                        <div class="d-flex align-items-center mb-2">
+                                            <!--begin::Details-->
+                                            <div class="me-3">
+                                                <span class="text-muted fs-7 mb-1">
+                                                    @if($room->created_at >= now()->subDay() && $room->created_at <= now())
+                                                        {{ $room->created_at->longAbsoluteDiffForHumans() }}
+                                                    @else
+                                                        {{ $room->created_at->format("d/m/Y à H:i") }}
+                                                    @endif
+                                                </span>
+                                                <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">Vous</a>
+                                            </div>
+                                            <!--end::Details-->
+                                            <!--begin::Avatar-->
+                                            <div class="symbol symbol-35px symbol-circle">
+                                                @if($room->user->image)
+                                                <img alt="Pic" src="/storage/files/shares/avatar/{{ $room->user->image }}">
+                                                @else
+                                                    <img alt="Pic" src="/storage/files/shares/avatar/placeholder.png">
+                                                @endif
+                                            </div>
+                                            <!--end::Avatar-->
+                                        </div>
+                                        <!--end::User-->
+                                        <!--begin::Text-->
+                                        <div class="p-5 rounded bg-light-primary text-dark fw-bold mw-lg-400px text-end" data-kt-element="message-text">
+                                            {!! $room->message !!}
+                                        </div>
+                                        <!--end::Text-->
+                                    </div>
+                                    <!--end::Wrapper-->
+                                </div>
+                                <!--end::Message(out)-->
+                            @else
+                                <!--begin::Message(in)-->
+                                <div class="d-flex justify-content-start mb-10">
+                                        <!--begin::Wrapper-->
+                                        <div class="d-flex flex-column align-items-start">
+                                            <!--begin::User-->
+                                            <div class="d-flex align-items-center mb-2">
+                                                <!--begin::Avatar-->
+                                                <div class="symbol symbol-35px symbol-circle">
+                                                    @if($room->author->image)
+                                                        <img alt="Pic" src="/storage/files/shares/avatar/{{ $room->author->image }}">
+                                                    @else
+                                                        <img alt="Pic" src="/storage/files/shares/avatar/placeholder.png">
+                                                    @endif
+                                                </div>
+                                                <!--end::Avatar-->
+                                                <!--begin::Details-->
+                                                <div class="ms-3">
+                                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">{{ $room->author->name }}</a>
+                                                    <span class="text-muted fs-7 mb-1">
+                                                        @if($room->created_at >= now()->subDay() && $room->created_at <= now())
+                                                            {{ $room->created_at->longAbsoluteDiffForHumans() }}
+                                                        @else
+                                                            {{ $room->created_at->format("d/m/Y à H:i") }}
+                                                        @endif
+                                                    </span>
+                                                </div>
+                                                <!--end::Details-->
+                                            </div>
+                                            <!--end::User-->
+                                            <!--begin::Text-->
+                                            <div class="p-5 rounded bg-light-info text-dark fw-bold mw-lg-400px text-start" data-kt-element="message-text">{!! $room->message !!}</div>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Wrapper-->
+                                    </div>
+                                <!--end::Message(in)-->
+                            @endif
+                        @endforeach
+                    </div>
+                    <!--end::Messages-->
+                </div>
+                <!--end::Card body-->
+                <!--begin::Card footer-->
+                <div class="card-footer pt-4" id="kt_chat_messenger_footer">
+                    <form action="{{ route('account.package.support.room.reply', [$ticket->download->id, $ticket->id]) }}" method="POST">
+                        @csrf
+                        <!--begin::Input-->
+                        <textarea class="form-control form-control-flush mb-3" rows="1" name="message" data-kt-element="input" placeholder="Taper votre réponse"></textarea>
+                        <!--end::Input-->
+                        <!--begin:Toolbar-->
+                        <div class="d-flex flex-stack">
+                            <!--begin::Send-->
+                            <button class="btn btn-primary" type="submit" data-kt-element="send">Répondre</button>
+                            <!--end::Send-->
+                        </div>
+                        <!--end::Toolbar-->
+                    </form>
+                </div>
+                <!--end::Card footer-->
+            </div>
         </div>
     </div>
+
 @endsection
 
 @section("script")
     <script src="/account/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-    <script src="{{ asset('/account/js/project/index.js') }}"
+    <script src="{{ asset('account/js/package/room.js') }}"></script>
 @endsection
