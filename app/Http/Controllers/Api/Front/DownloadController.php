@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Front;
 
 use App\Helpers\DiscordNotification;
+use App\Helpers\Format;
 use App\Helpers\LogActivity;
 use App\Helpers\TwitterNotification;
 use App\Http\Controllers\Controller;
@@ -14,12 +15,14 @@ use App\Models\Download\DownloadSubCategory;
 use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadSupportRoom;
 use App\Models\Download\DownloadUser;
+use App\Models\Download\DownloadVersion;
 use App\Models\User;
 use App\Notifications\Account\Package\publishModNotification;
 use App\Repository\Download\DownloadRepository;
 use Atymic\Twitter\Facade\Twitter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class DownloadController extends Controller
 {
@@ -357,6 +360,66 @@ class DownloadController extends Controller
         }catch (\Exception $exception) {
             LogActivity::addToLog($exception->getMessage());
             return redirect()->back(500);
+        }
+    }
+
+    public function getVersion($download_id, $version_id)
+    {
+        $version = DownloadVersion::query()->find($version_id);
+        return response()->json([
+            "version" => $version,
+            "download" => $version->download
+        ]);
+    }
+
+    public function postVersion(Request $request, $download_id)
+    {
+        //dd($request->all());
+        try {
+            $version = DownloadVersion::query()->create([
+                "version" => $request->get('version'),
+                "content" => $request->get('contents'),
+                "type" => $request->get('type'),
+                "state" => $request->get('state'),
+                "link_packages" => $request->get('link_package'),
+                "download_id" => $download_id,
+                "user_id" => $request->get('user_id')
+            ]);
+
+            if($request->file('file_mod')) {
+                try {
+                    $file = $request->file('file_mod');
+                    $file->storeAs('files/shares/download/files/', $file->getClientOriginalName(), 'public');
+
+                    $version->update([
+                        "link_packages" => '/storage/files/shares/download/files/'.$file->getClientOriginalName()
+                    ]);
+
+                    LogActivity::addToLog("Ajout d'une nouvelle version pour le mod: {$version->download->title}");
+                    return redirect()->back()
+                        ->with('toast')
+                        ->with('status', 'success')
+                        ->with('message', "Une nouvelle version à été créer avec succès pour le mod: {$version->download->title}");
+                }catch (FileException $exception) {
+                    LogActivity::addToLog($exception->getMessage());
+                    return redirect()->back()
+                        ->with('toast')
+                        ->with('status', 'error')
+                        ->with('message', "Erreur lors de la création de la nouvelle version du mod.<br>Consulter les logs");
+                }
+            } else {
+                LogActivity::addToLog("Ajout d'une nouvelle version pour le mod: {$version->download->title}");
+                return redirect()->back()
+                    ->with('toast')
+                    ->with('status', 'success')
+                    ->with('message', "Une nouvelle version à été créer avec succès pour le mod: {$version->download->title}");
+            }
+        }catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
+            return redirect()->back()
+                ->with('toast')
+                ->with('status', 'error')
+                ->with('message', "Erreur lors de la création de la nouvelle version du mod.<br>Consulter les logs");
         }
     }
 }

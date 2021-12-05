@@ -1,6 +1,7 @@
 @extends("account.layouts.layout")
-@section("style")
+@section("styles")
     <link href="/account/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
+
 @endsection
 
 @section("content")
@@ -824,6 +825,47 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="tab-pane fade" id="versions" role="tabpanel">
+                            <div class="card shadow-sm">
+                                <div class="card-header">
+                                    <h3 class="card-title">Listes des versions du mod</h3>
+                                    <div class="card-toolbar">
+                                        <button type="button" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#modalAddVersion">
+                                            <i class="fas fa-plus-circle"></i> Nouvelle version
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-row-bordered gy-5" id="list_download_versions">
+                                        <thead>
+                                        <tr>
+                                            <th class="">Version</th>
+                                            <th class="text-center">Type</th>
+                                            <th class="text-center">Etat</th>
+                                            <th class="text-end">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($download->versions as $version)
+                                            <tr>
+                                                <td>{{ $version->version }}</td>
+                                                <td class="text-center">{!! \App\Helpers\Format::labelDownloadVersionType($version->type, true) !!}</td>
+                                                <td class="text-center">{!! \App\Helpers\Format::labelDownloadVersionState($version->state, true) !!}</td>
+                                                <td class="text-end">
+                                                    <button type="button" class="btn btn-sm btn-secondary btn-icon btnToggleView" data-download="{{ $version->download_id }}" data-version="{{ $version->id }}" data-bs-toggle="tooltip" title="Voir la mise à jours"><i class="fas fa-eye"></i> </button>
+                                                    <button type="button" class="btn btn-sm btn-primary btn-icon btnEditVersion" data-download="{{ $version->download_id }}" data-version="{{ $version->id }}" data-bs-toggle="tooltip" title="Editer la mise à jours"><i class="fas fa-edit"></i> </button>
+                                                    @if($version->state != 2)
+                                                        <button type="button" class="btn btn-sm btn-danger btn-icon btnTrashVersion" data-download="{{ $version->download_id }}" data-version="{{ $version->id }}" data-bs-toggle="tooltip" title="Supprimer la mise à jours"><i class="fas fa-trash"></i> </button>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1602,6 +1644,179 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="modalViewVersion">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Ajout d'un auteur<br><span class="text-muted">Module</span> </h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close" style="border: solid 1px #63636d; padding: 8px; border-radius: 50%; width: 32px; height: 32px; margin-bottom: 8px; box-shadow: 0 3px 32px #000;">
+                        <span class="svg-icon svg-icon-2x">
+                            <svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" class="SVGIcon_Button SVGIcon_X_Line" x="0px" y="0px" width="256px" height="256px" viewBox="0 0 256 256">
+                                <line fill="none" stroke="#ffffff" stroke-width="45" stroke-miterlimit="10" x1="212" y1="212" x2="44" y2="44"></line>
+                                <line fill="none" stroke="#ffffff" stroke-width="45" stroke-miterlimit="10" x1="44" y1="212" x2="212" y2="44"></line>
+                            </svg>
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-striped fs-3 mb-15">
+                        <tbody>
+                            <tr>
+                                <td>Version</td>
+                                <td class="text-end">
+                                    <span class="badge badge-primary badgeVersion">1.0</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Type</td>
+                                <td class="text-end">
+                                    <span class="badge badge-danger badgeType">Alpha</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Etat</td>
+                                <td class="text-end">
+                                    <span class="badge badge-warning badgeState">En cours de publication</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam delectus deleniti dolor est quia rem, repellendus veniam? Esse perspiciatis quia quo rem sequi! Adipisci atque eos natus quo sequi vitae.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam commodi consequuntur, culpa dicta ducimus eaque eveniet fuga harum illo laborum maxime nostrum odio, omnis praesentium quam quia quidem reiciendis!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="modalAddVersion">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Nouvelle version d'un mod</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close" style="border: solid 1px #63636d; padding: 8px; border-radius: 50%; width: 32px; height: 32px; margin-bottom: 8px; box-shadow: 0 3px 32px #000;">
+                        <span class="svg-icon svg-icon-2x">
+                            <svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" class="SVGIcon_Button SVGIcon_X_Line" x="0px" y="0px" width="256px" height="256px" viewBox="0 0 256 256">
+                                <line fill="none" stroke="#ffffff" stroke-width="45" stroke-miterlimit="10" x1="212" y1="212" x2="44" y2="44"></line>
+                                <line fill="none" stroke="#ffffff" stroke-width="45" stroke-miterlimit="10" x1="44" y1="212" x2="212" y2="44"></line>
+                            </svg>
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <form action="/api/download/{{ $download->id }}/version" method="post" id="formAddVersion" enctype="multipart/form-data">
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="download_id" value="{{ $download->id }}">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="required form-label">Version</label>
+                                    <input type="text" class="form-control form-control-solid" name="version" placeholder="1.0,1.1.1,1.1.1:2222,etc..."/>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="required form-label">Type de release</label>
+                                    <select title="exampleFormControlInput1" name="type" class="form-select" data-control="select2" data-placeholder="Type de release de la version">
+                                        <option></option>
+                                        <option value="alpha">Alpha</option>
+                                        <option value="beta">Beta</option>
+                                        <option value="release">Release</option>
+                                        <option value="hotfix">Hotfix</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="required form-label">Etat</label>
+                                    <select title="exampleFormControlInput1" name="state" class="form-select" data-control="select2" data-placeholder="Etat de la version">
+                                        <option></option>
+                                        <option value="0">Non publier</option>
+                                        <option value="1">En cours de publication</option>
+                                        <option value="2">Publier</option>
+                                    </select>
+                                    <p>Vous pouvez avoir plus d'information sur le processus sur <a href="/docs/1.0/account/process_publish">la documentation</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-10">
+                            <label for="exampleFormControlInput1" class="required form-label">Lien du package</label>
+                            <input type="text" class="form-control form-control-solid" name="link_package" placeholder="Lien web ou Identifiant (steam)"/>
+                            <p class="text-muted">Non obligatoire si le provider est TPF France</p>
+                        </div>
+                        <div class="mb-10">
+                            <label for="exampleFormControlInput1" class="required form-label">Note de la version</label>
+                            <textarea id="editor" name="contents" class="form-control" rows="6"></textarea>
+                        </div>
+                        <div class="mb-10">
+                            <label for="exampleFormControlInput1" class="required form-label">Fichier du mod</label>
+                            <input type="file" name="file_mod" accept="application/zip" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">
+                            <span class="indicator-label">
+                                Valider
+                            </span>
+                            <span class="indicator-progress">
+                                Veuillez Patienter... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="modalEditVersion">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Edition d'une version</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close" style="border: solid 1px #63636d; padding: 8px; border-radius: 50%; width: 32px; height: 32px; margin-bottom: 8px; box-shadow: 0 3px 32px #000;">
+                        <span class="svg-icon svg-icon-2x">
+                            <svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" class="SVGIcon_Button SVGIcon_X_Line" x="0px" y="0px" width="256px" height="256px" viewBox="0 0 256 256">
+                                <line fill="none" stroke="#ffffff" stroke-width="45" stroke-miterlimit="10" x1="212" y1="212" x2="44" y2="44"></line>
+                                <line fill="none" stroke="#ffffff" stroke-width="45" stroke-miterlimit="10" x1="44" y1="212" x2="212" y2="44"></line>
+                            </svg>
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-striped fs-3 mb-15">
+                        <tbody>
+                            <tr>
+                                <td>Version</td>
+                                <td class="text-end">
+                                    <span class="badge badge-primary badgeVersion">1.0</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Type</td>
+                                <td class="text-end">
+                                    <span class="badge badge-danger badgeType">Alpha</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Etat</td>
+                                <td class="text-end">
+                                    <span class="badge badge-warning badgeState">En cours de publication</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam delectus deleniti dolor est quia rem, repellendus veniam? Esse perspiciatis quia quo rem sequi! Adipisci atque eos natus quo sequi vitae.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam commodi consequuntur, culpa dicta ducimus eaque eveniet fuga harum illo laborum maxime nostrum odio, omnis praesentium quam quia quidem reiciendis!</p>
+                </div>
             </div>
         </div>
     </div>

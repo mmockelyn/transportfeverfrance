@@ -744,6 +744,24 @@ License: For each use you must have a valid license purchased only from above li
         </div>
     </div>
 </div>
+
+@if(session('toast'))
+    <div class="position-fixed top-0 end-0 p-3 z-index-3">
+        <div id="toastElement" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header {{ \App\Helpers\ToastHelper::backgroundHeader(session('status')) }} text-white">
+                <span class="svg-icon svg-icon-2 svg-icon-{{ \App\Helpers\ToastHelper::textColor(session('status')) }} me-3">
+                    {{ \App\Helpers\ToastHelper::svgicon(session('status')) }}
+                </span>
+                <strong class="me-auto">{{ auth()->user()->name }}</strong>
+                <small id="small">{{ now()->format('H:i') }}</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body {{ \App\Helpers\ToastHelper::backgroundBody(session('status')) }} text-white">
+                {{ session('message') }}
+            </div>
+        </div>
+    </div>
+@endif
 <!--end::Scrolltop-->
 <!--end::Main-->
 <script>var hostUrl = "assets/";</script>

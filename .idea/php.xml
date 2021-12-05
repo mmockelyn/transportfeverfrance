@@ -235,6 +235,10 @@
       <path value="$PROJECT_DIR$/vendor/laravel-notification-channels/webpush" />
       <path value="$PROJECT_DIR$/vendor/spomky-labs/base64url" />
       <path value="$PROJECT_DIR$/vendor/thujohn/twitter" />
+      <path value="$PROJECT_DIR$/vendor/binarytorch/larecipe" />
+      <path value="$PROJECT_DIR$/vendor/symfony/dom-crawler" />
+      <path value="$PROJECT_DIR$/vendor/erusev/parsedown-extra" />
+      <path value="$PROJECT_DIR$/vendor/erusev/parsedown" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />

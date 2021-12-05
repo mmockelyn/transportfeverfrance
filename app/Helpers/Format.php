@@ -89,44 +89,83 @@ class Format
         }
     }
 
-    public static function labelDownloadVersionType($type)
+    public static function labelDownloadVersionType($type, $back = false)
     {
-        switch ($type) {
-            case 'alpha':
-                return '<span class="label label-light-danger font-weight-bolder label-inline ml-2">Alpha</span>';
-                break;
-            case 'beta':
-                return '<span class="label label-light-info font-weight-bolder label-inline ml-2">Beta</span>';
-                break;
-            case 'release':
-                return '<span class="label label-light-success font-weight-bolder label-inline ml-2">Release</span>';
-                break;
-            case 'hotfix':
-                return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">Hotfix</span>';
-                break;
-            default:
-                return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">Hotfix</span>';
+        if($back == false) {
+            switch ($type) {
+                case 'alpha':
+                    return '<span class="label label-light-danger font-weight-bolder label-inline ml-2">Alpha</span>';
+                    break;
+                case 'beta':
+                    return '<span class="label label-light-info font-weight-bolder label-inline ml-2">Beta</span>';
+                    break;
+                case 'release':
+                    return '<span class="label label-light-success font-weight-bolder label-inline ml-2">Release</span>';
+                    break;
+                case 'hotfix':
+                    return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">Hotfix</span>';
+                    break;
+                default:
+                    return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">Hotfix</span>';
+            }
+        } else {
+            switch ($type) {
+                case 'alpha':
+                    return '<span class="badge badge-light-danger font-weight-bolder ml-2">Alpha</span>';
+                    break;
+                case 'beta':
+                    return '<span class="badge badge-light-info font-weight-bolder ml-2">Beta</span>';
+                    break;
+                case 'release':
+                    return '<span class="badge badge-light-success font-weight-bolder ml-2">Release</span>';
+                    break;
+                case 'hotfix':
+                    return '<span class="badge badge-light-warning font-weight-bolder ml-2">Hotfix</span>';
+                    break;
+                default:
+                    return '<span class="badge badge-light-warning font-weight-bolder ml-2">Hotfix</span>';
+            }
         }
     }
 
-    public static function labelDownloadVersionState($state)
+    public static function labelDownloadVersionState($state, $back = false)
     {
-        switch ($state) {
-            case 0:
-                return '<span class="label label-light-danger font-weight-bolder label-inline ml-2">Non publier</span>';
-                break;
+        if($back == false) {
+            switch ($state) {
+                case 0:
+                    return '<span class="label label-light-danger font-weight-bolder label-inline ml-2">Non publier</span>';
+                    break;
 
-            case 1:
-                return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">En cours de publication</span>';
-                break;
+                case 1:
+                    return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">En cours de publication</span>';
+                    break;
 
-            case 2:
-                return '<span class="label label-light-success font-weight-bolder label-inline ml-2">Publier</span>';
-                break;
+                case 2:
+                    return '<span class="label label-light-success font-weight-bolder label-inline ml-2">Publier</span>';
+                    break;
 
-            default:
-                return '<span class="label label-light-default font-weight-bolder label-inline ml-2">Inconnue</span>';
+                default:
+                    return '<span class="label label-light-default font-weight-bolder label-inline ml-2">Inconnue</span>';
 
+            }
+        } else {
+            switch ($state) {
+                case 0:
+                    return '<span class="badge badge-light-danger font-weight-bolder label-inline ml-2">Non publier</span>';
+                    break;
+
+                case 1:
+                    return '<span class="badge badge-light-warning font-weight-bolder label-inline ml-2">En cours de publication</span>';
+                    break;
+
+                case 2:
+                    return '<span class="badge badge-light-success font-weight-bolder label-inline ml-2">Publier</span>';
+                    break;
+
+                default:
+                    return '<span class="badge badge-light-default font-weight-bolder label-inline ml-2">Inconnue</span>';
+
+            }
         }
     }
 
