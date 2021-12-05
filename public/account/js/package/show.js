@@ -7,6 +7,8 @@ const time = currentdate.getDay() + "/" + currentdate.getMonth()
     + "/" + currentdate.getFullYear() + " @ "
     + currentdate.getHours() + ":"
     + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+let modalEditFeatureVehicle = $("#modalEditFeatureVehicle")
+let modalEditFeatureOther = $("#modalEditFeatureOther")
 
 function getToast(type, time, message) {
     switch (type) {
@@ -25,6 +27,8 @@ function getToast(type, time, message) {
 
         case 'success':
             toastElement.querySelector('.toast-header').classList.add('bg-success');
+            toastElement.querySelector('.toast-header').classList.add('text-white');
+            toastElement.querySelector('.svg-icon').classList.add('svg-icon-light')
             toastElement.querySelector('.svg-icon').innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="black"/>
@@ -37,6 +41,8 @@ function getToast(type, time, message) {
 
         case 'warning':
             toastElement.querySelector('.toast-header').classList.add('bg-warning');
+            toastElement.querySelector('.toast-header').classList.add('text-white');
+            toastElement.querySelector('.svg-icon').classList.add('svg-icon-light')
             toastElement.querySelector('.svg-icon').innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="black"/>
@@ -50,6 +56,8 @@ function getToast(type, time, message) {
 
         case 'error':
             toastElement.querySelector('.toast-header').classList.add('bg-danger');
+            toastElement.querySelector('.toast-header').classList.add('text-white');
+            toastElement.querySelector('.svg-icon').classList.add('svg-icon-light')
             toastElement.querySelector('.svg-icon').innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black"/>
@@ -192,5 +200,87 @@ document.querySelectorAll('.publish').forEach(btn => {
                 getToast('success', time, data.message)
             }
         })
+    })
+})
+
+document.querySelector('#btnModalEditFeature').addEventListener('click', (e) => {
+    console.log(e.target)
+    $.ajax({
+        url: '/api/download/'+e.target.dataset.id+'/feature',
+        success: data => {
+            console.log(data)
+            if(data.feature.type_feature == 0) {
+                modalEditFeatureVehicle.find('.modal-title').html()
+                modalEditFeatureVehicle.find('[name="type_vehicule"]').val(data.feature.type_vehicule)
+                $('[name="type_conduite"]').val(data.feature.conduite_vehicule).select2()
+                modalEditFeatureVehicle.find('[name="vitesse"]').val(data.feature.vitesse)
+                modalEditFeatureVehicle.find('[name="performance"]').val(data.feature.performance)
+                modalEditFeatureVehicle.find('[name="traction"]').val(data.feature.traction)
+                $('[name="ecartement"]').val(data.feature.ecartement).select2()
+                modalEditFeatureVehicle.find('[name="capacity"]').val(data.feature.capacity)
+                modalEditFeatureVehicle.find('[name="dispo_start"]').val(data.feature.dispo_start)
+                modalEditFeatureVehicle.find('[name="dispo_end"]').val(data.feature.dispo_end)
+                $('[name="pays"]').val(data.feature.pays).select2()
+                $('[name="licence"]').val(data.download.licence).select2()
+                modalEditFeatureVehicle.modal('show')
+            } else {
+                modalEditFeatureOther.find('.modal-title').html()
+                modalEditFeatureOther.find('[name="dispo_start"]').val(data.feature.dispo_start)
+                modalEditFeatureOther.find('[name="dispo_end"]').val(data.feature.dispo_end)
+                $('[name="pays"]').val(data.feature.pays).select2()
+                $('[name="licence"]').val(data.download.licence).select2()
+                modalEditFeatureOther.modal('show')
+            }
+        }
+    })
+})
+$("#formEditFeatureVehicle").on('submit', (e) => {
+    e.preventDefault()
+    let form = $("#formEditFeatureVehicle")
+    let uri = '/api/download/'+$('[name="download_id"]').val()+'/feature'
+    let btn = document.querySelector('#formEditFeatureVehicle').querySelector('.btn-success')
+    let data = form.serializeArray()
+
+    btn.setAttribute('data-kt-indicator', 'on')
+
+    $.ajax({
+        url: uri,
+        method: 'PUT',
+        data: data,
+        success: data => {
+            btn.removeAttribute('data-kt-indicator')
+            getToast('success', time, data)
+            form[0].reset()
+            modalEditFeatureVehicle.modal('hide')
+        },
+        error: data => {
+            btn.removeAttribute('data-kt-indicator')
+            getToast('error', time, data)
+        }
+    })
+})
+$("#formEditFeatureOther").on('submit', (e) => {
+    e.preventDefault()
+    let form = $("#formEditFeatureOther")
+    let uri = '/api/download/'+$('[name="download_id"]').val()+'/feature'
+    let btn = document.querySelector('#formEditFeatureOther').querySelector('.btn-success')
+    let data = form.serializeArray()
+
+    btn.setAttribute('data-kt-indicator', 'on')
+
+    $.ajax({
+        url: uri,
+        method: 'PUT',
+        data: data,
+        success: data => {
+            btn.removeAttribute('data-kt-indicator')
+            getToast('success', time, data)
+            form[0].reset()
+            modalEditFeatureOther.modal('hide')
+        },
+        error: data => {
+            btn.removeAttribute('data-kt-indicator')
+            getToast('error', time, data)
+        }
     })
 })

@@ -8,6 +8,7 @@ use App\Helpers\TwitterNotification;
 use App\Http\Controllers\Controller;
 use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
+use App\Models\Download\DownloadFeature;
 use App\Models\Download\DownloadSubCategory;
 use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadSupportRoom;
@@ -212,26 +213,36 @@ class DownloadController extends Controller
     {
         $download = Download::query()->find($download_id);
 
-        return response()->json($download->feature);
+        return response()->json(["feature" => $download->feature, "download" => $download]);
     }
 
     public function updateDownloadFeature(Request $request, $download_id)
     {
         $download = Download::query()->find($download_id);
-        $download->feature()->update([
-            "type_vehicule" => $request->get('type_vehicule'),
-            "conduite_vehicule" => $request->get('conduite_vehicule'),
-            "vitesse",
-            "performance",
-            "traction",
-            "dispo_start",
-            "dispo_end",
-            "ecartement",
-            "capacity",
-            "pays"
-        ]);
+        try {
+            $f = DownloadFeature::query()->where('download_id', $download_id)->first()->update([
+                "type_vehicule" => $request->get('type_vehicule'),
+                "conduite_vehicule" => $request->get('conduite_vehicule'),
+                "vitesse" => $request->get('vitesse'),
+                "performance" => $request->get('performance'),
+                "traction" => $request->get('traction'),
+                "dispo_start" => $request->get('dispo_start'),
+                "dispo_end" => $request->get('dispo_end'),
+                "ecartement" => $request->get('ecartement'),
+                "capacity" => $request->get('capacity'),
+                "pays" => $request->get('pays')
+            ]);
 
-        return response()->json($download->feature);
+            LogActivity::addToLog("Edition des caractéristique pour le mod <strong>{$download->title}</strong>");
+            return response()->json(["message" => "Modification des caractéristiques effectuer avec succès"]);
+        }catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
+            return response()->json([
+                "message" => "Impossible de mettre à jours le mod",
+                "error" => $exception->getMessage(),
+                "trace" => $exception->getTrace()
+            ]);
+        }
     }
 
     public function publishMod($download_id)

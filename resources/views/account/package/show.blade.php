@@ -443,8 +443,280 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="kt_tab_pane_8" role="tabpanel">
-                            ...
+                        <div class="tab-pane fade" id="features" role="tabpanel">
+                            <div class="card shadow-sm">
+                                <div class="card-header">
+                                    <h3 class="card-title">Caractéristique</h3>
+                                    <div class="card-toolbar">
+                                        <button type="button" class="btn btn-sm btn-light" id="btnModalEditFeature" data-id="{{ $download->id }}">
+                                            Editer les caractéristiques
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="d-flex align-items-center mb-7">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-50px me-5">
+														<span class="symbol-label bg-light-primary">
+															<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+															<span class="svg-icon svg-icon-2x svg-icon-success">
+																<img src="/storage/files/shares/core/icons/feature/type_feature.png" width="24" alt="">
+															</span>
+                                                            <!--end::Svg Icon-->
+														</span>
+                                                </div>
+                                                <!--end::Symbol-->
+                                                <!--begin::Text-->
+                                                <div class="d-flex flex-column">
+                                                    <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Type</a>
+                                                    <span class="text-muted fw-bold">
+                                                        @if($download->feature->type_feature == 0)
+                                                            Vehicule
+                                                        @else
+                                                            Autre objet
+                                                        @endif
+                                                    </span>
+                                                </div>
+                                                <!--end::Text-->
+                                            </div>
+                                        </div>
+                                        @if($download->feature->type_feature == 0)
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="d-flex align-items-center mb-7">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-50px me-5">
+														<span class="symbol-label bg-light-primary">
+															<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+															<span class="svg-icon svg-icon-2x svg-icon-success">
+																<img src="/storage/files/shares/core/icons/feature/type_vehicle_train.png" width="24" alt="">
+															</span>
+                                                            <!--end::Svg Icon-->
+														</span>
+                                                </div>
+                                                <!--end::Symbol-->
+                                                <!--begin::Text-->
+                                                <div class="d-flex flex-column">
+                                                    <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Type de Vehicule</a>
+                                                    <span class="text-muted fw-bold">
+                                                        {{ $download->feature->type_vehicule }}
+                                                    </span>
+                                                </div>
+                                                <!--end::Text-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="d-flex align-items-center mb-7">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-50px me-5">
+														<span class="symbol-label bg-light-primary">
+															<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+															<span class="svg-icon svg-icon-2x svg-icon-success">
+																<img src="/storage/files/shares/core/icons/feature/type_conduite.png" width="24" alt="">
+															</span>
+                                                            <!--end::Svg Icon-->
+														</span>
+                                                </div>
+                                                <!--end::Symbol-->
+                                                <!--begin::Text-->
+                                                <div class="d-flex flex-column">
+                                                    <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Type de conduite</a>
+                                                    <span class="text-muted fw-bold">
+                                                        {{ $download->feature->conduite_vehicule }}
+                                                    </span>
+                                                </div>
+                                                <!--end::Text-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="d-flex align-items-center mb-7">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-50px me-5">
+														<span class="symbol-label bg-light-primary">
+															<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+															<span class="svg-icon svg-icon-2x svg-icon-success">
+																<img src="/storage/files/shares/core/icons/feature/vitesse.png" width="24" alt="">
+															</span>
+                                                            <!--end::Svg Icon-->
+														</span>
+                                                </div>
+                                                <!--end::Symbol-->
+                                                <!--begin::Text-->
+                                                <div class="d-flex flex-column">
+                                                    <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Vitesse Max.</a>
+                                                    <span class="text-muted fw-bold">
+                                                        {{ $download->feature->vitesse }} Km/h
+                                                    </span>
+                                                </div>
+                                                <!--end::Text-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="d-flex align-items-center mb-7">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-50px me-5">
+														<span class="symbol-label bg-light-primary">
+															<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+															<span class="svg-icon svg-icon-2x svg-icon-success">
+																<img src="/storage/files/shares/core/icons/feature/performance.png" width="24" alt="">
+															</span>
+                                                            <!--end::Svg Icon-->
+														</span>
+                                                </div>
+                                                <!--end::Symbol-->
+                                                <!--begin::Text-->
+                                                <div class="d-flex flex-column">
+                                                    <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Performance</a>
+                                                    <span class="text-muted fw-bold">
+                                                        {{ $download->feature->performance }} kN
+                                                    </span>
+                                                </div>
+                                                <!--end::Text-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="d-flex align-items-center mb-7">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-50px me-5">
+														<span class="symbol-label bg-light-primary">
+															<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+															<span class="svg-icon svg-icon-2x svg-icon-success">
+																<img src="/storage/files/shares/core/icons/feature/performance.png" width="24" alt="">
+															</span>
+                                                            <!--end::Svg Icon-->
+														</span>
+                                                </div>
+                                                <!--end::Symbol-->
+                                                <!--begin::Text-->
+                                                <div class="d-flex flex-column">
+                                                    <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Performance</a>
+                                                    <span class="text-muted fw-bold">
+                                                        {{ $download->feature->performance }} kW
+                                                    </span>
+                                                </div>
+                                                <!--end::Text-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="d-flex align-items-center mb-7">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-50px me-5">
+														<span class="symbol-label bg-light-primary">
+															<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+															<span class="svg-icon svg-icon-2x svg-icon-success">
+																<img src="/storage/files/shares/core/icons/feature/traction.png" width="24" alt="">
+															</span>
+                                                            <!--end::Svg Icon-->
+														</span>
+                                                </div>
+                                                <!--end::Symbol-->
+                                                <!--begin::Text-->
+                                                <div class="d-flex flex-column">
+                                                    <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Effort de Traction</a>
+                                                    <span class="text-muted fw-bold">
+                                                        {{ $download->feature->traction }} kN
+                                                    </span>
+                                                </div>
+                                                <!--end::Text-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="d-flex align-items-center mb-7">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-50px me-5">
+														<span class="symbol-label bg-light-primary">
+															<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+															<span class="svg-icon svg-icon-2x svg-icon-success">
+																<img src="/storage/files/shares/core/icons/feature/espacement.png" width="24" alt="">
+															</span>
+                                                            <!--end::Svg Icon-->
+														</span>
+                                                </div>
+                                                <!--end::Symbol-->
+                                                <!--begin::Text-->
+                                                <div class="d-flex flex-column">
+                                                    <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Ecartement de voie</a>
+                                                    <span class="text-muted fw-bold">
+                                                        {{ $download->feature->ecartement }} mm
+                                                    </span>
+                                                </div>
+                                                <!--end::Text-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="d-flex align-items-center mb-7">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-50px me-5">
+														<span class="symbol-label bg-light-primary">
+															<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+															<span class="svg-icon svg-icon-2x svg-icon-success">
+																<img src="/storage/files/shares/core/icons/feature/capacity.png" width="24" alt="">
+															</span>
+                                                            <!--end::Svg Icon-->
+														</span>
+                                                </div>
+                                                <!--end::Symbol-->
+                                                <!--begin::Text-->
+                                                <div class="d-flex flex-column">
+                                                    <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Ecartement de voie</a>
+                                                    <span class="text-muted fw-bold">
+                                                        {{ $download->feature->capacity }}
+                                                    </span>
+                                                </div>
+                                                <!--end::Text-->
+                                            </div>
+                                        </div>
+                                        @endif
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="d-flex align-items-center mb-7">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-50px me-5">
+														<span class="symbol-label bg-light-primary">
+															<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+															<span class="svg-icon svg-icon-2x svg-icon-success">
+																<img src="/storage/files/shares/core/icons/feature/date_start.png" width="24" alt="">
+															</span>
+                                                            <!--end::Svg Icon-->
+														</span>
+                                                </div>
+                                                <!--end::Symbol-->
+                                                <!--begin::Text-->
+                                                <div class="d-flex flex-column">
+                                                    <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Horodatage</a>
+                                                    <span class="text-muted fw-bold">
+                                                        {{ $download->feature->dispo_start }} @if($download->feature->dispo_end)-{{ $download->feature->dispo_end }}@endif
+                                                    </span>
+                                                </div>
+                                                <!--end::Text-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="d-flex align-items-center mb-7">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-50px me-5">
+														<span class="symbol-label bg-light-primary">
+															<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+															<span class="svg-icon svg-icon-2x svg-icon-success">
+																<img src="/storage/files/shares/core/icons/feature/country.png" width="24" alt="">
+															</span>
+                                                            <!--end::Svg Icon-->
+														</span>
+                                                </div>
+                                                <!--end::Symbol-->
+                                                <!--begin::Text-->
+                                                <div class="d-flex flex-column">
+                                                    <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Pays</a>
+                                                    <span class="text-muted fw-bold">
+                                                        {{ $download->feature->pays }}
+                                                    </span>
+                                                </div>
+                                                <!--end::Text-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="tab-pane fade" id="kt_tab_pane_9" role="tabpanel">
@@ -452,6 +724,740 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="modalEditFeatureVehicle">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edition des caractéristiques</h5>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-2x"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <form action="" id="formEditFeatureVehicle">
+                    <input type="hidden" name="download_id" value="{{ $download->id }}">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="form-label">Type de véhicule</label>
+                                    <input type="text" title="exampleFormControlInput1" name="type_vehicule" class="form-control form-control-solid form-control-lg" placeholder="Type de vehicule (Bus, train, avion, etc...)"/>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="form-label">Type de conduite</label>
+                                    <select class="form-select" title="exampleFormControlInput1" data-control="select2" name="type_conduite" data-placeholder="Selectionner un type de conduite">
+                                        <option></option>
+                                        <option value="cheval">A Cheval</option>
+                                        <option value="charbon">Charbon</option>
+                                        <option value="gazole">Gazole</option>
+                                        <option value="electrique">Electrique</option>
+                                        <option value="hybride">Hybride</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="form-label">Vitesse</label>
+                                    <input type="text" title="exampleFormControlInput1" name="vitesse" class="form-control form-control-solid form-control-lg" placeholder="Vitesse maximal du vehicule en Km/h"/>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="form-label">Performance</label>
+                                    <input type="text" title="exampleFormControlInput1" name="performance" class="form-control form-control-solid form-control-lg" placeholder="Puissance en Kw"/>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="form-label">Effort de traction</label>
+                                    <input type="text" title="exampleFormControlInput1" name="traction" class="form-control form-control-solid form-control-lg" placeholder="Effort continue en kN"/>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="form-label">Ecartement des voie en mm</label>
+                                    <select title="exampleFormControlInput1" class="form-select" data-control="select2" name="ecartement" data-placeholder="Selectionner un ecartement">
+                                        <option></option>
+                                        <option value="1524">1524</option>
+                                        <option value="1435">1435</option>
+                                        <option value="1000">1000</option>
+                                        <option value="900">900</option>
+                                        <option value="785">785</option>
+                                        <option value="760">760</option>
+                                        <option value="750">750</option>
+                                        <option value="700">700</option>
+                                        <option value="600">600</option>
+                                        <option value="381">381</option>
+                                        <option value="0">Autre</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="form-label">Capacité</label>
+                                    <input type="text" title="exampleFormControlInput1" name="capacity" class="form-control form-control-solid form-control-lg" placeholder="Capacité du matériel"/>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mb-10">
+                        <h2 class="title mb-4">Disponibilité</h2>
+                        <div class="row mb-10">
+                            <div class="col-md-4">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="form-label">Début</label>
+                                    <input type="text" title="exampleFormControlInput1" name="dispo_start" class="form-control form-control-solid form-control-lg maskingYear" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="form-label">Fin</label>
+                                    <input type="text" title="exampleFormControlInput1" name="dispo_end" class="form-control form-control-solid form-control-lg maskingYear" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="form-label">Pays ISO 3166</label>
+                                    <select title="exampleFormControlInput1" class="form-select" data-control="select2" name="pays" data-placeholder="Selectionner un pays">
+                                        <option></option>
+                                        <option value="AF">Afghanistan</option>
+                                        <option value="AX">Åland Islands</option>
+                                        <option value="AL">Albania</option>
+                                        <option value="DZ">Algeria</option>
+                                        <option value="AS">American Samoa</option>
+                                        <option value="AD">Andorra</option>
+                                        <option value="AO">Angola</option>
+                                        <option value="AI">Anguilla</option>
+                                        <option value="AQ">Antarctica</option>
+                                        <option value="AG">Antigua and Barbuda</option>
+                                        <option value="AR">Argentina</option>
+                                        <option value="AM">Armenia</option>
+                                        <option value="AW">Aruba</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="AT">Austria</option>
+                                        <option value="AZ">Azerbaijan</option>
+                                        <option value="BS">Bahamas</option>
+                                        <option value="BH">Bahrain</option>
+                                        <option value="BD">Bangladesh</option>
+                                        <option value="BB">Barbados</option>
+                                        <option value="BY">Belarus</option>
+                                        <option value="BE">Belgium</option>
+                                        <option value="BZ">Belize</option>
+                                        <option value="BJ">Benin</option>
+                                        <option value="BM">Bermuda</option>
+                                        <option value="BT">Bhutan</option>
+                                        <option value="BO">Bolivia, Plurinational State of</option>
+                                        <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+                                        <option value="BA">Bosnia and Herzegovina</option>
+                                        <option value="BW">Botswana</option>
+                                        <option value="BV">Bouvet Island</option>
+                                        <option value="BR">Brazil</option>
+                                        <option value="IO">British Indian Ocean Territory</option>
+                                        <option value="BN">Brunei Darussalam</option>
+                                        <option value="BG">Bulgaria</option>
+                                        <option value="BF">Burkina Faso</option>
+                                        <option value="BI">Burundi</option>
+                                        <option value="KH">Cambodia</option>
+                                        <option value="CM">Cameroon</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="CV">Cape Verde</option>
+                                        <option value="KY">Cayman Islands</option>
+                                        <option value="CF">Central African Republic</option>
+                                        <option value="TD">Chad</option>
+                                        <option value="CL">Chile</option>
+                                        <option value="CN">China</option>
+                                        <option value="CX">Christmas Island</option>
+                                        <option value="CC">Cocos (Keeling) Islands</option>
+                                        <option value="CO">Colombia</option>
+                                        <option value="KM">Comoros</option>
+                                        <option value="CG">Congo</option>
+                                        <option value="CD">Congo, the Democratic Republic of the</option>
+                                        <option value="CK">Cook Islands</option>
+                                        <option value="CR">Costa Rica</option>
+                                        <option value="CI">Côte d'Ivoire</option>
+                                        <option value="HR">Croatia</option>
+                                        <option value="CU">Cuba</option>
+                                        <option value="CW">Curaçao</option>
+                                        <option value="CY">Cyprus</option>
+                                        <option value="CZ">Czech Republic</option>
+                                        <option value="DK">Denmark</option>
+                                        <option value="DJ">Djibouti</option>
+                                        <option value="DM">Dominica</option>
+                                        <option value="DO">Dominican Republic</option>
+                                        <option value="EC">Ecuador</option>
+                                        <option value="EG">Egypt</option>
+                                        <option value="SV">El Salvador</option>
+                                        <option value="GQ">Equatorial Guinea</option>
+                                        <option value="ER">Eritrea</option>
+                                        <option value="EE">Estonia</option>
+                                        <option value="ET">Ethiopia</option>
+                                        <option value="FK">Falkland Islands (Malvinas)</option>
+                                        <option value="FO">Faroe Islands</option>
+                                        <option value="FJ">Fiji</option>
+                                        <option value="FI">Finland</option>
+                                        <option value="FR">France</option>
+                                        <option value="GF">French Guiana</option>
+                                        <option value="PF">French Polynesia</option>
+                                        <option value="TF">French Southern Territories</option>
+                                        <option value="GA">Gabon</option>
+                                        <option value="GM">Gambia</option>
+                                        <option value="GE">Georgia</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="GH">Ghana</option>
+                                        <option value="GI">Gibraltar</option>
+                                        <option value="GR">Greece</option>
+                                        <option value="GL">Greenland</option>
+                                        <option value="GD">Grenada</option>
+                                        <option value="GP">Guadeloupe</option>
+                                        <option value="GU">Guam</option>
+                                        <option value="GT">Guatemala</option>
+                                        <option value="GG">Guernsey</option>
+                                        <option value="GN">Guinea</option>
+                                        <option value="GW">Guinea-Bissau</option>
+                                        <option value="GY">Guyana</option>
+                                        <option value="HT">Haiti</option>
+                                        <option value="HM">Heard Island and McDonald Islands</option>
+                                        <option value="VA">Holy See (Vatican City State)</option>
+                                        <option value="HN">Honduras</option>
+                                        <option value="HK">Hong Kong</option>
+                                        <option value="HU">Hungary</option>
+                                        <option value="IS">Iceland</option>
+                                        <option value="IN">India</option>
+                                        <option value="ID">Indonesia</option>
+                                        <option value="IR">Iran, Islamic Republic of</option>
+                                        <option value="IQ">Iraq</option>
+                                        <option value="IE">Ireland</option>
+                                        <option value="IM">Isle of Man</option>
+                                        <option value="IL">Israel</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="JM">Jamaica</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="JE">Jersey</option>
+                                        <option value="JO">Jordan</option>
+                                        <option value="KZ">Kazakhstan</option>
+                                        <option value="KE">Kenya</option>
+                                        <option value="KI">Kiribati</option>
+                                        <option value="KP">Korea, Democratic People's Republic of</option>
+                                        <option value="KR">Korea, Republic of</option>
+                                        <option value="KW">Kuwait</option>
+                                        <option value="KG">Kyrgyzstan</option>
+                                        <option value="LA">Lao People's Democratic Republic</option>
+                                        <option value="LV">Latvia</option>
+                                        <option value="LB">Lebanon</option>
+                                        <option value="LS">Lesotho</option>
+                                        <option value="LR">Liberia</option>
+                                        <option value="LY">Libya</option>
+                                        <option value="LI">Liechtenstein</option>
+                                        <option value="LT">Lithuania</option>
+                                        <option value="LU">Luxembourg</option>
+                                        <option value="MO">Macao</option>
+                                        <option value="MK">Macedonia, the former Yugoslav Republic of</option>
+                                        <option value="MG">Madagascar</option>
+                                        <option value="MW">Malawi</option>
+                                        <option value="MY">Malaysia</option>
+                                        <option value="MV">Maldives</option>
+                                        <option value="ML">Mali</option>
+                                        <option value="MT">Malta</option>
+                                        <option value="MH">Marshall Islands</option>
+                                        <option value="MQ">Martinique</option>
+                                        <option value="MR">Mauritania</option>
+                                        <option value="MU">Mauritius</option>
+                                        <option value="YT">Mayotte</option>
+                                        <option value="MX">Mexico</option>
+                                        <option value="FM">Micronesia, Federated States of</option>
+                                        <option value="MD">Moldova, Republic of</option>
+                                        <option value="MC">Monaco</option>
+                                        <option value="MN">Mongolia</option>
+                                        <option value="ME">Montenegro</option>
+                                        <option value="MS">Montserrat</option>
+                                        <option value="MA">Morocco</option>
+                                        <option value="MZ">Mozambique</option>
+                                        <option value="MM">Myanmar</option>
+                                        <option value="NA">Namibia</option>
+                                        <option value="NR">Nauru</option>
+                                        <option value="NP">Nepal</option>
+                                        <option value="NL">Netherlands</option>
+                                        <option value="NC">New Caledonia</option>
+                                        <option value="NZ">New Zealand</option>
+                                        <option value="NI">Nicaragua</option>
+                                        <option value="NE">Niger</option>
+                                        <option value="NG">Nigeria</option>
+                                        <option value="NU">Niue</option>
+                                        <option value="NF">Norfolk Island</option>
+                                        <option value="MP">Northern Mariana Islands</option>
+                                        <option value="NO">Norway</option>
+                                        <option value="OM">Oman</option>
+                                        <option value="PK">Pakistan</option>
+                                        <option value="PW">Palau</option>
+                                        <option value="PS">Palestinian Territory, Occupied</option>
+                                        <option value="PA">Panama</option>
+                                        <option value="PG">Papua New Guinea</option>
+                                        <option value="PY">Paraguay</option>
+                                        <option value="PE">Peru</option>
+                                        <option value="PH">Philippines</option>
+                                        <option value="PN">Pitcairn</option>
+                                        <option value="PL">Poland</option>
+                                        <option value="PT">Portugal</option>
+                                        <option value="PR">Puerto Rico</option>
+                                        <option value="QA">Qatar</option>
+                                        <option value="RE">Réunion</option>
+                                        <option value="RO">Romania</option>
+                                        <option value="RU">Russian Federation</option>
+                                        <option value="RW">Rwanda</option>
+                                        <option value="BL">Saint Barthélemy</option>
+                                        <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+                                        <option value="KN">Saint Kitts and Nevis</option>
+                                        <option value="LC">Saint Lucia</option>
+                                        <option value="MF">Saint Martin (French part)</option>
+                                        <option value="PM">Saint Pierre and Miquelon</option>
+                                        <option value="VC">Saint Vincent and the Grenadines</option>
+                                        <option value="WS">Samoa</option>
+                                        <option value="SM">San Marino</option>
+                                        <option value="ST">Sao Tome and Principe</option>
+                                        <option value="SA">Saudi Arabia</option>
+                                        <option value="SN">Senegal</option>
+                                        <option value="RS">Serbia</option>
+                                        <option value="SC">Seychelles</option>
+                                        <option value="SL">Sierra Leone</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="SX">Sint Maarten (Dutch part)</option>
+                                        <option value="SK">Slovakia</option>
+                                        <option value="SI">Slovenia</option>
+                                        <option value="SB">Solomon Islands</option>
+                                        <option value="SO">Somalia</option>
+                                        <option value="ZA">South Africa</option>
+                                        <option value="GS">South Georgia and the South Sandwich Islands</option>
+                                        <option value="SS">South Sudan</option>
+                                        <option value="ES">Spain</option>
+                                        <option value="LK">Sri Lanka</option>
+                                        <option value="SD">Sudan</option>
+                                        <option value="SR">Suriname</option>
+                                        <option value="SJ">Svalbard and Jan Mayen</option>
+                                        <option value="SZ">Swaziland</option>
+                                        <option value="SE">Sweden</option>
+                                        <option value="CH">Switzerland</option>
+                                        <option value="SY">Syrian Arab Republic</option>
+                                        <option value="TW">Taiwan, Province of China</option>
+                                        <option value="TJ">Tajikistan</option>
+                                        <option value="TZ">Tanzania, United Republic of</option>
+                                        <option value="TH">Thailand</option>
+                                        <option value="TL">Timor-Leste</option>
+                                        <option value="TG">Togo</option>
+                                        <option value="TK">Tokelau</option>
+                                        <option value="TO">Tonga</option>
+                                        <option value="TT">Trinidad and Tobago</option>
+                                        <option value="TN">Tunisia</option>
+                                        <option value="TR">Turkey</option>
+                                        <option value="TM">Turkmenistan</option>
+                                        <option value="TC">Turks and Caicos Islands</option>
+                                        <option value="TV">Tuvalu</option>
+                                        <option value="UG">Uganda</option>
+                                        <option value="UA">Ukraine</option>
+                                        <option value="AE">United Arab Emirates</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="US">United States</option>
+                                        <option value="UM">United States Minor Outlying Islands</option>
+                                        <option value="UY">Uruguay</option>
+                                        <option value="UZ">Uzbekistan</option>
+                                        <option value="VU">Vanuatu</option>
+                                        <option value="VE">Venezuela, Bolivarian Republic of</option>
+                                        <option value="VN">Viet Nam</option>
+                                        <option value="VG">Virgin Islands, British</option>
+                                        <option value="VI">Virgin Islands, U.S.</option>
+                                        <option value="WF">Wallis and Futuna</option>
+                                        <option value="EH">Western Sahara</option>
+                                        <option value="YE">Yemen</option>
+                                        <option value="ZM">Zambia</option>
+                                        <option value="ZW">Zimbabwe</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-10">
+                            <!--begin::Input wrapper-->
+                            <div class="w-lg-50 position-relative">
+                                <label for="exampleFormControlInput1" class="form-label">
+                                    Licence
+                                    <span class="svg-icon svg-icon-1hx" data-bs-toggle="tooltip" data-bs-html="true" data-bs-trigger="click" title="Pour plus d'information sur les type de licence cliquer <a href='/licence'>ici</a>">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="black"/>
+                                        <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="black"/>
+                                        <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="black"/>
+                                    </svg>
+                                </span>
+                                </label>
+                                <select title="exampleFormControlInput1" class="form-select" data-control="select2" name="licence" data-placeholder="Selectionner une licence...">
+                                    <option></option>
+                                    <option value="licence-tffrance-reserved">Tous droits réservés (Norme du site)</option>
+                                    <option value="licence-cc-by-nc-nd">Attribution, non commercial, aucune édition possible</option>
+                                    <option value="licence-cc-by-nc-sa">Attribution, non commercial, distribution dans des conditions égales</option>
+                                    <option value="licence-cc-by-nd">Dénomination, aucune édition possible</option>
+                                    <option value="licence-cc-by-sa">Dénomination, Transfert dans les mêmes conditions</option>
+                                    <option value="licence-cc-by">Attribution</option>
+                                    <option value="licence-cc">Aucun droit d'auteur - domaine public</option>
+                                </select>
+
+                            </div>
+                            <!--end::Input wrapper-->
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-success">
+                            <span class="indicator-label">
+                                Valider
+                            </span>
+                            <span class="indicator-progress">
+                                Veuillez Patienter... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="modalEditFeatureOther">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edition des caractéristiques</h5>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-2x"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <form action="" id="formEditFeatureOther">
+                    <input type="hidden" name="download_id" value="{{ $download->id }}">
+                    <div class="modal-body">
+                        <div class="row mb-10">
+                            <div class="col-md-4">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="form-label">Début</label>
+                                    <input type="text" title="exampleFormControlInput1" name="dispo_start" class="form-control form-control-solid form-control-lg maskingYear" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="form-label">Fin</label>
+                                    <input type="text" title="exampleFormControlInput1" name="dispo_end" class="form-control form-control-solid form-control-lg maskingYear" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="form-label">Pays ISO 3166</label>
+                                    <select title="exampleFormControlInput1" class="form-select" data-control="select2" name="pays" data-placeholder="Selectionner un pays">
+                                        <option></option>
+                                        <option value="AF">Afghanistan</option>
+                                        <option value="AX">Åland Islands</option>
+                                        <option value="AL">Albania</option>
+                                        <option value="DZ">Algeria</option>
+                                        <option value="AS">American Samoa</option>
+                                        <option value="AD">Andorra</option>
+                                        <option value="AO">Angola</option>
+                                        <option value="AI">Anguilla</option>
+                                        <option value="AQ">Antarctica</option>
+                                        <option value="AG">Antigua and Barbuda</option>
+                                        <option value="AR">Argentina</option>
+                                        <option value="AM">Armenia</option>
+                                        <option value="AW">Aruba</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="AT">Austria</option>
+                                        <option value="AZ">Azerbaijan</option>
+                                        <option value="BS">Bahamas</option>
+                                        <option value="BH">Bahrain</option>
+                                        <option value="BD">Bangladesh</option>
+                                        <option value="BB">Barbados</option>
+                                        <option value="BY">Belarus</option>
+                                        <option value="BE">Belgium</option>
+                                        <option value="BZ">Belize</option>
+                                        <option value="BJ">Benin</option>
+                                        <option value="BM">Bermuda</option>
+                                        <option value="BT">Bhutan</option>
+                                        <option value="BO">Bolivia, Plurinational State of</option>
+                                        <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+                                        <option value="BA">Bosnia and Herzegovina</option>
+                                        <option value="BW">Botswana</option>
+                                        <option value="BV">Bouvet Island</option>
+                                        <option value="BR">Brazil</option>
+                                        <option value="IO">British Indian Ocean Territory</option>
+                                        <option value="BN">Brunei Darussalam</option>
+                                        <option value="BG">Bulgaria</option>
+                                        <option value="BF">Burkina Faso</option>
+                                        <option value="BI">Burundi</option>
+                                        <option value="KH">Cambodia</option>
+                                        <option value="CM">Cameroon</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="CV">Cape Verde</option>
+                                        <option value="KY">Cayman Islands</option>
+                                        <option value="CF">Central African Republic</option>
+                                        <option value="TD">Chad</option>
+                                        <option value="CL">Chile</option>
+                                        <option value="CN">China</option>
+                                        <option value="CX">Christmas Island</option>
+                                        <option value="CC">Cocos (Keeling) Islands</option>
+                                        <option value="CO">Colombia</option>
+                                        <option value="KM">Comoros</option>
+                                        <option value="CG">Congo</option>
+                                        <option value="CD">Congo, the Democratic Republic of the</option>
+                                        <option value="CK">Cook Islands</option>
+                                        <option value="CR">Costa Rica</option>
+                                        <option value="CI">Côte d'Ivoire</option>
+                                        <option value="HR">Croatia</option>
+                                        <option value="CU">Cuba</option>
+                                        <option value="CW">Curaçao</option>
+                                        <option value="CY">Cyprus</option>
+                                        <option value="CZ">Czech Republic</option>
+                                        <option value="DK">Denmark</option>
+                                        <option value="DJ">Djibouti</option>
+                                        <option value="DM">Dominica</option>
+                                        <option value="DO">Dominican Republic</option>
+                                        <option value="EC">Ecuador</option>
+                                        <option value="EG">Egypt</option>
+                                        <option value="SV">El Salvador</option>
+                                        <option value="GQ">Equatorial Guinea</option>
+                                        <option value="ER">Eritrea</option>
+                                        <option value="EE">Estonia</option>
+                                        <option value="ET">Ethiopia</option>
+                                        <option value="FK">Falkland Islands (Malvinas)</option>
+                                        <option value="FO">Faroe Islands</option>
+                                        <option value="FJ">Fiji</option>
+                                        <option value="FI">Finland</option>
+                                        <option value="FR">France</option>
+                                        <option value="GF">French Guiana</option>
+                                        <option value="PF">French Polynesia</option>
+                                        <option value="TF">French Southern Territories</option>
+                                        <option value="GA">Gabon</option>
+                                        <option value="GM">Gambia</option>
+                                        <option value="GE">Georgia</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="GH">Ghana</option>
+                                        <option value="GI">Gibraltar</option>
+                                        <option value="GR">Greece</option>
+                                        <option value="GL">Greenland</option>
+                                        <option value="GD">Grenada</option>
+                                        <option value="GP">Guadeloupe</option>
+                                        <option value="GU">Guam</option>
+                                        <option value="GT">Guatemala</option>
+                                        <option value="GG">Guernsey</option>
+                                        <option value="GN">Guinea</option>
+                                        <option value="GW">Guinea-Bissau</option>
+                                        <option value="GY">Guyana</option>
+                                        <option value="HT">Haiti</option>
+                                        <option value="HM">Heard Island and McDonald Islands</option>
+                                        <option value="VA">Holy See (Vatican City State)</option>
+                                        <option value="HN">Honduras</option>
+                                        <option value="HK">Hong Kong</option>
+                                        <option value="HU">Hungary</option>
+                                        <option value="IS">Iceland</option>
+                                        <option value="IN">India</option>
+                                        <option value="ID">Indonesia</option>
+                                        <option value="IR">Iran, Islamic Republic of</option>
+                                        <option value="IQ">Iraq</option>
+                                        <option value="IE">Ireland</option>
+                                        <option value="IM">Isle of Man</option>
+                                        <option value="IL">Israel</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="JM">Jamaica</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="JE">Jersey</option>
+                                        <option value="JO">Jordan</option>
+                                        <option value="KZ">Kazakhstan</option>
+                                        <option value="KE">Kenya</option>
+                                        <option value="KI">Kiribati</option>
+                                        <option value="KP">Korea, Democratic People's Republic of</option>
+                                        <option value="KR">Korea, Republic of</option>
+                                        <option value="KW">Kuwait</option>
+                                        <option value="KG">Kyrgyzstan</option>
+                                        <option value="LA">Lao People's Democratic Republic</option>
+                                        <option value="LV">Latvia</option>
+                                        <option value="LB">Lebanon</option>
+                                        <option value="LS">Lesotho</option>
+                                        <option value="LR">Liberia</option>
+                                        <option value="LY">Libya</option>
+                                        <option value="LI">Liechtenstein</option>
+                                        <option value="LT">Lithuania</option>
+                                        <option value="LU">Luxembourg</option>
+                                        <option value="MO">Macao</option>
+                                        <option value="MK">Macedonia, the former Yugoslav Republic of</option>
+                                        <option value="MG">Madagascar</option>
+                                        <option value="MW">Malawi</option>
+                                        <option value="MY">Malaysia</option>
+                                        <option value="MV">Maldives</option>
+                                        <option value="ML">Mali</option>
+                                        <option value="MT">Malta</option>
+                                        <option value="MH">Marshall Islands</option>
+                                        <option value="MQ">Martinique</option>
+                                        <option value="MR">Mauritania</option>
+                                        <option value="MU">Mauritius</option>
+                                        <option value="YT">Mayotte</option>
+                                        <option value="MX">Mexico</option>
+                                        <option value="FM">Micronesia, Federated States of</option>
+                                        <option value="MD">Moldova, Republic of</option>
+                                        <option value="MC">Monaco</option>
+                                        <option value="MN">Mongolia</option>
+                                        <option value="ME">Montenegro</option>
+                                        <option value="MS">Montserrat</option>
+                                        <option value="MA">Morocco</option>
+                                        <option value="MZ">Mozambique</option>
+                                        <option value="MM">Myanmar</option>
+                                        <option value="NA">Namibia</option>
+                                        <option value="NR">Nauru</option>
+                                        <option value="NP">Nepal</option>
+                                        <option value="NL">Netherlands</option>
+                                        <option value="NC">New Caledonia</option>
+                                        <option value="NZ">New Zealand</option>
+                                        <option value="NI">Nicaragua</option>
+                                        <option value="NE">Niger</option>
+                                        <option value="NG">Nigeria</option>
+                                        <option value="NU">Niue</option>
+                                        <option value="NF">Norfolk Island</option>
+                                        <option value="MP">Northern Mariana Islands</option>
+                                        <option value="NO">Norway</option>
+                                        <option value="OM">Oman</option>
+                                        <option value="PK">Pakistan</option>
+                                        <option value="PW">Palau</option>
+                                        <option value="PS">Palestinian Territory, Occupied</option>
+                                        <option value="PA">Panama</option>
+                                        <option value="PG">Papua New Guinea</option>
+                                        <option value="PY">Paraguay</option>
+                                        <option value="PE">Peru</option>
+                                        <option value="PH">Philippines</option>
+                                        <option value="PN">Pitcairn</option>
+                                        <option value="PL">Poland</option>
+                                        <option value="PT">Portugal</option>
+                                        <option value="PR">Puerto Rico</option>
+                                        <option value="QA">Qatar</option>
+                                        <option value="RE">Réunion</option>
+                                        <option value="RO">Romania</option>
+                                        <option value="RU">Russian Federation</option>
+                                        <option value="RW">Rwanda</option>
+                                        <option value="BL">Saint Barthélemy</option>
+                                        <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+                                        <option value="KN">Saint Kitts and Nevis</option>
+                                        <option value="LC">Saint Lucia</option>
+                                        <option value="MF">Saint Martin (French part)</option>
+                                        <option value="PM">Saint Pierre and Miquelon</option>
+                                        <option value="VC">Saint Vincent and the Grenadines</option>
+                                        <option value="WS">Samoa</option>
+                                        <option value="SM">San Marino</option>
+                                        <option value="ST">Sao Tome and Principe</option>
+                                        <option value="SA">Saudi Arabia</option>
+                                        <option value="SN">Senegal</option>
+                                        <option value="RS">Serbia</option>
+                                        <option value="SC">Seychelles</option>
+                                        <option value="SL">Sierra Leone</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="SX">Sint Maarten (Dutch part)</option>
+                                        <option value="SK">Slovakia</option>
+                                        <option value="SI">Slovenia</option>
+                                        <option value="SB">Solomon Islands</option>
+                                        <option value="SO">Somalia</option>
+                                        <option value="ZA">South Africa</option>
+                                        <option value="GS">South Georgia and the South Sandwich Islands</option>
+                                        <option value="SS">South Sudan</option>
+                                        <option value="ES">Spain</option>
+                                        <option value="LK">Sri Lanka</option>
+                                        <option value="SD">Sudan</option>
+                                        <option value="SR">Suriname</option>
+                                        <option value="SJ">Svalbard and Jan Mayen</option>
+                                        <option value="SZ">Swaziland</option>
+                                        <option value="SE">Sweden</option>
+                                        <option value="CH">Switzerland</option>
+                                        <option value="SY">Syrian Arab Republic</option>
+                                        <option value="TW">Taiwan, Province of China</option>
+                                        <option value="TJ">Tajikistan</option>
+                                        <option value="TZ">Tanzania, United Republic of</option>
+                                        <option value="TH">Thailand</option>
+                                        <option value="TL">Timor-Leste</option>
+                                        <option value="TG">Togo</option>
+                                        <option value="TK">Tokelau</option>
+                                        <option value="TO">Tonga</option>
+                                        <option value="TT">Trinidad and Tobago</option>
+                                        <option value="TN">Tunisia</option>
+                                        <option value="TR">Turkey</option>
+                                        <option value="TM">Turkmenistan</option>
+                                        <option value="TC">Turks and Caicos Islands</option>
+                                        <option value="TV">Tuvalu</option>
+                                        <option value="UG">Uganda</option>
+                                        <option value="UA">Ukraine</option>
+                                        <option value="AE">United Arab Emirates</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="US">United States</option>
+                                        <option value="UM">United States Minor Outlying Islands</option>
+                                        <option value="UY">Uruguay</option>
+                                        <option value="UZ">Uzbekistan</option>
+                                        <option value="VU">Vanuatu</option>
+                                        <option value="VE">Venezuela, Bolivarian Republic of</option>
+                                        <option value="VN">Viet Nam</option>
+                                        <option value="VG">Virgin Islands, British</option>
+                                        <option value="VI">Virgin Islands, U.S.</option>
+                                        <option value="WF">Wallis and Futuna</option>
+                                        <option value="EH">Western Sahara</option>
+                                        <option value="YE">Yemen</option>
+                                        <option value="ZM">Zambia</option>
+                                        <option value="ZW">Zimbabwe</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-10">
+                            <!--begin::Input wrapper-->
+                            <div class="w-lg-50 position-relative">
+                                <label for="exampleFormControlInput1" class="form-label">
+                                    Licence
+                                    <span class="svg-icon svg-icon-1hx" data-bs-toggle="tooltip" data-bs-html="true" data-bs-trigger="click" title="Pour plus d'information sur les type de licence cliquer <a href='/licence'>ici</a>">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="black"/>
+                                        <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="black"/>
+                                        <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="black"/>
+                                    </svg>
+                                </span>
+                                </label>
+                                <select title="exampleFormControlInput1" class="form-select" data-control="select2" name="licence" data-placeholder="Selectionner une licence...">
+                                    <option></option>
+                                    <option value="licence-tffrance-reserved">Tous droits réservés (Norme du site)</option>
+                                    <option value="licence-cc-by-nc-nd">Attribution, non commercial, aucune édition possible</option>
+                                    <option value="licence-cc-by-nc-sa">Attribution, non commercial, distribution dans des conditions égales</option>
+                                    <option value="licence-cc-by-nd">Dénomination, aucune édition possible</option>
+                                    <option value="licence-cc-by-sa">Dénomination, Transfert dans les mêmes conditions</option>
+                                    <option value="licence-cc-by">Attribution</option>
+                                    <option value="licence-cc">Aucun droit d'auteur - domaine public</option>
+                                </select>
+
+                            </div>
+                            <!--end::Input wrapper-->
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-success">
+                            <span class="indicator-label">
+                                Valider
+                            </span>
+                            <span class="indicator-progress">
+                                Veuillez Patienter... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
