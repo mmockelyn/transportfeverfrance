@@ -175,6 +175,12 @@ $('#user_id').select2({
     }
 })
 
+$("#list_download_comments").DataTable({
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json'
+    },
+})
+
 $("#formUpdateModInfo").on('submit', (e) => {
     e.preventDefault()
     let form = $("#formUpdateModInfo")

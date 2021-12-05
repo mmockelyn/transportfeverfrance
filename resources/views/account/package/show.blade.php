@@ -762,6 +762,68 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="tab-pane fade" id="comments" role="tabpanel">
+                            <div class="card shadow-sm">
+                                <div class="card-header">
+                                    <h3 class="card-title">Listes des commentaires</h3>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-row-bordered gy-5" id="list_download_comments">
+                                        <thead>
+                                            <tr>
+                                                <th class="">#</th>
+                                                <th class="text-center">Auteur</th>
+                                                <th class="text-center">Commentaire</th>
+                                                <th class="text-center">Etat</th>
+                                                <th class="text-end">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($download->comments as $comment)
+                                            <tr>
+                                                <td>{{ $comment->id }}</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center mb-7">
+                                                        <!--begin::Avatar-->
+                                                        <div class="symbol symbol-50px me-5">
+                                                            @if($comment->user->image)
+                                                                <img src="/storage/files/shares/avatar/{{ $comment->user->image }}" class="" alt="">
+                                                            @else
+                                                                <img src="/storage/files/shares/avatar/placeholder.png" class="" alt="">
+                                                            @endif
+                                                        </div>
+                                                        <!--end::Avatar-->
+                                                        <!--begin::Text-->
+                                                        <div class="flex-grow-1">
+                                                            <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">{{ $comment->user->name }}</a>
+                                                            <span class="text-muted d-block fw-bold">{{ $comment->user->email }}</span>
+                                                        </div>
+                                                        <!--end::Text-->
+                                                    </div>
+                                                </td>
+                                                <td>{{ $comment->content }}</td>
+                                                <td class="text-center">
+                                                    @if($comment->valid == 0)
+                                                        <span class="badge badge-danger">Non valider</span>
+                                                    @else
+                                                        <span class="badge badge-success">Valider</span>
+                                                    @endif
+                                                </td>
+                                                <td class="text-end">
+                                                    @if($comment->valid == 0)
+                                                        <a href="/api/download/{{ $download->id }}/comment/{{ $comment->id }}/publish" class="btn btn-success btn-sm btn-icon" data-bs-toggle="tooltip" title="Publier le commentaire"><i class="fas fa-check-circle"></i> </a>
+                                                    @else
+                                                        <a href="/api/download/{{ $download->id }}/comment/{{ $comment->id }}/dispublish" class="btn btn-danger btn-sm btn-icon" data-bs-toggle="tooltip" title="Dépublier le commentaire"><i class="fas fa-times-circle"></i> </a>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

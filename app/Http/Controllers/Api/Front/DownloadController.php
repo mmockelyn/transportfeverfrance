@@ -8,6 +8,7 @@ use App\Helpers\TwitterNotification;
 use App\Http\Controllers\Controller;
 use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
+use App\Models\Download\DownloadComment;
 use App\Models\Download\DownloadFeature;
 use App\Models\Download\DownloadSubCategory;
 use App\Models\Download\DownloadSupport;
@@ -327,5 +328,35 @@ class DownloadController extends Controller
             "message" => "Un ou plusieurs auteur ont été ajouter au mod.",
             "content" => $content
         ]);
+    }
+
+    public function publishComment($download_id, $comment_id)
+    {
+        $down = Download::query()->find($download_id);
+        try {
+            DownloadComment::query()->find($comment_id)->update([
+                "valid" => 1
+            ]);
+            LogActivity::addToLog("Publication d'un commentaire du mod <strong>{$down->title}</strong>");
+            return redirect()->back();
+        }catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
+            return redirect()->back(500);
+        }
+    }
+
+    public function dispublishComment($download_id, $comment_id)
+    {
+        $down = Download::query()->find($download_id);
+        try {
+            DownloadComment::query()->find($comment_id)->update([
+                "valid" => 0
+            ]);
+            LogActivity::addToLog("Annulation de la publication d'un commentaire du mod <strong>{$down->title}</strong>");
+            return redirect()->back();
+        }catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
+            return redirect()->back(500);
+        }
     }
 }
