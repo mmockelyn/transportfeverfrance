@@ -12,6 +12,8 @@ use App\Models\Download\DownloadFeature;
 use App\Models\Download\DownloadSubCategory;
 use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadSupportRoom;
+use App\Models\Download\DownloadUser;
+use App\Models\User;
 use App\Notifications\Account\Package\publishModNotification;
 use App\Repository\Download\DownloadRepository;
 use Atymic\Twitter\Facade\Twitter;
@@ -274,5 +276,56 @@ class DownloadController extends Controller
                 "trace" => $exception->getTrace()
             ]);
         }
+    }
+
+    public function addAuthor(Request $request, $download_id)
+    {
+        $download = Download::query()->find($download_id);
+
+        foreach ($request->get('user_id') as $user) {
+            DownloadUser::query()->create([
+                "download_id" => $download_id,
+                "user_id" => $user
+            ]);
+        }
+
+        $authors = DownloadUser::query()->where('download_id', $download_id)->get();
+        $authUser = User::query()->where('id', $request->get('auth_user_id'))->first();
+        ob_start();
+        ?>
+        <?php foreach ($authors as $author): ?>
+        <div class="col-md-3 col-sm-6">
+            <div class="d-flex align-items-center mb-7 overlay overflow-hidden">
+                <!--begin::Avatar-->
+                <div class="symbol symbol-50px me-5">
+                    <?php if($author->image): ?>
+                        <img src="/storage/files/shares/avatar/<?= $author->image ?>>" class="" alt="">
+                    <?php else: ?>
+                        <img src="/storage/files/shares/avatar/placeholder.png" class="" alt="">
+                    <?php endif; ?>
+                </div>
+                <!--end::Avatar-->
+                <!--begin::Text-->
+                <div class="flex-grow-1">
+                    <a href="#" class="text-dark fw-bolder text-hover-primary fs-6"><?= $author->name; ?></a>
+                    <span class="text-muted d-block fw-bold"><?= $author->email; ?></span>
+                </div>
+                <!--end::Text-->
+                <?php if($authUser->id !== $author->id): ?>
+                    <div class="overlay-layer bg-dark bg-opacity-25">
+                        <a href="#" class="btn btn-primary btn-shadow">Voir le profil</a>
+                        <a href="#" class="btn btn-light-danger btn-shadow ms-2">Supprimer</a>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php endforeach; ?>
+        <?php
+        $content = ob_get_clean();
+
+        return response()->json([
+            "message" => "Un ou plusieurs auteur ont été ajouter au mod.",
+            "content" => $content
+        ]);
     }
 }

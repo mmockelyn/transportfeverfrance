@@ -10,6 +10,25 @@ const time = currentdate.getDay() + "/" + currentdate.getMonth()
 let modalEditFeatureVehicle = $("#modalEditFeatureVehicle")
 let modalEditFeatureOther = $("#modalEditFeatureOther")
 
+const formatAddUser = (item) => {
+    if (!item.id) {
+        return item.text;
+    }
+
+    let url = '/storage/files/shares/avatar/'+item.element.getAttribute('data-avatar')
+
+    var img = $("<img>", {
+        class: "rounded-circle me-2",
+        width: 26,
+        src: url
+    });
+    var span = $("<span>", {
+        text: " " + item.text
+    });
+    span.prepend(img);
+    return span;
+}
+
 function getToast(type, time, message) {
     switch (type) {
         case 'info':
@@ -150,6 +169,12 @@ $("#short_content").maxlength({
     limitReachedClass: "badge badge-success"
 })
 
+$('#user_id').select2({
+    templateResult: function (item) {
+        return formatAddUser(item);
+    }
+})
+
 $("#formUpdateModInfo").on('submit', (e) => {
     e.preventDefault()
     let form = $("#formUpdateModInfo")
@@ -277,6 +302,32 @@ $("#formEditFeatureOther").on('submit', (e) => {
             getToast('success', time, data)
             form[0].reset()
             modalEditFeatureOther.modal('hide')
+        },
+        error: data => {
+            btn.removeAttribute('data-kt-indicator')
+            getToast('error', time, data)
+        }
+    })
+})
+$("#formAddUser").on('submit', (e) => {
+    e.preventDefault()
+    let form = $("#formAddUser")
+    let uri = form.attr('action')
+    let btn = document.querySelector('#formAddUser').querySelector('.btn-success')
+    let data = form.serializeArray()
+
+    btn.setAttribute('data-kt-indicator', 'on')
+
+    $.ajax({
+        url: uri,
+        method: 'POST',
+        data: data,
+        success: data => {
+            btn.removeAttribute('data-kt-indicator')
+            getToast('success', time, data)
+            form[0].reset()
+            $("#contentAuthors").html(data.content)
+            $("#addUser").modal('hide')
         },
         error: data => {
             btn.removeAttribute('data-kt-indicator')

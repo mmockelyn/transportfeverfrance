@@ -92,6 +92,8 @@ Route::group(["prefix" => "download"], function () {
     Route::get('/{download_id}/publish', [DownloadController::class, 'publishMod']);
     Route::get('/{download_id}/dispublish', [DownloadController::class, 'dispublishMod']);
 
+    Route::post('/{download_id}/auteur', [DownloadController::class, 'addAuthor']);
+
     Route::group(["prefix" => "{slug}/ticket"], function () {
         Route::get('{ticket_id}', [DownloadController::class, 'getInfoTicket']);
         Route::post('{ticket_id}/composer', [DownloadController::class, 'composer']);

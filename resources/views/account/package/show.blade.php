@@ -719,8 +719,48 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="kt_tab_pane_9" role="tabpanel">
-                            ...
+                        <div class="tab-pane fade" id="author" role="tabpanel">
+                            <div class="card shadow-sm">
+                                <div class="card-header">
+                                    <h3 class="card-title">Liste des auteurs du mod</h3>
+                                    <div class="card-toolbar">
+                                        <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#addUser">
+                                            Ajouter un auteur
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row" id="contentAuthors">
+                                        @foreach($download->users as $user)
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="d-flex align-items-center mb-7 overlay overflow-hidden">
+                                                <!--begin::Avatar-->
+                                                <div class="symbol symbol-50px me-5">
+                                                    @if($user->image)
+                                                    <img src="/storage/files/shares/avatar/{{ $user->image }}" class="" alt="">
+                                                    @else
+                                                        <img src="/storage/files/shares/avatar/placeholder.png" class="" alt="">
+                                                    @endif
+                                                </div>
+                                                <!--end::Avatar-->
+                                                <!--begin::Text-->
+                                                <div class="flex-grow-1">
+                                                    <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">{{ $user->name }}</a>
+                                                    <span class="text-muted d-block fw-bold">{{ $user->email }}</span>
+                                                </div>
+                                                <!--end::Text-->
+                                                @if(auth()->user()->id !== $user->id)
+                                                <div class="overlay-layer bg-dark bg-opacity-25">
+                                                    <a href="#" class="btn btn-primary btn-shadow disabled">Voir le profil</a>
+                                                    <a href="#" class="btn btn-light-danger btn-shadow ms-2 disabled">Supprimer</a>
+                                                </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1448,6 +1488,48 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-success">
+                            <span class="indicator-label">
+                                Valider
+                            </span>
+                            <span class="indicator-progress">
+                                Veuillez Patienter... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="addUser">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ajout d'un auteur</h5>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-2x"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <form action="/api/download/{{ $download->id }}/auteur" id="formAddUser">
+                    <input type="hidden" name="auth_user_id" value="{{ auth()->user()->id }}">
+                    <div class="modal-body">
+                        <div class="mb-10">
+                            <label for="exampleFormControlInput1" class="required form-label">Example</label>
+                            <select title="exampleFormControlInput1" id="user_id" name="user_id[]" class="form-select" data-control="select2" data-placeholder="Selectionner un auteur" data-allow-clear="true" multiple="multiple">
+                                <option></option>
+                                @foreach(\App\Models\User::query()->where('id', '!=', auth()->user()->id)->get() as $user)
+                                    <option value="{{ $user->id }}" data-avatar="@if($user->avatar){{ $user->avatar }}@else placeholder.png @endif">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success">
                             <span class="indicator-label">
                                 Valider
