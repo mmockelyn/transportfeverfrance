@@ -25,4 +25,14 @@ class Inbox extends Model
     {
         return $this->hasMany(InboxAttachment::class);
     }
+
+    public function next($id)
+    {
+        return Inbox::where('id', '>', $id)->orderBy('id', 'asc')->first();
+    }
+
+    public function previous($id)
+    {
+        return Inbox::where('id', '<', $id)->orderBy('id', 'desc')->first();
+    }
 }

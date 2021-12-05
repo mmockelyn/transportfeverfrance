@@ -88,14 +88,22 @@ class BlogController extends Controller
     {
         $actualYear = $request->year;
 
-        $year = range(BlogStat::oldest()->first()->created_at->year, now()->year);
+        if (BlogStat::oldest()->first()) {
+            $year = range(BlogStat::oldest()->first()->created_at->year, now()->year);
 
-        return view('back.blog.show', [
-            "blog" => Blog::find($id),
-            "years" => $year,
-            "actualYear" => $actualYear,
-            "comments" => BlogComment::where('blog_id', $id)->limit(5)->get()
-        ]);
+            return view('back.blog.show', [
+                "blog" => Blog::find($id),
+                "years" => $year,
+                "actualYear" => $actualYear,
+                "comments" => BlogComment::where('blog_id', $id)->limit(5)->get()
+            ]);
+        } else {
+            return view('back.blog.show', [
+                "blog" => Blog::find($id),
+                "actualYear" => $actualYear,
+                "comments" => BlogComment::where('blog_id', $id)->limit(5)->get()
+            ]);
+        }
     }
 
     public function edit($id)

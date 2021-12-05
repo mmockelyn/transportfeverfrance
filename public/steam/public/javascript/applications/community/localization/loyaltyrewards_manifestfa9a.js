@@ -1,0 +1,1 @@
+LocalizationManifestReady( 'loyaltyrewards', 'manifest', {"RewardsReaction_1":"Mély gondolatok","RewardsReaction_2":"Szívmelengető","RewardsReaction_3":"Kacagtató","RewardsReaction_4":"Provokatív","RewardsReaction_5":"Költői","RewardsReaction_6":"Rendkívül hasznos"});

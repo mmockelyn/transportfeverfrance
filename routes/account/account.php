@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(["prefix" => "account"], function () {
+Route::group(["prefix" => "account", "middleware" => ["web"]], function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Account\AccountController::class, 'dashboard'])->name('account.dashboard');
     include("projet.php");
     include("profil.php");
     include("badge.php");

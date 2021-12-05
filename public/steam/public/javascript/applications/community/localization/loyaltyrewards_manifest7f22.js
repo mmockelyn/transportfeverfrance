@@ -1,0 +1,1 @@
+LocalizationManifestReady( 'loyaltyrewards', 'manifest', {"RewardsReaction_1":"Syvällisiä mietteitä","RewardsReaction_2":"Sydäntälämmittävä","RewardsReaction_3":"Hupaisa","RewardsReaction_4":"Mielipiteitä jakava","RewardsReaction_5":"Runoutta","RewardsReaction_6":"Erittäin hyödyllinen"});

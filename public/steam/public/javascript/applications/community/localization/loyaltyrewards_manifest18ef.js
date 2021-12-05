@@ -1,0 +1,1 @@
+LocalizationManifestReady( 'loyaltyrewards', 'manifest', {"RewardsReaction_1":"Βαθιές σκέψεις","RewardsReaction_2":"Συγκινητικό","RewardsReaction_3":"Ξεκαρδιστικό","RewardsReaction_4":"Άλλη φάση","RewardsReaction_5":"Ποίηση","RewardsReaction_6":"Πολύ βοηθητικό"});

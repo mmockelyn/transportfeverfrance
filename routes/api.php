@@ -86,6 +86,23 @@ Route::group(["prefix" => "download"], function () {
     Route::delete('category/{category_id}', [DownloadController::class, 'deleteCategory']);
     Route::delete('category/{category_id}/sub/{sub_id}', [DownloadController::class, 'deleteSubCategory']);
 
+    Route::get('/{download_id}/feature', [DownloadController::class, 'downloadFeature']);
+    Route::put('/{download_id}/feature', [DownloadController::class, 'updateDownloadFeature']);
+
+    Route::get('/{download_id}/publish', [DownloadController::class, 'publishMod']);
+    Route::get('/{download_id}/dispublish', [DownloadController::class, 'dispublishMod']);
+
+    Route::post('/{download_id}/auteur', [DownloadController::class, 'addAuthor']);
+    Route::get('/{download_id}/comment/{comment_id}/publish', [DownloadController::class, 'publishComment']);
+    Route::get('/{download_id}/comment/{comment_id}/dispublish', [DownloadController::class, 'dispublishComment']);
+
+    Route::post('/{download_id}/version', [DownloadController::class, 'postVersion']);
+    Route::get('/{download_id}/version/{version_id}', [DownloadController::class, 'getVersion']);
+    Route::put('/{download_id}/version/{version_id}', [DownloadController::class, 'updateVersion']);
+    Route::delete('/{download_id}/version/{version_id}', [DownloadController::class, 'deleteVersion']);
+
+    Route::post('/{download_id}/documentation', [DownloadController::class, 'postDocumentation']);
+
     Route::group(["prefix" => "{slug}/ticket"], function () {
         Route::get('{ticket_id}', [DownloadController::class, 'getInfoTicket']);
         Route::post('{ticket_id}/composer', [DownloadController::class, 'composer']);

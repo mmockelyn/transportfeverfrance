@@ -15,7 +15,8 @@ mix.disableNotifications();
  */
 
 mix.sass('resources/sass/front/app.scss', 'public/front/css')
-    .js('resources/js/back/app.js', 'public/back/js/app.js');
+    .js('resources/js/back/app.js', 'public/back/js/app.js')
+    .js('resources/js/account/app.js', 'public/account/js/app.js');
 
 
 mix.webpackConfig({

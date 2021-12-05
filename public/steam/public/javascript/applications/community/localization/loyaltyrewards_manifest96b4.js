@@ -1,0 +1,1 @@
+LocalizationManifestReady( 'loyaltyrewards', 'manifest', {"RewardsReaction_1":"Pensieri profondi","RewardsReaction_2":"Toccante","RewardsReaction_3":"Esilarante","RewardsReaction_4":"Provocatorio","RewardsReaction_5":"Poesia","RewardsReaction_6":"Utilissimo"});

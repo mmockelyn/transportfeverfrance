@@ -15,6 +15,7 @@ Route::group(['prefix' => "package"], function () {
     Route::post('create', [PackageController::class, 'store'])->name('account.packages.store');
 
     Route::get('{package_id}', [PackageController::class, 'show'])->name('account.packages.show');
+    Route::get('{package_id}/steam_preview', [PackageController::class, 'showSteam'])->name('account.packages.steam_preview');
     Route::put('{package_id}/update_image', [PackageController::class, 'update_image'])->name('account.packages.update_image');
     Route::put('{package_id}/update_info', [PackageController::class, 'update_info'])->name('account.packages.update_info');
 
