@@ -9,6 +9,7 @@ use App\Models\Download\DownloadCategory;
 use App\Models\Download\DownloadFeature;
 use App\Models\Download\DownloadSubCategory;
 use App\Models\Download\DownloadUser;
+use App\Models\Download\DownloadWiki;
 use App\Packages\SteamApi\Steam;
 use App\Repository\Download\DownloadRepository;
 use Illuminate\Http\Request;
@@ -100,10 +101,24 @@ class PackageController extends Controller
                         "download_id" => $download->id,
                         "user_id" => auth()->user()->id
                     ]);
-                    LogActivity::addToLog("Création du mod $download->title");
-                    return response()->json([
-                        "message" => "Vous avez créer le mod $download->title.<br>Vous pouvez voir sa fiche <a href='".route('account.packages.show', $download->id)."'>ici</a>"
-                    ]);
+                    try {
+                        DownloadWiki::query()->create([
+                            "content" => "null",
+                            "active" => 0,
+                            "download_id" => $download->id
+                        ]);
+                        LogActivity::addToLog("Création du mod $download->title");
+                        return response()->json([
+                            "message" => "Vous avez créer le mod $download->title.<br>Vous pouvez voir sa fiche <a href='".route('account.packages.show', $download->id)."'>ici</a>"
+                        ]);
+                    }catch (\Exception $exception) {
+                        LogActivity::addToLog($exception->getMessage());
+                        return response()->json([
+                            "message" => "Impossible de définir la documentation du mod",
+                            "error" => $exception->getMessage(),
+                            "trace" => $exception->getTrace()
+                        ]);
+                    }
                 }catch (\Exception $exception) {
                     LogActivity::addToLog($exception->getMessage());
                     return response()->json([
@@ -134,6 +149,7 @@ class PackageController extends Controller
     {
         $this->getAuthenticated();
         $download = Download::find($packages_id);
+        //dd($download->wiki);
 
         return view('account.package.show', compact('download'));
     }

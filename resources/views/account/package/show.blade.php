@@ -878,6 +878,22 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="tab-pane fade" id="docs" role="tabpanel">
+                            <div class="card shadow-sm">
+                                <div class="card-header">
+                                    <h3 class="card-title">Documentation du mod</h3>
+                                    <div class="card-toolbar">
+                                        <button type="button" id="btnEditDoc" class="btn btn-sm btn-icon btn-light-primary" data-bs-toggle="tooltip" title="Editer la documentation">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    {!! $download->wiki->content !!}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1852,6 +1868,46 @@
                         <div class="mb-10">
                             <label for="exampleFormControlInput1" class="required form-label">Fichier du mod</label>
                             <input type="file" name="file_mod" accept="application/zip" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">
+                            <span class="indicator-label">
+                                Valider
+                            </span>
+                            <span class="indicator-progress">
+                                Veuillez Patienter... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="modalEditDoc">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Edition de la documentation</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close" style="border: solid 1px #63636d; padding: 8px; border-radius: 50%; width: 32px; height: 32px; margin-bottom: 8px; box-shadow: 0 3px 32px #000;">
+                        <span class="svg-icon svg-icon-2x">
+                            <svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" class="SVGIcon_Button SVGIcon_X_Line" x="0px" y="0px" width="256px" height="256px" viewBox="0 0 256 256">
+                                <line fill="none" stroke="#ffffff" stroke-width="45" stroke-miterlimit="10" x1="212" y1="212" x2="44" y2="44"></line>
+                                <line fill="none" stroke="#ffffff" stroke-width="45" stroke-miterlimit="10" x1="44" y1="212" x2="212" y2="44"></line>
+                            </svg>
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <form action="/api/download/{{ $download->id }}/documentation" method="post" id="formEditDoc">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="download_id" value="{{ $download->id }}">
+                    <div class="modal-body">
+                        <div class="mb-10">
+                            <textarea name="contents" class="form-control editor" rows="6">@if($download->wiki !== null) {!! $download->wiki->content !!}  @endif</textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

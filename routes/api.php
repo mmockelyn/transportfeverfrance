@@ -101,6 +101,8 @@ Route::group(["prefix" => "download"], function () {
     Route::put('/{download_id}/version/{version_id}', [DownloadController::class, 'updateVersion']);
     Route::delete('/{download_id}/version/{version_id}', [DownloadController::class, 'deleteVersion']);
 
+    Route::post('/{download_id}/documentation', [DownloadController::class, 'postDocumentation']);
+
     Route::group(["prefix" => "{slug}/ticket"], function () {
         Route::get('{ticket_id}', [DownloadController::class, 'getInfoTicket']);
         Route::post('{ticket_id}/composer', [DownloadController::class, 'composer']);

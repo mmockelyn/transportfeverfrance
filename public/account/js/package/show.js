@@ -377,6 +377,10 @@ document.querySelector('#btnModalEditFeature').addEventListener('click', (e) => 
         }
     })
 })
+document.querySelector('#btnEditDoc').addEventListener('click', (e) => {
+    e.preventDefault()
+    $("#modalEditDoc").modal('show')
+})
 
 $("#formUpdateModInfo").on('submit', (e) => {
     e.preventDefault()
@@ -479,6 +483,32 @@ $("#formAddUser").on('submit', (e) => {
             form[0].reset()
             $("#contentAuthors").html(data.content)
             $("#addUser").modal('hide')
+        },
+        error: data => {
+            btn.removeAttribute('data-kt-indicator')
+            getToast('error', time, data)
+        }
+    })
+})
+$("#formEditDoc").on('submit', (e) => {
+    e.preventDefault()
+    let form = $("#formEditDoc")
+    let url = form.attr('action')
+    let btn = document.querySelector('#formEditDoc').querySelector('.btn-success')
+    let data = form.serializeArray()
+
+    btn.setAttribute('data-kt-indicator', 'on')
+
+    $.ajax({
+        url: url,
+        method: "POST",
+        data: data,
+        success: data => {
+            btn.removeAttribute('data-kt-indicator')
+            getToast('success', time, data)
+            setTimeout(() => {
+                window.location.href='/account/package/'+$('[name="download_id"]').val()
+            }, 2900)
         },
         error: data => {
             btn.removeAttribute('data-kt-indicator')

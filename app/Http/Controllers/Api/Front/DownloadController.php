@@ -16,6 +16,7 @@ use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadSupportRoom;
 use App\Models\Download\DownloadUser;
 use App\Models\Download\DownloadVersion;
+use App\Models\Download\DownloadWiki;
 use App\Models\User;
 use App\Notifications\Account\Package\publishModNotification;
 use App\Repository\Download\DownloadRepository;
@@ -510,6 +511,28 @@ class DownloadController extends Controller
             LogActivity::addToLog($exception->getMessage());
             return response()->json([
                 "message" => "Impossible de mettre à jours le mod",
+                "error" => $exception->getMessage(),
+                "trace" => $exception->getTrace()
+            ]);
+        }
+    }
+
+    public function postDocumentation(Request $request, $download_id)
+    {
+        try {
+            $docu = Download::query()->find($download_id)->wiki()->update([
+                "content" => $request->get('contents'),
+                "active" => 1,
+                "download_id" => $download_id
+            ]);
+            LogActivity::addToLog("Edition de la documentation executer avec succès");
+            return response()->json([
+                "message" => "Edition de la documentation executer avec succès"
+            ]);
+        }catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
+            return response()->json([
+                "message" => "Impossible de mettre à jours la documentation",
                 "error" => $exception->getMessage(),
                 "trace" => $exception->getTrace()
             ]);
