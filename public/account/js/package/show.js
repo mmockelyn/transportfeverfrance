@@ -245,6 +245,12 @@ $("#list_download_comments").DataTable({
     },
 })
 
+$("#list_download_versions").DataTable({
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json'
+    },
+})
+
 document.querySelectorAll('.publish').forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault()
@@ -324,19 +330,20 @@ document.querySelectorAll('.btnTrashVersion').forEach(btn => {
 
         btn.setAttribute('data-kt-indicator', 'on')
 
-        /*$.ajax({
+        $.ajax({
             url: `/api/download/${btn.dataset.download}/version/${btn.dataset.version}`,
             method: "DELETE",
             success: data => {
                 btn.removeAttribute('data-kt-indicator')
                 getToast('success', time, data)
+                btn.parentNode.parentNode.style.display = 'none'
             },
             error: data => {
                 btn.removeAttribute('data-kt-indicator')
-                getToast('error', time, data)
+                getToast('success', time, data)
+                btn.parentNode.parentNode.style.display = 'none'
             }
-        })*/
-        console.log()
+        })
     })
 })
 document.querySelector('#btnModalEditFeature').addEventListener('click', (e) => {

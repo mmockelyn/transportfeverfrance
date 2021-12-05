@@ -22,6 +22,7 @@ use App\Repository\Download\DownloadRepository;
 use Atymic\Twitter\Facade\Twitter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -478,6 +479,40 @@ class DownloadController extends Controller
                 ->with('toast')
                 ->with('status', 'error')
                 ->with('message', "Erreur lors de la modification de la version du mod.<br>Consulter les logs");
+        }
+    }
+
+    public function deleteVersion($download_id, $version_id)
+    {
+        $download = Download::query()->find($download_id);
+        $version = DownloadVersion::query()->find($version_id);
+
+        //Suppression du fichier local
+        try {
+            Storage::delete($version->link_packages);
+
+            try {
+                $version->delete();
+
+                LogActivity::addToLog("Suppression de la version {$version->version} pour le mod {$download->title}");
+                return response()->json([
+                    "message" => "Suppression de la version {$version->version} pour le mod {$download->title}"
+                ]);
+            }catch (\Exception $exception) {
+                LogActivity::addToLog($exception->getMessage());
+                return response()->json([
+                    "message" => "Impossible de mettre à jours le mod",
+                    "error" => $exception->getMessage(),
+                    "trace" => $exception->getTrace()
+                ]);
+            }
+        }catch (FileException $exception) {
+            LogActivity::addToLog($exception->getMessage());
+            return response()->json([
+                "message" => "Impossible de mettre à jours le mod",
+                "error" => $exception->getMessage(),
+                "trace" => $exception->getTrace()
+            ]);
         }
     }
 }
