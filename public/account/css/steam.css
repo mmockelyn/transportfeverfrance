@@ -1,0 +1,36 @@
+body {
+    min-height: 100%;
+    height: auto;
+    position: relative;
+    color: #969696;
+    font-family: "Motiva Sans",Arial,Helvetica,sans-serif;
+    background: #1b2838;
+}
+
+#steam_workshop_container {
+    background: url('/storage/files/shares/download/steam/greenlight_content_background.png') top-center no-repeat;
+    width: auto;
+    max-width: 950px;
+    margin: 0 auto 0 auto;
+    padding: 0;
+    text-align: left;
+    position: relative;
+}
+
+.detail_header {
+    margin-bottom: 10px;
+}
+
+.detail_header_right {
+    float: right;
+    margin: 0px;
+    padding: 0px 0 0 10px;
+}
+
+.item_title {
+    color: #ffffff;
+    font-size: 30px;
+    word-wrap: break-word;
+    margin-top: 2px;
+    font-family: "Motiva Sans Light", Arial, Helvetica, sans-serif;
+}

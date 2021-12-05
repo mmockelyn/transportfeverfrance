@@ -96,8 +96,10 @@ Route::group(["prefix" => "download"], function () {
     Route::get('/{download_id}/comment/{comment_id}/publish', [DownloadController::class, 'publishComment']);
     Route::get('/{download_id}/comment/{comment_id}/dispublish', [DownloadController::class, 'dispublishComment']);
 
-    Route::get('/{download_id}/version/{version_id}', [DownloadController::class, 'getVersion']);
     Route::post('/{download_id}/version', [DownloadController::class, 'postVersion']);
+    Route::get('/{download_id}/version/{version_id}', [DownloadController::class, 'getVersion']);
+    Route::put('/{download_id}/version/{version_id}', [DownloadController::class, 'updateVersion']);
+    Route::delete('/{download_id}/version/{version_id}', [DownloadController::class, 'deleteVersion']);
 
     Route::group(["prefix" => "{slug}/ticket"], function () {
         Route::get('{ticket_id}', [DownloadController::class, 'getInfoTicket']);

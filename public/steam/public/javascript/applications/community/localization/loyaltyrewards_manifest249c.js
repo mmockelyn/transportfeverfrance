@@ -1,0 +1,1 @@
+LocalizationManifestReady( 'loyaltyrewards', 'manifest', {"RewardsReaction_1":"Gânduri profunde","RewardsReaction_2":"Înduioșător","RewardsReaction_3":"Hilar","RewardsReaction_4":"Provocator","RewardsReaction_5":"Poezie","RewardsReaction_6":"De mare ajutor"});

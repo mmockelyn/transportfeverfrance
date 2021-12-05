@@ -161,7 +161,7 @@ tinymce.init({
     }
 });
 tinymce.init({
-    selector: 'textarea#editor',
+    selector: 'textarea.editor',
     plugins: 'print preview importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable  charmap quickbars emoticons',
     tinydrive_token_provider: 'URL_TO_YOUR_TOKEN_PROVIDER',
     tinydrive_dropbox_app_key: 'YOUR_DROPBOX_APP_KEY',
@@ -268,14 +268,75 @@ document.querySelectorAll('.btnToggleView').forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault()
 
+        let type = {
+            'alpha': {"title": "Alpha"},
+            'beta': {"title": "Beta"},
+            'release': {"title": "Release"},
+            'hotfix': {"title": "Hotfix"},
+        }
+
+        let status = {
+            0: {"color": "danger", "title": "Non Publier"},
+            1: {"color": "warning", "title": "En cours de publication"},
+            2: {"color": "success", "title": "Publier"},
+        }
+
         $.ajax({
             url: `/api/download/${btn.dataset.download}/version/${btn.dataset.version}`,
             success: data => {
                 let modal = $("#modalViewVersion")
                 modal.find('.modal-title').html('Note de version: '+data.version.version+'<br><span class="text-muted">'+data.download.title+'</span>')
+                modal.find('.badgeVersion').html(data.version.version)
+                modal.find('.badgeType').html(type[data.version.type].title)
+                modal.find('.badgeStatus').removeClass('badge-warning').addClass('badge-'+status[data.version.state].color)
+                modal.find('.badgeStatus').html(status[data.version.state].title)
+                modal.find('.noteContent').html(data.version.content)
+
                 modal.modal('show')
             }
         })
+    })
+})
+document.querySelectorAll('.btnEditVersion').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+        $.ajax({
+            url: `/api/download/${btn.dataset.download}/version/${btn.dataset.version}`,
+            success: data => {
+                let modal = $("#modalEditVersion")
+                let form = $("#formEditVersion")
+                modal.find('.modal-title').html("Edition de la version "+data.version.version)
+                form.attr('action', `/api/download/${btn.dataset.download}/version/${btn.dataset.version}`)
+                modal.find('[name="version"]').val(data.version.version)
+                modal.find('[name="type"]').val(data.version.type).select2()
+                modal.find('[name="state"]').val(data.version.state).select2()
+                modal.find('[name="link_package"]').val(data.version.link_packages)
+                //modal.find('[name="contents"]').html(data.version.content)
+                tinymce.activeEditor.setContent(data.version.content)
+                modal.modal('show')
+            }
+        })
+    })
+})
+document.querySelectorAll('.btnTrashVersion').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        btn.setAttribute('data-kt-indicator', 'on')
+
+        /*$.ajax({
+            url: `/api/download/${btn.dataset.download}/version/${btn.dataset.version}`,
+            method: "DELETE",
+            success: data => {
+                btn.removeAttribute('data-kt-indicator')
+                getToast('success', time, data)
+            },
+            error: data => {
+                btn.removeAttribute('data-kt-indicator')
+                getToast('error', time, data)
+            }
+        })*/
+        console.log()
     })
 })
 document.querySelector('#btnModalEditFeature').addEventListener('click', (e) => {

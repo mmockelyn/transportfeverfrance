@@ -170,12 +170,17 @@
         <div class="col-md-3 col-sm-12 mb-10">
             <div class="card shadow-sm">
                 <div class="card-body p-0">
-                    <div class="text-center px-4 mb-10 mt-5">
-                        @if($download->image)
-                            <img class="mw-100 card-rounded-bottom card-rounded-top" alt="" src="/storage/files/shares/download/{{ $download->image }}"/>
-                        @else
-                            <img class="mw-100 card-rounded-bottom card-rounded-top" alt="" src="/storage/files/shares/download/placeholder.jpg"/>
-                        @endif
+                    <div class="text-center px-4 mb-10 mt-5 overlay overflow-hidden">
+                        <div class="overlay-wrapper">
+                            @if($download->image)
+                                <img class="mw-100 card-rounded-bottom card-rounded-top" alt="" src="/storage/files/shares/download/{{ $download->image }}"/>
+                            @else
+                                <img class="mw-100 card-rounded-bottom card-rounded-top" alt="" src="/storage/files/shares/download/placeholder.jpg"/>
+                            @endif
+                        </div>
+                        <div class="overlay-layer bg-dark bg-opacity-25">
+                            <a href="{{ route('account.packages.steam_preview', $download->id) }}" class="btn btn-primary btn-shadow">Preview on steam</a>
+                        </div>
                     </div>
                     <div class="d-flex align-items-center mb-8 px-5">
                         <!--begin::Description-->
@@ -856,7 +861,14 @@
                                                     <button type="button" class="btn btn-sm btn-secondary btn-icon btnToggleView" data-download="{{ $version->download_id }}" data-version="{{ $version->id }}" data-bs-toggle="tooltip" title="Voir la mise à jours"><i class="fas fa-eye"></i> </button>
                                                     <button type="button" class="btn btn-sm btn-primary btn-icon btnEditVersion" data-download="{{ $version->download_id }}" data-version="{{ $version->id }}" data-bs-toggle="tooltip" title="Editer la mise à jours"><i class="fas fa-edit"></i> </button>
                                                     @if($version->state != 2)
-                                                        <button type="button" class="btn btn-sm btn-danger btn-icon btnTrashVersion" data-download="{{ $version->download_id }}" data-version="{{ $version->id }}" data-bs-toggle="tooltip" title="Supprimer la mise à jours"><i class="fas fa-trash"></i> </button>
+                                                        <button type="button" class="btn btn-sm btn-danger btn-icon btnTrashVersion" data-download="{{ $version->download_id }}" data-version="{{ $version->id }}" data-bs-toggle="tooltip" title="Supprimer la mise à jours">
+                                                            <span class="indicator-label">
+                                                                <i class="fas fa-trash"></i>
+                                                            </span>
+                                                            <span class="indicator-progress">
+                                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                            </span>
+                                                        </button>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -1687,8 +1699,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam delectus deleniti dolor est quia rem, repellendus veniam? Esse perspiciatis quia quo rem sequi! Adipisci atque eos natus quo sequi vitae.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam commodi consequuntur, culpa dicta ducimus eaque eveniet fuga harum illo laborum maxime nostrum odio, omnis praesentium quam quia quidem reiciendis!</p>
+                    <div class="noteContent"></div>
                 </div>
             </div>
         </div>
@@ -1753,7 +1764,7 @@
                         </div>
                         <div class="mb-10">
                             <label for="exampleFormControlInput1" class="required form-label">Note de la version</label>
-                            <textarea id="editor" name="contents" class="form-control" rows="6"></textarea>
+                            <textarea name="contents" class="form-control editor" rows="6"></textarea>
                         </div>
                         <div class="mb-10">
                             <label for="exampleFormControlInput1" class="required form-label">Fichier du mod</label>
@@ -1791,32 +1802,69 @@
                     </div>
                     <!--end::Close-->
                 </div>
-                <div class="modal-body">
-                    <table class="table table-bordered table-striped fs-3 mb-15">
-                        <tbody>
-                            <tr>
-                                <td>Version</td>
-                                <td class="text-end">
-                                    <span class="badge badge-primary badgeVersion">1.0</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Type</td>
-                                <td class="text-end">
-                                    <span class="badge badge-danger badgeType">Alpha</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Etat</td>
-                                <td class="text-end">
-                                    <span class="badge badge-warning badgeState">En cours de publication</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam delectus deleniti dolor est quia rem, repellendus veniam? Esse perspiciatis quia quo rem sequi! Adipisci atque eos natus quo sequi vitae.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam commodi consequuntur, culpa dicta ducimus eaque eveniet fuga harum illo laborum maxime nostrum odio, omnis praesentium quam quia quidem reiciendis!</p>
-                </div>
+                <form action="/api/download/{{ $download->id }}/version" method="post" id="formEditVersion" enctype="multipart/form-data">
+                    @csrf
+                    @method("PUT")
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="download_id" value="{{ $download->id }}">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="required form-label">Version</label>
+                                    <input type="text" class="form-control form-control-solid" name="version" placeholder="1.0,1.1.1,1.1.1:2222,etc..."/>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="required form-label">Type de release</label>
+                                    <select title="exampleFormControlInput1" name="type" class="form-select" data-control="select2" data-placeholder="Type de release de la version">
+                                        <option></option>
+                                        <option value="alpha">Alpha</option>
+                                        <option value="beta">Beta</option>
+                                        <option value="release">Release</option>
+                                        <option value="hotfix">Hotfix</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="required form-label">Etat</label>
+                                    <select title="exampleFormControlInput1" name="state" class="form-select" data-control="select2" data-placeholder="Etat de la version">
+                                        <option></option>
+                                        <option value="0">Non publier</option>
+                                        <option value="1">En cours de publication</option>
+                                        <option value="2">Publier</option>
+                                    </select>
+                                    <p>Vous pouvez avoir plus d'information sur le processus sur <a href="/docs/1.0/account/process_publish">la documentation</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-10">
+                            <label for="exampleFormControlInput1" class="required form-label">Lien du package</label>
+                            <input type="text" class="form-control form-control-solid" name="link_package" placeholder="Lien web ou Identifiant (steam)"/>
+                            <p class="text-muted">Non obligatoire si le provider est TPF France</p>
+                        </div>
+                        <div class="mb-10">
+                            <label for="exampleFormControlInput1" class="required form-label">Note de la version</label>
+                            <textarea name="contents" class="form-control editor" rows="6"></textarea>
+                        </div>
+                        <div class="mb-10">
+                            <label for="exampleFormControlInput1" class="required form-label">Fichier du mod</label>
+                            <input type="file" name="file_mod" accept="application/zip" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">
+                            <span class="indicator-label">
+                                Valider
+                            </span>
+                            <span class="indicator-progress">
+                                Veuillez Patienter... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

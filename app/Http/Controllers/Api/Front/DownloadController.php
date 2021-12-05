@@ -21,6 +21,7 @@ use App\Notifications\Account\Package\publishModNotification;
 use App\Repository\Download\DownloadRepository;
 use Atymic\Twitter\Facade\Twitter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -420,6 +421,63 @@ class DownloadController extends Controller
                 ->with('toast')
                 ->with('status', 'error')
                 ->with('message', "Erreur lors de la création de la nouvelle version du mod.<br>Consulter les logs");
+        }
+    }
+
+    public function updateVersion(Request $request, $download_id, $version_id)
+    {
+        $version = DownloadVersion::query()->find($version_id);
+
+        try {
+            $version->update([
+                "version" => $request->get('version'),
+                "link_packages" => $request->get('link_package'),
+                "content" => $request->get('contents'),
+                "type" => $request->get('type'),
+                "state" => $request->get('state'),
+            ]);
+
+            if($request->get('state') == 2) {
+                $version->download()->update([
+                    "version_latest" => $request->get('version')
+                ]);
+            }
+
+            if($request->file('file_mod')) {
+                try {
+                    $file = $request->file('file_mod');
+                    $file->storeAs('files/shares/download/files/', $file->getClientOriginalName(), 'public');
+
+                    $version->update([
+                        "link_packages" => '/storage/files/shares/download/files/'.$file->getClientOriginalName()
+                    ]);
+                    LogActivity::addToLog("Edition d'une version pour le mod: {$version->download->title}");
+                    return redirect()->back()
+                        ->with('toast')
+                        ->with('status', 'success')
+                        ->with('message', "La version {$version->version} à été editer avec succès pour le mod: {$version->download->title}");
+                }catch (FileException $exception) {
+                    Log::error($exception);
+                    LogActivity::addToLog($exception->getMessage());
+                    return redirect()->back()
+                        ->with('toast')
+                        ->with('status', 'error')
+                        ->with('message', "Erreur lors de la modification de la version du mod.<br>Consulter les logs");
+                }
+            } else {
+                LogActivity::addToLog("Edition d'une version pour le mod: {$version->download->title}");
+                return redirect()->back()
+                    ->with('toast')
+                    ->with('status', 'success')
+                    ->with('message', "La version {$version->version} à été editer avec succès pour le mod: {$version->download->title}");
+            }
+        }catch (\Exception $exception) {
+            Log::error($exception);
+            LogActivity::addToLog($exception->getMessage());
+            return redirect()->back()
+                ->with('toast')
+                ->with('status', 'error')
+                ->with('message', "Erreur lors de la modification de la version du mod.<br>Consulter les logs");
         }
     }
 }

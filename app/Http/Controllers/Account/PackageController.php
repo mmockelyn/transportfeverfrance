@@ -194,4 +194,13 @@ class PackageController extends Controller
             ]);
         }
     }
+
+    public function showSteam($download_id)
+    {
+        $download = Download::query()->find($download_id);
+
+        return view("account.package.steam", [
+            "download" => $download
+        ]);
+    }
 }

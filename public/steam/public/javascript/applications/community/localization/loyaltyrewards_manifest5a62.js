@@ -1,0 +1,1 @@
+LocalizationManifestReady( 'loyaltyrewards', 'manifest', {"RewardsReaction_1":"ความคิดลึกซึ้ง","RewardsReaction_2":"อบอุ่นใจ","RewardsReaction_3":"ฮาลั่น","RewardsReaction_4":"จุดประเด็น","RewardsReaction_5":"กวีนิพนธ์","RewardsReaction_6":"มีประโยชน์อย่างยิ่ง"});
