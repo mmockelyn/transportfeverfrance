@@ -1,0 +1,1 @@
+LocalizationManifestReady( 'loyaltyrewards', 'manifest', {"RewardsReaction_1":"Suy tưởng","RewardsReaction_2":"Ấm lòng","RewardsReaction_3":"Hài hước","RewardsReaction_4":"Nóng hổi","RewardsReaction_5":"Văn vẻ","RewardsReaction_6":"Siêu hữu ích"});

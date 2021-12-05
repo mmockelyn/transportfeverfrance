@@ -17,7 +17,7 @@ class CreateDownloadVersionsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('version');
-            $table->string('link_packages');
+            $table->string('link_packages')->nullable();
             $table->text('content');
             $table->enum('type', ['alpha', 'beta', 'release', 'hotfix'])->default('release');
             $table->integer('state')->default(0)->comment("0: Non Publier |1: En cours de publication |2: Publier");

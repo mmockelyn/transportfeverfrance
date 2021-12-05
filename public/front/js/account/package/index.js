@@ -113,13 +113,17 @@ jQuery(document).ready(function() {
                 console.log(row.provider)
 
                 return `
-                <div class="d-flex align-items-center bg-light-primary p-1">
-                    <div class="symbol symbol-50 symbol-light-white mr-5">
-                        <div class="symbol-label">
-                            <img src="/storage/files/shares/core/icons/`+sl[row.provider].icon+`" class="h-50" alt="" />
-                        </div>
+                <div class="d-flex align-items-center mb-7">
+                    <!--begin::Avatar-->
+                    <div class="symbol symbol-50px me-5">
+                        <img src="/storage/files/shares/core/icons/${sl[row.provider].icon}" class="" alt="">
                     </div>
-                    <a href="#" class="text-dark">`+sl[row.provider].title+`</a>
+                    <!--end::Avatar-->
+                    <!--begin::Text-->
+                    <div class="flex-grow-1">
+                        <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">${sl[row.provider].title}</a>
+                    </div>
+                    <!--end::Text-->
                 </div>
                 `;
             }

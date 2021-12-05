@@ -39,25 +39,42 @@ class Format
         switch ($provider) {
             case 1:
                 return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Steam">
-                            <img alt="Pic" src="storage/files/shares/core/icons/steam_icon.png"/>
+                            <img alt="Pic" src="/storage/files/shares/core/icons/steam_icon.png"/>
                         </div>';
                 break;
             case 2:
                 return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Transport Fever net">
-                            <img alt="Pic" src="storage/files/shares/core/icons/tf_net_icon.png"/>
+                            <img alt="Pic" src="/storage/files/shares/core/icons/tf_net_icon.png"/>
                         </div>';
                 break;
 
             case 3:
                 return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="TF France">
-                            <img alt="Pic" src="storage/files/shares/core/icons/tf_france_icon.png"/>
+                            <img alt="Pic" src="/storage/files/shares/core/icons/tf_france_icon.png"/>
                         </div>';
                 break;
 
             default:
                 return '<div class="symbol symbol-' . $size . ' symbol-lg-30 symbol-circle mr-3" data-toggle="tooltip" data-theme="dark" data-placement="right" title="Aucun">
-                            <img alt="Pic" src="storage/files/shares/core/icons/null_icon.png"/>
+                            <img alt="Pic" src="/storage/files/shares/core/icons/null_icon.png"/>
                         </div>';
+                break;
+        }
+    }
+
+    public static function DownloadState($state)
+    {
+        switch ($state) {
+            case 0:
+                return "<span class='badge badge-danger'>Non Publier</span>";
+                break;
+
+            case 1:
+                return "<span class='badge badge-success'>Publier</span>";
+                break;
+
+            default:
+                return "<span class='badge badge-default'>Inconnue</span>";
                 break;
         }
     }
@@ -72,23 +89,83 @@ class Format
         }
     }
 
-    public static function labelDownloadVersionType($type)
+    public static function labelDownloadVersionType($type, $back = false)
     {
-        switch ($type) {
-            case 'alpha':
-                return '<span class="label label-light-danger font-weight-bolder label-inline ml-2">Alpha</span>';
-                break;
-            case 'beta':
-                return '<span class="label label-light-info font-weight-bolder label-inline ml-2">Beta</span>';
-                break;
-            case 'release':
-                return '<span class="label label-light-success font-weight-bolder label-inline ml-2">Release</span>';
-                break;
-            case 'hotfix':
-                return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">Hotfix</span>';
-                break;
-            default:
-                return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">Hotfix</span>';
+        if($back == false) {
+            switch ($type) {
+                case 'alpha':
+                    return '<span class="label label-light-danger font-weight-bolder label-inline ml-2">Alpha</span>';
+                    break;
+                case 'beta':
+                    return '<span class="label label-light-info font-weight-bolder label-inline ml-2">Beta</span>';
+                    break;
+                case 'release':
+                    return '<span class="label label-light-success font-weight-bolder label-inline ml-2">Release</span>';
+                    break;
+                case 'hotfix':
+                    return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">Hotfix</span>';
+                    break;
+                default:
+                    return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">Hotfix</span>';
+            }
+        } else {
+            switch ($type) {
+                case 'alpha':
+                    return '<span class="badge badge-light-danger font-weight-bolder ml-2">Alpha</span>';
+                    break;
+                case 'beta':
+                    return '<span class="badge badge-light-info font-weight-bolder ml-2">Beta</span>';
+                    break;
+                case 'release':
+                    return '<span class="badge badge-light-success font-weight-bolder ml-2">Release</span>';
+                    break;
+                case 'hotfix':
+                    return '<span class="badge badge-light-warning font-weight-bolder ml-2">Hotfix</span>';
+                    break;
+                default:
+                    return '<span class="badge badge-light-warning font-weight-bolder ml-2">Hotfix</span>';
+            }
+        }
+    }
+
+    public static function labelDownloadVersionState($state, $back = false)
+    {
+        if($back == false) {
+            switch ($state) {
+                case 0:
+                    return '<span class="label label-light-danger font-weight-bolder label-inline ml-2">Non publier</span>';
+                    break;
+
+                case 1:
+                    return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">En cours de publication</span>';
+                    break;
+
+                case 2:
+                    return '<span class="label label-light-success font-weight-bolder label-inline ml-2">Publier</span>';
+                    break;
+
+                default:
+                    return '<span class="label label-light-default font-weight-bolder label-inline ml-2">Inconnue</span>';
+
+            }
+        } else {
+            switch ($state) {
+                case 0:
+                    return '<span class="badge badge-light-danger font-weight-bolder label-inline ml-2">Non publier</span>';
+                    break;
+
+                case 1:
+                    return '<span class="badge badge-light-warning font-weight-bolder label-inline ml-2">En cours de publication</span>';
+                    break;
+
+                case 2:
+                    return '<span class="badge badge-light-success font-weight-bolder label-inline ml-2">Publier</span>';
+                    break;
+
+                default:
+                    return '<span class="badge badge-light-default font-weight-bolder label-inline ml-2">Inconnue</span>';
+
+            }
         }
     }
 
@@ -115,23 +192,11 @@ class Format
     public static function percentProfilComplete($value)
     {
         if ($value <= 33) {
-            return '
-                <div class="progress progress-xs mx-3 w-100">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: ' . $value . '%;" aria-valuenow="' . $value . '" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <span class="font-weight-bolder text-dark">' . round($value, 0) . ' % completer</span>';
+            return '<div class="bg-danger rounded h-5px" role="progressbar" style="width: ' . $value . '%;" aria-valuenow="' . $value . '" aria-valuemin="0" aria-valuemax="100"></div>';
         } elseif ($value > 34 && $value <= 66) {
-            return '
-                <div class="progress progress-xs mx-3 w-100">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: ' . $value . '%;" aria-valuenow="' . $value . '" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <span class="font-weight-bolder text-dark">' . round($value, 0) . ' % completer</span>';
+            return '<div class="bg-warning rounded h-5px" role="progressbar" style="width: ' . $value . '%;" aria-valuenow="' . $value . '" aria-valuemin="0" aria-valuemax="100"></div>';
         } else {
-            return '
-                <div class="progress progress-xs mx-3 w-100">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: ' . $value . '%;" aria-valuenow="' . $value . '" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <span class="font-weight-bolder text-dark">' . round($value, 0) . ' % completer</span>';
+            return '<div class="bg-success rounded h-5px" role="progressbar" style="width: ' . $value . '%;" aria-valuenow="' . $value . '" aria-valuemin="0" aria-valuemax="100"></div>';
         }
     }
 
@@ -268,13 +333,13 @@ class Format
     public static function number_format($number, $euro = true, $stringColor = false)
     {
         if ($euro == true) {
-            if($stringColor == false) {
-                return number_format($number, 2, ',', ' ')." €";
+            if ($stringColor == false) {
+                return number_format($number, 2, ',', ' ') . " €";
             } else {
-                if($number < 0) {
-                    return "<span class='text-danger'>".self::number_format($number)."</span>";
-                } elseif($number > 0) {
-                    return "<span class='text-success'>".self::number_format($number)."</span>";
+                if ($number < 0) {
+                    return "<span class='text-danger'>" . self::number_format($number) . "</span>";
+                } elseif ($number > 0) {
+                    return "<span class='text-success'>" . self::number_format($number) . "</span>";
                 } else {
                     return self::number_format($number);
                 }
@@ -286,18 +351,86 @@ class Format
 
     public static function linkToPaypal()
     {
-        if(config("paypal.mode") == 'sandbox') {
+        if (config("paypal.mode") == 'sandbox') {
             return config('paypal.sandbox.donation_uri');
         } else {
             return config('paypal.live.donation_uri');
         }
     }
+
     public static function urlToPaypalActivity($paypal_id)
     {
-        if(config("paypal.mode") == 'sandbox') {
+        if (config("paypal.mode") == 'sandbox') {
             return "https://www.sandbox.paypal.com/activity/payment/{$paypal_id}";
         } else {
             return "https://www.paypal.com/activity/payment/{$paypal_id}";
+        }
+    }
+
+    public static function formatRandomBadge($light = false)
+    {
+        $value = rand(0, 6);
+
+        if ($light == false) {
+            switch ($value) {
+                case 0:
+                    return 'bg-primary';
+                    break;
+
+                case 1:
+                    return 'bg-secondary';
+                    break;
+
+                case 2:
+                    return 'bg-success';
+                    break;
+
+                case 3:
+                    return 'bg-info';
+                    break;
+
+                case 4:
+                    return 'bg-warning';
+                    break;
+
+                case 5:
+                    return 'bg-danger';
+                    break;
+
+                case 6:
+                    return 'bg-dark';
+                    break;
+            }
+        } else {
+            switch ($value) {
+                case 0:
+                    return 'bg-light-primary';
+                    break;
+
+                case 1:
+                    return 'bg-light-secondary';
+                    break;
+
+                case 2:
+                    return 'bg-light-success';
+                    break;
+
+                case 3:
+                    return 'bg-light-info';
+                    break;
+
+                case 4:
+                    return 'bg-light-warning';
+                    break;
+
+                case 5:
+                    return 'bg-light-danger';
+                    break;
+
+                case 6:
+                    return 'bg-light-dark';
+                    break;
+            }
         }
     }
 }

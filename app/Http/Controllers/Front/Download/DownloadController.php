@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front\Download;
 use App\Helpers\Format;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Front\Download\DownloadCommentRequest;
+use App\Models\Download\Download;
 use App\Models\Download\DownloadComment;
 use App\Models\Download\DownloadCommentReport;
 use App\Models\Download\DownloadSubCategory;
@@ -43,6 +44,14 @@ class DownloadController extends Controller
     public function show(Request $request, $slug)
     {
         $download = $this->downloadRepository->getPostBySlug($slug);
+        $d = Download::query()->where('slug', $slug)->first();
+        try {
+            $d->update([
+                "count_view" => $download->count_view +1
+            ]);
+        }catch (\Exception $exception) {
+            abort(500, $exception->getMessage());
+        }
 
         //dd(auth()->user()->downloadsupports);
 

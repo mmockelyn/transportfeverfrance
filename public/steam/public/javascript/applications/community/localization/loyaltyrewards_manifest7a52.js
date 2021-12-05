@@ -1,0 +1,1 @@
+LocalizationManifestReady( 'loyaltyrewards', 'manifest', {"RewardsReaction_1":"Hluboká myšlenka","RewardsReaction_2":"Pohlazení na duši","RewardsReaction_3":"Kopa srandy","RewardsReaction_4":"Kontroverzní názor","RewardsReaction_5":"Literární dílo","RewardsReaction_6":"Vítaná pomoc"});

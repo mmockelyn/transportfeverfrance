@@ -1,0 +1,1 @@
+LocalizationManifestReady( 'loyaltyrewards', 'manifest', {"RewardsReaction_1":"深思熟慮","RewardsReaction_2":"暖意在心","RewardsReaction_3":"風趣滑稽","RewardsReaction_4":"爭議言論","RewardsReaction_5":"詩意蕩漾","RewardsReaction_6":"極有幫助"});

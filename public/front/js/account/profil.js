@@ -1,15 +1,22 @@
 let app = document.querySelector('#profile')
 let tableDownload = document.querySelector('#listDownloadComment')
+let templateDownload;
+let datatableDownload;
 //let tableBlog = document.querySelector('#listDownloadComment')
 let user_id = app.dataset.id
+
+let blockUI = new KTBlockUI(app);
 
 function updateNumberComments(data) {
     let numberComment = app.querySelector('.numbercomment')
     let calc = data.user.blogcomments.length + data.user.downloadcomments.length
-    if (calc !== 0)
+    if (calc !== 0) {
+        numberComment.dataset.ktCountupValue = calc
         numberComment.innerHTML = calc
-    else
-        numberComment.innerHTML = 'Aucun Commentaire'
+    }else {
+        numberComment.dataset.ktCountupValue = 0
+        numberComment.innerHTML = 0
+    }
 }
 
 function updateUser() {
@@ -116,7 +123,7 @@ function startTotp() {
                 $.ajax({
                     url: '/user/two-factor-qr-code',
                     success: (data) => {
-                        $("#contentSvgQrCode").html('<p>Veuillez télécharger Google Authenticator ou un autre Programme TOTP et scanner le QR Code ci-dessous:</p>'+data.svg)
+                        $("#contentSvgQrCode").html('<p>Veuillez télécharger Google Authenticator ou un autre Programme TOTP et scanner le QR Code ci-dessous:</p>' + data.svg)
                     },
                     error: (err) => {
                         console.error(err)
@@ -188,13 +195,13 @@ function startNotificationPush() {
 }
 
 function getUser() {
-    KTApp.block(app)
+    blockUI.block()
 
     $.ajax({
         url: '/api/user/' + user_id,
         method: 'GET',
         success: (data) => {
-            KTApp.unblock(app)
+            blockUI.release()
             //execute Other Function
             console.log(data)
             updateNumberComments(data)
@@ -205,29 +212,114 @@ function getUser() {
     })
 }
 
-function loadDownloadComment()
-{
-    dt = $("#listDownloadComment").DataTable({
-        responsive: true,
-        searchDelay: 500,
-        processing: true,
-        serverSide: true,
-        order: [[5, 'desc']],
-        stateSave: true,
-        ajax: {
-            url: "/api/list/download/comment/"+user_id,
-        },
-        columns: [
-            { data: 'title' },
-            { data: 'comment' },
-            { data: 'date' },
-            { data: null },
-        ],
+const initTableDownloadComment = () => {
+    const tableRows = tableDownload.querySelectorAll('tbody tr')
+
+    const subtable = document.querySelector('[data-kt-docs-datatable-subtable="subtable_template_download"]')
+    templateDownload = subtable.cloneNode(true)
+    templateDownload.classList.remove('d-none')
+
+    subtable.parentNode.removeChild(subtable)
+
+    datatableDownload = $(table).DataTable({
+        "info": false,
+        'order': [],
+        "lengthChange": false,
+        'pageLength': 6,
+        'ordering': false,
+        'paging': false,
+        'columnDefs': [
+            {orderable: false, targets: 0}, // Disable ordering on column 0 (checkbox)
+            {orderable: false, targets: 2}, // Disable ordering on column 6 (actions)
+            {orderable: true, targets: 1}, // Disable ordering on column 6 (actions)
+        ]
+    })
+
+    datatableDownload.on('draw', () => {
+        resetSubtableDownload()
+        handleActionButtonDownload();
     })
 }
 
-function loadBlogComment()
-{
+const handleActionButtonDownload = () => {
+    const buttons = document.querySelectorAll('[data-kt-docs-datatable-subtable="expand_row_download"]')
+
+    buttons.forEach((button, index) => {
+        button.addEventListener('click', e => {
+            e.stopImmediatePropagation()
+            e.preventDefault()
+
+            let row = button.closest('tr')
+            let rowClasses = ['isOpen', 'border-bottom-0']
+
+            if (row.classList.contains('isOpen')) {
+                while (row.nextSibling && row.nextSibling.getAttribute('data-kt-docs-datatable-subtable') == 'subtable_template_download') {
+                    row.nextSibling.parentNode.removeChild(row.nextSibling);
+                }
+
+                row.classList.remove(...rowClasses)
+
+                button.classList.remove('active')
+            } else {
+                populateTemplateDownload(dataDownload, row)
+                row.classList.add(...rowClasses)
+                button.classList.add('active')
+            }
+        })
+    })
+}
+
+const populateTemplateDownload = (data, target) => {
+    data.forEach((d, index) => {
+        const newTemplateDownload = templateDownload.cloneNode(true)
+
+        const comment = newTemplateDownload.querySelector('[data-kt-docs-datatable-subtable="template_download_comment"]')
+
+        comment.innerHTML = d.comment
+
+        if (data.length === 1) {
+            let borderClasses = ['rounded', 'rounded-end-0'];
+
+            newTemplateDownload.querySelectorAll('td')[0].classList.add(...borderClasses)
+
+            newTemplateDownload.classList.add('border-bottom-0');
+        } else {
+            if (index === (data.length - 1)) {
+                let borderClasses = ['rounded-start', 'rounded-bottom-0'];
+                newTemplateDownload.querySelectorAll('td')[0].classList.add(...borderClasses);
+            }
+
+            if (index === 0) {
+                let borderClasses = ['rounded-start', 'rounded-top-0'];
+                newTemplateDownload.querySelectorAll('td')[0].classList.add(...borderClasses);
+                newTemplateDownload.classList.add('border-bottom-0');
+            }
+        }
+
+        const tbody = tableDownload.querySelector('tbody')
+
+        tbody.insertBefore(newTemplateDownload, target.nextSibling)
+    });
+}
+
+const resetSubtableDownload = () => {
+    const subtable = document.querySelectorAll('[data-kt-docs-datatable-subtable="subtable_template_download"]')
+
+    subtable.forEach(st => {
+        st.parentNode.removeChild(st)
+    });
+
+    const rows = tableDownload.querySelectorAll('tbody tr')
+
+    rows.forEach(r => {
+        r.classList.remove('isOpen')
+        if(r.querySelector('[data-kt-docs-datatable-subtable="expand_row"]')) {
+            r.querySelector('[data-kt-docs-datatable-subtable="expand_row"]').classList.remove('active');
+        }
+    })
+}
+
+function loadBlogComment() {
     dt = $("#listblogComment").DataTable({
         responsive: true,
         searchDelay: 500,
@@ -236,13 +328,13 @@ function loadBlogComment()
         order: [[5, 'desc']],
         stateSave: true,
         ajax: {
-            url: "/api/list/blog/comment/"+user_id,
+            url: "/api/list/blog/comment/" + user_id,
         },
         columns: [
-            { data: 'title' },
-            { data: 'comment' },
-            { data: 'date' },
-            { data: null },
+            {data: 'title'},
+            {data: 'comment'},
+            {data: 'date'},
+            {data: null},
         ],
     })
 }
@@ -255,10 +347,7 @@ function init() {
     startTotp()
     stopTotp()
     startNotificationPush()
-    loadDownloadComment()
-    $('.summernote').summernote({
-        height: 150
-    });
+    //loadDownloadComment()
 
     $(".pr-password").passwordRequirements({
         numCharacters: 6,
@@ -271,6 +360,11 @@ function init() {
     $(".modal").on('hidden.bs.modal', (e) => {
         window.location.reload()
     })
+
 }
+
+new SimpleMDE({
+    element: document.getElementById("editor")
+})
 
 init()
