@@ -204,7 +204,11 @@
                                                         @if(auth()->user()->group == 1)
                                                         <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-cogs"></i> Administration du site</a></li>
                                                         @endif
-                                                        <li class="nav-item"><a class="nav-link border-bottom-0" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+                                                            <li class="nav-item">
+                                                                <form action="{{ route('logout') }}" method="POST">
+                                                                    <button type="submit" class="btn btn-xs btn-primary"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+                                                                </form>
+                                                            </li>
                                                     </ul>
                                                 </div>
                                             </div>
