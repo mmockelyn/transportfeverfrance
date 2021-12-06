@@ -53,6 +53,11 @@ class Download extends Model
         return $this->hasOne(DownloadFeature::class);
     }
 
+    public function galleries()
+    {
+        return $this->hasMany(DownloadGallerie::class);
+    }
+
     public function validComments()
     {
         return $this->comments()->whereHas('user', function ($query) {

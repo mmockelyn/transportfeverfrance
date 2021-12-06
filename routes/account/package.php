@@ -19,6 +19,12 @@ Route::group(['prefix' => "package"], function () {
     Route::put('{package_id}/update_image', [PackageController::class, 'update_image'])->name('account.packages.update_image');
     Route::put('{package_id}/update_info', [PackageController::class, 'update_info'])->name('account.packages.update_info');
 
+    Route::group(["prefix" => "{package_id}/ticket"], function () {
+        Route::get('/{ticket_id}', [PackageController::class, 'showTicket'])->name('account.package.support.room');
+        Route::post('/{ticket_id}', [PackageController::class, 'postTicket'])->name('account.package.support.room.reply');
+        Route::get('/{ticket_id}/cloture', [PackageController::class, 'closureTicket'])->name('account.package.support.room.close');
+    });
+
     Route::get('import', [PackageController::class, 'import'])->name('account.packages.import');
     Route::post('import', [PackageController::class, 'storage'])->name('account.packages.storage');
 });

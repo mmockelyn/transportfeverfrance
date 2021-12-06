@@ -38,11 +38,12 @@ class DownloadController extends Controller
         $downloads = $this->downloadRepository->getActiveOrderByDateForCategory(10, $subCategory_id);
         $sub = DownloadSubCategory::findOrFail($subCategory_id);
 
-        return view('front.download.category', compact('downloads', 'sub'));
+        return view('new_front.download.category', compact('downloads', 'sub'));
     }
 
     public function show(Request $request, $slug)
     {
+        \Carbon\Carbon::setLocale('fr');
         $download = $this->downloadRepository->getPostBySlug($slug);
         $d = Download::query()->where('slug', $slug)->first();
         try {
@@ -55,7 +56,7 @@ class DownloadController extends Controller
 
         //dd(auth()->user()->downloadsupports);
 
-        return view('front.download.show', compact('download'));
+        return view('new_front.download.show', compact('download'));
     }
 
     public function storeComment(DownloadCommentRequest $request, $slug)
