@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front\Blog;
 
+use App\Helpers\SiteHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Blog\BlogCategory;
 use App\Repository\Blog\BlogRepository;
@@ -43,17 +44,16 @@ class BlogController extends Controller
         $downloads = $this->downloadRepository->getActiveOrderBuDate();
         $heros = $this->blogRepository->getHeros();
 
-        //dd(auth()->user()->unreadNotifications);
+        //dd(SiteHelper::getSiteInfo('id'));
 
-
-        return view('front.index', compact('blogs', 'heros', 'downloads'));
+        return view('new_front.index', compact('blogs', 'heros', 'downloads'));
     }
 
     public function list()
     {
         $blogs = $this->blogRepository->getActiveOrderBuDate($this->nbrPages);
 
-        return view('front.blog.index', compact('blogs'));
+        return view('new_front.blog.index', compact('blogs'));
     }
 
     public function category(BlogCategory $category)
@@ -61,13 +61,13 @@ class BlogController extends Controller
         $blogs = $this->blogRepository->getActiveOrderByDateForCategory($this->nbrPages, $category->slug);
         $title = 'Article de la catégorie: <strong>'.$category->title.'</strong>';
 
-        return view('front.blog.category', compact('blogs', 'title'));
+        return view('new_front.blog.category', compact('blogs', 'title', 'category'));
     }
 
     public function show(Request $request, $slug)
     {
         $blog = $this->blogRepository->getPostBySlug($slug);
 
-        return view('front.blog.show', compact('blog'));
+        return view('new_front.blog.show', compact('blog'));
     }
 }

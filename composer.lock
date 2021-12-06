@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f0d1a909907fa091bfd5f5ea6a62f70",
+    "content-hash": "02eafcec136dcb7728d6773bce674895",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -952,6 +952,73 @@
                 }
             ],
             "time": "2021-08-15T20:50:18+00:00"
+        },
+        {
+            "name": "cagilo/cagilo",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cagilo/cagilo.git",
+                "reference": "fcbf5637667f3d10059b4b141634c7d6f96237b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cagilo/cagilo/zipball/fcbf5637667f3d10059b4b141634c7d6f96237b1",
+                "reference": "fcbf5637667f3d10059b4b141634c7d6f96237b1",
+                "shasum": ""
+            },
+            "require": {
+                "jenssegers/agent": "^2.6",
+                "laravel/framework": "^8.59",
+                "orchid/blade-icons": "1.3.2",
+                "php": "^8.0"
+            },
+            "conflict": {
+                "jenssegers/agent": "<2.6.4",
+                "orchestra/testbench-core": "<6.24.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.4.2",
+                "orchestra/testbench-core": "^6.2",
+                "phpunit/phpunit": "^9.3",
+                "vimeo/psalm": "^4.8"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Cagilo\\UI\\CagiloServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cagilo\\UI\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexandr Chernyaev",
+                    "email": "bliz48rus@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A set of open-source Blade components for the Laravel Framework",
+            "homepage": "https://cagilo.github.io",
+            "keywords": [
+                "blade-components",
+                "laravel",
+                "ui"
+            ],
+            "support": {
+                "issues": "https://github.com/cagilo/cagilo/issues",
+                "source": "https://github.com/cagilo/cagilo/tree/1.2.0"
+            },
+            "time": "2021-10-01T16:27:05+00:00"
         },
         {
             "name": "chartisan/php",
@@ -6320,6 +6387,64 @@
                 "source": "https://github.com/opis/closure/tree/3.6.2"
             },
             "time": "2021-04-09T13:42:10+00:00"
+        },
+        {
+            "name": "orchid/blade-icons",
+            "version": "1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchidsoftware/blade-icons.git",
+                "reference": "51abf9decad29e358a75a202c69c93ef88732d89"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchidsoftware/blade-icons/zipball/51abf9decad29e358a75a202c69c93ef88732d89",
+                "reference": "51abf9decad29e358a75a202c69c93ef88732d89",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "laravel/framework": "^8.16"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Orchid\\Icons\\IconServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orchid\\Icons\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "tabuna",
+                    "email": "bliz48rus@gmail.com"
+                }
+            ],
+            "description": "An easy way inline SVG images in your Blade templates.",
+            "support": {
+                "issues": "https://github.com/orchidsoftware/blade-icons/issues",
+                "source": "https://github.com/orchidsoftware/blade-icons/tree/1.3.2"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/tabuna/10usd",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-06-23T19:26:10+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
 use App\Models\Download\DownloadFeature;
+use App\Models\Download\DownloadGallerie;
 use App\Models\Download\DownloadSubCategory;
 use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadSupportRoom;
@@ -164,8 +165,13 @@ class PackageController extends Controller
         $download = Download::find($package_id);
         try {
             $file = $request->file('image')->storePubliclyAs('files/shares/download/', $name_file, 'public');
+            $file = $request->file('image')->storePubliclyAs('files/shares/download/'.$download->id.'/', $name_file, 'public');
             $download->update([
                 "image" => $name_file
+            ]);
+            DownloadGallerie::query()->create([
+                "image" => $name_file,
+                "download_id" => $download->id
             ]);
 
             LogActivity::addToLog("Image du mod $download->title mis à jours");
