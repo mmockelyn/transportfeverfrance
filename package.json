@@ -22,6 +22,6 @@
         "@toast-ui/editor": "^3.1.1",
         "codemirror": "^5.64.0",
         "moment": "^2.29.1",
-        "webpack-livereload-plugin": "^3.0.1"
+        "webpack-livereload-plugin": "^3.0.2"
     }
 }
