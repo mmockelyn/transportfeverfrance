@@ -26,7 +26,22 @@ class ProjectController extends Controller
         if ($user->social->project_active_user == 0) {
             return view('account.project.index');
         } else {
-            return view('account.project.index');
+            $user_p = DB::connection('project')->table('users')->where('email', auth()->user()->email)->first();
+            $projects = DB::connection('project')->table('project_user')->where('user_id', $user_p->id)->get();
+
+
+
+            $array = [];
+            foreach ($projects as $project) {
+                $projects_p = DB::connection('project')->table('projects')->find($project->project_id);
+                $array[] = [
+                    "projects" => $projects_p
+                ];
+            }
+
+            return view('account.project.index', [
+                "projects" => $array
+            ]);
         }
     }
 
@@ -35,11 +50,15 @@ class ProjectController extends Controller
         $this->getAuthenticated();
         $user = User::where('email', $request->get('email'))->first();
         try {
-            DB::connection('project')->table('users')->insert([
-                "name" => $user->name,
-                "email" => $user->email,
-                "password" => $user->password
-            ]);
+            $count = DB::connection('project')->table('users')->where('email', $request->get('email'))->count();
+
+            if($count == 0) {
+                DB::connection('project')->table('users')->insert([
+                    "name" => $user->name,
+                    "email" => $user->email,
+                    "password" => $user->password
+                ]);
+            }
 
             $user->social()->update([
                 "project_active_user" => 1

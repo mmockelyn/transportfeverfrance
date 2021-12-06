@@ -35,11 +35,8 @@ class AppServiceProvider extends ServiceProvider
     {
         DB::statement("SET lc_time_names = 'fr_FR'");
         View::composer([
-            'front.layouts.layout',
-            'front.index',
-            'front.blog.index',
-            'front.blog.category',
-            'front.blog.show',
+            'front.*',
+            'new_front.*',
             'account.profil',
             'account.*'
         ], HomeComposer::class);

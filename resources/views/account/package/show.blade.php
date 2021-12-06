@@ -179,7 +179,8 @@
                             @endif
                         </div>
                         <div class="overlay-layer bg-dark bg-opacity-25">
-                            <a href="{{ route('account.packages.steam_preview', $download->id) }}" class="btn btn-primary btn-shadow">Preview on steam</a>
+                            <a href="{{ route('account.packages.steam_preview', $download->id) }}" class="btn btn-primary btn-shadow m-3">Preview on steam</a>
+                            <a href="{{ route('front.download.show', $download->slug) }}" class="btn btn-primary btn-shadow">Preview on site</a>
                         </div>
                     </div>
                     <div class="d-flex align-items-center mb-8 px-5">
@@ -891,6 +892,74 @@
                                 </div>
                                 <div class="card-body">
                                     {!! $download->wiki->content !!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="supports" role="tabpanel">
+                            <div class="card shadow-sm">
+                                <div class="card-header">
+                                    <h3 class="card-title">Liste des tickets de support</h3>
+                                    <div class="card-toolbar">
+                                        <button type="button" class="btn btn-sm btn-light">
+                                            Action
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered-row">
+                                        <thead>
+                                            <tr>
+                                                <th>Numéro</th>
+                                                <td>Utilisateur</td>
+                                                <td>Sujet</td>
+                                                <td>Etat</td>
+                                                <td class="text-end">Actions</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($download->supports as $support)
+                                                <tr>
+                                                    <td>TCK-MOD{{ $download->id }}-{{ $support->id }}</td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <!--begin::Avatar-->
+                                                            <div class="symbol symbol-50px me-5">
+                                                                @if($support->user_id !== null)
+                                                                    @if($support->user->image)
+                                                                        <img src="/storage/files/shares/avatar/{{ $support->user->image }}" class="" alt="">
+                                                                    @else
+                                                                        <img src="/storage/files/shares/avatar/placeholder.png" class="" alt="">
+                                                                    @endif
+                                                                @else
+                                                                    <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get($support->email_user) }}" class="" alt="">
+                                                                @endif
+                                                            </div>
+                                                            <!--end::Avatar-->
+                                                            <!--begin::Text-->
+                                                            @if($support->user_id !== null)
+                                                                <div class="flex-grow-1">
+                                                                    <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">{{ $support->user->name }}</a>
+                                                                    <span class="text-muted d-block fw-bold">{{ $support->user->email }}</span>
+                                                                </div>
+                                                            @else
+                                                                <div class="flex-grow-1">
+                                                                    <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">{{ $support->name_user }}</a>
+                                                                    <span class="text-muted d-block fw-bold">{{ $support->email_user }}</span>
+                                                                </div>
+                                                            @endif
+                                                            <!--end::Text-->
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ $support->subject }}</td>
+                                                    <td>{!! \App\Helpers\Format::labelDownloadSupportState($support->state, true) !!}</td>
+                                                    <td>
+                                                        <a href="{{ route('account.package.support.room', [$download->id, $support->id]) }}" class="btn btn-icon btn-secondary"><i class="fas fa-eye"></i> </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

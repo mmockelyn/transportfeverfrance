@@ -94,19 +94,19 @@ class Format
         if($back == false) {
             switch ($type) {
                 case 'alpha':
-                    return '<span class="label label-light-danger font-weight-bolder label-inline ml-2">Alpha</span>';
+                    return '<span class="badge badge-danger badge-xs badge-pill text-uppercase px-2 py-1 mr-1">Alpha</span>';
                     break;
                 case 'beta':
-                    return '<span class="label label-light-info font-weight-bolder label-inline ml-2">Beta</span>';
+                    return '<span class="badge badge-info badge-xs badge-pill text-uppercase px-2 py-1 mr-1">Beta</span>';
                     break;
                 case 'release':
-                    return '<span class="label label-light-success font-weight-bolder label-inline ml-2">Release</span>';
+                    return '<span class="badge badge-success badge-xs badge-pill text-uppercase px-2 py-1 mr-1">Release</span>';
                     break;
                 case 'hotfix':
-                    return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">Hotfix</span>';
+                    return '<span class="badge badge-warning badge-xs badge-pill text-uppercase px-2 py-1 mr-1">Hotfix</span>';
                     break;
                 default:
-                    return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">Hotfix</span>';
+                    return '<span class="badge badge-warning badge-xs badge-pill text-uppercase px-2 py-1 mr-1">Hotfix</span>';
             }
         } else {
             switch ($type) {
@@ -133,19 +133,19 @@ class Format
         if($back == false) {
             switch ($state) {
                 case 0:
-                    return '<span class="label label-light-danger font-weight-bolder label-inline ml-2">Non publier</span>';
+                    return '<span class="badge badge-danger badge-sm badge-pill text-uppercase px-2 py-1 mr-1">Non publier</span>';
                     break;
 
                 case 1:
-                    return '<span class="label label-light-warning font-weight-bolder label-inline ml-2">En cours de publication</span>';
+                    return '<span class="badge badge-warning badge-sm badge-pill text-uppercase px-2 py-1 mr-1">En cours de publication</span>';
                     break;
 
                 case 2:
-                    return '<span class="label label-light-success font-weight-bolder label-inline ml-2">Publier</span>';
+                    return '<span class="badge badge-success badge-sm badge-pill text-uppercase px-2 py-1 mr-1">Publier</span>';
                     break;
 
                 default:
-                    return '<span class="label label-light-default font-weight-bolder label-inline ml-2">Inconnue</span>';
+                    return '<span class="badge badge-dark badge-sm badge-pill text-uppercase px-2 py-1 mr-1">Inconnue</span>';
 
             }
         } else {
@@ -169,23 +169,42 @@ class Format
         }
     }
 
-    public static function labelDownloadSupportState($state)
+    public static function labelDownloadSupportState($state, $back = false)
     {
-        switch ($state) {
-            case 0:
-                return '<span class="label label-success font-weight-bolder label-inline ml-2">Ouvert</span>';
-                break;
-            case 1:
-                return '<span class="label label-info font-weight-bolder label-inline ml-2">En attente de l\'auteur</span>';
-                break;
-            case 2:
-                return '<span class="label label-info font-weight-bolder label-inline ml-2">En attente de l\'utilisateur</span>';
-                break;
-            case 3:
-                return '<span class="label label-danger font-weight-bolder label-inline ml-2">Terminer</span>';
-                break;
-            default:
-                return null;
+        if($back == false) {
+            switch ($state) {
+                case 0:
+                    return '<span class="badge badge-success badge-sm badge-pill text-uppercase px-2 py-1 mr-1">Ouvert</span>';
+                    break;
+                case 1:
+                    return '<span class="badge badge-info badge-sm badge-pill text-uppercase px-2 py-1 mr-1">En attente de l\'auteur</span>';
+                    break;
+                case 2:
+                    return '<span class="badge badge-info badge-sm badge-pill text-uppercase px-2 py-1 mr-1">En attente de l\'utilisateur</span>';
+                    break;
+                case 3:
+                    return '<span class="badge badge-danger badge-sm badge-pill text-uppercase px-2 py-1 mr-1">Terminer</span>';
+                    break;
+                default:
+                    return null;
+            }
+        } else {
+            switch ($state) {
+                case 0:
+                    return '<span class="badge badge-success font-weight-bolder label-inline ml-2">Ouvert</span>';
+                    break;
+                case 1:
+                    return '<span class="badge badge-info font-weight-bolder label-inline ml-2">En attente de l\'auteur</span>';
+                    break;
+                case 2:
+                    return '<span class="badge badge-info font-weight-bolder label-inline ml-2">En attente de l\'utilisateur</span>';
+                    break;
+                case 3:
+                    return '<span class="badge badge-danger font-weight-bolder label-inline ml-2">Terminer</span>';
+                    break;
+                default:
+                    return null;
+            }
         }
     }
 

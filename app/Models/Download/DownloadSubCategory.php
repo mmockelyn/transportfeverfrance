@@ -13,7 +13,7 @@ class DownloadSubCategory extends Model
 
     public function category()
     {
-        return $this->belongsTo(DownloadCategory::class);
+        return $this->belongsTo(DownloadCategory::class, 'download_category_id');
     }
 
     public function downloads()

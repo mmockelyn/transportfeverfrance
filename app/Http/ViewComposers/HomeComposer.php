@@ -8,6 +8,7 @@ use App\Models\Blog\BlogCategory;
 use App\Models\Download\DownloadCategory;
 use App\Models\Follow;
 use App\Models\Page;
+use App\Models\Site;
 use App\Models\User;
 use Illuminate\View\View;
 
@@ -24,7 +25,8 @@ class HomeComposer
             'download_categories' => DownloadCategory::all(),
             'follows' => Follow::all(),
             'providers' => config('app.social_provider_active'),
-            'authors' => User::where('id', '!=', 1)->get()
+            'authors' => User::where('id', '!=', 1)->get(),
+            'site' => Site::query()->where('id', 1)->first()
         ]);
 
         if(!auth()->guest()) {

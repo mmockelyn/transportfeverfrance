@@ -7,11 +7,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
 use App\Models\Download\DownloadFeature;
+use App\Models\Download\DownloadGallerie;
 use App\Models\Download\DownloadSubCategory;
+use App\Models\Download\DownloadSupport;
+use App\Models\Download\DownloadSupportRoom;
 use App\Models\Download\DownloadUser;
 use App\Models\Download\DownloadWiki;
 use App\Packages\SteamApi\Steam;
 use App\Repository\Download\DownloadRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -161,8 +165,13 @@ class PackageController extends Controller
         $download = Download::find($package_id);
         try {
             $file = $request->file('image')->storePubliclyAs('files/shares/download/', $name_file, 'public');
+            $file = $request->file('image')->storePubliclyAs('files/shares/download/'.$download->id.'/', $name_file, 'public');
             $download->update([
                 "image" => $name_file
+            ]);
+            DownloadGallerie::query()->create([
+                "image" => $name_file,
+                "download_id" => $download->id
             ]);
 
             LogActivity::addToLog("Image du mod $download->title mis à jours");
@@ -218,5 +227,70 @@ class PackageController extends Controller
         return view("account.package.steam", [
             "download" => $download
         ]);
+    }
+
+    public function showTicket($download_id, $ticket_id)
+    {
+        Carbon::setLocale('fr_FR');
+        $ticket = DownloadSupport::query()->find($ticket_id);
+
+        return view('account.package.room', [
+            "ticket" => $ticket
+        ]);
+    }
+
+    public function postTicket(Request $request, $download_id, $ticket_id)
+    {
+        try {
+            $room = DownloadSupportRoom::query()->create([
+                "message" => $request->get('message'),
+                "user_id" => auth()->user()->id,
+                "download_support_id" => $ticket_id
+            ]);
+
+            try {
+                $room->ticket()->update([
+                    "state" => 1
+                ]);
+                LogActivity::addToLog("Poste d'un message sur le mod N° {$download_id}");
+                return redirect()->back()
+                    ->with('toast')
+                    ->with('status', 'success')
+                    ->with('message', "Poste d'un message sur le mod N° {$download_id}");
+            }catch (\Exception $exception) {
+                LogActivity::addToLog($exception->getMessage());
+                return redirect()->back()
+                    ->with('toast')
+                    ->with('status', 'error')
+                    ->with('message', "Erreur Système");
+            }
+        }catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
+            return redirect()->back()
+                ->with('toast')
+                ->with('status', 'error')
+                ->with('message', "Erreur Système");
+        }
+    }
+
+    public function closureTicket(Request $request, $download_id, $ticket_id)
+    {
+        try {
+            $room = DownloadSupport::query()->find($ticket_id);
+            $room->update([
+                "state" => 3
+            ]);
+            LogActivity::addToLog("Cloture du ticket TCK-MOD{$room->download_id}-{$ticket_id}");
+            return response()->json([
+                "message" => "Ticket N°TCK-MOD{$room->download_id}-{$ticket_id} cloturer"
+            ]);
+        }catch (\Exception $exception) {
+            LogActivity::addToLog($exception->getMessage());
+            return response()->json([
+                "message" => "Erreur Système",
+                "error" => $exception->getMessage(),
+                "trace" => $exception->getTrace()
+            ]);
+        }
     }
 }
