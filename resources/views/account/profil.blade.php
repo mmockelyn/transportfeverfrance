@@ -1,8 +1,6 @@
 @extends("account.layouts.layout")
 @section("styles")
     <link href="/account/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet"
-          href="{{ asset('/front/assets/plugins/custom/password-requirement/css/jquery.passwordRequirements.css') }}">
     <style>
         .ql-container {
             height: 350px;
@@ -686,13 +684,16 @@
                                     </div>
                                     <div class="col-4">
                                         @if($user->two_factor_secret == null)
-                                            <button id="btnStartTotp" class="btn btn-block btn-success"><i
-                                                    class="fas fa-lock"></i> Activer l'authentification TOTP
+                                            <button id="btnStartTotp" class="btn btn-block btn-success">
+                                                <span class="indicator-label"><i class="fas fa-lock"></i> Activer l'authentification TOTP</span>
+                                                <span class="indicator-progress">Veuillez patienter...</span>
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                             </button>
                                         @else
-                                            <button id="btnEndTotp" class="btn btn-block btn-danger"><i
-                                                    class="fas fa-unlock"></i> Désactiver l'authentification
-                                                TOTP
+                                            <button id="btnEndTotp" class="btn btn-block btn-danger">
+                                                <span class="indicator-label"><i class="fas fa-lock"></i> Désactiver l'authentification TOTP</span>
+                                                <span class="indicator-progress">Veuillez patienter...</span>
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                             </button>
                                         @endif
                                             @if($user->two_factor_secret != null)
@@ -1080,8 +1081,6 @@
 
 @section("script")
     <script src="/account/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-    <script
-        src="{{ asset('front/assets/plugins/custom/password-requirement/js/jquery.passwordRequirements.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.js"></script>
     <script src="{{ asset('/front/js/account/profil.js') }}"></script>
 @endsection

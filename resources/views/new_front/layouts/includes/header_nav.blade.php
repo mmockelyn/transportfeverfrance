@@ -99,6 +99,13 @@
                                                             <div class="col d-flex justify-content-end">
                                                                 <button type="submit" class="btn btn-primary">Connexion</button>
                                                             </div>
+                                                            <div class="col d-flex justify-content-center">
+                                                                <a href="{{ route('auth.login.provider', 'discord') }}" class="mb-1 mt-1 mr-1 btn bg-discord text-color-white"><i class="fab fa-discord"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'google') }}" class="mb-1 mt-1 mr-1 btn bg-google text-color-white"><i class="fab fa-google"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'facebook') }}" class="mb-1 mt-1 mr-1 btn bg-facebook text-color-white"><i class="fab fa-facebook"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'twitter') }}" class="mb-1 mt-1 mr-1 btn bg-twitter text-color-white"><i class="fab fa-twitter"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'steam') }}" class="mb-1 mt-1 mr-1 btn bg-steam text-color-white"><i class="fab fa-steam"></i></a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="extra-actions">
@@ -130,6 +137,13 @@
                                                         <div class="form-row">
                                                             <div class="col d-flex justify-content-end">
                                                                 <button type="submit" class="btn btn-primary">M'inscrire</button>
+                                                            </div>
+                                                            <div class="col d-flex justify-content-center">
+                                                                <a href="{{ route('auth.login.provider', 'discord') }}" class="mb-1 mt-1 mr-1 btn bg-discord text-color-white"><i class="fab fa-discord"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'google') }}" class="mb-1 mt-1 mr-1 btn bg-google text-color-white"><i class="fab fa-google"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'facebook') }}" class="mb-1 mt-1 mr-1 btn bg-facebook text-color-white"><i class="fab fa-facebook"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'twitter') }}" class="mb-1 mt-1 mr-1 btn bg-twitter text-color-white"><i class="fab fa-twitter"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'steam') }}" class="mb-1 mt-1 mr-1 btn bg-steam text-color-white"><i class="fab fa-steam"></i></a>
                                                             </div>
                                                         </div>
                                                     </div>
