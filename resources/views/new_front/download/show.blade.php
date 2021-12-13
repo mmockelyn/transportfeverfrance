@@ -15,23 +15,45 @@
 @endsection
 
 @section("content")
-    <section class="page-header page-header-modern page-header-background page-header-background-md parallax overlay overlay-color-dark overlay-show overlay-op-5 mt-0" data-plugin-parallax data-plugin-options="{'speed': 1.2}" data-image-src="/storage/files/shares/download/{{ $download->image }}">
+    <section class="page-header page-header-modern page-header-background page-header-background-md py-0 overlay overlay-color-primary overlay-show overlay-op-8" style="background-image: url(/front/assets/img/page-header/page-header-background-2.jpg);">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 align-self-center p-static order-2 text-center">
-                    <h1>{{ $download->title }}</h1>
+                <div class="col-sm-5 order-2 order-sm-1 align-self-center p-static">
+                    <div class="overflow-hidden">
+                        <ul class="breadcrumb breadcrumb-light d-block appear-animation animated fadeInUpShorter appear-animation-visible" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="100" style="animation-delay: 100ms;">
+                            <li><a href="#">Accueil</a></li>
+                            <li><a href="#">Téléchargement</a></li>
+                            <li><a href="#">{{ $download->category->title }}</a></li>
+                            <li><a href="#">{{ $download->subcategory->title }}</a></li>
+                            <li class="active">{{ $download->title }}</li>
+                        </ul>
+                    </div>
+                    <div class="overflow-hidden pb-2">
+                        <h1 class="text-10 appear-animation animated fadeInUpShorter appear-animation-visible" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="300" style="animation-delay: 300ms;">
+                            {{ $download->title }}</h1>
+                    </div>
+                    <div class="appear-animation animated fadeInUpShorter appear-animation-visible" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="animation-delay: 400ms;">
+                        <span class="sub-title text-4 mt-4">{{ $download->short_content }}</span>
+                    </div>
+                    <div class="appear-animation d-inline-block animated fadeInUpShorter appear-animation-visible" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400" style="animation-delay: 400ms;">
+                        @if($download->steam_link_package)
+                            <a href="{{ $download->steam_link_package }}" class="btn btn-modern bg-steam mt-4"><i class="fab fa-steam"></i> Télécharger sur steam <i class="fas fa-arrow-right ml-1"></i></a>
+                        @endif
+                        @if($download->tfnet_link_package)
+                            <a href="{{ $download->tfnet_link_package }}" class="btn btn-modern btn-danger mt-4"><img src="/storage/files/shares/core/icons/tf_net_icon.png" alt="" width="24"> Télécharger sur Transport Fever.net <i class="fas fa-arrow-right ml-1"></i></a>
+                        @endif
+                        @if($download->tf_france_link_package)
+                            <a href="{{ $download->tf_france_link_package }}" class="btn btn-modern btn-primary mt-4"><img src="/storage/files/shares/core/icons/tf_france_icon.png" alt="" width="24"> Télécharger le mod <i class="fas fa-arrow-right ml-1"></i></a>
+                        @endif
+                    </div>
+                    <div class="appear-animation d-inline-block animated rotateInUpRight appear-animation-visible" data-appear-animation="rotateInUpRight" data-appear-animation-delay="500" style="animation-delay: 500ms;">
+                        <span class="arrow hlt" style="top: 40px;"></span>
+                    </div>
                 </div>
-                <div class="col-md-12 align-self-center order-1">
-                    <ul class="breadcrumb breadcrumb-light d-block text-center">
-                        <li><a href="#">Acceuil</a></li>
-                        <li><a href="#">Téléchargement</a></li>
-                        <li><a href="#">{{ $download->category->title }}</a></li>
-                        <li><a href="#">{{ $download->subcategory->title }}</a></li>
-                        <li class="active">{{ $download->title }}</li>
-                    </ul>
-                </div>
-                <div class="col-md-12 align-self-center text-center order-3 pt-3">
-                    <button class="btn btn-modern btn-xl btn-primary"><i class="fas fa-download"></i> Télécharger le mod</button>
+                <div class="col-sm-7 order-1 order-sm-2 align-items-end justify-content-end d-flex pt-5">
+                    <div style="min-height: 350px;" class="overflow-hidden">
+                        <img alt="" src="/storage/files/shares/download/{{ $download->image }}" class="img-fluid appear-animation animated slideInUp appear-animation-visible" data-appear-animation="slideInUp" data-appear-animation-delay="600" data-appear-animation-duration="1s" style="animation-duration: 1s; animation-delay: 600ms; width: 400px;">
+                    </div>
                 </div>
             </div>
         </div>

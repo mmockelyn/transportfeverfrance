@@ -11,6 +11,7 @@ use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
 use App\Models\Download\DownloadComment;
 use App\Models\Download\DownloadFeature;
+use App\Models\Download\DownloadGallerie;
 use App\Models\Download\DownloadSubCategory;
 use App\Models\Download\DownloadSupport;
 use App\Models\Download\DownloadSupportRoom;
@@ -22,6 +23,7 @@ use App\Notifications\Account\Package\publishModNotification;
 use App\Repository\Download\DownloadRepository;
 use Atymic\Twitter\Facade\Twitter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -378,6 +380,7 @@ class DownloadController extends Controller
     public function postVersion(Request $request, $download_id)
     {
         //dd($request->all());
+        $download = Download::query()->find($download_id);
         try {
             $version = DownloadVersion::query()->create([
                 "version" => $request->get('version'),
@@ -389,6 +392,18 @@ class DownloadController extends Controller
                 "user_id" => $request->get('user_id')
             ]);
 
+            if($download->provider == 1) {
+                $download->update([
+                    "steam_link_package" => $request->get('link_package')
+                ]);
+            }
+
+            if($download->provider == 2) {
+                $download->update([
+                    "tfnet_link_package" => $request->get('link_package')
+                ]);
+            }
+
             if($request->file('file_mod')) {
                 try {
                     $file = $request->file('file_mod');
@@ -397,6 +412,12 @@ class DownloadController extends Controller
                     $version->update([
                         "link_packages" => '/storage/files/shares/download/files/'.$file->getClientOriginalName()
                     ]);
+
+                    if($download->provider == 3) {
+                        $download->update([
+                            "tf_france_link_package" => "/storage/files/shares/download/files/".$file->getClientOriginalName()
+                        ]);
+                    }
 
                     LogActivity::addToLog("Ajout d'une nouvelle version pour le mod: {$version->download->title}");
                     return redirect()->back()
@@ -533,6 +554,70 @@ class DownloadController extends Controller
             LogActivity::addToLog($exception->getMessage());
             return response()->json([
                 "message" => "Impossible de mettre à jours la documentation",
+                "error" => $exception->getMessage(),
+                "trace" => $exception->getTrace()
+            ]);
+        }
+    }
+
+    public function postGallery(Request $request, $download_id)
+    {
+        try {
+            $request->file('file')->storeAs('/files/shares/download/'.$download_id.'/', $request->file('file')->getClientOriginalName(), 'public');
+
+            try {
+                DownloadGallerie::query()->create([
+                    "image" => $request->file('file')->getClientOriginalName(),
+                    "download_id" => $download_id
+                ]);
+
+                LogActivity::addToLog("Ajout d'une image à la gallerie de mod executer avec succès");
+                return response()->json([
+                    "message" => "Ajout d'une image à la gallerie de mod executer avec succès"
+                ]);
+            }catch (\Exception $exception) {
+                LogActivity::addToLog($exception->getMessage());
+                return response()->json([
+                    "message" => "Impossible d'ajouter l'image au mod",
+                    "error" => $exception->getMessage(),
+                    "trace" => $exception->getTrace()
+                ]);
+            }
+        }catch (FileException $exception) {
+            LogActivity::addToLog($exception->getMessage());
+            return response()->json([
+                "message" => "Impossible de transferer l'image",
+                "error" => $exception->getMessage(),
+                "trace" => $exception->getTrace()
+            ]);
+        }
+    }
+
+    public function deleteGallery($download_id, $gallery_id)
+    {
+        $gallery = DownloadGallerie::query()->find($gallery_id);
+        try {
+
+            File::delete('/storage/files/shares/download/'.$download_id.'/'.$gallery->image);
+
+            try {
+                $gallery->delete();
+                LogActivity::addToLog("Suppression d'une image de la gallerie de mod executer avec succès");
+                return response()->json([
+                    "message" => "Suppression d'une image de la gallerie de mod executer avec succès"
+                ]);
+            }catch (\Exception $exception) {
+                LogActivity::addToLog($exception->getMessage());
+                return response()->json([
+                    "message" => "Impossible de supprimer l'image de la gallerie",
+                    "error" => $exception->getMessage(),
+                    "trace" => $exception->getTrace()
+                ]);
+            }
+        }catch (FileException $exception) {
+            LogActivity::addToLog($exception->getMessage());
+            return response()->json([
+                "message" => "Impossible de supprimer l'image du cluster de sauvegarde",
                 "error" => $exception->getMessage(),
                 "trace" => $exception->getTrace()
             ]);
