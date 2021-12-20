@@ -1,4 +1,4 @@
-<?php
+z<?php
 
 use App\Http\Controllers\Api\Front\DownloadController;
 use App\Http\Controllers\Api\Front\SearchController;
@@ -102,6 +102,9 @@ Route::group(["prefix" => "download"], function () {
     Route::delete('/{download_id}/version/{version_id}', [DownloadController::class, 'deleteVersion']);
 
     Route::post('/{download_id}/documentation', [DownloadController::class, 'postDocumentation']);
+
+    Route::post('/{download_id}/gallery', [DownloadController::class, 'postGallery']);
+    Route::delete('/{download_id}/gallery/{gallery_id}', [DownloadController::class, 'deleteGallery']);
 
     Route::group(["prefix" => "{slug}/ticket"], function () {
         Route::get('{ticket_id}', [DownloadController::class, 'getInfoTicket']);

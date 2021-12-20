@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Events\newUser;
 use App\Http\Controllers\Controller;
+use App\Models\Account\UserDeviceToken;
 use App\Models\User;
 use App\Repository\Account\UserRepository;
 use Illuminate\Http\Request;
@@ -97,12 +98,16 @@ class LoginSocialController extends Controller
                 "user_id" => $newUser->id,
                 "facebook_id" => $user->id
             ]);
+
+            UserDeviceToken::query()->create([
+                "user_id" => $newUser->id
+            ]);
             $this->includeTutoProfil($newUser->id);
 
             auth()->login($newUser, true);
-        }
 
-        event(new newUser($newUser));
+            event(new newUser($newUser));
+        }
 
         return redirect()->to('/');
     }
@@ -126,13 +131,18 @@ class LoginSocialController extends Controller
                 "user_id" => $newUser->id,
                 "google_id" => $user->id
             ]);
+
+            UserDeviceToken::query()->create([
+                "user_id" => $newUser->id
+            ]);
+
             $this->includeTutoProfil($newUser->id);
             $newUser->sendEmailVerificationNotification();
 
             auth()->login($newUser, true);
-        }
 
-        event(new newUser($newUser));
+            event(new newUser($newUser));
+        }
 
         return redirect()->to('/');
     }
@@ -141,13 +151,19 @@ class LoginSocialController extends Controller
     {
         $existing_user = User::where('email', $user->email)->first();
 
+        if($user->email == null) {
+            $email = $user->nickname.'@transportfeverfrance.fr';
+        } else {
+            $email = $user->email;
+        }
+
         if ($existing_user) {
             auth()->login($existing_user, true);
         } else {
             $newUser = new User;
 
             $newUser->name = $user->name;
-            $newUser->email = $user->email;
+            $newUser->email = $email;
             $newUser->avatar = $user->avatar;
             $newUser->type = 1;
             $newUser->save();
@@ -156,14 +172,19 @@ class LoginSocialController extends Controller
                 "user_id" => $newUser->id,
                 "twitter_id" => $user->id
             ]);
+
+            UserDeviceToken::query()->create([
+                "user_id" => $newUser->id
+            ]);
+
             $this->includeTutoProfil($newUser->id);
 
             $newUser->sendEmailVerificationNotification();
 
             auth()->login($newUser, true);
-        }
 
-        event(new newUser($newUser));
+            event(new newUser($newUser));
+        }
 
         return redirect()->to('/');
     }
@@ -196,14 +217,19 @@ class LoginSocialController extends Controller
                 "user_id" => $newUser->id,
                 "Steam_id" => $user->id
             ]);
+
+            UserDeviceToken::query()->create([
+                "user_id" => $newUser->id
+            ]);
+
             $this->includeTutoProfil($newUser->id);
 
             $newUser->sendEmailVerificationNotification();
 
             auth()->login($newUser, true);
-        }
 
-        event(new newUser($newUser));
+            event(new newUser($newUser));
+        }
 
         return redirect()->to('/');
     }
@@ -237,14 +263,19 @@ class LoginSocialController extends Controller
                 "discord_user_id" => $user->id,
                 "discord_private_channel_id" => app(Discord::class)->getPrivateChannel($user->id)
             ]);
+
+            UserDeviceToken::query()->create([
+                "user_id" => $newUser->id
+            ]);
+
             $this->includeTutoProfil($newUser->id);
 
             $newUser->sendEmailVerificationNotification();
 
             auth()->login($newUser, true);
-        }
 
-        event(new newUser($newUser));
+            event(new newUser($newUser));
+        }
 
         return redirect()->to('/');
     }

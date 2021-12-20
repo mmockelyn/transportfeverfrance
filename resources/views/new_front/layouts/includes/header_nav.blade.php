@@ -26,12 +26,7 @@
                                                 <ul class="dropdown-menu">
                                                     <li class="dropdown-submenu">
                                                         @foreach($download_categories as $category)
-                                                        <a class="dropdown-item" href="#">{{ $category->title }}</a>
-                                                        <ul class="dropdown-menu">
-                                                            @foreach($category->subcategories as $subcategory)
-                                                            <li><a class="dropdown-item" href="{{ route('front.download.category', $subcategory->id) }}">{{ $subcategory->title }}</a></li>
-                                                            @endforeach
-                                                        </ul>
+                                                        <a class="dropdown-item" href="{{ route('front.download', $category->id) }}">{{ $category->title }}</a>
                                                         @endforeach
                                                     </li>
                                                 </ul>
@@ -99,6 +94,13 @@
                                                             <div class="col d-flex justify-content-end">
                                                                 <button type="submit" class="btn btn-primary">Connexion</button>
                                                             </div>
+                                                            <div class="col d-flex justify-content-center">
+                                                                <a href="{{ route('auth.login.provider', 'discord') }}" class="mb-1 mt-1 mr-1 btn bg-discord text-color-white"><i class="fab fa-discord"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'google') }}" class="mb-1 mt-1 mr-1 btn bg-google text-color-white"><i class="fab fa-google"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'facebook') }}" class="mb-1 mt-1 mr-1 btn bg-facebook text-color-white"><i class="fab fa-facebook"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'twitter') }}" class="mb-1 mt-1 mr-1 btn bg-twitter text-color-white"><i class="fab fa-twitter"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'steam') }}" class="mb-1 mt-1 mr-1 btn bg-steam text-color-white"><i class="fab fa-steam"></i></a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="extra-actions">
@@ -130,6 +132,13 @@
                                                         <div class="form-row">
                                                             <div class="col d-flex justify-content-end">
                                                                 <button type="submit" class="btn btn-primary">M'inscrire</button>
+                                                            </div>
+                                                            <div class="col d-flex justify-content-center">
+                                                                <a href="{{ route('auth.login.provider', 'discord') }}" class="mb-1 mt-1 mr-1 btn bg-discord text-color-white"><i class="fab fa-discord"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'google') }}" class="mb-1 mt-1 mr-1 btn bg-google text-color-white"><i class="fab fa-google"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'facebook') }}" class="mb-1 mt-1 mr-1 btn bg-facebook text-color-white"><i class="fab fa-facebook"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'twitter') }}" class="mb-1 mt-1 mr-1 btn bg-twitter text-color-white"><i class="fab fa-twitter"></i></a>
+                                                                <a href="{{ route('auth.login.provider', 'steam') }}" class="mb-1 mt-1 mr-1 btn bg-steam text-color-white"><i class="fab fa-steam"></i></a>
                                                             </div>
                                                         </div>
                                                     </div>
