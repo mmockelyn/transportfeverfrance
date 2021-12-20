@@ -6,6 +6,7 @@ use App\Helpers\Format;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Front\Download\DownloadCommentRequest;
 use App\Models\Download\Download;
+use App\Models\Download\DownloadCategory;
 use App\Models\Download\DownloadComment;
 use App\Models\Download\DownloadCommentReport;
 use App\Models\Download\DownloadSubCategory;
@@ -39,6 +40,14 @@ class DownloadController extends Controller
         $sub = DownloadSubCategory::findOrFail($subCategory_id);
 
         return view('new_front.download.category', compact('downloads', 'sub'));
+    }
+
+    public function home($category_id)
+    {
+        $category = DownloadCategory::query()->find($category_id);
+        $downloads = Download::query()->where('download_category_id', $category_id)->get();
+
+        return view('new_front.download.home', compact('downloads', 'category'));
     }
 
     public function show(Request $request, $slug)

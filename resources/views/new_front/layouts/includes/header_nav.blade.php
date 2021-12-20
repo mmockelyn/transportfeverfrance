@@ -26,12 +26,7 @@
                                                 <ul class="dropdown-menu">
                                                     <li class="dropdown-submenu">
                                                         @foreach($download_categories as $category)
-                                                        <a class="dropdown-item" href="#">{{ $category->title }}</a>
-                                                        <ul class="dropdown-menu">
-                                                            @foreach($category->subcategories as $subcategory)
-                                                            <li><a class="dropdown-item" href="{{ route('front.download.category', $subcategory->id) }}">{{ $subcategory->title }}</a></li>
-                                                            @endforeach
-                                                        </ul>
+                                                        <a class="dropdown-item" href="{{ route('front.download', $category->id) }}">{{ $category->title }}</a>
                                                         @endforeach
                                                     </li>
                                                 </ul>
