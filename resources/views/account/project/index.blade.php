@@ -184,7 +184,7 @@
             <!--end::Wrapper-->
         </div>
         <!--end::Alert-->
-    @endif
+    @else
 
     <div class="card shadow-sm">
         <div class="card-header">
@@ -223,6 +223,8 @@
             </table>
         </div>
     </div>
+
+    @endif
 @endsection
 
 @section("script")
