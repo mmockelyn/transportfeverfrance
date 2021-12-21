@@ -340,6 +340,20 @@
                                     </span>
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#gallery">
+                                    <span class="svg-icon svg-icon-2 m-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path opacity="0.3" d="M22 5V19C22 19.6 21.6 20 21 20H19.5L11.9 12.4C11.5 12 10.9 12 10.5 12.4L3 20C2.5 20 2 19.5 2 19V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5ZM7.5 7C6.7 7 6 7.7 6 8.5C6 9.3 6.7 10 7.5 10C8.3 10 9 9.3 9 8.5C9 7.7 8.3 7 7.5 7Z" fill="black"/>
+                                            <path d="M19.1 10C18.7 9.60001 18.1 9.60001 17.7 10L10.7 17H2V19C2 19.6 2.4 20 3 20H21C21.6 20 22 19.6 22 19V12.9L19.1 10Z" fill="black"/>
+                                        </svg>
+                                    </span>
+                                    <span class="d-flex flex-column align-items-start">
+                                        <span class="fs-4 fw-bolder">Gallerie</span>
+                                    </span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -960,6 +974,41 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="gallery" role="tabpanel">
+                            <div class="card shadow-sm">
+                                <div class="card-header">
+                                    <h3 class="card-title">Gallerie du mod</h3>
+                                    <div class="card-toolbar">
+                                        <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#modalAddImage">
+                                            Nouvelles images
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        @foreach($download->galleries as $gallery)
+                                            <div class="col-md-4 col-sm-12">
+                                                <a class="d-block overlay" data-fslightbox="lightbox-basic" href="/storage/files/shares/download/{{ $download->id }}/{{ $gallery->image }}">
+                                                    <!--begin::Image-->
+                                                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px"
+                                                         style="background-image:url('/storage/files/shares/download/{{ $download->id }}/{{ $gallery->image }}')">
+                                                    </div>
+                                                    <!--end::Image-->
+
+                                                    <!--begin::Action-->
+                                                    <div class="overlay-layer card-rounded bg-dark bg-opacity-25 shadow">
+                                                        <i class="bi bi-eye-fill text-white fs-3x"></i>
+                                                        <i class="bi bi-trash text-white fs-3x" data-download="{{ $download->id }}" data-id="{{ $gallery->id }}"></i>
+                                                    </div>
+                                                    <!--end::Action-->
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1993,10 +2042,57 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" tabindex="-1" id="modalAddImage">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ajout d'image à la gallerie du mod</h5>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-2x">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black"></rect>
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black"></rect>
+							</svg>
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <div class="modal-body">
+                    <form class="form" action="#" method="post">
+                        <!--begin::Input group-->
+                        <div class="fv-row">
+                            <!--begin::Dropzone-->
+                            <div class="dropzone" id="upload_image" data-download="{{ $download->id }}">
+                                <!--begin::Message-->
+                                <div class="dz-message needsclick">
+                                    <!--begin::Icon-->
+                                    <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
+                                    <!--end::Icon-->
+
+                                    <!--begin::Info-->
+                                    <div class="ms-4">
+                                        <h3 class="fs-5 fw-bolder text-gray-900 mb-1">Déposez les fichiers ici ou cliquez pour télécharger.</h3>
+                                    </div>
+                                    <!--end::Info-->
+                                </div>
+                            </div>
+                            <!--end::Dropzone-->
+                        </div>
+                        <!--end::Input group-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section("script")
     <script src="/account/assets/plugins/custom/datatables/datatables.bundle.js"></script>
     <script src="/account/assets/plugins/custom/tinymce/tinymce.bundle.js"></script>
+    <script src="/account/assets/plugins/custom/fslightbox/fslightbox.bundle.js"></script>
     <script src="{{ asset('account/js/package/show.js') }}"></script>
 @endsection

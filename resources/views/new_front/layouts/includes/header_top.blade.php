@@ -37,6 +37,7 @@
                         <li class="social-icons-instagram"><a href="{{ \App\Helpers\SiteHelper::getSiteInfo('insta_link') }}" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a></li>
                         <li class="social-icons-discord"><a href="{{ \App\Helpers\SiteHelper::getSiteInfo('discord_link') }}" target="_blank" title="Discord"><i class="fab fa-discord"></i></a></li>
                         <li class="social-icons-steam"><a href="{{ \App\Helpers\SiteHelper::getSiteInfo('steam_link') }}" target="_blank" title="Steam"><i class="fab fa-steam"></i></a></li>
+                        <li class="social-icons-paypal"><a href="@if(config('paypal.mode') == 'sandbox') {{ config('paypal.sandbox.donation_uri') }} @else {{ config('paypal.live.donation_uri') }} @endif" target="_blank" title="Donation Paypal"><i class="fab fa-paypal"></i></a></li>
                     </ul>
                 </div>
             </div>

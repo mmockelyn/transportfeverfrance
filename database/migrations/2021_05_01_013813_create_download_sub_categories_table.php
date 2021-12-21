@@ -17,6 +17,7 @@ class CreateDownloadSubCategoriesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
+            $table->string('image')->nullable();
 
             $table->foreignId('download_category_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });

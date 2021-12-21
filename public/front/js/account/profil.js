@@ -24,21 +24,22 @@ function updateUser() {
         e.preventDefault()
         let form = $("#formUpdateUser")
         let url = form.attr('action')
-        let btn = KTUtil.getById('btnFormUpdateUser')
+        let btn = document.querySelector('#formUpdateUser').querySelector('.btn-success')
         let data = form.serializeArray()
 
-        KTUtil.btnWait(btn, 'spinner spinner-right spinner-white pr-15', 'Veuillez patientez...')
+        console.log(btn)
+        btn.setAttribute('data-kt-indicator', 'on')
 
         $.ajax({
             url: url,
             method: 'PUT',
             data: data,
             success: (data) => {
-                KTUtil.btnRelease(btn)
+                btn.removeAttribute('data-kt-indicator')
                 toastr.success('Mise à jour de profil', 'Votre profil à été mise à jours')
             },
             error: (err) => {
-                KTUtil.btnRelease(btn)
+                btn.removeAttribute('data-kt-indicator')
                 toastr.error("Erreur Système", "Une erreur à eu lieu lors de la mise à jour de votre profil")
             }
         })
@@ -50,10 +51,10 @@ function updatePassword() {
         e.preventDefault()
         let form = $("#formPasswordUpdate")
         let url = form.attr('action')
-        let btn = KTUtil.getById('btnFormPassUpdate')
+        let btn = document.querySelector('#formPasswordUpdate').querySelector('.btn-success')
         let data = form.serializeArray()
 
-        KTUtil.btnWait(btn, 'spinner spinner-right spinner-white pr-15', 'Veuillez patientez...')
+        btn.setAttribute('data-kt-indicator', 'on')
 
         $.ajax({
             url: url,
@@ -61,16 +62,16 @@ function updatePassword() {
             data: data,
             statusCode: {
                 200: (data) => {
-                    KTUtil.btnRelease(btn)
+                    btn.removeAttribute('data-kt-indicator')
                     toastr.success('Mise à jour de profil', 'Votre mot de passe à été redéfinie.')
                     form[0].reset()
                 },
                 500: (err) => {
-                    KTUtil.btnRelease(btn)
+                    btn.removeAttribute('data-kt-indicator')
                     toastr.error('Erreur', 'Erreur lors de la mise à jour de votre mot de passe')
                 },
                 422: (err) => {
-                    KTUtil.btnRelease(btn)
+                    btn.removeAttribute('data-kt-indicator')
                     toastr.warning('Erreur de Validation', 'Certains champs sont en erreurs, veuillez revérifier les champs et revalider le formulaire')
                 }
             }
@@ -83,21 +84,22 @@ function deleteAccount() {
         e.preventDefault()
         let form = $("#formDeleteAccount")
         let url = form.attr('action')
-        let btn = KTUtil.getById('btnDeleteAccount')
+        let btn = document.querySelector('#btnDeleteAccount')
+
         let data = form.serializeArray()
 
-        KTUtil.btnWait(btn, 'spinner spinner-right spinner-white pr-15', 'Veuillez patientez...')
+        btn.setAttribute('data-kt-indicator', 'on')
 
         $.ajax({
             url: url,
             method: 'DELETE',
             data: data,
             success: (data) => {
-                KTUtil.btnRelease(btn)
+                btn.removeAttribute('data-kt-indicator')
                 toastr.success("Votre compte sera supprimer dans 5 jours.", "Suppression de votre compte")
             },
             error: (err) => {
-                KTUtil.btnRelease(btn)
+                btn.removeAttribute('data-kt-indicator')
                 toastr.error("Erreur lors de la programmation de la suppression de votre compte, contactez un administrateur")
             }
         })
@@ -106,20 +108,24 @@ function deleteAccount() {
 
 function startTotp() {
     $("#btnStartTotp").on('click', (e) => {
-        let btn = KTUtil.getById('btnStartTotp')
+        let btn = document.querySelector('#btnStartTotp')
 
-        KTUtil.btnWait(btn, 'spinner spinner-right spinner-white pr-15', 'Veuillez patientez...')
+        btn.setAttribute('data-kt-indicator', 'on')
 
         $.ajax({
             url: '/user/two-factor-authentication',
             method: "POST",
             success: (data) => {
-                KTUtil.btnRelease(btn)
+                btn.removeAttribute('data-kt-indicator')
                 toastr.success(`L'authentification TOTP à été activé`)
                 $("#btnStartTotp").attr('id', 'btnEndTotp')
                 $("#btnStartTotp").removeClass('btn-success')
                 $("#btnStartTotp").addClass('btn-danger')
-                $("#btnStartTotp").html('<i class="fas fa-unlock"></i> Désactiver l\'authentification TOTP')
+                $("#btnStartTotp").html(`
+                <span class="indicator-label"><i class="fas fa-lock"></i> Désactiver l'authentification TOTP</span>
+                <span class="indicator-progress">Veuillez patienter...</span>
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                `)
                 $.ajax({
                     url: '/user/two-factor-qr-code',
                     success: (data) => {
@@ -132,7 +138,7 @@ function startTotp() {
                 stopTotp()
             },
             error: (err) => {
-                KTUtil.btnRelease(btn)
+                btn.removeAttribute('data-kt-indicator')
                 console.error(err)
             }
         })
@@ -141,24 +147,28 @@ function startTotp() {
 
 function stopTotp() {
     $("#btnEndTotp").on('click', (e) => {
-        let btn = KTUtil.getById('btnEndTotp')
+        let btn = document.querySelector('#btnEndTotp')
 
-        KTUtil.btnWait(btn, 'spinner spinner-right spinner-white pr-15', 'Veuillez patientez...')
+        btn.setAttribute('data-kt-indicator', 'on')
 
         $.ajax({
             url: '/user/two-factor-authentication',
             method: "DELETE",
             success: (data) => {
-                KTUtil.btnRelease(btn)
+                btn.removeAttribute('data-kt-indicator')
                 toastr.success(`L'authentification TOTP à été désactiver`)
                 btn.attr('id', 'btnStartTotp')
                 btn.removeClass('btn-danger')
                 btn.addClass('btn-success')
-                btn.html('<i class="fas fa-lock"></i> Activer l\'authentification TOTP')
+                btn.html(`
+                <span class="indicator-label"><i class="fas fa-lock"></i> Activer l'authentification TOTP</span>
+                <span class="indicator-progress">Veuillez patienter...</span>
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                `)
                 startTotp()
             },
             error: (err) => {
-                KTUtil.btnRelease(btn)
+                btn.removeAttribute('data-kt-indicator')
                 console.error(err)
             }
         })
@@ -348,14 +358,6 @@ function init() {
     stopTotp()
     startNotificationPush()
     //loadDownloadComment()
-
-    $(".pr-password").passwordRequirements({
-        numCharacters: 6,
-        useLowercase: true,
-        useUppercase: true,
-        useNumbers: true,
-        useSpecial: true
-    });
 
     $(".modal").on('hidden.bs.modal', (e) => {
         window.location.reload()

@@ -100,7 +100,26 @@ class ProfilController extends Controller
 
         $user = $this->userRepository->getInfoUser();
 
-        if (Hash::check($request->old_password, $user->password) == true) {
+        if($user->password != null) {
+            if (Hash::check($request->old_password, $user->password) == true) {
+                try {
+                    $complexity = Format::passwordComplexity($request->password);
+                    $user->update([
+                        "password" => Hash::make($request->password),
+                        "password_complexity" => $complexity
+                    ]);
+
+                    LogActivity::addToLog("Mot de passe mis à jour");
+                    return response()->json();
+                } catch (\Exception $exception) {
+                    LogActivity::addToLog($exception->getMessage());
+                    return response()->json(null, 500);
+                }
+            } else {
+                LogActivity::addToLog("Erreur lors de la mise à jours du mot de passe");
+                return response()->json(null, 900);
+            }
+        } else {
             try {
                 $complexity = Format::passwordComplexity($request->password);
                 $user->update([
@@ -114,9 +133,6 @@ class ProfilController extends Controller
                 LogActivity::addToLog($exception->getMessage());
                 return response()->json(null, 500);
             }
-        } else {
-            LogActivity::addToLog("Erreur lors de la mise à jours du mot de passe");
-            return response()->json(null, 900);
         }
     }
 

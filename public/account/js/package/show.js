@@ -9,6 +9,7 @@ const time = currentdate.getDay() + "/" + currentdate.getMonth()
     + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 let modalEditFeatureVehicle = $("#modalEditFeatureVehicle")
 let modalEditFeatureOther = $("#modalEditFeatureOther")
+let dropzoneSelector = document.querySelector('#upload_image')
 
 
 const formatAddUser = (item) => {
@@ -96,6 +97,19 @@ function getToast(type, time, message) {
     toast.show()
 
 }
+
+let dropzone = new Dropzone("#upload_image", {
+    url: `/api/download/${dropzoneSelector.dataset.download}/gallery`,
+    paramName: 'file',
+    maxFilesize: 10,
+    addRemoveLinks: true,
+});
+
+dropzone.on("complete", (file) => {
+    let modal = $("#modalAddImage")
+    dropzone.removeFile(file)
+    modal.modal('hide')
+})
 
 tinymce.init({
     selector: 'textarea#description',
@@ -342,6 +356,24 @@ document.querySelectorAll('.btnTrashVersion').forEach(btn => {
                 btn.removeAttribute('data-kt-indicator')
                 getToast('success', time, data)
                 btn.parentNode.parentNode.style.display = 'none'
+            }
+        })
+    })
+})
+document.querySelectorAll('.bi-trash').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+        console.log(btn.parentNode.parentNode)
+
+        $.ajax({
+            url: `/api/download/${btn.dataset.download}/gallery/${btn.dataset.id}`,
+            method: "DELETE",
+            success: data => {
+                btn.parentNode.parentNode.style.display = 'none'
+                getToast('success', time, data)
+            },
+            error: err => {
+                getToast('error', time, err)
             }
         })
     })

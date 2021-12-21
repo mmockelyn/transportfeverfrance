@@ -44,3 +44,9 @@
 .change-log {
     margin-left: 74px;
 }
+
+.bg-discord { background-color: #5165F6; }
+.bg-google { background-color: #EA4235; }
+.bg-facebook { background-color: #3C5A99; }
+.bg-twitter { background-color: #1DA1F2; }
+.bg-steam { background-color: #154579; }
