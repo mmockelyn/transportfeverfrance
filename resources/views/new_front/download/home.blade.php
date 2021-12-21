@@ -39,7 +39,22 @@
         <div class="row">
             @foreach($category->subcategories as $sub)
             <div class="col-md-6 col-sm-12">
+                @if($sub->image)
                 <a href="{{ route('front.download.category', $sub->id) }}"><img class="img-fluid" src="/storage/files/shares/download/subcategory/{{ $sub->image }}" alt=""></a>
+                @else
+                    <section class="call-to-action featured featured-primary mb-5">
+                        <div class="col-sm-9 col-lg-9">
+                            <div class="call-to-action-content">
+                                <strong>{{ $sub->title }}</strong>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-lg-3">
+                            <div class="call-to-action-btn">
+                                <a href="{{ route('front.download.category', $sub->id) }}" class="btn btn-modern text-2 btn-primary">Accès</a>
+                            </div>
+                        </div>
+                    </section>
+                @endif
             </div>
             @endforeach
         </div>
