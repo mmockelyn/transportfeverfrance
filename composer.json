@@ -14,7 +14,6 @@
         "aws/aws-sdk-php": "^3.199",
         "aws/aws-sdk-php-laravel": "~3.0",
         "barryvdh/laravel-dompdf": "^0.9.0",
-        "beyondcode/laravel-self-diagnosis": "^1.5",
         "binarytorch/larecipe": "^2.4",
         "cagilo/cagilo": "^1.2",
         "consoletvs/charts": "7.*",

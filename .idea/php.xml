@@ -195,8 +195,6 @@
       <path value="$PROJECT_DIR$/vendor/stevebauman/location" />
       <path value="$PROJECT_DIR$/vendor/maxmind-db/reader" />
       <path value="$PROJECT_DIR$/vendor/maxmind/web-service-common" />
-      <path value="$PROJECT_DIR$/vendor/beyondcode/laravel-self-diagnosis" />
-      <path value="$PROJECT_DIR$/vendor/geerlingguy/ping" />
       <path value="$PROJECT_DIR$/vendor/laravel-notification-channels/facebook-poster" />
       <path value="$PROJECT_DIR$/vendor/dymantic/laravel-instagram-feed" />
       <path value="$PROJECT_DIR$/vendor/abraham/twitteroauth" />
