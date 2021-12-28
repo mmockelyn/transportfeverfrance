@@ -14,4 +14,9 @@ class HomeController extends Controller
         event(new searchTffrance($user));
         return redirect()->back();
     }
+
+    public function coming()
+    {
+        return view('new_front.coming');
+    }
 }
