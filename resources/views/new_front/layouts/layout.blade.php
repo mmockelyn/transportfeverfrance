@@ -123,7 +123,7 @@
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'G-RJFDQ8BL1T', 'auto');
+    ga('create', 'UA-185785466-1', 'auto');
     ga('send', 'pageview');
 </script>
 
