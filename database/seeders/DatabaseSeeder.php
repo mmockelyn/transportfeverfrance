@@ -24,6 +24,8 @@ use App\Models\Task;
 use App\Models\User;
 use App\Models\UserSocial;
 use App\Models\UserTutorial;
+use App\Models\Wiki\Wiki;
+use App\Models\Wiki\WikiCategory;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -550,6 +552,7 @@ class DatabaseSeeder extends Seeder
                     "name" => "Event N°" . $l
                 ]);
             }
+
         } elseif (config('app.env') == "beta") {
             Site::create([
                 "name" => "Transport Fever France",
@@ -925,6 +928,14 @@ class DatabaseSeeder extends Seeder
             for ($l = 0; $l <= rand(1, 20); $l++) {
                 Calendar::factory()->create([
                     "name" => "Event N°" . $l
+                ]);
+            }
+            WikiCategory::factory()->count(rand(1,10))->create();
+            $nb_wiki_cats = WikiCategory::all();
+
+            foreach ($nb_wiki_cats as $wiki_cat) {
+                Wiki::factory()->count(rand(1,9))->create([
+                    "wiki_category_id" => $wiki_cat->id
                 ]);
             }
 

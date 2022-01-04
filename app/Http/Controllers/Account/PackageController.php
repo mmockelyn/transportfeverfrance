@@ -58,8 +58,8 @@ class PackageController extends Controller
     public function create()
     {
         $this->getAuthenticated();
-        $categories = DownloadCategory::all();
-        return view('account.package.create', compact('categories'));
+        $download_categories = DownloadCategory::all();
+        return view('account.package.create', compact('download_categories'));
     }
 
 
