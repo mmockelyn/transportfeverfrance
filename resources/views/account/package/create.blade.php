@@ -229,7 +229,7 @@
                                 <label for="exampleFormControlInput1" class="required form-label">Catégorie</label>
                                 <select title="exampleFormControlInput1" class="form-select category_id" name="category_id" data-control="select2" data-placeholder="Selectionner une catégorie">
                                     <option></option>
-                                    @foreach($categories as $category)
+                                    @foreach($download_categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->title }}</option>
                                     @endforeach
                                 </select>

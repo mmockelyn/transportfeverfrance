@@ -19,3 +19,4 @@ Route::group(["prefix" => "donation"], function () {
 
 include('blog.php');
 include('download.php');
+include('wiki.php');

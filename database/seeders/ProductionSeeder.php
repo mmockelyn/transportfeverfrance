@@ -8,6 +8,7 @@ use App\Models\Page;
 use App\Models\Site;
 use App\Models\User;
 use App\Models\UserSocial;
+use App\Models\Wiki\WikiCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -432,6 +433,23 @@ class ProductionSeeder extends Seeder
             ],
 
         ]);
+
+        WikiCategory::query()->create(["title" => "Installation", "slug" => "installation"]);
+        WikiCategory::query()->create(["title" => "Basique", "slug" => "basique"]);
+        WikiCategory::query()->create(["title" => "Mode de Jeux", "slug" => "mode-de-jeux"]);
+        WikiCategory::query()->create(["title" => "Interface", "slug" => "interface"]);
+        WikiCategory::query()->create(["title" => "Infrastructure", "slug" => "infrastructure"]);
+        WikiCategory::query()->create(["title" => "Gestion", "slug" => "gestion"]);
+        WikiCategory::query()->create(["title" => "Simulation", "slug" => "simulation"]);
+        WikiCategory::query()->create(["title" => "Utilisation des mods", "slug" => "utilisation-des-mods"]);
+
+        WikiCategory::query()->create(["title" => "General", "slug" => "mods-general"]);
+        WikiCategory::query()->create(["title" => "Outils", "slug" => "mods-outils"]);
+        WikiCategory::query()->create(["title" => "Vehicule", "slug" => "mods-vehicule"]);
+        WikiCategory::query()->create(["title" => "Construction", "slug" => "mods-construction"]);
+        WikiCategory::query()->create(["title" => "Voie & Routes", "slug" => "mods-track-street"]);
+        WikiCategory::query()->create(["title" => "Environnement", "slug" => "mods-environnement"]);
+        WikiCategory::query()->create(["title" => "Scripts & Programmation", "slug" => "mods-scripting"]);
 
     }
 }
