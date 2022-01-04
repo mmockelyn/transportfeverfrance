@@ -81,5 +81,9 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
             Route::get('/', [\App\Http\Controllers\Back\Settings\SocialController::class, 'index'])->name('back.settings.social.index');
             Route::put('/{provider}', [\App\Http\Controllers\Back\Settings\SocialController::class, 'update'])->name('back.settings.social.update');
         });
+
+        Route::group(["prefix" => "stats"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Settings\StatisticsController::class, 'index'])->name('back.settings.stats.index');
+        });
     });
 });
