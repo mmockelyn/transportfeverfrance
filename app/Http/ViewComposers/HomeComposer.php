@@ -21,7 +21,7 @@ class HomeComposer
     {
         $view->with([
             'categories' => BlogCategory::has('blogs')->get(),
-            'pages' => Page::select('slug', 'title'),
+            'pages' => Page::select('slug', 'title')->get(),
             'download_categories' => DownloadCategory::all(),
             'follows' => Follow::all(),
             'providers' => config('app.social_provider_active'),
