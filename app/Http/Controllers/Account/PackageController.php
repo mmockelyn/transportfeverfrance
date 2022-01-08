@@ -169,10 +169,6 @@ class PackageController extends Controller
             $download->update([
                 "image" => $name_file
             ]);
-            DownloadGallerie::query()->create([
-                "image" => $name_file,
-                "download_id" => $download->id
-            ]);
 
             LogActivity::addToLog("Image du mod $download->title mis à jours");
             toastr()->success("Image du mod mise à jours", "OK");

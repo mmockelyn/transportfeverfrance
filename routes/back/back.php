@@ -9,6 +9,13 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
    Route::get('/', [\App\Http\Controllers\Back\BackController::class, 'index'])->name('dashboard');
    Route::get('changelog', [\App\Http\Controllers\Back\BackController::class, 'changelog'])->name('back.changelog');
 
+   Route::group(["prefix" => "inbox"], function() {
+       Route::get('/', [\App\Http\Controllers\Back\Inbox\InboxController::class, 'index'])->name('back.inbox.index');
+       Route::get('/oauth/gmail', [\App\Http\Controllers\Back\Inbox\InboxController::class, 'oauth'])->name('back.inbox.oauth');
+       Route::get('/oauth/gmail/callback', [\App\Http\Controllers\Back\Inbox\InboxController::class, 'oauthCallback'])->name('back.inbox.callback');
+       Route::get('/oauth/gmail/logout', [\App\Http\Controllers\Back\Inbox\InboxController::class, 'oauthLogout'])->name('back.inbox.logout');
+   });
+
    Route::group(["prefix" => "calendar"], function () {
        Route::get('/', [\App\Http\Controllers\Back\CalendarController::class, 'index'])->name('back.calendar.index');
    });

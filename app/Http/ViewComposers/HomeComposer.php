@@ -5,6 +5,7 @@ namespace App\Http\ViewComposers;
 
 
 use App\Models\Blog\BlogCategory;
+use App\Models\Download\Download;
 use App\Models\Download\DownloadCategory;
 use App\Models\Follow;
 use App\Models\Page;
@@ -21,12 +22,13 @@ class HomeComposer
     {
         $view->with([
             'categories' => BlogCategory::has('blogs')->get(),
-            'pages' => Page::select('slug', 'title'),
+            'pages' => Page::select('slug', 'title')->get(),
             'download_categories' => DownloadCategory::all(),
             'follows' => Follow::all(),
             'providers' => config('app.social_provider_active'),
             'authors' => User::where('id', '!=', 1)->get(),
-            'site' => Site::query()->where('id', 1)->first()
+            'site' => Site::query()->where('id', 1)->first(),
+            'download_feats' => Download::query()->latest()->limit(6)->get()
         ]);
 
         if(!auth()->guest()) {

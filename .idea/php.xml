@@ -239,6 +239,7 @@
       <path value="$PROJECT_DIR$/vendor/erusev/parsedown" />
       <path value="$PROJECT_DIR$/vendor/cagilo/cagilo" />
       <path value="$PROJECT_DIR$/vendor/orchid/blade-icons" />
+      <path value="$PROJECT_DIR$/vendor/dacastro4/laravel-gmail" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
