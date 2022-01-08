@@ -99,7 +99,38 @@
                                                     <li>
                                                         <div class="dropdown-mega-content">
                                                             <div class="row">
-                                                                <div class="col-lg-9"></div>
+                                                                <div class="col-lg-9">
+                                                                    <div class="owl-carousel owl-theme" data-plugin-options="{'responsive': {'0': {'items': 1}, '479': {'items': 1}, '768': {'items': 2}, '979': {'items': 3}, '1199': {'items': 3}}, 'loop': false, 'autoHeight': true, 'margin': 10}">
+                                                                        @foreach($download_feats as $download)
+                                                                        <div>
+                                                                            <article class="post post-medium border-0 pb-0 mb-5">
+                                                                                <div class="post-image">
+                                                                                    <a href="{{ route('front.download.show', $download->slug) }}">
+                                                                                        @if($download->image)
+                                                                                            <img src="/storage/files/shares/download/{{ $download->image }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="">
+                                                                                        @else
+                                                                                            <img src="/storage/files/shares/download/placeholder.png" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="">
+                                                                                        @endif
+                                                                                    </a>
+                                                                                </div>
+
+                                                                                <div class="post-content">
+
+                                                                                    <h2 class="font-weight-semibold text-5 line-height-6 mt-3 mb-2"><a href="{{ route('front.download.show', $download->slug) }}">{{ $download->title }}</a></h2>
+
+                                                                                    <div class="post-meta">
+                                                                                        <span><i class="far fa-user"></i> par <a href="#">Transport Fever France</a> </span>
+                                                                                        <span><i class="far fa-folder"></i> {{ $download->category->title }} - {{ $download->subcategory->title }}</span>
+                                                                                        <span><i class="far fa-comments"></i> <a href="{{ route('front.download.show', $download->slug) }}#comment">{{ $download->comments()->count() }} {{ \Illuminate\Support\Str::plural("Commentaire", $download->comments()->count()) }}</a></span>
+                                                                                        <span class="d-block mt-2"><a href="{{ route('front.download.show', $download->slug) }}" class="btn btn-xs btn-light text-1 text-uppercase">En savoir plus...</a></span>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </article>
+                                                                        </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
                                                                 <div class="col-lg-3">
                                                                     <span class="dropdown-mega-sub-title">Téléchargement</span>
                                                                     <ul class="dropdown-mega-sub-nav">

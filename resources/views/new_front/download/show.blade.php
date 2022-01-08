@@ -75,7 +75,7 @@
     </section>
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="col-8">
+            <div class="col-9">
                 <div class="tabs">
                     <div class="tab-content">
                         <div class="tab-pane active" id="description">
@@ -207,10 +207,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="card" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.col-4', 'padding': {'top': 110}}">
+            <div class="col-3">
+                <div class="card" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.col-3', 'padding': {'top': 110}}">
                     <div class="tabs">
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs justify-content-center">
                             <li class="nav-item active">
                                 <a class="nav-link" href="#description" data-toggle="tab">Description</a>
                             </li>
