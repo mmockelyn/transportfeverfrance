@@ -22,7 +22,7 @@
             js.src = 'https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v3.1';
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
-    <section class="page-header page-header-modern page-header-background page-header-background-md parallax overlay overlay-color-dark overlay-show overlay-op-5 mt-0" data-plugin-parallax data-plugin-options="{'speed': 1.2}" data-image-src="/storage/files/shares/blog/{{ $blog->image }}">
+    <section class="page-header page-header-modern page-header-background page-header-background-md overlay overlay-color-dark overlay-show overlay-op-5" style="background-image: url(/storage/files/shares/blog/{{ $blog->image }}); background-position: center;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 align-self-center p-static order-2 text-center">

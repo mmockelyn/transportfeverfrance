@@ -15,7 +15,7 @@
 @endsection
 
 @section("content")
-    <section class="page-header page-header-modern page-header-background page-header-background-md py-0 overlay overlay-color-primary overlay-show overlay-op-8" style="background-image: url(/front/assets/img/page-header/page-header-background-2.jpg);">
+    <!--<section class="page-header page-header-modern page-header-background page-header-background-md py-0 overlay overlay-color-primary overlay-show overlay-op-8" style="background-image: url(/front/assets/img/page-header/page-header-background-2.jpg);">
         <div class="container">
             <div class="row">
                 <div class="col-sm-5 order-2 order-sm-1 align-self-center p-static">
@@ -57,174 +57,92 @@
                 </div>
             </div>
         </div>
+    </section>-->
+    <section class="page-header page-header-modern page-header-background page-header-background-md overlay overlay-color-dark overlay-show overlay-op-5" style="background-image: url(/storage/files/shares/download/{{ $download->id }}/{{ $download->galleries()->first()->image }}); background-position: center;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 align-self-center p-static order-2 text-center">
+                    <h1 class="text-white">{{ $download->title }}</h1>
+                </div>
+                <div class="col-md-12 align-self-center order-1">
+                    <ul class="breadcrumb d-block text-center text-white">
+                        <li><a href="#">Home</a></li>
+                        <li class="active">Features</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </section>
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="col">
-                <div class="tabs tabs-bottom tabs-center tabs-simple">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#description" data-toggle="tab">
-								<span class="featured-boxes featured-boxes-style-6 p-0 m-0">
-									<span class="featured-box featured-box-primary featured-box-effect-6 p-0 m-0">
-										<span class="box-content p-0 m-0">
-											<i class="icon-featured fas fa-columns"></i>
-										</span>
-									</span>
-								</span>
-                                <p class="mb-0 pb-0">Description</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#comments" data-toggle="tab">
-								<span class="featured-boxes featured-boxes-style-6 p-0 m-0">
-									<span class="featured-box featured-box-primary featured-box-effect-6 p-0 m-0">
-										<span class="box-content p-0 m-0">
-											<i class="icon-featured fas fa-comments"></i>
-										</span>
-									</span>
-								</span>
-                                <p class="mb-0 pb-0">Commentaires ({{ $download->comments()->count() }})</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#versions" data-toggle="tab">
-								<span class="featured-boxes featured-boxes-style-6 p-0 m-0">
-									<span class="featured-box featured-box-primary featured-box-effect-6 p-0 m-0">
-										<span class="box-content p-0 m-0">
-											<i class="icon-featured fas fa-code-branch"></i>
-										</span>
-									</span>
-								</span>
-                                <p class="mb-0 pb-0">Note de version</p>
-                            </a>
-                        </li>
-                        @if($download->wiki->content)
-                            <li class="nav-item">
-                                <a class="nav-link" href="#wiki" data-toggle="tab">
-								<span class="featured-boxes featured-boxes-style-6 p-0 m-0">
-									<span class="featured-box featured-box-primary featured-box-effect-6 p-0 m-0">
-										<span class="box-content p-0 m-0">
-											<i class="icon-featured fas fa-book-reader"></i>
-										</span>
-									</span>
-								</span>
-                                    <p class="mb-0 pb-0">Documentation</p>
-                                </a>
-                            </li>
-                        @endif
-                        <li class="nav-item">
-                            <a class="nav-link" href="#support" data-toggle="tab">
-								<span class="featured-boxes featured-boxes-style-6 p-0 m-0">
-									<span class="featured-box featured-box-primary featured-box-effect-6 p-0 m-0">
-										<span class="box-content p-0 m-0">
-											<i class="icon-featured fas fa-life-ring"></i>
-										</span>
-									</span>
-								</span>
-                                <p class="mb-0 pb-0">Support</p>
-                            </a>
-                        </li>
-                    </ul>
+            <div class="col-9">
+                <div class="tabs">
                     <div class="tab-content">
                         <div class="tab-pane active" id="description">
-                            <div class="row">
-                                <div class="col-9">
-                                    <div class="owl-carousel owl-theme nav-inside" data-plugin-options="{'items': 1, 'margin': 10, 'loop': false, 'nav': true, 'dots': false}">
-                                        @foreach($download->galleries as $gallery)
-                                        <div>
-                                            <div class="img-thumbnail border-0 p-0 d-block">
-                                                <img class="img-fluid border-radius-0" src="/storage/files/shares/download/{{ $download->id }}/{{ $download->image }}" alt="">
-                                            </div>
+                            <div class="owl-carousel owl-theme nav-inside" data-plugin-options="{'items': 1, 'margin': 10, 'loop': false, 'nav': true, 'dots': false}">
+                                @foreach($download->galleries as $gallery)
+                                    <div>
+                                        <div class="img-thumbnail border-0 p-0 d-block">
+                                            <img class="img-fluid border-radius-0" src="/storage/files/shares/download/{{ $gallery->download_id }}/{{ $gallery->image }}" alt="">
                                         </div>
-                                        @endforeach
                                     </div>
-                                    <div class="divider divider-style-2 taller">
-                                        <i class="fas fa-chevron-down"></i>
-                                    </div>
-                                    {!! $download->content !!}
-                                </div>
-                                <div class="col-3">
-                                    <div class="card text-center" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.col-3', 'padding': {'top': 110}}">
-                                        <img class="card-img-top" src="/storage/files/shares/download/{{ $download->image }}" alt="Card Image">
-                                        <div class="card-body">
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="font-weight-bold">Catégorie</td>
-                                                        <td class="text-right">{{ $download->category->title }} - {{ $download->subcategory->title }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="font-weight-bold">Publier le</td>
-                                                        <td class="text-right">{{ $download->created_at->toFormattedDateString() }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="font-weight-bold">Mise à jours le</td>
-                                                        <td class="text-right">{{ $download->updated_at->toFormattedDateString() }}</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <a href="" class="card-footer bg-primary text-3 text-uppercase text-white">
-                                            <i class="fas fa-file-download mr-2"></i> Télécharger le mod
-                                        </a>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
+                            <div class="divider divider-style-2 taller">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            {!! $download->content !!}
                         </div>
                         <div class="tab-pane" id="comments">
                             <ul class="comments">
                                 @foreach($download->comments as $comment)
-                                <li>
-                                    <div class="comment">
-                                        <div class="img-thumbnail img-thumbnail-no-borders d-none d-sm-block">
-                                            @if($comment->user->image)
-                                                <img class="avatar" alt="" src="/storage/files/shares/avatar/{{ $comment->user->image }}">
-                                            @else
-                                                <img class="avatar" alt="" src="/storage/files/shares/avatar/placeholder.png">
-                                            @endif
-                                        </div>
-                                        <div class="comment-block">
-                                            <div class="comment-arrow"></div>
-                                            <span class="comment-by">
+                                    <li>
+                                        <div class="comment">
+                                            <div class="img-thumbnail img-thumbnail-no-borders d-none d-sm-block">
+                                                @if($comment->user->image)
+                                                    <img class="avatar" alt="" src="/storage/files/shares/avatar/{{ $comment->user->image }}">
+                                                @else
+                                                    <img class="avatar" alt="" src="/storage/files/shares/avatar/placeholder.png">
+                                                @endif
+                                            </div>
+                                            <div class="comment-block">
+                                                <div class="comment-arrow"></div>
+                                                <span class="comment-by">
 												<strong>{{ $comment->user->name }}</strong>
 												@if(auth()->user()->id == $comment->user->id || auth()->user()->group == 1)
-                                                    <span class="float-right">
+                                                        <span class="float-right">
 														<span>
                                                             <a href="#"><i class="fas fa-trash"></i> Supprimer</a>
                                                         </span>
 													</span>
-                                                @endif
+                                                    @endif
 											</span>
-                                            {!! $comment->content !!}
-                                            <span class="date float-right">{{ $comment->updated_at->toDayDateTimeString() }}</span>
+                                                {!! $comment->content !!}
+                                                <span class="date float-right">{{ $comment->updated_at->toDayDateTimeString() }}</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
                         <div class="tab-pane" id="versions">
                             <div class="process process-vertical py-4">
                                 @foreach($download->versions as $version)
-                                <div class="process-step appear-animation animated fadeInUpShorter appear-animation-visible" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
-                                    <div class="process-step-circle">
-                                        <strong class="process-step-circle-content">{{ $version->version }} {!! \App\Helpers\Format::labelDownloadVersionType($version->type, false) !!}</strong>
+                                    <div class="process-step appear-animation animated fadeInUpShorter appear-animation-visible" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200" style="animation-delay: 200ms;">
+                                        <div class="process-step-circle">
+                                            <strong class="process-step-circle-content">{{ $version->version }} {!! \App\Helpers\Format::labelDownloadVersionType($version->type, false) !!}</strong>
+                                        </div>
+                                        <div class="process-step-content">
+                                            <h4 class="mb-1 text-4 font-weight-bold">
+                                                {{ $version->updated_at->toDayDateTimeString() }}
+                                            </h4>
+                                            <p class="mb-0">
+                                                {!! $version->content !!}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div class="process-step-content">
-                                        <h4 class="mb-1 text-4 font-weight-bold">
-                                            {{ $version->updated_at->toDayDateTimeString() }}
-                                        </h4>
-                                        <p class="mb-0">
-                                            {!! $version->content !!}
-                                        </p>
-                                    </div>
-                                </div>
                                 @endforeach
                             </div>
-                        </div>
-                        <div class="tab-pane" id="wiki">
-                            {!! $download->wiki->content !!}
                         </div>
                         <div class="tab-pane" id="support">
                             <section class="call-to-action call-to-action-dark mb-5">
@@ -245,48 +163,102 @@
                                 </div>
                             </section>
                             @auth()
-                            <div class="container">
-                                <div class="card border-radius-0 bg-color-light border-0 box-shadow-1">
-                                    <div class="card-body">
-                                        <h4 class="card-title mb-1 text-4 font-weight-bold">Liste de vos tickets</h4>
-                                        <table class="table table-bordered table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>Numéro</th>
-                                                <th>Etat</th>
-                                                <th>Sujet</th>
-                                                <th>Date de mise à jour</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach(auth()->user()->downloadsupports as $ticket)
+                                <div class="container">
+                                    <div class="card border-radius-0 bg-color-light border-0 box-shadow-1">
+                                        <div class="card-body">
+                                            <h4 class="card-title mb-1 text-4 font-weight-bold">Liste de vos tickets</h4>
+                                            <table class="table table-bordered table-striped">
+                                                <thead>
                                                 <tr>
-                                                    <td>#TCK-MOD{{ $download->id }}-{{ $ticket->id }}</td>
-                                                    <td>
-                                                        {!! \App\Helpers\Format::labelDownloadSupportState($ticket->state) !!}
-                                                    </td>
-                                                    <td>{{ $ticket->subject }}</td>
-                                                    <td>
-                                                        @if($ticket->updated_at->between(\Illuminate\Support\Carbon::now(), \Illuminate\Support\Carbon::now()->addDay()) == true)
-                                                            {{ $ticket->updated_at->diffForHumans() }}
-                                                        @else
-                                                            {{ $ticket->updated_at->format('d/m/Y à H:i') }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <a href="{{ route('front.download.ticket.room', [$download->slug, $ticket->id]) }}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i> </a>
-                                                    </td>
+                                                    <th>Numéro</th>
+                                                    <th>Etat</th>
+                                                    <th>Sujet</th>
+                                                    <th>Date de mise à jour</th>
+                                                    <th>Actions</th>
                                                 </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                @foreach(auth()->user()->downloadsupports as $ticket)
+                                                    <tr>
+                                                        <td>#TCK-MOD{{ $download->id }}-{{ $ticket->id }}</td>
+                                                        <td>
+                                                            {!! \App\Helpers\Format::labelDownloadSupportState($ticket->state) !!}
+                                                        </td>
+                                                        <td>{{ $ticket->subject }}</td>
+                                                        <td>
+                                                            @if($ticket->updated_at->between(\Illuminate\Support\Carbon::now(), \Illuminate\Support\Carbon::now()->addDay()) == true)
+                                                                {{ $ticket->updated_at->diffForHumans() }}
+                                                            @else
+                                                                {{ $ticket->updated_at->format('d/m/Y à H:i') }}
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ route('front.download.ticket.room', [$download->slug, $ticket->id]) }}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i> </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endauth
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.col-3', 'padding': {'top': 110}}">
+                    <div class="tabs">
+                        <ul class="nav nav-tabs justify-content-center">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#description" data-toggle="tab">Description</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#comments" data-toggle="tab">Commentaires</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#versions" data-toggle="tab">Note de version</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#support" data-toggle="tab">Support</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <img class="card-img-top" src="/storage/files/shares/download/{{ $download->image }}" alt="Card Image">
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="font-weight-bold">Catégorie</td>
+                                    <td>{{ $download->category->title }} - {{ $download->subcategory->title }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Provider</td>
+                                    <td><img src="/storage/files/shares/core/icons/{!! \App\Helpers\Format::switchDownloadProvider($download->provider) !!}" alt="" width="24"></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Tags</td>
+                                    <td>
+                                        @foreach(json_decode($download->meta_keywords) as $tag)
+                                            <span class="badge badge-dark badge-sm badge-pill text-uppercase px-2 py-1 mr-1">{{ $tag->value }}</span>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Publié le</td>
+                                    <td>{{ $download->created_at->format('d/m/Y à H:i') }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Mise à jour le</td>
+                                    <td>{{ $download->updated_at->format('d/m/Y à H:i') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a href="{{ \App\Helpers\DownloadHelper::getDownloadLink($download) }}" class="card-footer bg-primary text-3 text-uppercase text-white text-center">
+                        <i class="fas fa-file-download mr-2"></i> Télécharger le mod
+                    </a>
                 </div>
             </div>
         </div>
