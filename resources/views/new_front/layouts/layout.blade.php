@@ -44,7 +44,12 @@
 
 
     <!-- Skin CSS -->
+    @if($theme != 'dark')
     <link rel="stylesheet" href="/front/assets/css/skins/default.css">
+    @else
+    <link rel="stylesheet" href="/front/assets/css/dark.css">
+    @endif
+
 
     <!-- Theme Custom CSS -->
     <link rel="stylesheet" href="/front/assets/css/custom.css">
@@ -55,7 +60,7 @@
     <script src="/front/assets/vendor/modernizr/modernizr.min.js"></script>
 
 </head>
-<body class="loading-overlay-showing" data-plugin-page-transition data-loading-overlay data-plugin-options="{'hideDelay': 500}">
+<body class="loading-overlay-showing {{ $theme.'-theme' }}" data-plugin-page-transition data-loading-overlay data-plugin-options="{'hideDelay': 500}">
 <div class="loading-overlay">
     <div class="bounce-loader">
         <div class="bounce1"></div>
@@ -86,10 +91,10 @@
                                     <nav class="collapse">
                                         <ul class="nav nav-pills" id="mainNav">
                                             <li>
-                                                <a href="{{ route('home') }}">Acceuil</a>
+                                                <a href="{{ route('home') }}" class="{{ currentRouteMailbox('home') }}">Acceuil</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('front.blog') }}">Blog</a>
+                                                <a href="{{ route('front.blog') }}" class="{{ currentRouteMailbox('front.blog') }}">Blog</a>
                                             </li>
                                             <li class="dropdown dropdown-mega">
                                                 <a class="dropdown-item dropdown-toggle" href="#">
@@ -152,7 +157,10 @@
                                                 </ul>
                                             </li>
                                             <li>
-                                                <a href="{{ route('contacts.create') }}">Nous contacter</a>
+                                                <a href="{{ route('front.wiki') }}" class="{{ currentRouteMailbox('front.wiki') }}">Wiki</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('contacts.create') }}" class="{{ currentRouteMailbox('contacts.create') }}">Nous contacter</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -325,6 +333,7 @@
                                         </div>
                                     @endif
                                 </div>
+                                <i id="theme-toggle" class="fas fa-{{ $theme == 'dark' ? 'sun' : 'moon' }}"></i>
                                 <button class="btn header-btn-collapse-nav" data-toggle="collapse" data-target=".header-nav-main nav">
                                     <i class="fas fa-bars"></i>
                                 </button>

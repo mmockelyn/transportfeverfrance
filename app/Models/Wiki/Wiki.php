@@ -11,6 +11,6 @@ class Wiki extends Model
 
     public function category()
     {
-        return $this->belongsTo(WikiCategory::class);
+        return $this->belongsTo(WikiCategory::class, 'wiki_category_id');
     }
 }

@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
             'account.*',
             'errors.*'
         ], HomeComposer::class);
-        \view()->composer('front.layouts.layout', function ($view) {
+        \view()->composer('new_front.layouts.layout', function ($view) {
             $theme = Cookie::get('theme');
             if($theme != 'dark' && $theme != 'light') {
                 $theme = 'light';
