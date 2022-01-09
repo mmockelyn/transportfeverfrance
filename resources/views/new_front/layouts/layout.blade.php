@@ -66,7 +66,7 @@
 
 <div class="body">
 
-    <header id="header" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 122, 'stickySetTop': '-122px', 'stickyChangeLogo': false}">
+    <header id="header" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 150, 'stickySetTop': '0', 'stickyChangeLogo': false}">
         <div class="header-body border-color-primary border-top-0 box-shadow-none">
             <div class="header-container container">
                 <div class="header-row">

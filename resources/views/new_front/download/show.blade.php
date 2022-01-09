@@ -208,7 +208,7 @@
                 </div>
             </div>
             <div class="col-3">
-                <div class="card" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.col-3', 'padding': {'top': 110}}">
+                <div class="card" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.col-3', 'padding': {'top': 80}}">
                     <div class="tabs">
                         <ul class="nav nav-tabs justify-content-center">
                             <li class="nav-item active">
