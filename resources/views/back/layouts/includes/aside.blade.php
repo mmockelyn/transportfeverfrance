@@ -201,6 +201,14 @@
                                 <span class="menu-title">Gestion des catégories</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('back.wiki.dashboard') }}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+                                <span class="menu-title">Gestion des Articles</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -67,9 +67,15 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
     Route::group(["prefix" => "wiki"], function () {
         Route::group(["prefix" => "category"], function () {
             Route::get('/', [\App\Http\Controllers\Back\Wiki\WikiCategoryController::class, 'index'])->name('back.wiki.category.index');
-            Route::post('/', [\App\Http\Controllers\Back\Wiki\WikiCategoryController::class, 'store'])->name('back.wiki.category.store');
-            Route::put('{wiki_category_id}', [\App\Http\Controllers\Back\Wiki\WikiCategoryController::class, 'update'])->name('back.wiki.category.update');
-            Route::delete('{wiki_category_id}', [\App\Http\Controllers\Back\Wiki\WikiCategoryController::class, 'delete'])->name('back.wiki.category.delete');
+        });
+
+        Route::group(["prefix" => "wiki"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Wiki\WikiController::class, 'dashboard'])->name('back.wiki.dashboard');
+            Route::get('create', [\App\Http\Controllers\Back\Wiki\WikiController::class, 'create'])->name('back.wiki.create');
+            Route::post('create', [\App\Http\Controllers\Back\Wiki\WikiController::class, 'store'])->name('back.wiki.store');
+            Route::get('{id}', [\App\Http\Controllers\Back\Wiki\WikiController::class, 'show'])->name('back.wiki.show');
+            Route::get('{id}/edit', [\App\Http\Controllers\Back\Wiki\WikiController::class, 'edit'])->name('back.wiki.edit');
+            Route::put('{id}/edit', [\App\Http\Controllers\Back\Wiki\WikiController::class, 'update'])->name('back.wiki.update');
         });
     });
 
