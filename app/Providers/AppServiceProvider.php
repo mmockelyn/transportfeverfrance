@@ -38,7 +38,8 @@ class AppServiceProvider extends ServiceProvider
             'front.*',
             'new_front.*',
             'account.profil',
-            'account.*'
+            'account.*',
+            'errors.*'
         ], HomeComposer::class);
         \view()->composer('front.layouts.layout', function ($view) {
             $theme = Cookie::get('theme');
