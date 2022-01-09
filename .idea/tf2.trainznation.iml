@@ -32,7 +32,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/consoletvs/charts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/creativeorange/gravatar" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/dacastro4/laravel-gmail" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dasprid/enum" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dflydev/dot-access-data" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
