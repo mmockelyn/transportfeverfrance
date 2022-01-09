@@ -64,6 +64,15 @@ Route::group(["prefix" => "backoffice", "middleware" => ["web", "admin"]], funct
         });
     });
 
+    Route::group(["prefix" => "wiki"], function () {
+        Route::group(["prefix" => "category"], function () {
+            Route::get('/', [\App\Http\Controllers\Back\Wiki\WikiCategoryController::class, 'index'])->name('back.wiki.category.index');
+            Route::post('/', [\App\Http\Controllers\Back\Wiki\WikiCategoryController::class, 'store'])->name('back.wiki.category.store');
+            Route::put('{wiki_category_id}', [\App\Http\Controllers\Back\Wiki\WikiCategoryController::class, 'update'])->name('back.wiki.category.update');
+            Route::delete('{wiki_category_id}', [\App\Http\Controllers\Back\Wiki\WikiCategoryController::class, 'delete'])->name('back.wiki.category.delete');
+        });
+    });
+
     Route::group(["prefix" => "settings"], function () {
         Route::group(["prefix" => "site"], function () {
             Route::get('/', [\App\Http\Controllers\Back\Settings\SiteController::class, 'index'])->name('back.settings.site.index');

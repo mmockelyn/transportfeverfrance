@@ -144,3 +144,12 @@ Route::group(["prefix" => "blog"], function () {
         Route::delete('{id}', [\App\Http\Controllers\Api\Back\Blog\BlogCategoryController::class, 'delete']);
     });
 });
+
+Route::group(["prefix" => "wiki"], function () {
+    Route::group(["prefix" => "category"], function () {
+        Route::post('/', [\App\Http\Controllers\Api\Back\Wiki\WikiCategoryController::class, 'store']);
+        Route::get('{id}', [\App\Http\Controllers\Api\Back\Wiki\WikiCategoryController::class, 'info']);
+        Route::put('{id}', [\App\Http\Controllers\Api\Back\Wiki\WikiCategoryController::class, 'update']);
+        Route::delete('{id}', [\App\Http\Controllers\Api\Back\Wiki\WikiCategoryController::class, 'delete']);
+    });
+});
